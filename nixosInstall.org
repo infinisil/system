@@ -1,0 +1,30 @@
+* How I Installed NixOS via macOS
+
+** Obtaining
+
+*** Download
+
+Download the CD image from [[https://nixos.org/nixos/download.html][here]], I'm using the graphical one, do the ~SHA-256~ sum by doing
+
+#+BEGIN_SRC sh
+shasum -a 256 <path to nixos iso>
+#+END_SRC
+
+and checking if the result is consistent with the hash on the website.
+
+*** USB image
+
+Insert a standard USB stick, run
+
+#+BEGIN_SRC sh
+diskutil list
+#+END_SRC
+
+to find its device identifier (~disk2~ in my case). Copy the image to the USB stick:
+
+#+BEGIN_SRC sh
+sudo dd bs=4m if=<path to nixos iso> of=/dev/<device identifier>
+#+END_SRC
+
+This may take a while depending on the USB stick (7 minutes on my Mac).
+
