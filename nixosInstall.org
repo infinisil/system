@@ -14,13 +14,13 @@ and checking if the result is consistent with the hash on the website.
 
 *** USB image
 
-Insert a standard USB stick, run
+Insert a standard USB stick and find out its device identifier by either using ~Disk Utility.app~ or by running the equivalent command:
 
 #+BEGIN_SRC sh
 diskutil list
 #+END_SRC
 
-to find its device identifier (~disk2~ in my case). Copy the image to the USB stick:
+In my case its ~disk2~. Copy the image to the USB stick:
 
 #+BEGIN_SRC sh
 sudo dd bs=4m if=<path to nixos iso> of=/dev/<device identifier>
@@ -28,3 +28,35 @@ sudo dd bs=4m if=<path to nixos iso> of=/dev/<device identifier>
 
 This may take a while depending on the USB stick (7 minutes on my Mac).
 
+** Partitioning
+
+In order to have both NixOS and macOS running, you need to make some space, for which I'm using [[https://sourceforge.net/projects/gptfdisk/][GPT fdisk]].
+
+*** Installing
+
+Download it from [[https://sourceforge.net/projects/gptfdisk/][here]] and follow the instructions, which will install the ~gdisk~ command. You can uninstall it using the command ~uninstall-gdisk~.
+
+*** Configuration
+
+Find out your internal disks device identifier like above, in my case this is ~disk0~ (probably the same on all Macs by default). Call this command:
+
+#+BEGIN_SRC sh
+sudo gdisk /dev/disk0
+#+END_SRC
+
+For now I only want a single partition under which I'll have a ZFS file system. This is my configuration:
+
+#+BEGIN_EXAMPLE
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1              40          409639   200.0 MiB   EF00  EFI System Partition
+   2          409640       587053231   279.7 GiB   AF05  Macintosh HD
+   3       587053232       588322767   619.9 MiB   AB00
+   4       588322768       937703054   166.6 GiB   8300  Linux filesystem
+#+END_EXAMPLE
+
+** Installation
+
+** Sources
+
+- https://nixos.org/nixos/manual/index.html
+- https://github.com/mbbx6spp/mbp-nixos
