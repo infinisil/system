@@ -56,7 +56,37 @@ Number  Start (sector)    End (sector)  Size       Code  Name
 
 ** Installation
 
+** Plan
+
+- Boot from USB
+- Add to ~/etc/nixos/configuration.nix~:
+  #+BEGIN_SRC nix
+  boot.supportedFilesystems = [ "zfs" ];
+  #+END_SRC
+- While connected to ethernet, run ~nixos-rebuild switch~
+- If needed, run ~modprobe zfs~ to load zfs
+- Create ZFS pool:
+  #+BEGIN_SRC bash
+  zpool create -o ashift=12 -o altroot=/mnt main 
+  #+END_SRC
+- Creat filesystems (~/~ and ~/home~ for now probably):
+  #+BEGIN_SRC bash
+  zfs create main/root
+  zfs create main/home
+  #+END_SRC
+- Mount the filesystems:
+  #+BEGIN_SRC 
+  mkdir /mnt/root
+  mount -t zfs main/root /mnt/root
+
+  mkdir /mnt/home
+  mount -t zfs main/home /mnt/home
+  #+END_SRC
+- Build a new hardware configuration with ~nixos-generate-config --root /mnt~
+- Check ~/etc/nixos/hardware-configuration.nix~ 
+
 ** Sources
 
 - https://nixos.org/nixos/manual/index.html
 - https://github.com/mbbx6spp/mbp-nixos
+- https://nixos.org/wiki/ZFS_on_NixOS
