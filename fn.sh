@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 # From https://www.superuser.com/questions/79822/how-to-swap-the-fn-use-of-function-keys-on-al-apple-keyboard-in-linux
 # 0 : Fn keys disabled
 # 1 : Fn keys pressed by default
