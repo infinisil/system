@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$ZDOTDIR/oh-my-zsh
+export TERM=xterm-256color
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -22,7 +23,7 @@ compinit
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DEFAULT_USER=infinisil
 
-POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_MODE='awesome-fontconfig'
 #POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time battery)

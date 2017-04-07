@@ -46,6 +46,17 @@
     taskwarrior
     beets
     #buku Does not work right now, needs to add some python dependencies
+    ponysay
+    fortune
+    cowsay
+    cmatrix
+    asciinema
+    terminator
+    neofetch
+    neovim
+    thunderbird
+    sakura
+    tldr
   ];
 
   services.emacs.enable = true;
@@ -86,13 +97,28 @@
     };
   };
 
-  services.compton.enable = true;
+  services.compton = {
+    enable = true;
+    backend = "glx";
+    vSync = "opengl-swc";
+    shadow = true;
+
+    extraOptions =
+    ''
+      glx-swap-method = "3";
+      no-dock-shadow = true;
+      paint-on-overlay = true;
+      sw-opti = true;
+    '';
+  };
 
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       source-code-pro
+      powerline-fonts
+      nerdfonts
     ];
   };
 
