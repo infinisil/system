@@ -9,6 +9,11 @@
       ./hardware-configuration.nix
     ];
 
+  fileSystems."/home/shared" =
+    { device = "main/home/shared";
+      fsType = "zfs";
+    };
+
   system.autoUpgrade.enable = true;
 
   # Use the systemd-boot EFI boot loader.
@@ -16,6 +21,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.loader.grub.device = "/dev/sda";
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "libplist-1.12"
+  ];
   
  
   networking.hostId = "34cc680d";
@@ -23,7 +32,9 @@
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 
+  nix.useSandbox = true;
 
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
@@ -57,6 +68,17 @@
     thunderbird
     sakura
     tldr
+    youtube-dl
+    perl
+    python
+    nix-repl
+    libplist
+    buku
+    franz
+    mpd
+    xbindkeys
+    xbindkeys-config
+    swift
   ];
 
   services.emacs.enable = true;
@@ -64,6 +86,13 @@
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
+
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/shared/beets";
+    dataDir = "/home/shared/mpd";
+    dbFile = "/home/shared/mpd/mpd.db";
+  };
 
   services.xserver = {
     enable = true;
