@@ -50,5 +50,20 @@
     m:0x0 + c:173
     XF86AudioPrev 
 
+#Remark
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    m:0x0 + c:121
+    XF86AudioMute 
+
+#Remark
+"sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5%""
+    m:0x0 + c:122
+    XF86AudioLowerVolume 
+
+#Remark
+"sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%""
+    m:0x0 + c:123
+    XF86AudioRaiseVolume 
+
 #
 # End of xbindkeys configuration
