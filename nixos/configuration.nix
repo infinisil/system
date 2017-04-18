@@ -43,20 +43,20 @@
     vim
     emacs
     git
-    ghc
-    stack
-    ghc
-    xlibs.xmessage
-    haskellPackages.ghc
-    haskellPackages.xmonad
-    haskellPackages.xmonad-contrib
-    haskellPackages.xmonad-extras
+    (haskellPackages.ghcWithPackages (pkgs: [
+      pkgs.xmonad
+      pkgs.xmonad-contrib
+      pkgs.xmonad-extras
+    ]))
+    #haskellPackages.haskellPlatform
+    #haskellPackages.xmonad
+    #haskellPackages.xmonad-contrib
+    #haskellPackages.xmonad-extras
     vivaldi
     pass
     gnupg
     taskwarrior
     beets
-    #buku Does not work right now, needs to add some python dependencies
     ponysay
     fortune
     cowsay
@@ -78,9 +78,11 @@
     mpd
     xbindkeys
     xbindkeys-config
-    swift
+    xlibs.xev
   ];
 
+  hardware.pulseaudio.enable = true;
+  
   services.emacs.enable = true;
   services.emacs.defaultEditor = true;
 
@@ -107,8 +109,8 @@
     desktopManager.default = "xfce";
 
     #windowManager.default = "xmonad";
-    #windowManager.xmonad.enable = true;
-    #windowManager.xmonad.enableContribAndExtras = true;
+    windowManager.xmonad.enable = true;
+    windowManager.xmonad.enableContribAndExtras = true;
     #windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
     # from github.com/bernerdschaefer/dotfiles/blob/bs-nixos/nixos/configuration.nix
     multitouch = {
@@ -119,7 +121,9 @@
 
     synaptics = {
       enable = true;
+      buttonsMap = [ 1 3 2 ]; # 1: left, 2: right, 3: middle
       twoFingerScroll = true;
+      horizTwoFingerScroll = true;
       horizontalScroll = true;
       palmDetect = true;
       tapButtons = true;
