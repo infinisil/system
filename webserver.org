@@ -1,0 +1,133 @@
+* Webserver with DigitalOcean, NixOS, Nginx and SSL
+
+** DigitalOcean
+
+After logging into your account, create a new droplet with the latest Debian distribution (8.7 x64 as of 17.04.2017). Make sure to add your desired SSH key and *enable IPv6* (needed for nixos-infect to work seamlessly).
+
+Wait until it's created, then login with
+
+#+BEGIN_SRC bash
+ssh root@<ip>
+#+END_SRC
+
+You'll have to type "yes".
+
+** NixOS
+
+Download [[https://github.com/elitak/nixos-infect][nixos-infect]] and make it executable:
+
+#+BEGIN_SRC bash
+wget https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect
+chmod +x nixos-infect
+#+END_SRC
+
+Set your preferred NixOS channel (See the available ones [[https://nixos.org/channels/][here]], current stable is 17.03) and call the script:
+#+BEGIN_SRC bash
+NIX_CHANNEL=nixos-17.03
+./nixos-infect
+#+END_SRC
+
+This fails at this time of writing with the error that /etc/nixos/networking.nex doesn't exist which is weird because the script is supposed to generate that. I executed [[https://github.com/elitak/nixos-infect/blob/a025094b20bc8e00d0ffcbf45fb92762de2a42a6/nixos-infect#L39-L97][the relevant lines]] of the script manually (copy/paste into terminal) as a dirty fix, then rerun `./nixos-infect`.
+
+If it finishes successfully, which will take a few minutes, the machine will be restarted automatically, therefore closing the SSH connection. You can press Ctrl-C when you something like
+
+#+BEGIN_SRC
+Installation finished. No error reported.
+swapoff /tmp/nixos-infect.3HiQF.swp
+removed ‘/tmp/nixos-infect.3HiQF.swp’
+swapoff /tmp/nixos-infect.hUuad.swp
+removed ‘/tmp/nixos-infect.hUuad.swp’
+#+END_SRC
+
+Reconnect with SSH
+
+#+BEGIN_SRC bash
+ssh root@<ip>
+#+END_SRC
+
+Since the SSH host has changed, you'll get a fat warning, which contains the line:
+
+#+BEGIN_SRC
+Offending ECDSA key in $HOME/.ssh/known_hosts:<some number>
+#+END_SRC
+
+Remove the offending key from this file with
+
+#+BEGIN_SRC bash
+sed -i -e <some number>d ~/.ssh/known_hosts
+#+END_SRC
+
+Then connect with SSH again, entering "yes" once more to confirm the connection this time.
+
+#+BEGIN_SRC bash
+ssh root@<ip>
+#+END_SRC
+
+If successful, welcome to NixOS! You'll notice that the prompt has changed and running `uname -a` correctly shows NixOS. All the stuff from Debian has been moved to /old-root. Because I won't need it, I'll delete it using
+
+#+BEGIN_SRC bash
+rm -rf /old-root
+#+END_SRC
+
+** Server
+
+Our web root directory will be `/webroot`, we'll the following our `/etc/nixos/configuration.nix` file:
+#+BEGIN_SRC nix
+networking.firewall.allowedTCPPorts = [ 80 ];
+services.nginx = {
+  enable = true;
+  virtualHosts."<your ip>" = {
+    root = "/webroot";
+  };
+};
+#+END_SRC
+
+Now create the directory and set the group to `nginx` which is used by nginx by default. We're also going to set the sticky bit on our directory, to have new folders created within it automatically have its group set correctly.
+
+#+BEGIN_SRC bash
+mkdir /webroot
+groupadd nginx
+chown root:nginx /webroot
+chmod g+s /webroot
+#+END_SRC
+
+Add a file `/webroot/index.html` with something like this:
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>Hello Internet!</p>
+  </body>
+</html>
+#+END_SRC
+
+Finally, rebuild NixOS, which will take a minute
+#+BEGIN_SRC bash
+nixos-rebuild switch
+#+END_SRC
+
+Now your website should be live! Go have a look at `http://<ip>/` (note the `http`, some browsers default to `https` which won't work) in your favorite browser and you should see "Hello Internet!".
+
+** SSL
+
+To have an SSL certificate, you need to have a domain name. Set up an A record for your IPv4 address and an AAAA record for your IPv6 record via your domain registrar. Make sure your website shows up via your domain, which is needed for the next step.
+
+Edit your `configuration.nix`, the comments note the changes:
+#+BEGIN_SRC nix
+networking.firewall.allowedTCPPorts = [ 80 ];
+services.nginx = {
+  enable = true;
+  virtualHosts."<your domain>" = { # Now you need to use your domain here
+    root = "/webroot";
+    enableACME = true; # Automates certificate creation and updates via Let's Encrypt
+    forceSSL = true; # Automatically redirect http to https
+  };
+};
+#+END_SRC
+
+Now rebuild your NixOS once more:
+#+BEGIN_SRC bash
+nixos-rebuild switch
+#+END_SRC
+
+And then your website should be accessible using HTTPS!
