@@ -50,20 +50,30 @@
     m:0x0 + c:173
     XF86AudioPrev 
 
-#Remark
+#Increase Volume
+"sh -c "pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ +2%""
+    m:0x0 + c:123
+    XF86AudioRaiseVolume 
+
+#Decrease Volume
+"sh -c "pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ -2%""
+    m:0x0 + c:122
+    XF86AudioLowerVolume 
+
+#Mute
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
     m:0x0 + c:121
     XF86AudioMute 
 
-#Remark
-"sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5%""
-    m:0x0 + c:122
-    XF86AudioLowerVolume 
+#Brightness Down
+"~/system/backlight/down.sh"
+    m:0x0 + c:232
+    XF86MonBrightnessDown 
 
-#Remark
-"sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%""
-    m:0x0 + c:123
-    XF86AudioRaiseVolume 
+#Brightness Up
+"~/system/backlight/up.sh"
+    m:0x0 + c:233
+    XF86MonBrightnessUp 
 
 #
 # End of xbindkeys configuration
