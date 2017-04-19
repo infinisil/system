@@ -79,7 +79,9 @@
     xbindkeys
     xbindkeys-config
     xlibs.xev
-  ];
+    albert
+    swift
+  ]
 
   hardware.pulseaudio.enable = true;
   
@@ -100,15 +102,18 @@
     enable = true;
     layout = "us";
     xkbVariant = "dvp";
+
+    autoRepeatDelay = 250;
+    autoRepeatInterval = 50;
     
     displayManager.slim.enable = true;
     displayManager.slim.defaultUser = "infinisil";
     
-    desktopManager.xfce.enable = true;    
+    #desktopManager.xfce.enable = true;    
     #desktopManager.xfce.enableXfwm = false;
-    desktopManager.default = "xfce";
+    desktopManager.default = "none";
 
-    #windowManager.default = "xmonad";
+    windowManager.default = "xmonad";
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
     #windowManager.xmonad.extraPackages = self: [ self.xmonad-contrib ];
