@@ -29,7 +29,7 @@ NIX_CHANNEL=nixos-17.03
 
 This fails at this time of writing with the error that /etc/nixos/networking.nex doesn't exist which is weird because the script is supposed to generate that. I executed [[https://github.com/elitak/nixos-infect/blob/a025094b20bc8e00d0ffcbf45fb92762de2a42a6/nixos-infect#L39-L97][the relevant lines]] of the script manually (copy/paste into terminal) as a dirty fix, then rerun `./nixos-infect`.
 
-If it finishes successfully, which will take a few minutes, the machine will be restarted automatically, therefore closing the SSH connection. You can press Ctrl-C when you something like
+If it finishes successfully, which will take a few minutes, the machine will be restarted automatically, therefore closing the SSH connection. You can press Ctrl-C when you see something like
 
 #+BEGIN_SRC
 Installation finished. No error reported.
