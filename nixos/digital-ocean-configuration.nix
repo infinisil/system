@@ -6,7 +6,7 @@ let
 
 in { pkgs, ... }: {
   imports = [
-    ./hardware-configuration.nix
+    hardware/digitalocean.nix
     ./networking.nix # generated at runtime by nixos-infect
   ];
 
@@ -39,17 +39,20 @@ in { pkgs, ... }: {
 
   
   # Radicale CalDAV and CardDAV configuration, enable when dav.infinisil.io can be looked up. Thanks to https://www.williamjbowman.com/blog/2015/07/24/setting-up-webdav-caldav-and-carddav-servers/
-  #services.nginx.virtualHosts."dav.infinisil.io" = {
-  #  enableACME = true;
-  #  proxyPass = "http://127.0.0.1:5232";
-  #};
-  #services.radicale.enable = true
-  #services.radicale.config = ''
-  #  [server]
-  #  hosts = 0.0.0.0:5232, [::]:5232
-  #  pid = "/run/radicale.pid"
-  #
-  #  [storage]
-  #  filesystem_folder = "/webroot/radicale/collections"
-  #''
+  services.nginx.virtualHosts."dav.infinisil.io" = {
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:5234";
+    };
+  };
+
+  services.radicale.enable = true;
+  services.radicale.config = ''
+    [server]
+    hosts = 0.0.0.0:5234, [::]:5234
+    pid = "/run/radicale.pid"
+  
+    [storage]
+    filesystem_folder = "/webroot/radicale/collections"
+  '';
 }
