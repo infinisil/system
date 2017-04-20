@@ -11,13 +11,15 @@ in { pkgs, ... }: {
   ];
 
   boot.cleanTmpDir = true;
-  networking.hostName = "main";
+  networking.hostName = "dobby";
   networking.firewall.allowPing = true;
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [ keys.mba.nixos keys.mba.macos ];
   
   environment.systemPackages = with pkgs; [
     git
+    fortune
+    neovim
   ];
 
   users.extraUsers.git = {
@@ -26,6 +28,10 @@ in { pkgs, ... }: {
     description = "User for git";
     openssh.authorizedKeys.keys = [ keys.mba.nixos keys.mba.macos ];
   };
+
+  programs.zsh.enable = true;
+
+  users.defaultUserShell = pkgs.zsh;
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   services.nginx = {

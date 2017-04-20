@@ -161,7 +161,7 @@
   };
 
   programs.zsh.enable = true;
-  
+   
   users.extraUsers.infinisil = {
     isNormalUser = true;
     home = "/home/infinisil";
