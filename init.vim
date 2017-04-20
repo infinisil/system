@@ -11,6 +11,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'sjl/gundo.vim'
+Plug 'LnL7/vim-nix'
 call plug#end()
 
 set termguicolors
