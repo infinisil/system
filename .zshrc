@@ -45,5 +45,3 @@ alias zshrc="nvim $XDG_CONFIG_HOME/zsh/.zshrc"
 alias zshenv="nvim $XDG_CONFIG_HOME/zsh/.zshenv"
 alias nixrc="nvim /etc/nixos/configuration.nix"
 
-source ~/.profile
-
