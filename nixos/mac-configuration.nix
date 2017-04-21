@@ -68,7 +68,7 @@
     python
     nix-repl
     libplist
-    buku
+    (callPackage (builtins.fetchurl "https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/buku/default.nix") {})
     franz
     mpd
     xbindkeys
