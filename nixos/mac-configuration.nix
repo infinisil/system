@@ -8,20 +8,29 @@ let
     config = {};
   };
 
-  brightness-up = pkgs.writeScriptBin "brightness-up" ''
+  brightness-script = up: pkgs.writeScript "brightness-${if up then "up" else "down"}-script" ''
     #!/bin/sh
     DIR=/sys/class/backlight/intel_backlight
-    sudo echo "$(( $(cat $DIR/brightness) + ($(cat $DIR/max_brightness) - $(cat $DIR/brightness)) / 5 ))" > $DIR/brightness
+    ${if up then ''
+      echo "$(( $(cat $DIR/brightness) + ($(cat $DIR/max_brightness) - $(cat $DIR/brightness)) / 5 ))" > $DIR/brightness
+    '' else ''
+      echo "$(( $(cat $DIR/brightness) * 4 / 5 ))" > $DIR/brightness
+    ''}
+  '';
+  brightness-up-script = brightness-script true;
+  brightness-down-script = brightness-script false;
+  brightness-up = pkgs.writeScriptBin "brightness-up" ''
+    #!/bin/sh
+    sudo ${brightness-up-script}
   '';
   brightness-down = pkgs.writeScriptBin "brightness-down" ''
     #!/bin/sh
-    DIR=/sys/class/backlight/intel_backlight
-    sudo echo "$(( $(cat $DIR/brightness) * 4 / 5 ))" > $DIR/brightness
+    sudo ${brightness-down-script}
   '';
 in
 {
   security.sudo.configFile = ''
-    infinisil ALL=(root) NOPASSWD: ${brightness-up}, ${brightness-down}
+    infinisil ALL=(root) NOPASSWD: ${brightness-up-script}, ${brightness-down-script}
   '';
 
 
@@ -59,8 +68,8 @@ in
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    brightness-up
     brightness-down
+    brightness-up
     wget
     vim
     emacs
