@@ -40,6 +40,10 @@ in
 
   nix.useSandbox = true;
 
+  security.sudo.configFile = ''
+    infinisil ALL=(root) NOPASSWD: /home/infinisil/system/backlight/up.sh, /home/infinisil/system/backlight/down.sh
+  '';
+
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
