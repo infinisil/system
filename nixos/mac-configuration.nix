@@ -25,8 +25,7 @@
   nixpkgs.config.permittedInsecurePackages = [
     "libplist-1.12"
   ];
-  
- 
+
   networking.hostId = "34cc680d";
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
@@ -48,10 +47,6 @@
       pkgs.xmonad-contrib
       pkgs.xmonad-extras
     ]))
-    #haskellPackages.haskellPlatform
-    #haskellPackages.xmonad
-    #haskellPackages.xmonad-contrib
-    #haskellPackages.xmonad-extras
     vivaldi
     pass
     gnupg
@@ -80,11 +75,12 @@
     xbindkeys-config
     xlibs.xev
     albert
-    swift
-  ]
+    feh
+  ];
 
   hardware.pulseaudio.enable = true;
-  
+
+  services.urxvtd.enable = true;
   services.emacs.enable = true;
   services.emacs.defaultEditor = true;
 
@@ -102,14 +98,15 @@
     enable = true;
     layout = "us";
     xkbVariant = "dvp";
+    xkbOptions = "caps:backspace";
 
     autoRepeatDelay = 250;
-    autoRepeatInterval = 50;
-    
+    autoRepeatInterval = 30;
+
     displayManager.slim.enable = true;
     displayManager.slim.defaultUser = "infinisil";
-    
-    #desktopManager.xfce.enable = true;    
+
+    #desktopManager.xfce.enable = true;
     #desktopManager.xfce.enableXfwm = false;
     desktopManager.default = "none";
 
@@ -121,18 +118,18 @@
     multitouch = {
       enable = true;
       invertScroll = true;
+      buttonsMap = [1 3 2];
     };
-    
 
-    synaptics = {
-      enable = true;
-      buttonsMap = [ 1 3 2 ]; # 1: left, 2: right, 3: middle
-      twoFingerScroll = true;
-      horizTwoFingerScroll = true;
-      horizontalScroll = true;
-      palmDetect = true;
-      tapButtons = true;
-    };
+    # synaptics = {
+    #   enable = true;
+    #   buttonsMap = [ 1 3 2 ]; # 1: left, 2: right, 3: middle
+    #   twoFingerScroll = true;
+    #   horizTwoFingerScroll = true;
+    #   horizontalScroll = true;
+    #   palmDetect = true;
+    #   tapButtons = true;
+    # };
   };
 
   services.compton = {
