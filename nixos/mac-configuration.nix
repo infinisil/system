@@ -7,32 +7,9 @@ let
   pkgs-unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
     config = {};
   };
-
-  brightness-script = up: pkgs.writeScript "brightness-${if up then "up" else "down"}-script" ''
-    #!/bin/sh
-    DIR=/sys/class/backlight/intel_backlight
-    ${if up then ''
-      echo "$(( $(cat $DIR/brightness) + ($(cat $DIR/max_brightness) - $(cat $DIR/brightness)) / 5 ))" > $DIR/brightness
-    '' else ''
-      echo "$(( $(cat $DIR/brightness) * 4 / 5 ))" > $DIR/brightness
-    ''}
-  '';
-  brightness-up-script = brightness-script true;
-  brightness-down-script = brightness-script false;
-  brightness-up = pkgs.writeScriptBin "brightness-up" ''
-    #!/bin/sh
-    sudo ${brightness-up-script}
-  '';
-  brightness-down = pkgs.writeScriptBin "brightness-down" ''
-    #!/bin/sh
-    sudo ${brightness-down-script}
-  '';
 in
 {
-  security.sudo.configFile = ''
-    infinisil ALL=(root) NOPASSWD: ${brightness-up-script}, ${brightness-down-script}
-  '';
-
+  services.illum.enable = true;
 
   imports =
     [ # Include the results of the hardware scan.
@@ -68,8 +45,6 @@ in
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    brightness-down
-    brightness-up
     wget
     vim
     emacs
