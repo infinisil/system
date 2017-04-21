@@ -33,7 +33,7 @@ in { pkgs, ... }: {
 
   users.defaultUserShell = pkgs.zsh;
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5234 ];
   services.nginx = {
     enable = true;
     virtualHosts."infinisil.io" = {
@@ -43,22 +43,50 @@ in { pkgs, ... }: {
     };
   };
 
+  #services.firefox.syncserver = {
+  #  enable = true;
+  #  listen.address = "0.0.0.0";
+  #};
+
+
+  services.nginx.appendConfig = ''
+    error_log /var/log/nginx/error.log debug;
+  '';
   
   # Radicale CalDAV and CardDAV configuration, enable when dav.infinisil.io can be looked up. Thanks to https://www.williamjbowman.com/blog/2015/07/24/setting-up-webdav-caldav-and-carddav-servers/
-  services.nginx.virtualHosts."dav.infinisil.io" = {
-    enableACME = true;
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:5234";
-    };
-  };
+  #services.nginx.virtualHosts."dav.infinisil.io" = {
+  #  enableACME = true;
+  #  root = "/webroot/radicale";
+  #  forceSSL = true;
+  #  locations."/" = {
+  #    proxyPass = "http://127.0.0.1:5234";
+  #  };
+  #};
 
   services.radicale.enable = true;
   services.radicale.config = ''
-    [server]
-    hosts = 0.0.0.0:5234, [::]:5234
-    pid = "/run/radicale.pid"
-  
-    [storage]
-    filesystem_folder = "/webroot/radicale/collections"
+[server]
+hosts = 0.0.0.0:5234, [::]:5234
+pid = "/run/radicale.pid"
+base_prefix = /webroot/radicale/
+ssl = False
+
+[encoding]
+request = utf-8
+stock = utf-8
+
+[auth]
+type = None
+
+[rights]
+type = None
+
+[storage]
+filesystem_folder = "/webroot/radicale/collections"
+
+[logging]
+config = /etc/radicale/logging
+debug = True
+full_environment = False
   '';
 }
