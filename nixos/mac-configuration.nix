@@ -3,6 +3,11 @@
 
 { config, pkgs, ... }:
 
+let
+  pkgs-unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
+    config = {};
+  };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -68,7 +73,7 @@
     python
     nix-repl
     libplist
-    (callPackage (builtins.fetchurl "https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/buku/default.nix") {})
+    pkgs-unstable.buku
     franz
     mpd
     xbindkeys
