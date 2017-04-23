@@ -50,6 +50,7 @@ in
     emacs
     git
     (haskellPackages.ghcWithPackages (pkgs: [
+      pkgs.xmobar
       pkgs.xmonad
       pkgs.xmonad-contrib
       pkgs.xmonad-extras
@@ -81,8 +82,9 @@ in
     xbindkeys
     xbindkeys-config
     xlibs.xev
-    albert
+    pkgs-unstable.albert
     feh
+    irssi
   ];
 
   hardware.pulseaudio.enable = true;
@@ -143,15 +145,6 @@ in
     enable = true;
     backend = "glx";
     vSync = "opengl-swc";
-    shadow = true;
-
-    extraOptions =
-    ''
-      glx-swap-method = "3";
-      no-dock-shadow = true;
-      paint-on-overlay = true;
-      sw-opti = true;
-    '';
   };
 
   fonts = {
