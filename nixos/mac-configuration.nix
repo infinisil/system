@@ -3,7 +3,13 @@
 
 { config, pkgs, ... }:
 
+let
+  pkgs-unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
+    config = {};
+  };
+in
 {
+
   imports =
     [ # Include the results of the hardware scan.
       hardware/mac.nix
@@ -25,8 +31,7 @@
   nixpkgs.config.permittedInsecurePackages = [
     "libplist-1.12"
   ];
-  
- 
+
   networking.hostId = "34cc680d";
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
@@ -35,23 +40,20 @@
   nixpkgs.config.allowBroken = true;
 
   nix.useSandbox = true;
+  nix.buildCores = 4;
 
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     wget
     vim
-    emacs
     git
     (haskellPackages.ghcWithPackages (pkgs: [
+      pkgs.xmobar
       pkgs.xmonad
       pkgs.xmonad-contrib
       pkgs.xmonad-extras
     ]))
-    #haskellPackages.haskellPlatform
-    #haskellPackages.xmonad
-    #haskellPackages.xmonad-contrib
-    #haskellPackages.xmonad-extras
     vivaldi
     pass
     gnupg
@@ -73,22 +75,20 @@
     python
     nix-repl
     libplist
-    buku
+    pkgs-unstable.buku
     franz
     mpd
     xbindkeys
     xbindkeys-config
     xlibs.xev
-    albert
-    swift
-  ]
+    pkgs-unstable.albert
+    feh
+    irssi
+    (pkgs.wrapFirefox (firefox-unwrapped.override { enableOfficialBranding = true; }) {} )
+  ];
 
   hardware.pulseaudio.enable = true;
-  
-  services.emacs.enable = true;
-  services.emacs.defaultEditor = true;
 
-  services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
   services.mpd = {
@@ -98,19 +98,24 @@
     dbFile = "/home/shared/mpd/mpd.db";
   };
 
+  services.urxvtd.enable = true;
+  services.emacs.enable = true;
+  services.emacs.defaultEditor = true;
+  services.illum.enable = true;
+  services.openssh.enable = true;
+
   services.xserver = {
     enable = true;
     layout = "us";
     xkbVariant = "dvp";
+    xkbOptions = "caps:backspace";
 
     autoRepeatDelay = 250;
-    autoRepeatInterval = 50;
-    
+    autoRepeatInterval = 30;
+
     displayManager.slim.enable = true;
     displayManager.slim.defaultUser = "infinisil";
-    
-    #desktopManager.xfce.enable = true;    
-    #desktopManager.xfce.enableXfwm = false;
+
     desktopManager.default = "none";
 
     windowManager.default = "xmonad";
@@ -121,17 +126,7 @@
     multitouch = {
       enable = true;
       invertScroll = true;
-    };
-    
-
-    synaptics = {
-      enable = true;
-      buttonsMap = [ 1 3 2 ]; # 1: left, 2: right, 3: middle
-      twoFingerScroll = true;
-      horizTwoFingerScroll = true;
-      horizontalScroll = true;
-      palmDetect = true;
-      tapButtons = true;
+      buttonsMap = [1 3 2];
     };
   };
 
@@ -139,15 +134,6 @@
     enable = true;
     backend = "glx";
     vSync = "opengl-swc";
-    shadow = true;
-
-    extraOptions =
-    ''
-      glx-swap-method = "3";
-      no-dock-shadow = true;
-      paint-on-overlay = true;
-      sw-opti = true;
-    '';
   };
 
   fonts = {
@@ -173,6 +159,5 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
-
 }
 

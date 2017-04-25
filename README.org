@@ -1,3 +1,12 @@
+ToDo:
+
+- Terminal (daemonized urxvt)
+- Firefox sync server
+- Radicale CardDAV/CalDAV server
+- Firefox from stable
+- Better IRC client
+- Splitting nix files into units (vim, radicale, webserver, x, etc.)
+
 Ideas:
 
 - Binary brightness search: When the user presses one of the brightness changing keys, a new brightness changing session is started. The following few times the brightness is changed, it's still in the same session. Using binary search it can be guessed what the users desired brightness is, like the famous number guessing game under programming tutorial writers. Example: Current brightness 0.8, turn down -> 0.4, turn down -> 0.2, turn up -> 0.3, turn down -> 0.25, no key presses for 5 seconds resets. Could use machine learning to better predict the desired brightness. Could use a dampened version, brightness can only change by this much on a key press. Could be adjusted to actual perceptual brightness via the user giving feedback to different levels. Could do fading like xbacklight.

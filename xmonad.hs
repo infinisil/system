@@ -1,7 +1,6 @@
 import XMonad
-import XMonad.Config.Xfce
 
-main = xmonad xfceConfig
+main = xmonad defaultConfig
        { terminal = "sakura"
        , modMask = mod4Mask
        }
