@@ -13,9 +13,20 @@ in { pkgs, ... }: {
   boot.cleanTmpDir = true;
   networking.hostName = "dobby";
   networking.firewall.allowPing = true;
-  services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = [ keys.mba.nixos keys.mba.macos ];
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "no";
+    passwordAuthentication = false;
+  };
   
+  users.extraUsers.infinisil = {
+    isNormalUser = true;
+    home = "/home/infinisil";
+    description = "Silvan Mosberger";
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [ keys.mba.nixos keys.mba.macos ];
+  };
+
   environment.systemPackages = with pkgs; [
     git
     fortune
@@ -33,7 +44,8 @@ in { pkgs, ... }: {
 
   users.defaultUserShell = pkgs.zsh;
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5234 ];
+  services.fail2ban.enable = true;
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
   services.nginx = {
     enable = true;
     virtualHosts."infinisil.io" = {
@@ -43,17 +55,17 @@ in { pkgs, ... }: {
     };
   };
 
-  #services.firefox.syncserver = {
-  #  enable = true;
-  #  listen.address = "0.0.0.0";
-  #};
+  services.firefox.syncserver = {
+    #enable = true;
+    listen.address = "0.0.0.0";
+  };
 
 
   services.nginx.appendConfig = ''
     error_log /var/log/nginx/error.log debug;
   '';
   
-  # Radicale CalDAV and CardDAV configuration, enable when dav.infinisil.io can be looked up. Thanks to https://www.williamjbowman.com/blog/2015/07/24/setting-up-webdav-caldav-and-carddav-servers/
+  # https://www.williamjbowman.com/blog/2015/07/24/setting-up-webdav-caldav-and-carddav-servers/
   #services.nginx.virtualHosts."dav.infinisil.io" = {
   #  enableACME = true;
   #  root = "/webroot/radicale";
@@ -63,12 +75,12 @@ in { pkgs, ... }: {
   #  };
   #};
 
-  services.radicale.enable = true;
+  #services.radicale.enable = true;
   services.radicale.config = ''
 [server]
 hosts = 0.0.0.0:5234, [::]:5234
 pid = "/run/radicale.pid"
-base_prefix = /webroot/radicale/
+base_prefix = /
 ssl = False
 
 [encoding]
