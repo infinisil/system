@@ -38,7 +38,7 @@ source $ZSH/oh-my-zsh.sh
 
 #alias ipfs="ipfs --config=$XDG_CONFIG_HOME/ipfs/config"
 alias ethssh='ssh msilvan@slab1.ethz.ch'
-alias infssh='ssh -p 166 infinisil@infinisil.io'
+alias infssh='ssh infinisil@infinisil.io'
 alias vim=nvim
 alias vimrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
 alias zshrc="nvim $XDG_CONFIG_HOME/zsh/.zshrc"
