@@ -32,7 +32,7 @@ ENABLE_CORRECTION="true"
 HIST_STAMPS="yyyy-mm-dd"
 
 # User configuration
-export IPFS_PATH="$XDG_DATA_HOME/ipfs"
+#export IPFS_PATH="$XDG_DATA_HOME/ipfs"
 export EDITOR='nvim'
 source $ZSH/oh-my-zsh.sh
 
