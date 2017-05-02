@@ -20,17 +20,20 @@ in
       fsType = "zfs";
     };
 
+  virtualisation.docker.enable = false;
+
   system.autoUpgrade.enable = true;
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "libplist-1.12"
+  ];
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.loader.grub.device = "/dev/sda";
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "libplist-1.12"
-  ];
 
   networking.hostId = "34cc680d";
   networking.hostName = "nixos"; # Define your hostname.
@@ -64,7 +67,6 @@ in
     cowsay
     cmatrix
     asciinema
-    terminator
     neofetch
     neovim
     thunderbird
@@ -74,7 +76,6 @@ in
     perl
     python
     nix-repl
-    libplist
     pkgs-unstable.buku
     franz
     mpd
@@ -82,9 +83,9 @@ in
     xbindkeys-config
     xlibs.xev
     pkgs-unstable.albert
-    feh
     irssi
     (pkgs.wrapFirefox (firefox-unwrapped.override { enableOfficialBranding = true; }) {} )
+    libimobiledevice
   ];
 
   hardware.pulseaudio.enable = true;
@@ -103,6 +104,7 @@ in
   services.emacs.defaultEditor = true;
   services.illum.enable = true;
   services.openssh.enable = true;
+  services.znapzend.enable = true;
 
   services.xserver = {
     enable = true;
