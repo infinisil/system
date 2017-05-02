@@ -9,7 +9,6 @@ let
   };
 in
 {
-  services.illum.enable = true;
 
   imports =
     [ # Include the results of the hardware scan.
@@ -41,13 +40,13 @@ in
   nixpkgs.config.allowBroken = true;
 
   nix.useSandbox = true;
+  nix.buildCores = 4;
 
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     wget
     vim
-    emacs
     git
     (haskellPackages.ghcWithPackages (pkgs: [
       pkgs.xmobar
@@ -85,15 +84,11 @@ in
     pkgs-unstable.albert
     feh
     irssi
+    (pkgs.wrapFirefox (firefox-unwrapped.override { enableOfficialBranding = true; }) {} )
   ];
 
   hardware.pulseaudio.enable = true;
 
-  services.urxvtd.enable = true;
-  services.emacs.enable = true;
-  services.emacs.defaultEditor = true;
-
-  services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
   services.mpd = {
@@ -102,6 +97,12 @@ in
     dataDir = "/home/shared/mpd";
     dbFile = "/home/shared/mpd/mpd.db";
   };
+
+  services.urxvtd.enable = true;
+  services.emacs.enable = true;
+  services.emacs.defaultEditor = true;
+  services.illum.enable = true;
+  services.openssh.enable = true;
 
   services.xserver = {
     enable = true;
@@ -115,8 +116,6 @@ in
     displayManager.slim.enable = true;
     displayManager.slim.defaultUser = "infinisil";
 
-    #desktopManager.xfce.enable = true;
-    #desktopManager.xfce.enableXfwm = false;
     desktopManager.default = "none";
 
     windowManager.default = "xmonad";
@@ -129,16 +128,6 @@ in
       invertScroll = true;
       buttonsMap = [1 3 2];
     };
-
-    # synaptics = {
-    #   enable = true;
-    #   buttonsMap = [ 1 3 2 ]; # 1: left, 2: right, 3: middle
-    #   twoFingerScroll = true;
-    #   horizTwoFingerScroll = true;
-    #   horizontalScroll = true;
-    #   palmDetect = true;
-    #   tapButtons = true;
-    # };
   };
 
   services.compton = {
@@ -170,6 +159,5 @@ in
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
-
 }
 

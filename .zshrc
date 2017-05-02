@@ -16,7 +16,7 @@ compinit
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DEFAULT_USER=infinisil
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time battery)
 
@@ -38,7 +38,7 @@ source $ZSH/oh-my-zsh.sh
 
 #alias ipfs="ipfs --config=$XDG_CONFIG_HOME/ipfs/config"
 alias ethssh='ssh msilvan@slab1.ethz.ch'
-alias infssh='ssh root@infinisil.io'
+alias infssh='ssh infinisil@infinisil.io'
 alias vim=nvim
 alias vimrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
 alias zshrc="nvim $XDG_CONFIG_HOME/zsh/.zshrc"

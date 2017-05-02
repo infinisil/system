@@ -1,0 +1,5 @@
+* NixOS QnA
+
+** How can I find the generated xsession file?
+
+nix-store -qR /run/current-system | grep xsession
