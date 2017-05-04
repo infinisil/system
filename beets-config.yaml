@@ -6,11 +6,17 @@ mpd:
     host: localhost
     port: 6600
 
+mpdupdate:
+    host: localhost
+    port: 6600
+
 mpdstats:
     rating_mix: 0.75
 
 smartplaylist:
-    playlist_dir: /home/shared/playlists
+    playlist_dir: /home/shared/mpd/playlists
     playlists:
         - name: all.m3u
           query: ''
+        - name: test.m3u
+          query: 'artist:"Katherine Jenkins"'
