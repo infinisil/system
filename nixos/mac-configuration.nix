@@ -15,23 +15,30 @@ in
   imports =
     [ # Include the results of the hardware scan.
       hardware/mac.nix
+      ./audio.nix
     ];
 
-  fileSystems."/home/shared" =
-    { device = "main/home/shared";
-      fsType = "zfs";
-    };
+    #fileSystems."/home/shared" =
+    #{ device = "main/home/shared";
+    #  fsType = "zfs";
+    #};
 
   virtualisation.docker.enable = false;
 
   system.autoUpgrade.enable = true;
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "libplist-1.12"
-  ];
-  nixpkgs.config.packageOverrides = pkgs: {
-    bluez = pkgs.bluez5;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+    permittedInsecurePackages = [
+      "libplist-1.12"
+    ];
+    packageOverrides = pkgs: {
+      bluez = pkgs.bluez5;
+    };
   };
+  nix.useSandbox = true;
+  nix.buildCores = 4;
 
 
   # Use the systemd-boot EFI boot loader.
@@ -43,12 +50,6 @@ in
   networking.hostId = "34cc680d";
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
-
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
-
-  nix.useSandbox = true;
-  nix.buildCores = 4;
 
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
@@ -66,7 +67,6 @@ in
     pass
     gnupg
     taskwarrior
-    beets
     ponysay
     fortune
     cowsay
@@ -95,39 +95,15 @@ in
     libimobiledevice
     tilda
     feh # Sets wallpaper
-    sonata # mpd GUI client
     texlive.combined.scheme-medium
     termite
-    bluez
-    blueman
     flat-plat
   ];
 
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    extraConfig = ''
-      load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
-      load-module module-switch-on-connect
-    '';
+  environment.variables = { # Certainly takes effect after reboot, don't know how else
   };
-  hardware.bluetooth.enable = true;
 
   programs.ssh.startAgent = true;
-
-  services.mpd = { 
-    enable = true;
-    musicDirectory = "/home/shared/beets";
-    dataDir = "/home/shared/mpd";
-    dbFile = "/home/shared/mpd/mpd.db";
-    extraConfig = ''
-      audio_output {
-        type "pulse"
-        name "MPD PulseAudio Output"
-        server "127.0.0.1"
-      }
-    '';
-  };
 
   services.urxvtd.enable = true;
   services.emacs.enable = true;
@@ -205,14 +181,16 @@ in
   };
 
   programs.zsh.enable = true;
-   
+
   users.extraUsers.infinisil = {
     isNormalUser = true;
     home = "/home/infinisil";
     description = "Silvan Mosberger";
-    extraGroups = [ "wheel" "networkmanager" "mpd" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
   };
+
+  users.extraGroups.audio = {};
 
   security.sudo.wheelNeedsPassword = false;
 

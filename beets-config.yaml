@@ -1,5 +1,5 @@
-directory: /home/shared/beets
-library: /home/shared/beets.db
+directory: /music/data
+library: /music/beets.db
 plugins: [mpdstats, smartplaylist, mpdupdate]
 
 mpd:
@@ -14,7 +14,7 @@ mpdstats:
     rating_mix: 0.75
 
 smartplaylist:
-    playlist_dir: /home/shared/mpd/playlists
+    playlist_dir: /music/mpd/playlists
     playlists:
         - name: all.m3u
           query: ''
