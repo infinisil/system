@@ -44,4 +44,5 @@ alias vimrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
 alias zshrc="nvim $XDG_CONFIG_HOME/zsh/.zshrc"
 alias zshenv="nvim $XDG_CONFIG_HOME/zsh/.zshenv"
 alias nixrc="nvim $SYSTEM/nixos/mac-configuration.nix"
-
+alias emacs="emacseditor -c &"
+alias rebuild="sudo nixos-rebuild switch"
