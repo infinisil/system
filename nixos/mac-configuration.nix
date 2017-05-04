@@ -7,6 +7,8 @@ let
   pkgs-unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
     config = {};
   };
+
+  sink = "bluez_sink.04_52_C7_33_59_A8.headset_head_unit";
 in
 {
 
@@ -27,6 +29,9 @@ in
   nixpkgs.config.permittedInsecurePackages = [
     "libplist-1.12"
   ];
+  nixpkgs.config.packageOverrides = pkgs: {
+    bluez = pkgs.bluez5;
+  };
 
 
   # Use the systemd-boot EFI boot loader.
@@ -84,27 +89,57 @@ in
     xlibs.xev
     pkgs-unstable.albert
     irssi
-    (pkgs.wrapFirefox (firefox-unwrapped.override { enableOfficialBranding = true; }) {} )
+    (pkgs.wrapFirefox (firefox-unwrapped.override {
+      enableOfficialBranding = true;
+    }) {} )
     libimobiledevice
+    tilda
+    feh # Sets wallpaper
+    sonata # mpd GUI client
+    texlive.combined.scheme-medium
+    termite
+    bluez
+    blueman
+    flat-plat
   ];
 
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+    extraConfig = ''
+      load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+      load-module module-switch-on-connect
+    '';
+  };
+  hardware.bluetooth.enable = true;
 
   programs.ssh.startAgent = true;
 
-  services.mpd = {
+  services.mpd = { 
     enable = true;
     musicDirectory = "/home/shared/beets";
     dataDir = "/home/shared/mpd";
     dbFile = "/home/shared/mpd/mpd.db";
+    extraConfig = ''
+      audio_output {
+        type "pulse"
+        name "MPD PulseAudio Output"
+        server "127.0.0.1"
+      }
+    '';
   };
 
   services.urxvtd.enable = true;
   services.emacs.enable = true;
-  services.emacs.defaultEditor = true;
   services.illum.enable = true;
   services.openssh.enable = true;
   services.znapzend.enable = true;
+  #services.unclutter-xfixes.enable = true; # Doesn't seem to be doing anything
+
+  #services.ipfs.enable = true; # Needs to turn off when on battery
+  #services.ipfs.dataDir = "/ipfs";
+
+  services.zfs.autoSnapshot.enable = true;
 
   services.xserver = {
     enable = true;
@@ -130,6 +165,27 @@ in
       invertScroll = true;
       buttonsMap = [1 3 2];
     };
+    synaptics = {
+      #enable = true; # Only applies when multitouch is disabled
+      #buttonsMap = [ 1 3 2 ];
+      tapButtons = true;
+      twoFingerScroll = true;
+      horizTwoFingerScroll = true;
+      scrollDelta = 10;
+      minSpeed = "0.7";
+      maxSpeed = "1.7";
+      palmDetect = true;
+      additionalOptions = ''
+        Option "FingerHigh" "50"
+        Option "FingerLow" "30"
+        Option "TapAndDragGesture" "off"
+        Option "TapButton1" "1"
+        Option "TapButton2" "3"
+        Option "TapButton3" "2"
+        Option "VertScrollDelta" "-500"
+        Option "HorizScrollDelta" "-500"
+      '';
+    };
   };
 
   services.compton = {
@@ -154,10 +210,11 @@ in
     isNormalUser = true;
     home = "/home/infinisil";
     description = "Silvan Mosberger";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "mpd" ];
     shell = pkgs.zsh;
   };
 
+  security.sudo.wheelNeedsPassword = false;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
