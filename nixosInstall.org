@@ -85,6 +85,12 @@ Number  Start (sector)    End (sector)  Size       Code  Name
 - Build a new hardware configuration with ~nixos-generate-config --root /mnt~
 - Check ~/etc/nixos/hardware-configuration.nix~ 
 
+** Useful
+
+nixos-option services.xserver.enable
+check cat /etc/fstab
+put filesystem in configuration.nix instead of hardware-configuration.nix when not present in /etc/fstab
+
 ** Sources
 
 - https://nixos.org/nixos/manual/index.html
