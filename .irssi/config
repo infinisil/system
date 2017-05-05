@@ -93,6 +93,7 @@ chatnets = {
   };
   Freenode = {
     type = "IRC";
+    nick = "Infinisil";
     max_kicks = "1";
     max_msgs = "4";
     max_whois = "1";

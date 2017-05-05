@@ -7,20 +7,39 @@ let
   pkgs-unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
     config = {};
   };
+
+  sink = "bluez_sink.04_52_C7_33_59_A8.headset_head_unit";
 in
 {
 
   imports =
     [ # Include the results of the hardware scan.
       hardware/mac.nix
+      ./audio.nix
     ];
 
-  fileSystems."/home/shared" =
-    { device = "main/home/shared";
-      fsType = "zfs";
-    };
+    #fileSystems."/home/shared" =
+    #{ device = "main/home/shared";
+    #  fsType = "zfs";
+    #};
+
+  virtualisation.docker.enable = false;
 
   system.autoUpgrade.enable = true;
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+    permittedInsecurePackages = [
+      "libplist-1.12"
+    ];
+    packageOverrides = pkgs: {
+      bluez = pkgs.bluez5;
+    };
+  };
+  nix.useSandbox = true;
+  nix.buildCores = 4;
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -28,19 +47,9 @@ in
   boot.supportedFilesystems = [ "zfs" ];
   boot.loader.grub.device = "/dev/sda";
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "libplist-1.12"
-  ];
-
   networking.hostId = "34cc680d";
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
-
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
-
-  nix.useSandbox = true;
-  nix.buildCores = 4;
 
   time.timeZone = "Europe/Zurich";
   # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
@@ -58,13 +67,11 @@ in
     pass
     gnupg
     taskwarrior
-    beets
     ponysay
     fortune
     cowsay
     cmatrix
     asciinema
-    terminator
     neofetch
     neovim
     thunderbird
@@ -74,7 +81,6 @@ in
     perl
     python
     nix-repl
-    libplist
     pkgs-unstable.buku
     franz
     mpd
@@ -82,27 +88,34 @@ in
     xbindkeys-config
     xlibs.xev
     pkgs-unstable.albert
-    feh
     irssi
-    (pkgs.wrapFirefox (firefox-unwrapped.override { enableOfficialBranding = true; }) {} )
+    (pkgs.wrapFirefox (firefox-unwrapped.override {
+      enableOfficialBranding = true;
+    }) {} )
+    libimobiledevice
+    tilda
+    feh # Sets wallpaper
+    texlive.combined.scheme-medium
+    termite
+    flat-plat
   ];
 
-  hardware.pulseaudio.enable = true;
+  environment.variables = { # Certainly takes effect after reboot, don't know how else
+  };
 
   programs.ssh.startAgent = true;
 
-  services.mpd = {
-    enable = true;
-    musicDirectory = "/home/shared/beets";
-    dataDir = "/home/shared/mpd";
-    dbFile = "/home/shared/mpd/mpd.db";
-  };
-
   services.urxvtd.enable = true;
   services.emacs.enable = true;
-  services.emacs.defaultEditor = true;
   services.illum.enable = true;
   services.openssh.enable = true;
+  services.znapzend.enable = true;
+  #services.unclutter-xfixes.enable = true; # Doesn't seem to be doing anything
+
+  #services.ipfs.enable = true; # Needs to turn off when on battery
+  #services.ipfs.dataDir = "/ipfs";
+
+  services.zfs.autoSnapshot.enable = true;
 
   services.xserver = {
     enable = true;
@@ -128,6 +141,27 @@ in
       invertScroll = true;
       buttonsMap = [1 3 2];
     };
+    synaptics = {
+      #enable = true; # Only applies when multitouch is disabled
+      #buttonsMap = [ 1 3 2 ];
+      tapButtons = true;
+      twoFingerScroll = true;
+      horizTwoFingerScroll = true;
+      scrollDelta = 10;
+      minSpeed = "0.7";
+      maxSpeed = "1.7";
+      palmDetect = true;
+      additionalOptions = ''
+        Option "FingerHigh" "50"
+        Option "FingerLow" "30"
+        Option "TapAndDragGesture" "off"
+        Option "TapButton1" "1"
+        Option "TapButton2" "3"
+        Option "TapButton3" "2"
+        Option "VertScrollDelta" "-500"
+        Option "HorizScrollDelta" "-500"
+      '';
+    };
   };
 
   services.compton = {
@@ -147,7 +181,7 @@ in
   };
 
   programs.zsh.enable = true;
-   
+
   users.extraUsers.infinisil = {
     isNormalUser = true;
     home = "/home/infinisil";
@@ -156,6 +190,9 @@ in
     shell = pkgs.zsh;
   };
 
+  users.extraGroups.audio = {};
+
+  security.sudo.wheelNeedsPassword = false;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.09";
