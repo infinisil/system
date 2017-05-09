@@ -6,6 +6,9 @@ ToDo:
 - Firefox from stable
 - Better IRC client
 - Splitting nix files into units (vim, radicale, webserver, x, etc.)
+- osync package
+- scyther package
+- ipfs PR
 
 Ideas:
 

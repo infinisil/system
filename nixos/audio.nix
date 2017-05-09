@@ -20,6 +20,8 @@
 
   environment.variables = {
     BEETSDIR = "/music/beets";
+    MPD_HOST = "127.0.0.1";
+    MPD_PORT = "6600";
   };
 
   services.mpd = {

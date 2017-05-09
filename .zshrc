@@ -16,7 +16,7 @@ compinit
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DEFAULT_USER=infinisil
 
-POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_MODE='nerdfont-fontconfig'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time battery)
 

@@ -11,6 +11,7 @@ in { pkgs, ... }: {
   ];
 
   boot.cleanTmpDir = true;
+  networking.hostId = 
   networking.hostName = "dobby";
   networking.firewall.allowPing = true;
   services.openssh = {

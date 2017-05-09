@@ -17,13 +17,13 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home" =
-    { device = "main/home";
+  fileSystems."/music" =
+    { device = "main/music";
       fsType = "zfs";
     };
 
-  fileSystems."/home/shared" =
-    { device = "main/home/shared";
+  fileSystems."/home" =
+    { device = "main/home";
       fsType = "zfs";
     };
 
@@ -32,8 +32,8 @@
       fsType = "vfat";
     };
 
-  fileSystems."/music" =
-    { device = "main/music";
+  fileSystems."/global" =
+    { device = "main/global";
       fsType = "zfs";
     };
 

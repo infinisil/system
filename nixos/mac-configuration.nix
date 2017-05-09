@@ -7,8 +7,6 @@ let
   pkgs-unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
     config = {};
   };
-
-  sink = "bluez_sink.04_52_C7_33_59_A8.headset_head_unit";
 in
 {
 
@@ -17,11 +15,6 @@ in
       hardware/mac.nix
       ./audio.nix
     ];
-
-    #fileSystems."/home/shared" =
-    #{ device = "main/home/shared";
-    #  fsType = "zfs";
-    #};
 
   virtualisation.docker.enable = false;
 
@@ -87,21 +80,23 @@ in
     xbindkeys
     xbindkeys-config
     xlibs.xev
-    pkgs-unstable.albert
     irssi
     (pkgs.wrapFirefox (firefox-unwrapped.override {
-      enableOfficialBranding = true;
+        enableOfficialBranding = true;
     }) {} )
     libimobiledevice
     tilda
     feh # Sets wallpaper
     texlive.combined.scheme-medium
     termite
-    flat-plat
+    opera
+    shotcut # Video editor
+    unison
   ];
 
-  environment.variables = { # Certainly takes effect after reboot, don't know how else
-  };
+  #environment.variables = { # Certainly takes effect after reboot, don't know how else
+  #  HELLO = "Hi theer";
+  #};
 
   programs.ssh.startAgent = true;
 
@@ -110,12 +105,28 @@ in
   services.illum.enable = true;
   services.openssh.enable = true;
   services.znapzend.enable = true;
+
+  services.rsyncd = {
+    #enable = true;
+  };  
   #services.unclutter-xfixes.enable = true; # Doesn't seem to be doing anything
 
-  #services.ipfs.enable = true; # Needs to turn off when on battery
-  #services.ipfs.dataDir = "/ipfs";
+  services.ipfs.enable = true; # Needs to turn off when on battery
+  services.ipfs.dataDir = "/home/shared/ipfs";
 
-  services.zfs.autoSnapshot.enable = true;
+  #services.zfs.autoSnapshot.enable = true;
+  systemd.timers.sync = {
+    partOf = [ "sync.service" ];
+    wantedBy = [ "timers.target" ];
+    timerConfig.OnCalendar = "*:*:0/10";
+  };
+  systemd.services.sync = {
+    path = with pkgs; [ rsync openssh];
+    script = ''
+      rsync -avuz infinisil@infinisil.io:/global/ /global
+      rsync -avuz --delete /global/ infinisil@infinisil.io:/global
+    '';
+  };
 
   services.xserver = {
     enable = true;
@@ -186,7 +197,7 @@ in
     isNormalUser = true;
     home = "/home/infinisil";
     description = "Silvan Mosberger";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "ipfs" ];
     shell = pkgs.zsh;
   };
 
