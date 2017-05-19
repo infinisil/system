@@ -13,7 +13,7 @@ ssh root@<ip>
 You'll have to type "yes".
 
 ** NixOS
-
+   
 Download [[https://github.com/elitak/nixos-infect][nixos-infect]] and make it executable:
 
 #+BEGIN_SRC bash
@@ -27,19 +27,17 @@ NIX_CHANNEL=nixos-17.03
 ./nixos-infect
 #+END_SRC
 
-This fails at this time of writing with the error that /etc/nixos/networking.nex doesn't exist which is weird because the script is supposed to generate that. I executed [[https://github.com/elitak/nixos-infect/blob/a025094b20bc8e00d0ffcbf45fb92762de2a42a6/nixos-infect#L39-L97][the relevant lines]] of the script manually (copy/paste into terminal) as a dirty fix, then rerun ~./nixos-infect~.
+This fails at this time of writing (Update 15 May 2017: Not anymore) with the error that /etc/nixos/networking.nex doesn't exist which is weird because the script is supposed to generate that. I executed [[https://github.com/elitak/nixos-infect/blob/a025094b20bc8e00d0ffcbf45fb92762de2a42a6/nixos-infect#L39-L97][the relevant lines]] of the script manually (copy/paste into terminal) as a dirty fix, then rerun ~./nixos-infect~.
 
 If it finishes successfully, which will take a few minutes, the machine will be restarted automatically, therefore closing the SSH connection. You can press Ctrl-C when you see something like
 
 #+BEGIN_SRC
 Installation finished. No error reported.
-swapoff /tmp/nixos-infect.3HiQF.swp
-removed ‘/tmp/nixos-infect.3HiQF.swp’
 swapoff /tmp/nixos-infect.hUuad.swp
 removed ‘/tmp/nixos-infect.hUuad.swp’
 #+END_SRC
 
-Reconnect with SSH
+Which will output ~Broken pipe~ as the SSH connection dropped. Reconnect with SSH
 
 #+BEGIN_SRC bash
 ssh root@<ip>
