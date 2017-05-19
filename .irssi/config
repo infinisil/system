@@ -311,6 +311,7 @@ aliases = {
   97 = "WINDOW GOTO 97";
   98 = "WINDOW GOTO 98";
   99 = "WINDOW GOTO 99";
+  do = "say `$*`; exec -o - $*";
 };
 
 statusbar = {
