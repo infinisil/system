@@ -4,6 +4,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Layout.Spacing
 import System.IO
 import XMonad.Prompt
 import XMonad.Prompt.Shell
@@ -33,7 +34,7 @@ main = do
        { terminal = "sakura"
        , modMask = mod4Mask
        , manageHook = manageDocks <+> manageHook def
-       , layoutHook = avoidStruts  $  layoutHook def
+       , layoutHook = avoidStruts $ spacing 5 $ layoutHook def
        , handleEventHook = setTransparentHook <+> docksEventHook <+> handleEventHook def
        , logHook = dynamicLogWithPP xmobarPP
                        { ppOutput = hPutStrLn xmproc
