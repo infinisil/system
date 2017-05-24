@@ -1,0 +1,79 @@
+* Getting ZFS on a DO droplet's main disk with NixOS
+
+- Resize the droplet to at least 1 or 2GB Ram (500 doesn't work, 1GB might work, 2GB definitely works)
+- Use clever's kexec, with the following changes to the configuration.nix:
+  - add "net.ifnames=0" to boot.kernelParams
+  - Remove the autostart systemd timer and service
+  - Add to the networking section:
+    #+BEGIN_SRC nix
+    defaultGateway = "x.x.x.x";
+    nameservers = [ "8.8.8.8" ];
+    interfaces.eth0 = {
+      ipAddress = "y.y.y.y";
+      prefixLength = z;
+    };
+    #+END_SRC
+    where x is the default gateway, y is the ip and z the mask length, all available through the DO console
+  - Your SSH key(s)
+- Build and put it on the machine: 
+#+BEGIN_SRC bash
+nix-build '<nixpkgs/nixos>' -A config.system.build.kexec_tarball -I nixos-config=./configuration.nix -Q -j 4
+scp result/tarball/nixos-system-x86_64-linux.tar.xz root@y.y.y.y:/
+#+END_SRC
+
+- Login via SSH, untar the file and run the script:
+#+BEGIN_SRC bash
+ssh root@y.y.y.y
+cd /
+tar -xf nixos-system-x86_64-linux.tar.xz
+./kexec-nixos
+#+END_SRC
+
+- Reconnect with SSH, you should now see a running nixos system to use for installing
+- repartition your main disk using ~fdisk~, to such a configuration:
+#+BEGIN_SRC example
+/dev/vda1 200MB boot partition (Linux Filesystem)
+/dev/vda2 4GB swap partition (Linux swap)
+/dev/vda3 left, zfs partition (Solaris /usr & Apple zfs)
+/dev/vda15 BIOS boot (unchanged)
+#+END_SRC
+
+- Create the file systems:
+#+BEGIN_SRC bash
+mkfs.ext4 /dev/vda1
+mkswap /dev/vda2
+zpool create -o ashift=12 -o altroot=/mnt -o compression=lz4 -O mountpoint=none main /dev/vda3
+zfs create -o mountpoint=legacy main/root
+zfs create -o mountpoint=legacy main/root/nixos
+zfs create -o mountpoint=legacy main/home
+#+END_SRC
+
+- Mount them:
+#+BEGIN_SRC bash
+swapon /dev/vda2
+mkdir /mnt
+mount -t zfs main/root /mnt
+mkdir /mnt/boot /mnt/nix /mnt/home
+mount -t zfs main/root/nixos /mnt/nix
+mount -t zfs main/home /mnt/home
+mount /dev/vda1 /mnt/boot
+#+END_SRC
+
+- Generate the configs:
+#+BEGIN_SRC bash
+nixos-generate-config --root /mnt
+#+END_SRC
+
+- Edit /mnt/etc/nixos/configuration.nix so that it includes at least:
+  - The same network config from above
+  - A hostId (needed for zfs)
+  - Your ssh keys
+  - services.openssh.enable = true
+  - kernelParams = [ "net.ifnames=0" ];
+  - boot.grub.loader.device = "/dev/vda";
+  - boot.zfs.devNodes = "/dev";
+- Install nixos and cross fingers:
+#+BEGIN_SRC bash
+nixos-install --root /mnt
+reboot
+#+END_SRC
