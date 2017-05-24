@@ -421,6 +421,7 @@ settings = {
     hilight_nick_matches_everywhere = "yes";
     use_status_window = "no";
     use_msgs_window = "yes";
+    autolog = "yes";
   };
 };
 hilights = ( { text = "nick"; nick = "yes"; word = "yes"; } );
