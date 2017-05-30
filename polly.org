@@ -1,4 +1,4 @@
-* Configuring a ~say~ command using Amazon Polly
+* Configuring Amazon Polly to Synthesize Speech using the Command Line
 
 ** Create an AWS Account
 
@@ -38,3 +38,7 @@ play out.ogg
 #+END_SRC
 
 And that's basically it!
+
+** Notes
+
+Pricing information can be found [[https://aws.amazon.com/polly/pricing/][here]], it's very cheap for personal use.
