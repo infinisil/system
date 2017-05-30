@@ -17,7 +17,7 @@ Go to [[https://aws.amazon.com/][AWS]] and create a free account. This requires 
 
 ** Configuring the CLI
 
-- Install the AWS CLI, on NixOS the package is called ~aws-cli~.
+- Install the AWS CLI, on NixOS the package is called ~awscli~.
 - Run ~aws configure~, now enter your Access Key ID and Secret access key
 - For default region name, choose one of the ones listed [[http://docs.aws.amazon.com/general/latest/gr/rande.html#pol_region][here]] (as of 30 May 2017 one of "us-east-2", "us-east-1", "us-west-2", "eu-west-1").
 - For default output format, enter "json"
@@ -39,13 +39,12 @@ play out.ogg
 
 And that's basically it!
 
-Here is a simple zsh function to say the first argument:
+Here is a simple shell script to say the first argument:
 
 #+BEGIN_SRC bash
-function say() {
-	file=$(mktemp)
-	aws polly synthesize-speech --output-format ogg_vorbis --voice-id Justin $file --text $1 && play $file
-}
+#!/usr/bin/env bash
+file=$(mktemp)
+aws polly synthesize-speech --output-format ogg_vorbis --voice-id Justin $file --text $1 && play $file
 #+END_SRC
 
 ** Notes
