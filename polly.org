@@ -1,0 +1,40 @@
+* Configuring a ~say~ command using Amazon Polly
+
+** Create an AWS Account
+
+Go to [[https://aws.amazon.com/][AWS]] and create a free account. This requires you to enter address, phone number, credit card number.
+
+** Add a user for Polly access
+
+- Sign into your AWS account and go to the console (you should be redirected to it anyways)
+- Open the IAM service (e.g. by searching for it in the search bar)
+- Add a user by clicking on Users > Add User
+  - Username could be e.g. "say"
+  - For access type, enable Programmatic Access
+  - For permissions, click "Attach existing policies directly"
+  - Search for "Polly" and select AmazonPollyFullAccess
+  - Create the user. Now you can see the Access Key ID and the Secret access key, you *need* to save them somewhere *now*, you won't see the Secret access key ever again.
+
+** Configuring the CLI
+
+- Install the AWS CLI, on NixOS the package is called ~aws-cli~.
+- Run ~aws configure~, now enter your Access Key ID and Secret access key
+- For default region name, choose one of the ones listed [[http://docs.aws.amazon.com/general/latest/gr/rande.html#pol_region][here]] (as of 30 May 2017 one of "us-east-2", "us-east-1", "us-west-2", "eu-west-1").
+- For default output format, enter "json"
+- Press enter
+
+** Querying AWS
+
+Run a command like this to create a file with the synthesized speech:
+#+BEGIN_SRC bash
+aws polly synthesize-speech --output-format ogg_vorbis --voice-id Justin --text 'Hi there!' out.ogg
+#+END_SRC
+
+** Simply playing the file
+
+Install the ~sox~ package, which provides the ~play~ command:
+#+BEGIN_SRC bash
+play out.ogg
+#+END_SRC
+
+And that's basically it!
