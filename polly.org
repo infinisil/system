@@ -44,7 +44,7 @@ Here is a simple shell script to say the first argument:
 #+BEGIN_SRC bash
 #!/usr/bin/env bash
 file=$(mktemp)
-aws polly synthesize-speech --output-format ogg_vorbis --voice-id Justin $file --text $1 && play $file
+aws polly synthesize-speech --output-format ogg_vorbis --voice-id Justin $file --text "$1" && play $file
 #+END_SRC
 
 ** Notes
