@@ -28,21 +28,38 @@ setopt COMPLETE_ALIASES
 export UPDATE_ZSH_DAYS=30
 
 ENABLE_CORRECTION="true"
-
 HIST_STAMPS="yyyy-mm-dd"
 
-# User configuration
-#export IPFS_PATH="$XDG_DATA_HOME/ipfs"
 export EDITOR='nvim'
 source $ZSH/oh-my-zsh.sh
 
-#alias ipfs="ipfs --config=$XDG_CONFIG_HOME/ipfs/config"
+# Simple function to enumerate all snapshots of a directory
+# Example: To list all files of all snapshots of the `dir` directory of the current folder:
+# ls $(snaps dir)
+#
+# To view all versions of a file in vim:
+# vim $(snaps dir)
+function snaps() {
+	local mount=$(stat -c '%m' .)
+	echo "$mount/.zfs/snapshot/*/$(realpath . --relative-to=$mount)/$1"
+}
+
+function sayrepl() {
+	read -r input
+	while [ "$input" != "" ];
+	do
+		say "$input"
+		read -r input
+	done
+}
+
+
 alias ethssh='ssh msilvan@slab1.ethz.ch'
-alias infssh='ssh infinisil@infinisil.io'
+alias infssh='ssh root@infinisil.io'
 alias vim=nvim
 alias vimrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
 alias zshrc="nvim $XDG_CONFIG_HOME/zsh/.zshrc"
 alias zshenv="nvim $XDG_CONFIG_HOME/zsh/.zshenv"
-alias nixrc="nvim $SYSTEM/nixos/mac-configuration.nix"
-alias emacs="emacseditor -c &"
-alias rebuild="sudo nixos-rebuild switch"
+alias nixrc="nvim /global/system/nixos"
+alias rebuild="sudo nixos-rebuild switch -I nixpkgs=/global/nixpkgs"
+alias testconfig="sudo nixos-rebuild build -I nixpkgs=/global/nixpkgs -I nixos-config=/global/testconfig.nix"
