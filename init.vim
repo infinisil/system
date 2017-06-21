@@ -31,6 +31,8 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set cursorline
+set clipboard=unnamed
+set clipboard=unnamedplus
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -46,6 +48,8 @@ let g:syntastic_check_on_wq = 0
 nnoremap j gj
 nnoremap k gk
 
+nnoremap <S-j> :prev<CR>
+nnoremap <S-k> :n<CR>
 
 filetype plugin indent on
 
