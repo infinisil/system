@@ -1,0 +1,6 @@
+* What do I do if /boot is full?
+
+#+BEGIN_SRC bash
+sudo nix-collect-garbage -d
+/run/current-system/bin/switch-to-configuration boot
+#+END_SRC
