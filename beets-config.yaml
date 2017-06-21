@@ -1,6 +1,6 @@
-directory: /music/data
-library: /music/beets.db
-plugins: [mpdstats, smartplaylist, mpdupdate]
+directory: /home/infinisil/Music/data
+library: /home/infinisil/Music/beets.db
+plugins: [smartplaylist, mpdupdate]
 
 mpd:
     host: localhost
@@ -10,11 +10,8 @@ mpdupdate:
     host: localhost
     port: 6600
 
-mpdstats:
-    rating_mix: 0.75
-
 smartplaylist:
-    playlist_dir: /music/mpd/playlists
+    playlist_dir: /home/infinisil/Music/mpd/playlists
     playlists:
         - name: all.m3u
           query: ''
