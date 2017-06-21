@@ -11,5 +11,5 @@ else
 	else
 		SYMB=""
 	fi
-	echo "$SYMB $MPD | "
+	echo "$MPD $SYMB | "
 fi
