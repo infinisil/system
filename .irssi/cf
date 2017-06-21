@@ -424,7 +424,6 @@ settings = {
     autolog = "yes";
     theme = "default";
   };
-  "perl/core/scripts" = { trackbar_style = "%r"; };
 };
 hilights = ( { text = "nick"; nick = "yes"; word = "yes"; } );
 windows = {
