@@ -47,6 +47,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch firefox
     , ((modm,               xK_f     ), spawn "firefox")
 
+		-- Eject zpools
+		, ((modm,               xK_e     ), spawn "sudo zpool export betty")
+
     -- close focused window
     , ((modm,               xK_w     ), kill)
 
@@ -132,7 +135,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ def
-       { terminal = "sakura"
+       { terminal = "gnome-terminal"
        , modMask = mod4Mask
        , manageHook = (isFullscreen --> doFullFloat) <+> manageDocks <+> manageHook def
        , layoutHook = lessBorders OnlyFloat $ fullscreenFull layout
