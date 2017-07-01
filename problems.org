@@ -1,1 +1,0 @@
-- ~nix-shell --pure -p pythonPackages.syncservec~ doesn't compile
