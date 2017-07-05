@@ -1,6 +1,4 @@
 
-# (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 let
@@ -20,6 +18,7 @@ in
       ./rust.nix
       ./console.nix
       ./users.nix
+      ./ssh.nix
     ];
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -145,14 +144,10 @@ in
     PATH = "/global/nixpkgs/result/bin:/global/system/bin";
   };
 
-  programs.ssh.startAgent = true;
-
-  users.users.root.openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDplP7TuF+8rWxI71IjRnotP8BuH4+r01bwQlgXe0XlGZs45fmS96W1Hd1nUztjQ30tt8/bqEocKx1sYQPIF+qq/s6+lLqiEEzXqMRUfIXTRaDKs3z2SG31Nq3OSFXzyCecGAiIEs9FPNAA8EfEQOuNpJznA0CaoWOf4ozqnFveNFAbKxRJdVxZFu22rtk/ThJMncjJpyTtwanraWFEa4KyD/OwQTSUwWPpEcmp3g7PF2tfwGSFeNn6IQqXHTSfqlTuDdYpTR1Ybi00Y6Yw/Ts2oF6mgeo0QIoByntS2vQyHzUDtkFPOcAeY4b4jTN3VjMvL/I/JsQZ++T1hXHctETD root@dobby" ];
 
   services.urxvtd.enable = true;
   services.emacs.enable = true;
   services.illum.enable = true;
-  services.openssh.enable = true;
   services.znapzend.enable = true;
   services.samba = {
     enable = true;

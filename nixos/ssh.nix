@@ -1,0 +1,20 @@
+{ config, pkgs, ...}:
+let
+  nixos = {
+    infinisil = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7zf2O8yBXxh2tX9v/3ZztXtYeV4W9vTY2iSrm92HSErjz5KcIY/AAKaqbWXHZgsZk2pehBqNbQMOwn0WWdLvil2+Ah97cvl7d9b9XdCkfOPhNB6FKcTzPmMp5Rivi/IodVMhT2xO9S1zO0Y2Q7dsYgk5leKyiD10pkcw23p6MPMKhKV2DPgY6BiszrTEVmtyOHpGkji9rE1iB9MyOINY9eC4etmnNINXMlwttV0GjbJI9WXXEQN2mRaPPp1PBWaPOgoP3ufKi9MR1hEhAantyrfBm2SeqjUvXG5JN1RyooohIWIHWXNJlYFldFPsCD/C1HnE5ylJeLBbZEw0TPb6x infinisil@NixOS";
+    root = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClF2osxohcHFFir5eG55WfsZfdAEphtPtQ88hqj5Tu/LJUtrRa1W+4UsJx9HpUkG7+F9BrkpZeI/1ZW6qVgGX7SCrExDFG5APMMgww6aufw67EhWTGzG+WWvD7bjIswyg7nIqsNuSX7MEkj20hFJjKF+yGvyjyMUj+vERjLBLy3tNkV89e6DgvpeRCT2qGVA3MM7J5RwKQZh4rrALr5Krwk2TEhz34jJVyEv08ojXncqbQXUSRGAIYMF56xPvYO3/P92gUGYHaDUOGrflcQZqvCwoq3n0C9MQT0pcnOoER5rbYCdRt57XHQ5yAYQxyD4e5AlCnxFB5VZmipXFoC9Vx root@nixos";
+  };
+
+  server = {
+    infinisil = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRy1p9nhr+cQilV93MBkPcVsfR7DQ4xCa2zBE2TVLyomamTnOxtYMtNZvIC5eOn74IEbbR8HjcwVTS8XHpWOBBxt3dGYFDG+xZio8BIJSOVAfejHG41shN3aH1l1RUXK2JyuM3Obk2l5rYcRjPGIDoO1C4/LhJU/LSy3/9ZxLJ3cuuVQkLkNKqRU3eHbYQSPCwMXAIQnH/qQLg7ruZGobh8IFlGHybmnpARXN2BY5QPSQVs1F7bXFXkLo/8lzHJ8JpniWtqSaRaFGrizU/565PlTJdY3PXrHHtG3BuPrMThVjl1zwVxcLAi1ThmXvpUR3fw5yO+pzACoPRoIDcX0ER infinisil@dobby";
+    root = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMs8zqNLH8geEVr13me/EZXR4oz0LwYfzC91wNpaEmq8RCJTtVcMDA/7lHwMuXAj1aWtk/3OEVzcahlEzCCJ6BiNZl4+NVg/noy3AxnftVxtLV0ll6vbEai84ouOUkZ988ScA9exPbxir16qqLiw0HKaIYmh8v0CZXRlyqAnxycGymuhg5jiLI8JBahlZCXhO1X+B+6HvKifyyjw6c4JKmMZNasQfVDFjBDtNdlCPRux4pcTy2am77mp3Kom+hs+F44gOjyqBOEDkUR5b7j3Y9dUKrgiUR/M9TxLA/+X9iiO0RKIuTDvrtV0TCw3I6M7Fz0udStxan/uA5t/CmdE2J root@dobby";
+  };
+in
+  
+{
+  services.openssh.enable = true;
+  programs.ssh.startAgent = true;
+
+  users.users.root.openssh.authorizedKeys.keys = [ nixos.root server.root ];
+  users.users.infinisil.openssh.authorizedKeys.keys = [ nixos.infinisil server.infinisil ];
+}
