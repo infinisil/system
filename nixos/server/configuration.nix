@@ -40,6 +40,8 @@ in
     coreutils
     neovim
     tmux
+    iperf
+    bind
   ];
 
   # Use the GRUB 2 boot loader.
@@ -71,8 +73,11 @@ in
   services.openssh.enable = true;  
   services.openssh.passwordAuthentication = false;
   services.fail2ban.enable = true;
+  services.bind.enable = true;
+  services.bind.cacheNetworks = [ "0.0.0.0/0" ];
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 53 80 443 5201 2022 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
   services.nginx = {
     enable = true;
     package = davnginx;
@@ -104,12 +109,17 @@ in
     };
   };
 
+  environment.variables.PATH = "/global/nixpkgs/result/bin";
+
   nixpkgs.config = {
     allowBroken = true;
     allowUnfree = true;
   };
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+  };
   
   users.extraUsers.git = {
     createHome = true;
