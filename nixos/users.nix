@@ -1,5 +1,14 @@
 { config, pkgs, ...}:
 {
+  users.extraUsers.git = {
+    createHome = true;
+    home = "/home/git";
+    group = "git";
+    description = "Git repository user";
+  };
+
+  users.groups.git.gid = null;
+
   users.extraUsers.infinisil = {
     isNormalUser = true;
     home = "/home/infinisil";
@@ -13,4 +22,6 @@
       "nginx"
     ];
   };
+
+  
 }

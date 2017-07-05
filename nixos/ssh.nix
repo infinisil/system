@@ -17,4 +17,5 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = [ nixos.root server.root ];
   users.users.infinisil.openssh.authorizedKeys.keys = [ nixos.infinisil server.infinisil ];
+  users.users.git.openssh.authorizedKeys.keys = [ nixos.infinisil server.infinisil ];
 }
