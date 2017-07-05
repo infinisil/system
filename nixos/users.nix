@@ -1,6 +1,7 @@
 { config, pkgs, ...}:
 {
   users.extraUsers.git = {
+    isNormalUser = true;
     createHome = true;
     home = "/home/git";
     group = "git";
