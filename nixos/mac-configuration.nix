@@ -19,6 +19,7 @@ in
       ./say.nix
       ./rust.nix
       ./console.nix
+      ./users.nix
     ];
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -238,23 +239,6 @@ in
     ];
   };
 
-  users.extraUsers.infinisil = {
-    isNormalUser = true;
-    home = "/home/infinisil";
-    description = "Silvan Mosberger";
-    extraGroups = [
-      "fuse"
-      "wheel"
-      "networkmanager"
-      "ipfs"
-      "systemd-journal"
-      "nginx"
-      "zfs"
-    ];
-    shell = pkgs.zsh;
-  };
-
-  users.extraGroups.zfs = {};
   users.extraGroups.audio = {};
 
   security.sudo.wheelNeedsPassword = false;
