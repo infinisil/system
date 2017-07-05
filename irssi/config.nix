@@ -1,3 +1,5 @@
+with import <nixpkgs> {};
+cfg: ''
 servers = (
   { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
   {
@@ -94,7 +96,7 @@ chatnets = {
   Freenode = {
     type = "IRC";
     nick = "Infinisil";
-    autosendcmd = "/^msg nickserv identify <`Y@IEHA6v.}P':z]~Mq+O[=J;wait 2000";
+		autosendcmd = "/^msg nickserv identify ${cfg.pass.freenode};wait 2000";
     max_kicks = "1";
     max_msgs = "4";
     max_whois = "1";
@@ -447,3 +449,4 @@ windows = {
 };
 mainwindows = { 1 = { first_line = "1"; lines = "45"; }; };
 logs = { };
+''

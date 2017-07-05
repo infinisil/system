@@ -19,6 +19,7 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import System.Exit
 
+
 -- Makes every window transparent
 setTransparentHook :: Event -> X All
 setTransparentHook ConfigureEvent{ev_event_type = createNotify, ev_window = id} = do
@@ -46,6 +47,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch firefox
     , ((modm,               xK_f     ), spawn "firefox")
+
+		-- Eject zpools
+		, ((modm,               xK_e     ), spawn "sudo zpool export betty")
 
     -- close focused window
     , ((modm,               xK_w     ), kill)
@@ -109,6 +113,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
+    , ((modm, xK_a), spawn "echo Win $(date) >> /home/infinisil/Notes/OverwatchStats")
+    , ((modm, xK_o), spawn "echo Loss $(date) >> /home/infinisil/Notes/OverwatchStats")
+
     , ((mod1Mask, xK_space), spawn "dmenu_run")
     ]
     ++
@@ -132,7 +139,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ def
-       { terminal = "sakura"
+       { terminal = "gnome-terminal"
        , modMask = mod4Mask
        , manageHook = (isFullscreen --> doFullFloat) <+> manageDocks <+> manageHook def
        , layoutHook = lessBorders OnlyFloat $ fullscreenFull layout
@@ -145,7 +152,7 @@ main = do
                        { ppOutput = hPutStrLn xmproc
                        , ppTitle = xmobarColor "green" "" . shorten 50
                        }
-       , borderWidth = 3
+       , borderWidth = 1
        , normalBorderColor = "#000000"
        , focusedBorderColor = "#DD5500"
        , keys = myKeys
