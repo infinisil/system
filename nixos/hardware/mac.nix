@@ -8,7 +8,7 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "ohci_pci" "firewire_ohci" "usbhid" "usb_storage" "uas" "sd_mod" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
@@ -17,9 +17,10 @@
       fsType = "zfs";
     };
 
-  fileSystems."/music" =
-    { device = "main/music";
-      fsType = "zfs";
+  fileSystems."/var/lib/docker/devicemapper" =
+    { device = "/var/lib/docker/devicemapper";
+      fsType = "none";
+      options = [ "bind" ];
     };
 
   fileSystems."/home" =
@@ -27,14 +28,29 @@
       fsType = "zfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/B01E-7924";
-      fsType = "vfat";
-    };
-
   fileSystems."/global" =
     { device = "main/global";
       fsType = "zfs";
+    };
+
+  fileSystems."/test" =
+    { device = "main/test";
+      fsType = "zfs";
+    };
+
+  fileSystems."/test/a" =
+    { device = "main/test/a";
+      fsType = "zfs";
+    };
+
+  fileSystems."/test/b" =
+    { device = "main/test/b";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/B01E-7924";
+      fsType = "vfat";
     };
 
   swapDevices = [ ];

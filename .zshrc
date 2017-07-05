@@ -16,7 +16,7 @@ compinit
 ZSH_THEME="powerlevel9k/powerlevel9k"
 DEFAULT_USER=infinisil
 
-POWERLEVEL9K_MODE='nerdfont-fontconfig'
+POWERLEVEL9K_MODE='awesome-patched'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time battery)
 
@@ -64,8 +64,8 @@ function rebuild() {
 alias ethssh='ssh msilvan@slab1.ethz.ch'
 alias infssh='ssh root@infinisil.io'
 alias vim=nvim
-alias vimrc="nvim $XDG_CONFIG_HOME/nvim/init.vim"
-alias zshrc="nvim $XDG_CONFIG_HOME/zsh/.zshrc"
-alias zshenv="nvim $XDG_CONFIG_HOME/zsh/.zshenv"
+alias vimrc="nvim $HOME/.config/nvim/init.vim"
+alias zshrc="nvim $HOME/.config/zsh/.zshrc"
+alias zshenv="nvim $HOME/.config/zsh/.zshenv"
 alias nixrc="nvim /global/system/nixos"
 alias testconfig="sudo nixos-rebuild build -I nixpkgs=/global/nixpkgs -I nixos-config=/global/testconfig.nix"

@@ -7,24 +7,28 @@
       "2001:4860:4860::8888"
       "8.8.8.8"
     ];
-    defaultGateway = "139.59.144.1";
-    defaultGateway6 = "";
+    defaultGateway = {
+      address = "138.68.64.1";
+      interface = "eth0";
+    };
+    defaultGateway6 = {
+      address = "2a03:b0c0:3:d0::1";
+      interface = "eth0";
+    };
     interfaces = {
       eth0 = {
         ip4 = [
-          { address="139.59.149.239"; prefixLength=20; }
-{ address="10.19.0.5"; prefixLength=16; }
+          { address="138.68.69.164"; prefixLength=20; }
+{ address="10.19.0.6"; prefixLength=16; }
         ];
         ip6 = [
-          { address="2a03:b0c0:3:d0::42d4:a001"; prefixLength=64; }
-{ address="fe80::1480:7aff:fe80:d2ad"; prefixLength=64; }
+          { address="2a03:b0c0:3:d0::4642:d001"; prefixLength=64; }
+{ address="fe80::905e:2fff:fe4a:3676"; prefixLength=64; }
         ];
       };
-      
     };
   };
   services.udev.extraRules = ''
-    ATTR{address}=="16:80:7a:80:d2:ad", NAME="eth0"
-    ATTR{address}=="36:10:3f:7d:e6:e4", NAME="eth0"
+    ATTR{address}=="92:5e:2f:4a:36:76", NAME="eth0"
   '';
 }

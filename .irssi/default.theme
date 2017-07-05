@@ -294,15 +294,15 @@ abstracts = {
 };
 formats = {
   "fe-common/core" = {
-    own_msg = "{ownmsgnick $nickalign$2 {ownnick $nickcolor$[.13]0$nicktrunc}}$1";
-    own_msg_channel = "{ownmsgnick $nickalign$3 {ownnick $nickcolor$[.13]0$nicktrunc}{msgchannel $1}}$2";
-    own_msg_private_query = "{ownprivmsgnick $nickalign{ownprivnick $nickcolor$2$nicktrunc}}$1";
-    pubmsg_me = "{pubmsgmenick $nickalign$2 {menick $[.13]0$nicktrunc}}$1";
-    pubmsg_me_channel = "{pubmsgmenick $nickalign$3 {menick $[.13]0$nicktrunc}{msgchannel $1}}$2";
-    pubmsg_hilight = "{pubmsghinick $0 $nickalign$3 $[.13]1$nicktrunc}$2";
-    pubmsg_hilight_channel = "{pubmsghinick $0 $nickalign$4 $[.13]1$nicktrunc{msgchannel $2}}$3";
-    pubmsg = "{pubmsgnick $nickalign$2 {pubnick $nickcolor$[.13]0$nicktrunc}}$1";
-    pubmsg_channel = "{pubmsgnick $nickalign$3 {pubnick $nickcolor$[.13]0$nicktrunc}{msgchannel $1}}$2";
+    own_msg = "{ownmsgnick $nickalign$2 {ownnick $nickcolor$0$nicktrunc}}$1";
+    own_msg_channel = "{ownmsgnick $nickalign$3 {ownnick $nickcolor$0$nicktrunc}{msgchannel $1}}$2";
+    own_msg_private_query = "{ownprivmsgnick $nickalign{ownprivnick $nickcolor$[.9]2$nicktrunc}}$1";
+    pubmsg_me = "{pubmsgmenick $nickalign$2 {menick $[.16]0$nicktrunc}}$1";
+    pubmsg_me_channel = "{pubmsgmenick $nickalign$3 {menick $[.16]0$nicktrunc}{msgchannel $1}}$2";
+    pubmsg_hilight = "{pubmsghinick $0 $nickalign$3 $[.16]1$nicktrunc}$2";
+    pubmsg_hilight_channel = "{pubmsghinick $0 $nickalign$4 $[.16]1$nicktrunc{msgchannel $2}}$3";
+    pubmsg = "{pubmsgnick $nickalign$2 {pubnick $nickcolor$[.16]0$nicktrunc}}$1";
+    pubmsg_channel = "{pubmsgnick $nickalign$3 {pubnick $nickcolor$[.16]0$nicktrunc}{msgchannel $1}}$2";
     msg_private_query = "{privmsgnick $nickalign$nickcolor$0$nicktrunc}$2";
   };
   "fe-common/irc" = {

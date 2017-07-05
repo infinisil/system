@@ -13,22 +13,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/11b0b201-d195-42df-89b5-5cc2da17bb67";
+    { device = "/dev/disk/by-uuid/0cca068a-9b04-4ed1-8237-3da2f3bfe966";
       fsType = "ext4";
     };
 
-  fileSystems."/ipfs" =
-    { device = "volume1/ipfs";
-      fsType = "zfs";
-    };
-
   fileSystems."/global" =
-    { device = "volume1/global";
-      fsType = "zfs";
-    };
-
-  fileSystems."/backup" =
-    { device = "volume1/backup";
+    { device = "main/global";
       fsType = "zfs";
     };
 

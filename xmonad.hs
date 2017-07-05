@@ -19,6 +19,7 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import System.Exit
 
+
 -- Makes every window transparent
 setTransparentHook :: Event -> X All
 setTransparentHook ConfigureEvent{ev_event_type = createNotify, ev_window = id} = do
@@ -111,6 +112,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+
+    , ((modm, xK_a), spawn "echo Win $(date) >> /home/infinisil/Notes/OverwatchStats")
+    , ((modm, xK_o), spawn "echo Loss $(date) >> /home/infinisil/Notes/OverwatchStats")
 
     , ((mod1Mask, xK_space), spawn "dmenu_run")
     ]
