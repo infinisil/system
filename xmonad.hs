@@ -152,7 +152,7 @@ main = do
                        { ppOutput = hPutStrLn xmproc
                        , ppTitle = xmobarColor "green" "" . shorten 50
                        }
-       , borderWidth = 1
+       , borderWidth = 2
        , normalBorderColor = "#000000"
        , focusedBorderColor = "#DD5500"
        , keys = myKeys
