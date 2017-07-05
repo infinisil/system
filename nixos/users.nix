@@ -12,6 +12,5 @@
       "systemd-journal"
       "nginx"
     ];
-    shell = pkgs.zsh;
   };
 }
