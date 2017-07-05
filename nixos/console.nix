@@ -76,5 +76,5 @@
     '';
   };
 
-  users.defaultShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.zsh;
 }
