@@ -3,16 +3,22 @@
 # Custom packages
 let
   mozillaPkgsDir = (import <nixpkgs>{config={};}).fetchFromGitHub {
-    owner = "mozilla";
+    owner = "Infinisil";
     repo = "nixpkgs-mozilla";
-    rev = "d3453b7b5fd3cb4b9b659ac4b0ffeb275413dcfe";
-    sha256 = "0yv58nxffzwyjnhdmp8vbj4iqiab2q9m1pm21x1s4m10ama37nig";
+    rev = "d13abfc71b2bbc6a6effda0b598c82b79c5e6512";
+    sha256 = "0panppfq354qgdq1hf8dimdmmfz36s85nfn4c6ila75icrsd1mx8";
     fetchSubmodules = true;
   };
+
+  mozillaPkgs = import mozillaPkgsDir {};
 
   rustOverlay = import "${mozillaPkgsDir}/rust-overlay.nix";
 in
 {
     nixpkgs.config.allowUnfree = true;
     nixpkgs.overlays = [ rustOverlay ];
+
+    environment.systemPackages = [
+      mozillaPkgs.firefox-nightly-bin
+    ];
 }

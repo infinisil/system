@@ -1,0 +1,10 @@
+#!/bin/sh
+
+lexer=$(pygmentize -N "$1")
+options="-f 16m -O style=lovelace"
+
+if [ $lexer = text ]; then
+	pygmentize -g $options "$1"
+else
+	pygmentize -l $lexer $options "$1"
+fi

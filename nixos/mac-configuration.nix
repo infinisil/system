@@ -15,7 +15,7 @@ in
       ./audio.nix
       ./sync.nix
       ./say.nix
-      ./rust.nix
+      ./mozilla.nix
       ./console.nix
       ./users.nix
       ./ssh.nix
@@ -28,7 +28,7 @@ in
 
   i18n.consoleUseXkbConfig = true;
 
-  virtualisation.docker.enable = true;
+  #virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
 
 
@@ -109,7 +109,7 @@ in
     xbindkeys-config
     xlibs.xev
     irssi
-    firefox
+    #firefox
     tilda
     #unstable.feh # Sets wallpaper
     texlive.combined.scheme-full # full needed for emacs pdf config
@@ -138,6 +138,7 @@ in
     ripgrep
     gnome3.gnome_terminal
     samba
+    compton
   ];
 
   environment.variables = {
@@ -223,7 +224,6 @@ in
   services.compton = {
     enable = false;
     backend = "glx";
-    vSync = "opengl-swc";
   };
 
   fonts = {
