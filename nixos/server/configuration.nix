@@ -61,12 +61,6 @@ in
     hostName = "dobby";
     defaultGateway = "207.154.240.1";
     defaultGateway6 = "2a03:b0c0:3:d0::1";
-    nameservers = [
-      "8.8.8.8"
-      "8.8.4.4"
-      "2001:4860:4860::8888"
-      "2001:4860:4860::8844"
-    ];
     usePredictableInterfaceNames = false;
     interfaces.eth0 = {
       ipAddress = "207.154.251.58";
@@ -78,10 +72,8 @@ in
   services.openssh.enable = true;  
   services.openssh.passwordAuthentication = false;
   services.fail2ban.enable = true;
-  services.bind.enable = true;
-  services.bind.cacheNetworks = [ "0.0.0.0/0" ];
 
-  networking.firewall.allowedTCPPorts = [ 53 80 443 5201 2022 ];
+  networking.firewall.allowedTCPPorts = [22 53 80 443 5201 2022 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
   services.nginx = {
     enable = true;
