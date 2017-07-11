@@ -59,6 +59,7 @@ in
   networking = {
     hostId = "ecb69508";
     hostName = "dobby";
+    nameservers = [ "8.8.8.8" ];
     defaultGateway = "207.154.240.1";
     defaultGateway6 = "2a03:b0c0:3:d0::1";
     usePredictableInterfaceNames = false;
@@ -71,13 +72,13 @@ in
 
   services.openssh.enable = true;  
   services.openssh.passwordAuthentication = false;
-  services.fail2ban.enable = true;
+  #services.fail2ban.enable = true;
 
   networking.firewall.allowedTCPPorts = [22 53 80 443 5201 2022 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
   services.nginx = {
     enable = true;
-    package = davnginx;
+    #package = davnginx;
     virtualHosts."infinisil.io" = {
       forceSSL = true;
       enableACME = true;
