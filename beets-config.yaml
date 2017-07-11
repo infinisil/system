@@ -3,17 +3,16 @@ library: /home/infinisil/Music/beets.db
 plugins: [smartplaylist, mpdupdate]
 
 mpd:
-    host: localhost
-    port: 6600
-
-mpdupdate:
-    host: localhost
+    host: 127.0.0.1
     port: 6600
 
 smartplaylist:
     playlist_dir: /home/infinisil/Music/mpd/playlists
+    relative_to: /home/infinisil/Music/data
     playlists:
         - name: all.m3u
           query: ''
-        - name: test.m3u
-          query: 'artist:"Katherine Jenkins"'
+        - name: spacegirl.m3u
+          query: 'Space'
+        - name: five.m3u
+          query: '5'

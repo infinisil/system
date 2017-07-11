@@ -13,7 +13,6 @@ in
     [ # Include the results of the hardware scan.
       hardware/mac.nix
       ./audio.nix
-      ./sync.nix
       ./say.nix
       ./mozilla.nix
       ./console.nix
@@ -29,16 +28,8 @@ in
   i18n.consoleUseXkbConfig = true;
 
   #virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.host.enable = true;
 
-
-  services.autossh.sessions = [
-    {
-      extraArguments = "-o \"ServerAliveInterval 30\" -o \"ServerAliveCountMax 3\" -N -R 81:localhost:8080 root@infinisil.io";
-      name = "localserver";
-      user = "infinisil";
-    }
-  ];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -67,6 +58,14 @@ in
     };
   };
 
+  services.autossh.sessions = [
+    {
+      extraArguments = "-o \"ServerAliveInterval 30\" -o \"ServerAliveCountMax 3\" -N -R 81:localhost:8080 root@infinisil.io";
+      name = "localserver";
+      user = "root";
+    }
+  ];
+
 
   services.nginx = {
     enable = true;
@@ -76,15 +75,21 @@ in
     };
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.configurationLimit = 10;
+
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.grub = {
+      efiSupport = true;
+      #enable = true;
+      device = "/dev/sda";
+      configurationLimit = 10;
+    };
+    cleanTmpDir = true;
+    supportedFilesystems = [ "zfs" ];
+  };
+      
 
   time.timeZone = "Europe/Zurich";
-  # List packages installed in system profile. To search by name, run: $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     (haskellPackages.ghcWithPackages (self: [ self.xmobar ]))
     wget
