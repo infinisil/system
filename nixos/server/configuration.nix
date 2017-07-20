@@ -59,7 +59,7 @@ in
   networking = {
     hostId = "ecb69508";
     hostName = "dobby";
-    nameservers = [ "8.8.8.8" ];
+    nameservers = [ "127.0.0.1" ];
     defaultGateway = "207.154.240.1";
     defaultGateway6 = "2a03:b0c0:3:d0::1";
     usePredictableInterfaceNames = false;
@@ -73,6 +73,7 @@ in
   services.openssh.enable = true;  
   services.openssh.passwordAuthentication = false;
   #services.fail2ban.enable = true;
+  services.bind.enable = true;
 
   networking.firewall.allowedTCPPorts = [22 53 80 443 5201 2022 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
