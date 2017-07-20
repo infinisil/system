@@ -3,14 +3,9 @@
 
 let
   
-  unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
-      config = {};
-  };
-
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
+  imports = [
       hardware/mac.nix
       ./audio.nix
       ./say.nix
@@ -28,15 +23,12 @@ in
   i18n.consoleUseXkbConfig = true;
 
   #virtualisation.docker.enable = true;
-  #virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
 
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
-    permittedInsecurePackages = [
-      "libplist-1.12"
-    ];
 
     packageOverrides = pkgs: {
       bluez = pkgs.bluez5;
@@ -44,11 +36,12 @@ in
   };
   nix.useSandbox = true;
   nix.buildCores = 4;
+  nix.autoOptimiseStore = true;
 
   networking = {
-    #nameservers = [
-      #  "207.154.251.58"
-      #];
+    nameservers = [
+      "8.8.8.8"
+    ];
     hostId = "34cc680d";
     hostName = "nixos";
     wireless.enable = true;
@@ -60,7 +53,7 @@ in
 
   services.autossh.sessions = [
     {
-      extraArguments = "-o \"ServerAliveInterval 30\" -o \"ServerAliveCountMax 3\" -N -R 81:localhost:8080 root@infinisil.io";
+      extraArguments = "-o \"ServerAliveInterval 30\" -o \"ServerAliveCountMax 3\" -N -R 81:localhost:8081 root@infinisil.io";
       name = "localserver";
       user = "root";
     }
@@ -71,7 +64,7 @@ in
     enable = true;
     virtualHosts."mac.infinisil.io" = {
       root = "/webroot";
-      port = 8080;
+      port = 8081;
     };
   };
 
@@ -127,7 +120,6 @@ in
     lm_sensors
     efivar
     hardinfo
-    ipfs
     libnotify
     twmn
     dunst
@@ -137,6 +129,7 @@ in
     autossh
     vlc
     arc-theme
+    numix-gtk-theme
     gtk_engines
     gtk-engine-murrine
 
@@ -157,7 +150,7 @@ in
   services.znapzend.enable = true;
   services.samba = {
     enable = true;
-    syncPasswordsByPam = true;
+    #syncPasswordsByPam = true;
     shares = {
       root.path = "/";
     };
@@ -165,8 +158,7 @@ in
   
 
   services.ipfs = {
-    #enable = true;
-    dataDir = "/ipfs";
+    enable = true;
   };
 
   services.xserver = {
@@ -238,6 +230,8 @@ in
       nerdfonts
     ];
   };
+
+  programs.command-not-found.enable = true;
 
   users.extraGroups.audio = {};
 

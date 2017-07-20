@@ -17,7 +17,7 @@
       nixrc = "nvim /global/system/nixos";
       rebuild = ''(
         cd /global/nixpkgs && 
-        git checkout nixos-17.03 && 
+        git checkout nixos-unstable && 
         sudo nixos-rebuild switch -I nixpkgs=/global/nixpkgs
       )'';
     };
