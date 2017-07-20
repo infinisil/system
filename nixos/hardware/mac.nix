@@ -38,13 +38,13 @@
       fsType = "zfs";
     };
 
-  fileSystems."/test/a" =
-    { device = "main/test/a";
+  fileSystems."/test/b" =
+    { device = "main/test/b";
       fsType = "zfs";
     };
 
-  fileSystems."/test/b" =
-    { device = "main/test/b";
+  fileSystems."/test/a" =
+    { device = "main/test/a";
       fsType = "zfs";
     };
 
