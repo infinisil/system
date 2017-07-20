@@ -11,7 +11,7 @@ let
     infinisil = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsMBRhTAKrXSL3rkZ4//WpG8cOOUTMLB7yrWdEnfYuzNf7vm0+cDh7GIjCRrq2dIA6I4b+oWowI0zD4l5SjJyuYq7lr0W6MudcosUPxJ7ixmV5iKP3io2tvah2Jyw8O8wZ3iPNfUg0u4zvmgKdVlZBqdUBtl1KflOnGh+gDZ1RzlpfzDB4bWUCwiRCPzMElamMAJjhcIWi8kO9zDEjto8MMFtHJjhuEXrOavoo/51bgFustWWUBN7mQH4eezL6RyzLAJ5a1dRg5sm9wJIMFyrERJVis8wdbVXwAI+MPIQvE1EmhX5k2UlBSUj08HC/oNCEeJPtdh/4nBLLGsKQtkkj";
   };
 
-  iPhone = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAml15WiPsjAlG69oBoq7ERoHlZPNusj9NxOJO9xWyZD8ZhtoirTWNaYIPYtbRzGv6VsuZhCykrWUqaHHVdATTzKjSf0TgBI4b0eUE2oVAzYh6fAUiQVe1MhJLTnXphYxtDUWeLUZXaOD93WnJTzCg0W63h7+McU5ISCWF/7iLcM9DS5GL5OiKzw3j/ezD5s7xqYMMmmxAhY/K4P8Pi4RuRWFeYzwFgUpqHxeO9sPeqyglvjMx/P6tqmR4HwOKF3SAaDwKQzAem66T7SYYR3oFDj635Nl5K4n638R+rh1M7Nc18xuds/0WVrHhDIkV+DFn+TWGTk0e/ya6pZHMJO/v";
+  iPhone = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD1Ug8L5MhT4BKJ5aaDArerqtCgzMzMRM+GUsvshD5HBbckL+DB0RfKAlQWaxn8crPYXdzULAbvLArUvyb84LgIhpbVSPeX4pybasu3i4EEIJbVpNbv7k4D6WMFzE+u840xD1ijSMiYupvlDKiEGeX0/4zqe8AMG0v0ItprmH4v2NloA1C/peknhp6etaitUwXKlRZ30zZiDmqpAbOIP3DV09CGfZmsWlPsYB+0zplLT4QSsYsZ4bD/Sit1nqzwLEhXxLSBF8eMWUgrEUSNrp3sT9LAP3sdpKbSxevdpJNlsQUum4VZaJGcbmrgmRMpU1Qp523ipsiuUcpHW8AkFa8x infinisil@Silvans-Air.fritz.box"
 
   server = {
     infinisil = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRy1p9nhr+cQilV93MBkPcVsfR7DQ4xCa2zBE2TVLyomamTnOxtYMtNZvIC5eOn74IEbbR8HjcwVTS8XHpWOBBxt3dGYFDG+xZio8BIJSOVAfejHG41shN3aH1l1RUXK2JyuM3Obk2l5rYcRjPGIDoO1C4/LhJU/LSy3/9ZxLJ3cuuVQkLkNKqRU3eHbYQSPCwMXAIQnH/qQLg7ruZGobh8IFlGHybmnpARXN2BY5QPSQVs1F7bXFXkLo/8lzHJ8JpniWtqSaRaFGrizU/565PlTJdY3PXrHHtG3BuPrMThVjl1zwVxcLAi1ThmXvpUR3fw5yO+pzACoPRoIDcX0ER infinisil@dobby";
@@ -23,7 +23,7 @@ in
   programs.ssh.startAgent = true;
 
   users.users.root.openssh.authorizedKeys.keys = [ nixos.root server.root ];
-  users.users.infinisil.openssh.authorizedKeys.keys = [ nixos.infinisil server.infinisil ];
+  users.users.infinisil.openssh.authorizedKeys.keys = [ nixos.infinisil server.infinisil mac.infinisil ];
 
   users.users.git.openssh.authorizedKeys.keys = if config.networking.hostName == "dobby" then
     [ nixos.infinisil server.infinisil mac.infinisil iPhone ] else [];

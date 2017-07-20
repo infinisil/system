@@ -158,7 +158,7 @@ in
   
 
   services.ipfs = {
-    enable = true;
+    #enable = true;
   };
 
   services.xserver = {
