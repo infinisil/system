@@ -90,18 +90,27 @@ in
   networking.firewall.allowedUDPPorts = [ 53 ];
   services.nginx = {
     enable = true;
-    #package = davnginx;
+    package = pkgs.nginxMainline;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedTlsSettings = true;
+
+    virtualHosts."www.infinisil.io".globalRedirect = "infinisil.io";
     virtualHosts."infinisil.io" = {
-      #forceSSL = true;
-     # enableACME = true;
-      root = "/webroot";
+      forceSSL = true;
+      enableACME = true;
+      root = "/webroot/www";
     };
     virtualHosts."mac.infinisil.io" = {
-      #forceSSL = true;
-      #enableACME = true;
       locations."/" = {
         proxyPass = "http://localhost:81";
       };
+    };
+    virtualHosts."test.infinisil.io" = {
+      forceSSL = true;
+      enableACME = true;
+      root = "/webroot/test";
+      locations."/".extraConfig = "autoindex on;";
     };
   };
 
