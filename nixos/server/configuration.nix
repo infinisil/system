@@ -14,18 +14,6 @@ let
     rev = "8e232ce77ae04421a99be6787f1d185e49ebbc63";
     sha256 = "1635zqfj1yip5ixmakxy370ya1q30xg8wxzn9gn3623bba1s28sh";
   };
-
-    davnginx = pkgs.nginxMainline.overrideAttrs (old: {
-    modules = [
-      (pkgs.fetchFromGitHub {
-        owner = "arut";
-        repo = "nginx-dav-ext-module";
-        rev = "v0.0.3";
-        sha256 = "1qck8jclxddncjad8yv911s9z7lrd58bp96jf13m0iqk54xghx91";
-      })
-    ];
-  });
-
 in
 {
   imports =
@@ -35,6 +23,7 @@ in
       ../console.nix
       ../users.nix
       ../ssh.nix
+      ./radicale.nix
     ];
 
   
@@ -59,7 +48,7 @@ in
   networking = {
     hostId = "ecb69508";
     hostName = "dobby";
-    nameservers = [ "127.0.0.1" ];
+    nameservers = [ "8.8.8.8" ];
     defaultGateway = "207.154.240.1";
     defaultGateway6 = "2a03:b0c0:3:d0::1";
     usePredictableInterfaceNames = false;
@@ -72,38 +61,46 @@ in
 
   services.openssh.enable = true;  
   services.openssh.passwordAuthentication = false;
-  #services.fail2ban.enable = true;
-  services.bind.enable = true;
+  services.fail2ban.enable = true;
 
-  networking.firewall.allowedTCPPorts = [22 53 80 443 5201 2022 ];
+  services.bind = {
+    enable = true;
+    cacheNetworks = [
+      "127.0.0.0/24"
+      "178.197.227.134/32"
+    ];
+    blockedNetworks = [
+      "45.34.184.76/32"
+      "162.211.182.144/32"
+      "122.114.194.226/32"
+      "202.101.42.220/32"
+      "182.110.69.53/32"
+      "192.126.114.237/32"
+    ];
+    zones = [
+      {
+        file = "/var/dns/infinisil.io";
+        master = true;
+        name = "infinisil.io";
+      }
+    ];
+  };
+
+  networking.firewall.allowedTCPPorts = [22 53 80 443 5201 2022 5232 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
   services.nginx = {
     enable = true;
     #package = davnginx;
     virtualHosts."infinisil.io" = {
-      forceSSL = true;
-      enableACME = true;
+      #forceSSL = true;
+     # enableACME = true;
       root = "/webroot";
     };
     virtualHosts."mac.infinisil.io" = {
-      forceSSL = true;
-      enableACME = true;
+      #forceSSL = true;
+      #enableACME = true;
       locations."/" = {
         proxyPass = "http://localhost:81";
-      };
-    };
-    virtualHosts."dav.infinisil.io" = {
-      enableACME = true;
-      forceSSL = true;
-      root = "/webroot/dav";
-      locations."/" = {
-        extraConfig = ''
-          dav_methods PUT DELETE MKCOL COPY MOVE;
-          dav_ext_methods PROPFIND OPTIONS;
-          dav_access user:rw group:r;
-
-          autoindex on;
-        '';
       };
     };
   };
@@ -115,61 +112,6 @@ in
     allowUnfree = true;
   };
 
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
-
-  # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
-
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  # environment.systemPackages = with pkgs; [
-  #   wget
-  # ];
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.extraUsers.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
-
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
-
 }
