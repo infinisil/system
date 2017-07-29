@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, fetchFromGitHub, ... }:
+{ config, lib, pkgs, fetchFromGitHub, ... }:
 
 let
 
@@ -24,6 +24,7 @@ in
       ../users.nix
       ../ssh.nix
       ./radicale.nix
+      ./bind.nix
     ];
 
   
@@ -44,7 +45,6 @@ in
   boot.loader.grub.device = "/dev/vda";
   boot.zfs.devNodes = "/dev/";
 
- 
   networking = {
     hostId = "ecb69508";
     hostName = "dobby";
@@ -61,33 +61,9 @@ in
 
   services.openssh.enable = true;  
   services.openssh.passwordAuthentication = false;
-  services.fail2ban.enable = true;
 
-  services.bind = {
-    enable = true;
-    cacheNetworks = [
-      "127.0.0.0/24"
-      "178.197.227.134/32"
-    ];
-    blockedNetworks = [
-      "45.34.184.76/32"
-      "162.211.182.144/32"
-      "122.114.194.226/32"
-      "202.101.42.220/32"
-      "182.110.69.53/32"
-      "192.126.114.237/32"
-    ];
-    zones = [
-      {
-        file = "/var/dns/infinisil.io";
-        master = true;
-        name = "infinisil.io";
-      }
-    ];
-  };
-
-  networking.firewall.allowedTCPPorts = [22 53 80 443 5201 2022 5232 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [22 80 443 5201 2022 5232 3128 ];
+  networking.firewall.logRefusedConnections = false;
   services.nginx = {
     enable = true;
     package = pkgs.nginxMainline;
