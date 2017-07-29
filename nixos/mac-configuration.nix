@@ -12,10 +12,11 @@ in
       ./mozilla.nix
       ./console.nix
       ./users.nix
-      ./ssh.nix
     ];
 
   hardware.cpu.intel.updateMicrocode = true;
+
+  zramSwap.enable = true;
 
   system.extraSystemBuilderCmds = "ln -sv ${./.}";
   system.autoUpgrade.enable = true;
@@ -40,7 +41,7 @@ in
 
   networking = {
     nameservers = [
-      "8.8.8.8"
+      "207.154.251.58"
     ];
     hostId = "34cc680d";
     hostName = "nixos";
@@ -49,6 +50,10 @@ in
       allowedTCPPorts = [ 139 445 ];
       allowedUDPPorts = [ 137 138 ];
     };
+
+    extraHosts = ''
+      192.168.0.1 swisscom.mobile
+    '';
   };
 
   services.autossh.sessions = [
@@ -64,7 +69,7 @@ in
     enable = true;
     virtualHosts."mac.infinisil.io" = {
       root = "/webroot";
-      port = 8081;
+      listen = [ { port = 8081; addr = "0.0.0.0"; } ];
     };
   };
 
@@ -72,10 +77,10 @@ in
   boot = {
     loader.systemd-boot.enable = true;
     loader.grub = {
-      efiSupport = true;
+      #efiSupport = true;
       #enable = true;
-      device = "/dev/sda";
-      configurationLimit = 10;
+      #device = "/dev/sda";
+      #configurationLimit = 10;
     };
     cleanTmpDir = true;
     supportedFilesystems = [ "zfs" ];
@@ -232,6 +237,7 @@ in
   };
 
   programs.command-not-found.enable = true;
+  programs.ssh.startAgent = true;
 
   users.extraGroups.audio = {};
 

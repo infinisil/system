@@ -21,17 +21,6 @@
         sudo nixos-rebuild switch -I nixpkgs=/global/nixpkgs
       )'';
     };
-		promptInit = ''
-			DEFAULT_USER=infinisil
-
-			POWERLEVEL9K_MODE='nerdfont-fontconfig'
-			POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator context dir vcs)
-			POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time battery)
-
-			POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-			POWERLEVEL9K_SHORTEN_DELIMITER=""
-			POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-		'';
     ohMyZsh = let 
       packages = [
         {
