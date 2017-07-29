@@ -8,6 +8,7 @@ let
 
     osx = {
       infinisil = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsMBRhTAKrXSL3rkZ4//WpG8cOOUTMLB7yrWdEnfYuzNf7vm0+cDh7GIjCRrq2dIA6I4b+oWowI0zD4l5SjJyuYq7lr0W6MudcosUPxJ7ixmV5iKP3io2tvah2Jyw8O8wZ3iPNfUg0u4zvmgKdVlZBqdUBtl1KflOnGh+gDZ1RzlpfzDB4bWUCwiRCPzMElamMAJjhcIWi8kO9zDEjto8MMFtHJjhuEXrOavoo/51bgFustWWUBN7mQH4eezL6RyzLAJ5a1dRg5sm9wJIMFyrERJVis8wdbVXwAI+MPIQvE1EmhX5k2UlBSUj08HC/oNCEeJPtdh/4nBLLGsKQtkkj";
+      old = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDG83exW8YT0mqQ8W6Y/L3BB+Zb87UyDKHXWGSKYXdhn8fcGGLrQTIaPj6IjIxz3OhSc+UxAkfDu0avaVMBb7TttYtqgoB9NVQwHZC9NUXkL1TG338JR7Tm1jpgmlpxPwBzNGHxb5SBeAoxrKO6Wp+Yj1oV8jQ5KPKcFBhRz9HICN4uGGgpxFhDZe6N4JXBm02DyG4iESoe8nLvQYG3BvP+TbWYsQ9Pgo4c+c7S1oLH93O3BS/pBSm+Kx4rvLbQ2taAS373WEshPaBGf69/bswHQvbVUsgXa2P0mmoBNw5GxNlXagwxN8nWdarDJbLwUKVhaDImpPxGi7wbjV/t940f";
     };
   };
 
@@ -53,6 +54,6 @@ in
   users.users = {
     root.openssh.authorizedKeys.keys = [ mac.nixos.root ];
     infinisil.openssh.authorizedKeys.keys = [ mac.nixos.infinisil mac.osx.infinisil ];
-    git.openssh.authorizedKeys.keys = [ mac.nixos.infinisil server.infinisil mac.osx.infinisil iPhone.pass ];
+    git.openssh.authorizedKeys.keys = [ mac.nixos.infinisil server.infinisil mac.osx.infinisil iPhone.pass mac.osx.old ];
   };
 }

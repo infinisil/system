@@ -16,18 +16,17 @@ in {
   networking.firewall.allowedUDPPorts = [ 5232 ];
   services.nginx = {
     enable = true;
-    #package = davnginx;
     virtualHosts."dav.infinisil.io" = {
-      #enableACME = true;
-      #forceSSL = true;
-      root = "/webroot/dav";
+      enableACME = true;
+      forceSSL = true;
+      root = "/webroot/dav/";
       locations."/" = {
+        proxyPass = "http://localhost:5232/";
         extraConfig = ''
-          dav_methods PUT DELETE MKCOL COPY MOVE;
-          dav_ext_methods PROPFIND OPTIONS;
-          dav_access user:rw group:r;
-
-          autoindex on;
+          proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_pass_header Authorization;
+          auth_basic "Radicale - Password Required";
+          auth_basic_user_file /var/radicale/users;
         '';
       };
     };
@@ -39,13 +38,17 @@ in {
       [auth]
       type = htpasswd
       htpasswd_filename = /var/radicale/users
-      htpasswd_encryption = bcrypt
+      htpasswd_encryption = md5
 
       [server]
-      hosts = 0.0.0.0:5232
 
       [storage]
       filesystem_folder = /var/radicale/collections
+
+      [logging]
+      debug = True
     '';
+    # Hangs radicale:
+    # storage.hook = ${pkgs.git}/bin/git add -A && (${pkgs.git}/bin/git diff --cached --quiet || ${pkgs.git}/bin/git commit -m 'Changes by infinisil')
   };
 }
