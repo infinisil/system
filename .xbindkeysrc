@@ -66,14 +66,19 @@
     XF86AudioMute 
 
 #Brightness Down
-"sudo ~/system/backlight/down.sh"
+"sudo /global/system/backlight/down.sh"
     m:0x0 + c:232
     XF86MonBrightnessDown 
 
 #Brightness Up
-"sudo ~/system/backlight/up.sh"
+"sudo /global/system/backlight/up.sh"
     m:0x0 + c:233
     XF86MonBrightnessUp 
+
+#Remark
+"mpc del 0"
+    m:0x0 + c:68
+    F2 
 
 #
 # End of xbindkeys configuration
