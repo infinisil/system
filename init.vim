@@ -16,10 +16,8 @@ call plug#end()
 set termguicolors
 colorscheme solarized
 set background=dark
+set undofile
 
-"let g:ycm_rust_src_path = '/usr/local/src/rust/src'
-"let g:rustfmt_autosave = 1
-"let g:airline#extensions#tabline#enabled = 1
 syntax enable
 set number " Line numbers
 set hidden
@@ -72,7 +70,6 @@ set lazyredraw
 set showmatch
 set incsearch
 set hlsearch
-nnoremap <leader><space> :nohlsearch<CR>
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
