@@ -1,2 +1,5 @@
+export BEETSDIR="/home/infinisil/Music/beets";
+export XDG_CONFIG_HOME="/home/infinisil/.config";
+export XDG_DATA_HOME="/home/infinisil/.local/share";
+export XDG_CACHE_HOME="/home/infinisil/.cache";
 xbindkeys
-feh --randomize --bg-fill ~/Pics/*
