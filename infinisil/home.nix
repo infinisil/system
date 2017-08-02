@@ -5,7 +5,12 @@ with (import <nixpkgs> {}).lib;
 let
   musicDir = "/home/infinisil/Music";
 in
+
 {
+  manual.manpages.enable = true;
+
+
+
   home.packages = with pkgs; [
     fortune
     cmatrix
@@ -105,10 +110,6 @@ in
     enable = true;
     imageDirectory = "%h/Pics";
     interval = "10min";
-  };
-
-  home.sessionVariables = {
-    BEETSDIR = "${musicDir}/beets";
   };
 }
 
