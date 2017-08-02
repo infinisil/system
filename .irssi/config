@@ -94,7 +94,7 @@ chatnets = {
   Freenode = {
     type = "IRC";
     nick = "Infinisil";
-    autosendcmd = "/^msg nickserv identify <`Y@IEHA6v.}P':z]~Mq+O[=J;wait 2000";
+    autosendcmd = "/^msg nickserv identify $FREENODE_PASSWORD;wait 2000";
     max_kicks = "1";
     max_msgs = "4";
     max_whois = "1";
