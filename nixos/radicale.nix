@@ -1,19 +1,8 @@
 { pkgs, config, ... }:
-
-let
-  davnginx = pkgs.nginxMainline.overrideAttrs (old: {
-    modules = [
-      (pkgs.fetchFromGitHub {
-        owner = "arut";
-        repo = "nginx-dav-ext-module";
-        rev = "v0.0.3";
-        sha256 = "1qck8jclxddncjad8yv911s9z7lrd58bp96jf13m0iqk54xghx91";
-      })
-    ];
-  });
-in {
+{
   networking.firewall.allowedTCPPorts = [ 5232 ];
   networking.firewall.allowedUDPPorts = [ 5232 ];
+
   services.nginx = {
     enable = true;
     virtualHosts."dav.infinisil.io" = {
