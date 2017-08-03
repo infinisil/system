@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
 {
+
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "dvp";
+    xkbOptions = "caps:backspace";
+  };
+
+  i18n.consoleUseXkbConfig = true;
+
   environment.variables = {
     EDITOR = "${pkgs.neovim}/bin/nvim";
   };
@@ -11,7 +20,6 @@
     syntaxHighlighting.enable = true;
     enableCompletion = true;
     shellAliases = {
-      infssh = "ssh root@infinisil.io";
       vim = "nvim";
       vimrc = "nvim $HOME/.config/nvim/init.vim";
       nixrc = "nvim /global/system/nixos";

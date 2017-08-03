@@ -3,7 +3,11 @@
 let
   music = "/home/infinisil/Music";
 in
+
 {
+  imports = [
+    ./base.nix
+  ];
 
   hardware.bluetooth.enable = true;
   hardware.pulseaudio = {
@@ -14,6 +18,10 @@ in
       load-module module-switch-on-connect
     '';
   };
+
+  users.extraUsers.infinisil.extraGroups = [ "audio" ];
+
+  users.extraGroups.audio = {};
 
   environment.systemPackages = with pkgs; [
     blueman
@@ -53,6 +61,4 @@ in
     serviceConfig.User = "infinisil";
     serviceConfig.Restart = "always";
   };
-
-  users.extraUsers.infinisil.extraGroups = [ "audio" ];
 }
