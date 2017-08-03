@@ -26,9 +26,11 @@
   security.sudo.wheelNeedsPassword = false;
 
   boot = {
+    loader.timeout = 0;
     loader.grub = {
       enable = true;
       device = "/dev/vda";
+      splashImage = null;
     };
     zfs.devNodes = "/dev/";
     cleanTmpDir = true;
