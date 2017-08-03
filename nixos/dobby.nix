@@ -8,7 +8,7 @@
   imports = [
       /etc/nixos/hardware-configuration.nix
       ./base.nix
-      ./ssh-host.nix
+      ./ssh.nix
       ./radicale.nix
       ./bind.nix
       ./console.nix

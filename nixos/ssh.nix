@@ -13,7 +13,7 @@ let
   attrToDerivation = name: attrs: pkgs.runCommand name {} (valToPath "$out" attrs);
 in
   
-{
+with keys; {
   imports = [
     ./git-host.nix
     ./base.nix
