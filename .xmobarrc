@@ -29,10 +29,12 @@ Config
 			, "-n" , "orange"
 			, "-h" , "red" ] 10
 		, Run Com "/global/system/bin/power.sh" [] "power" 10
-		, Run Com "/global/system/batt.sh" [] "bt" 100
+		, Run Com "/global/system/bin/batt.sh" [] "bt" 100
 		, Run PipeReader "-:/home/infinisil/Music/mpd/current" "mpd"
+		, Run Volume "default" "Master"
+			[ "-t", "Vol: <volumebar>" ] 1
 	]
 	, sepChar = "%"
 	, alignSep = "}{"
-	, template = "%StdinReader% } %mpd% { %power%A  | %dynnetwork%%coretemp% | %cpu%/%memory%  | %bt% <fc=#ee9a00>%date%</fc>"
+	, template = "%StdinReader% } %mpd% | %default:Master% { %power%A  | %dynnetwork%%coretemp% | %cpu%/%memory%  | %bt% <fc=#ee9a00>%date%</fc>"
 	}
