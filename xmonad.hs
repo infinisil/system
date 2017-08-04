@@ -18,6 +18,8 @@ import XMonad.Layout.Tabbed
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import System.Exit
+import XMonad.Prompt.Pass
+import qualified Text.Fuzzy as Fuzz
 
 
 -- Makes every window transparent
@@ -40,6 +42,28 @@ layout = a ||| b ||| (noBorders $ avoidStruts Full)
      ratio   = 1/2
      delta = 3/100
 
+c1 = "#6F1313"
+c2 = "#A93316"
+c3 = "#EF9930"
+c4 = "#feca6a"
+c5 = "#B96746"
+
+ppconfig :: XPConfig
+ppconfig = def
+	{ font = "xft: Helvetica Neue LT Std:style=55 Roman,Regular"
+	, bgColor = c1
+	, fgColor = c4
+	, bgHLight = c2
+	, fgHLight = c4
+	, searchPredicate = Fuzz.test
+	, alwaysHighlight = False
+	, borderColor = c4
+	, promptBorderWidth = 1
+	, height = 20
+	, maxComplRows = Just 3
+	, historyFilter = deleteConsecutive
+	}
+
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal
@@ -47,6 +71,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch firefox
     , ((modm,               xK_f     ), spawn "firefox")
+
+    , ((modm, xK_p), passPrompt ppconfig)
 
 		-- Eject zpools
 		, ((modm,               xK_e     ), spawn "sudo zpool export betty")
