@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, options, ... }:
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -8,7 +8,11 @@
     ./console.nix
     ./localserver.nix
     ./x.nix
+    #./ss.nix
+    ./extraUsers.nix
+    ./touchpad.nix
   ];
+  programs.oblogout.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -19,18 +23,26 @@
   system.extraSystemBuilderCmds = "ln -sv ${./.}";
   system.autoUpgrade.enable = true;
 
+  users.extraUsers.infinisil.extraGroups = [ "systemd-journal" "networkmanager" ];
+
   virtualisation = {
     docker.enable = false;
     virtualbox = {
       host.enable = true;
-      guest.enable = true;
     };
   };
 
   nix = {
+    useSandbox = true;
+    trustedUsers = [ "root" "@wheel" ];
     buildCores = 0; # Makes it use all CPUs
     autoOptimiseStore = true;
     package = pkgs.nixUnstable;
+    nixPath = [
+      "nixpkgs=/global/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
   };
 
   networking = {
@@ -41,6 +53,7 @@
     ];
     wireless.enable = true;
     firewall = {
+      # For samba
       allowedTCPPorts = [ 139 445 ];
       allowedUDPPorts = [ 137 138 ];
     };
@@ -57,13 +70,13 @@
       
 
   environment.systemPackages = with pkgs; [
-    (haskellPackages.ghcWithPackages (self: [ self.xmobar ]))
+    haskellPackages.xmobar
+    (haskellPackages.ghcWithPackages (p: [ p.fuzzy ]))
     pass
     gnupg
     taskwarrior
     asciinema
     neofetch
-    wget
     neovim
     thunderbird
     sakura
@@ -124,6 +137,8 @@
         root.path = "/";
       };
     };
+    
+    physlock.enable = true;
   };
 
   programs.command-not-found.enable = true;

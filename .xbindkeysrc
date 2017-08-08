@@ -66,12 +66,12 @@
     XF86AudioMute 
 
 #Brightness Down
-"sudo /global/system/backlight/down.sh"
+"sudo /global/system/bin/backlight/down.sh"
     m:0x0 + c:232
     XF86MonBrightnessDown 
 
 #Brightness Up
-"sudo /global/system/backlight/up.sh"
+"sudo /global/system/bin/backlight/up.sh"
     m:0x0 + c:233
     XF86MonBrightnessUp 
 

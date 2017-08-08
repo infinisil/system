@@ -2,6 +2,7 @@
 
 let
   music = "/home/infinisil/Music";
+  mpdHttpPort = 8300;
 in
 
 {
@@ -34,17 +35,27 @@ in
     MPD_PORT = "6600";
   };
 
+  networking.firewall.allowedTCPPorts = [ 6600 mpdHttpPort ];
+
   services.mpd = {
     enable = true;
     group = "audio";
     musicDirectory = "${music}/data";
     dataDir = "${music}/mpd";
     dbFile = "${music}/mpd/mpd.db";
+    network.listenAddress = "0.0.0.0";
     extraConfig = ''
       audio_output {
         type "pulse"
         name "MPD PulseAudio Output"
         server "127.0.0.1"
+      }
+      audio_output {
+        type            "httpd"
+        name            "My HTTP Stream"
+        port            "${toString mpdHttpPort}"
+        quality         "5.0"
+        format          "44100:16:1"
       }
     '';
   };

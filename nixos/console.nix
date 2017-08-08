@@ -1,18 +1,12 @@
 { config, pkgs, ... }:
 {
-
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "dvp";
-    xkbOptions = "caps:backspace";
-  };
-
-  i18n.consoleUseXkbConfig = true;
+  imports = [
+    ./keylayout.nix
+  ];
 
   environment.variables = {
     EDITOR = "${pkgs.neovim}/bin/nvim";
   };
-
   
   programs.zsh = {
     enable = true;
@@ -20,9 +14,9 @@
     syntaxHighlighting.enable = true;
     enableCompletion = true;
     shellAliases = {
-      vim = "nvim";
-      vimrc = "nvim $HOME/.config/nvim/init.vim";
-      nixrc = "nvim /global/system/nixos";
+      vim = "vim-with-plugins";
+      vimrc = "vim $HOME/.config/nvim/init.vim";
+      nixrc = "vim /global/system/nixos";
       rebuild = ''(
         cd /global/nixpkgs && 
         git checkout nixos-unstable && 
