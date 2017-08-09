@@ -32,7 +32,7 @@ Config
 		, Run Com "/global/system/bin/batt.sh" [] "bt" 100
 		, Run PipeReader "-:/home/infinisil/Music/mpd/current" "mpd"
 		, Run Volume "default" "Master"
-			[ "-t", "Vol: <volumebar>" ] 1
+			[ "-t", "Vol: <volumebar>" ] 10
 	]
 	, sepChar = "%"
 	, alignSep = "}{"
