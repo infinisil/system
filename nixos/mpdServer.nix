@@ -36,7 +36,7 @@ in
 	encoder		"lame"
         port            "${toString mpdHttpPort}"
         bitrate		"256"
-        format          "44100:16:2"
+        format          "44100:24:2"
 	max_clients	"0"
       }
       password "${password}@read,add,control"
