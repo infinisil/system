@@ -12,6 +12,7 @@
       ./radicale.nix
       ./bind.nix
       ./console.nix
+      ./mpdServer.nix
     ];
   
   environment.systemPackages = with pkgs; [
