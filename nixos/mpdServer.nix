@@ -38,6 +38,7 @@ in
         bitrate		"256"
         format          "44100:24:2"
 	max_clients	"0"
+	mixer_type	"software"
       }
       password "${password}@read,add,control"
     '';
