@@ -3,6 +3,7 @@
 let
   music = "/home/infinisil/Music";
   mpdHttpPort = 8300;
+  password = (import ./private.nix).mpdPassword;
 in
 
 {
@@ -20,9 +21,9 @@ in
     '';
   };
 
-  users.extraUsers.infinisil.extraGroups = [ "audio" ];
+  #users.extraUsers.infinisil.extraGroups = [ "audio" ];
 
-  users.extraGroups.audio = {};
+  #users.extraGroups.audio = {};
 
   environment.systemPackages = with pkgs; [
     blueman
@@ -31,14 +32,14 @@ in
   ];
 
   environment.variables = {
-    MPD_HOST = "127.0.0.1";
+    MPD_HOST = "${password}@207.154.251.58";
     MPD_PORT = "6600";
   };
 
-  networking.firewall.allowedTCPPorts = [ 6600 mpdHttpPort ];
+  #networking.firewall.allowedTCPPorts = [ 6600 mpdHttpPort ];
 
   services.mpd = {
-    enable = true;
+    #enable = true;
     group = "audio";
     musicDirectory = "${music}/data";
     dataDir = "${music}/mpd";
@@ -60,16 +61,16 @@ in
     '';
   };
 
-  systemd.services.mpdcurrentfifo = {
-    enable = true;
-    description = "Outputs the currently playing song into a fifo for xmobar to read";
-    path = with pkgs; [ mpc_cli ];
-    script = ''
-      mpc current; mpc idleloop player | while read line; do mpc current; done >> ~/Music/mpd/current
-    '';
-    after = [ "mpd.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.User = "infinisil";
-    serviceConfig.Restart = "always";
-  };
+  #systemd.services.mpdcurrentfifo = {
+  #  enable = true;
+  #  description = "Outputs the currently playing song into a fifo for xmobar to read";
+  #  path = with pkgs; [ mpc_cli ];
+  #  script = ''
+  #    mpc current; mpc idleloop player | while read line; do mpc current; done >> ~/Music/mpd/current
+  #  '';
+  #  after = [ "mpd.service" ];
+  #  wantedBy = [ "multi-user.target" ];
+  #  serviceConfig.User = "infinisil";
+  #  serviceConfig.Restart = "always";
+  #};
 }

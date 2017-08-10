@@ -2,7 +2,7 @@ Config
 	{ font = "xft:FantasqueSansMono Nerd Font:pixelsize=14"
 	, bgColor = "black"
 	, fgColor = "grey"
-	, position = Top
+	, position = Bottom
 	, commands =
 		[	Run Cpu
 			[ "-t", "<total>%"
@@ -17,8 +17,6 @@ Config
 			,	"-H", "90"
 			,	"-l", "lightblue"
 			,	"-h", "red" ] 50
-		, Run Date "%a %d.%m.%y %T" "date" 10
-		, Run StdinReader
 		, Run DynNetwork
 			[ "-t" , "<tx><rx>kB/s | "
 			, "-L" , "10000"
@@ -28,13 +26,8 @@ Config
 			, "-h" , "red" ] 10
 		, Run Com "/global/system/bin/power.sh" [] "power" 10
 		, Run Com "/global/system/bin/batt.sh" [] "bt" 100
-		--, Run PipeReader "-:/home/infinisil/Music/mpd/current" "mpd"
-		, Run MPD
-			[ "-t", "<artist> - <title> (<lapsed>/<length>)" ] 5
-		, Run Volume "default" "Master"
-			[ "-t", "Vol: <volumebar>" ] 10
 	]
 	, sepChar = "%"
 	, alignSep = "}{"
-	, template = "%StdinReader% } %mpd% { <fc=#ee9a00>%date%</fc>"
+	, template = "}{ %power%A  | %dynnetwork%%coretemp% | %cpu%/%memory%  | %bt%"
 	}
