@@ -81,6 +81,7 @@
         forceSSL = true;
         enableACME = true;
         root = "/webroot/www";
+        locations."/".extraConfig = "autoindex on;";
       };
       virtualHosts."mac.infinisil.io" = {
         locations."/" = {
