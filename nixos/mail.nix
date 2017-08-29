@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  imports = [
+  imports = let pkgs = import <nixpkgs> {}; [
     (import pkgs.fetchFromGitHub {
       owner = "Infinisil";
       repo = "nixos-mailserver";

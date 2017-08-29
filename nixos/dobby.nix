@@ -13,6 +13,7 @@
       ./bind.nix
       ./console.nix
       ./mpdServer.nix
+      ./mail.nix
     ];
   
   environment.systemPackages = with pkgs; [
