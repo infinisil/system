@@ -77,8 +77,8 @@
 
 #Remark
 "mpc del 0"
-    m:0x0 + c:68
-    F2 
+    m:0x1 + c:171
+    Shift + XF86AudioNext 
 
 #
 # End of xbindkeys configuration
