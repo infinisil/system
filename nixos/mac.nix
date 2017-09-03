@@ -1,7 +1,7 @@
 { config, pkgs, options, ... }:
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     ./audio.nix
     ./say.nix
     ./base.nix
@@ -18,8 +18,6 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  zramSwap.enable = true;
-
   system.extraSystemBuilderCmds = "ln -sv ${./.}";
   system.autoUpgrade.enable = true;
 
@@ -28,7 +26,7 @@
   virtualisation = {
     docker.enable = false;
     virtualbox = {
-      host.enable = true;
+      host.enable = false;
     };
   };
 
@@ -37,10 +35,15 @@
     trustedUsers = [ "root" "@wheel" ];
     buildCores = 0; # Makes it use all CPUs
     autoOptimiseStore = true;
-    package = pkgs.nixUnstable;
+    #package = pkgs.nixUnstable;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
     nixPath = [
-      "nixpkgs=/global/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
+      "nixpkgs=/root/nixpkgs"
+      "nixos-config=/cfg/system/nixos/mac.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
   };
@@ -49,7 +52,7 @@
     hostName = "nixos";
     hostId = "34cc680d";
     nameservers = [
-      "207.154.251.58"
+      "139.59.149.43"
     ];
     wireless.enable = true;
     firewall = {
@@ -63,11 +66,44 @@
   };
 
   boot = {
-    loader.systemd-boot.enable = true;
+    initrd.luks.devices = {
+      key = {
+        device = "/dev/disk/by-partlabel/key";
+      };
+      root = {
+        device = "/dev/disk/by-uuid/bcf2dd01-ef96-412a-a458-0bd0437cd83a";
+        keyFile = "/dev/mapper/key";
+      };
+      swap = {
+        device = "/dev/disk/by-uuid/59515706-b6b7-4823-95e3-b1d930aca2f8";
+        keyFile = "/dev/mapper/key";
+      };
+    };
+
+    loader.grub = {
+      enable = true;
+      splashImage = null;
+      mirroredBoots = [
+        {
+          devices = [ "nodev" ];
+          path = "/boot/1";
+        }
+        {
+          devices = [ "nodev" ];
+          path = "/boot/2";
+        }
+        {
+          devices = [ "nodev" ];
+          path = "/boot/3";
+        }
+      ];
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+    };
+    zfs.devNodes = "/dev/mapper";
     cleanTmpDir = true;
     supportedFilesystems = [ "zfs" ];
   };
-      
 
   environment.systemPackages = with pkgs; [
     haskellPackages.xmobar
@@ -87,19 +123,22 @@
     nix-repl
     franz
     mpd
+    deluge
     xbindkeys
     xbindkeys-config
+    dmenu
     xlibs.xev
-    #firefox
+    firefox
     tilda
     #unstable.feh # Sets wallpaper
-    #texlive.combined.scheme-full # full needed for emacs pdf config
+    texlive.combined.scheme-full # full needed for emacs pdf config
     #shotcut # Video editor
     zulu
     cacert
     #(wine.override { wineBuild = "wineWow"; })
     acpi
     tmux
+    mpc_cli
     lm_sensors
     efivar
     hardinfo
@@ -111,7 +150,7 @@
     cava
     autossh
     vlc
-    arc-theme
+    #arc-theme
     numix-gtk-theme
     gtk_engines
     gtk-engine-murrine
@@ -127,14 +166,24 @@
   services = {
     emacs.enable = true;
 
-    znapzend.enable = true;
+    znapzend = {
+      enable = true;
+      autoCreation = true;
+    };
     
     ipfs.enable = false;
 
     samba = {
       enable = true;
       shares = {
-        root.path = "/";
+        root = {
+          path = "/";
+          "read only" = false;
+        };
+        betty = {
+          path = "/betty";
+          "read only" = false;
+        };
       };
     };
     
