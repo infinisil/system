@@ -1,12 +1,7 @@
 { config, pkgs, ... }:
 {
-  imports = let pkgs = import <nixpkgs> {}; [
-    (import pkgs.fetchFromGitHub {
-      owner = "Infinisil";
-      repo = "nixos-mailserver";
-      rev = "master";
-      sha256 = "1j0shf10da967w0hf2ldr6bdaafn023xjld00g0ahmrmgdfbh2ci";
-    })
+  imports = [
+    (builtins.fetchTarball "github.com/Infinisil/nixos-mailserver/archive/master.tar.gz")
   ];
 
   mailserver = {

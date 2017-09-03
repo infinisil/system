@@ -28,26 +28,35 @@
   security.sudo.wheelNeedsPassword = false;
 
   boot = {
-    loader.timeout = 0;
+    loader.timeout = 60;
     loader.grub = {
       enable = true;
       device = "/dev/vda";
       splashImage = null;
     };
-    zfs.devNodes = "/dev/";
+    zfs.devNodes = "/dev";
     cleanTmpDir = true;
   };
 
+  nix = {
+    trustedUsers = [ "root" "@wheel" ];
+    autoOptimiseStore = true;
+    nixPath = [
+      "nixpkgs=/root/nixpkgs"
+      "nixos-config=/cfg/system/nixos/dobby.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
+  };
+
   networking = {
-    hostName = "dobby";
     hostId = "ecb69508";
     nameservers = [ "8.8.8.8" ];
-    defaultGateway = "207.154.240.1";
-    defaultGateway6 = "2a03:b0c0:3:d0::1";
-    usePredictableInterfaceNames = false;
+    defaultGateway = "139.59.144.1";
+    #defaultGateway6 = "2a03:b0c0:3:d0::1";
+    #usePredictableInterfaceNames = false;
     interfaces.eth0 = {
-      ipAddress = "207.154.251.58";
-      ipv6Address = "2a03:b0c0:3:d0::47dc:3001";
+      ipAddress = "139.59.149.43";
+      #ipv6Address = "2a03:b0c0:3:d0::5df6:1";
       prefixLength = 20;
     };
     firewall = {
@@ -79,8 +88,8 @@
 
       virtualHosts."www.infinisil.io".globalRedirect = "infinisil.io";
       virtualHosts."infinisil.io" = {
-        forceSSL = true;
-        enableACME = true;
+        #forceSSL = true;
+        #enableACME = true;
         root = "/webroot/www";
         locations."/".extraConfig = "autoindex on;";
       };
@@ -90,8 +99,8 @@
         };
       };
       virtualHosts."test.infinisil.io" = {
-        forceSSL = true;
-        enableACME = true;
+        #forceSSL = true;
+        #enableACME = true;
         root = "/webroot/test";
         locations."/".extraConfig = "autoindex on;";
       };

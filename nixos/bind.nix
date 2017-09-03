@@ -16,7 +16,11 @@
       enable = true;
       path = with pkgs; [ iproute gawk ];
       script = ''
-        ips=$(cat /var/log/named.log | grep 'cpsc.gov' | awk '{sub("#.*", "", $5);print $5;}' | sort | uniq)
+        if [[ ! -f /var/log/named/named.log ]]; then
+          exit 0
+        fi
+
+        ips=$(cat /var/log/named/named.log | grep 'cpsc.gov' | awk '{sub("#.*", "", $5);print $5;}' | sort | uniq)
         for ip in $ips; do
           ip route add blackhole $ip
           echo $ip >> /var/dns/blocked
@@ -51,7 +55,30 @@
      '';
       zones = [
         {
-          file = "/var/dns/infinisil.io";
+          file = builtins.toFile "infinisil.io" ''
+            $ORIGIN infinisil.io.
+            $TTL        86400
+
+            @ 1D IN SOA ns1.infinisil.io. hostmaster.infinisil.io. (
+              1
+              3H
+              15
+              1w
+              3h
+            )
+
+            infinisil.io. IN NS ns1.infinisil.io.
+            infinisil.io. IN NS ns2.infinisil.io.
+
+            ns1 IN A 139.59.149.43
+            ns2 IN A 139.59.149.43
+            www IN CNAME infinisil.io.
+            dav IN CNAME infinisil.io.
+            keys IN CNAME infinisil.io.
+            test IN CNAME infinisil.io.
+
+          '';
+
           master = true;
           name = "infinisil.io";
         }

@@ -24,8 +24,8 @@ with keys; {
   
   services.nginx = {
     virtualHosts."keys.infinisil.io" = {
-      forceSSL = true;
-      enableACME = true;
+      #forceSSL = true;
+      #enableACME = true;
       root = "/webserver"; # Needed for ACME
       locations."/" = {
         root = attrToDerivation "keys" keys;

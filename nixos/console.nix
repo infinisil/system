@@ -29,7 +29,7 @@
           owner = "bhilburn";
           repo = "powerlevel9k";
           rev = "v0.6.3";
-          sha256 = "1yg8nzbxpcaq5nbixqggq3b2ki59w096zmrk0grrhqgjgfiv58sh";
+          sha256 = "026j7ryzmrqhjd72b0axiz9bi63bfbzl378f9fn7y5g9bdy641qk";
         }
       ];
 

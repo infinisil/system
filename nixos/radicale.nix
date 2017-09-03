@@ -6,8 +6,8 @@
   services.nginx = {
     enable = true;
     virtualHosts."dav.infinisil.io" = {
-      enableACME = true;
-      forceSSL = true;
+      #enableACME = true;
+      #forceSSL = true;
       root = "/webroot/dav/";
       locations."/" = {
         proxyPass = "http://localhost:5232/";
