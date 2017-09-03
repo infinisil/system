@@ -11,6 +11,10 @@
       nerdfonts
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    xclip
+  ];
   
   services = {
     
@@ -19,6 +23,8 @@
       latitude = "47";
       longitude = "9";
     };
+
+    mbpfan.enable = true;
 
     compton = {
       enable = false;
@@ -29,6 +35,7 @@
 
     xserver = {
       enable = true;
+      dpi = 96;
       wacom.enable = true;
 
       displayManager.slim.enable = true;
