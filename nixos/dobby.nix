@@ -36,6 +36,7 @@
     };
     zfs.devNodes = "/dev";
     cleanTmpDir = true;
+    kernelParams = [ "net.ifnames=0" ];
   };
 
   nix = {
