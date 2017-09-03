@@ -36,6 +36,7 @@
     xserver = {
       enable = true;
       dpi = 96;
+      exportConfiguration = true;
       wacom.enable = true;
 
       displayManager.slim.enable = true;
