@@ -29,6 +29,7 @@ in
     blueman
     sonata
     beets
+    pavucontrol
   ];
 
   environment.variables = {
