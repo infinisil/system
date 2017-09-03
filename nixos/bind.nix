@@ -39,7 +39,8 @@
       enable = true;
       cacheNetworks = [
         "127.0.0.0/24"
-        "178.197.128.0/17"
+        "178.197.128.0/17" # Swisscom
+        "31.165.62.80" # Fritzbox
       ];
       extraConfig = ''
         logging {
@@ -56,11 +57,11 @@
       zones = [
         {
           file = builtins.toFile "infinisil.io" ''
+            $TTL 1d
             $ORIGIN infinisil.io.
-            $TTL        86400
 
-            @ 1D IN SOA ns3.infinisil.io. hostmaster.infinisil.io. (
-              1
+            @ IN SOA ns3.infinisil.io. hostmaster.infinisil.io. (
+              2
               3H
               15
               1w
@@ -72,6 +73,8 @@
 
             ns3 IN A 139.59.149.43
             ns4 IN A 139.59.149.43
+
+            @ IN A 139.59.149.43
             www IN CNAME infinisil.io.
             dav IN CNAME infinisil.io.
             keys IN CNAME infinisil.io.

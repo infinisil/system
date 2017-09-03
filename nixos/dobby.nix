@@ -53,11 +53,11 @@
     hostId = "ecb69508";
     nameservers = [ "8.8.8.8" ];
     defaultGateway = "139.59.144.1";
-    #defaultGateway6 = "2a03:b0c0:3:d0::1";
+    defaultGateway6 = "2a03:b0c0:3:d0::1";
     #usePredictableInterfaceNames = false;
     interfaces.eth0 = {
       ipAddress = "139.59.149.43";
-      #ipv6Address = "2a03:b0c0:3:d0::5df6:1";
+      ipv6Address = "2a03:b0c0:3:d0::5df6:1";
       prefixLength = 20;
     };
     firewall = {
