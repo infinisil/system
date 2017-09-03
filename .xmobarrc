@@ -26,15 +26,15 @@ Config
 			, "-l" , "green"
 			, "-n" , "orange"
 			, "-h" , "red" ] 10
-		, Run Com "/global/system/bin/power.sh" [] "power" 10
-		, Run Com "/global/system/bin/batt.sh" [] "bt" 100
+		, Run Com "/cfg/system/bin/power.sh" [] "power" 10
+		, Run Com "/cfg/system/bin/batt.sh" [] "bt" 100
 		--, Run PipeReader "-:/home/infinisil/Music/mpd/current" "mpd"
 		, Run MPD
-			[ "-t", "<artist> - <title> (<lapsed>/<length>)" ] 5
+			[ "-t", "<artist> - <title> (<state>)" ] 10
 		, Run Volume "default" "Master"
 			[ "-t", "Vol: <volumebar>" ] 10
 	]
 	, sepChar = "%"
 	, alignSep = "}{"
-	, template = "%StdinReader% } %mpd% { <fc=#ee9a00>%date%</fc>"
+	, template = "%StdinReader% } %mpd% { %power%A  | %dynnetwork%%coretemp% | %cpu%/%memory%  | %bt%| <fc=#ee9a00>%date%</fc>"
 	}
