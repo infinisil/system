@@ -1,6 +1,6 @@
 * Getting ZFS on a DO droplet's main disk with NixOS
 
-- Resize the droplet to at least 1 or 2GB Ram (500 doesn't work, 1GB might work, 2GB definitely works)
+- Use a Debian <9 Droplet with at least 1GB RAM
 - Use clever's kexec, with the following changes to the configuration.nix:
   - add "net.ifnames=0" to boot.kernelParams
   - Remove the autostart systemd timer and service
@@ -69,11 +69,11 @@ nixos-generate-config --root /mnt
   - A hostId (needed for zfs)
   - Your ssh keys
   - services.openssh.enable = true
-  - kernelParams = [ "net.ifnames=0" ];
+  - boot.kernelParams = [ "net.ifnames=0" ];
   - boot.grub.loader.device = "/dev/vda";
   - boot.zfs.devNodes = "/dev";
 - Install nixos and cross fingers:
 #+BEGIN_SRC bash
-nixos-install --root /mnt
+nixos-install
 reboot
 #+END_SRC
