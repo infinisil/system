@@ -10,10 +10,9 @@ in
     ./mpd.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    mpc_cli
-    sonata
-  ];
+  environment.systemPackages = [
+    pkgs.mpc_cli
+  ] ++ lib.optional config.services.xserver.enable pkgs.sonata;
 
   environment.variables = {
     MPD_HOST = "${password}@infinisil.io";

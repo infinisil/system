@@ -7,34 +7,34 @@ in
 
 with lib;
 
-{
+let cfg = config.mpd; in {
   imports = [
     ./base.nix
     ./mpd.nix
     ./mpdClient.nix
   ];
 
-  networking.firewall.allowedTCPPorts = [ config.mpd.port config.mpd.httpPort ];
+  networking.firewall.allowedTCPPorts = [ cfg.port cfg.httpPort ];
 
-  services.mpd = {
+  services.mpd = let cfg = config.mpd; in {
     enable = true;
     user = "infinisil";
     group = "users";
-    musicDirectory = "${music}/data";
-    dataDir = "${music}/mpd";
-    dbFile = "${music}/mpd/mpd.db";
+    musicDirectory = "${cfg.musicDir}/data";
+    dataDir = "${cfg.musicDir}/mpd";
+    dbFile = "${cfg.musicDir}/mpd/mpd.db";
     network.listenAddress = "0.0.0.0";
-    network.port = mpdPort;
+    network.port = cfg.port;
     extraConfig = ''
       audio_output {
         type            "httpd"
         name            "My HTTP Stream"
-        encoder		      "lame"
-        port            "${toString config.mpd.httpPort}"
-        bitrate		      "${toString config.mpd.bitRate}"
+        encoder         "lame"
+        port            "${toString cfg.httpPort}"
+        bitrate         "${toString cfg.bitRate}"
         format          "44100:24:2"
-        max_clients	    "0"
-        mixer_type	    "software"
+        max_clients     "0"
+        mixer_type      "software"
       }
       password "${password}@read,add,control"
     '';
