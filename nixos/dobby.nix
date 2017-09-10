@@ -107,6 +107,11 @@
         locations."/".extraConfig = "autoindex on;";
       };
     };
+
+    znapzend = {
+      enable = true;
+      autoCreation = true;
+    };
   };
 
   nixpkgs.config = {
