@@ -1,0 +1,12 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p pass
+
+rm private.nix
+
+printf "{\n" > private.nix
+
+for p in mpd; do
+  printf "  %s = \"%s\";\n" "$p" "$(pass $p)" >> private.nix
+done
+
+printf "}\n" >> private.nix

@@ -3,7 +3,7 @@
 let
   music = "/home/infinisil/Music";
   mpdHttpPort = 8300;
-  password = (import ./private.nix).mpdPassword;
+  password = (import ./private.nix).mpd;
 in
 
 {
