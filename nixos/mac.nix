@@ -123,6 +123,7 @@
     nix-repl
     franz
     mpd
+    nox
     deluge
     xbindkeys
     xbindkeys-config
@@ -144,6 +145,7 @@
     hardinfo
     libnotify
     twmn
+    lxappearance
     dunst
     jq
     arandr
