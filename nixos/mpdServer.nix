@@ -43,4 +43,7 @@ in
       password "${password}@read,add,control"
     '';
   };
+
+  # Needs to be mounted before mpd is started and unmounted after mpd stops
+  systemd.services.mpd.serviceConfig.after = [ "home-infinisil-Music.mount" ];
 }

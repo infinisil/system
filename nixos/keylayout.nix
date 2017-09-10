@@ -16,7 +16,7 @@ let
   '';
 in
 {
-  # When in the DigitalOcean web console: `setxkbmap -layout us` and type in correct programmer dvorak
+  # When in the DigitalOcean web console: `setxkbmap -layout us` (on local machine) and type in correct programmer dvorak
   i18n.consoleUseXkbConfig = true;
 
   services.xserver = {

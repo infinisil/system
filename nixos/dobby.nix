@@ -23,6 +23,7 @@
     tmux
     iperf
     bind
+    lsof
   ];
 
   security.sudo.wheelNeedsPassword = false;
@@ -89,8 +90,8 @@
 
       virtualHosts."www.infinisil.io".globalRedirect = "infinisil.io";
       virtualHosts."infinisil.io" = {
-        #forceSSL = true;
-        #enableACME = true;
+        forceSSL = true;
+        enableACME = true;
         root = "/webroot/www";
         locations."/".extraConfig = "autoindex on;";
       };
@@ -100,8 +101,8 @@
         };
       };
       virtualHosts."test.infinisil.io" = {
-        #forceSSL = true;
-        #enableACME = true;
+        forceSSL = true;
+        enableACME = true;
         root = "/webroot/test";
         locations."/".extraConfig = "autoindex on;";
       };
