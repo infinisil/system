@@ -14,14 +14,8 @@
     syntaxHighlighting.enable = true;
     enableCompletion = true;
     shellAliases = {
-      vim = "vim-with-plugins";
       vimrc = "vim $HOME/.config/nvim/init.vim";
-      nixrc = "vim /global/system/nixos";
-      rebuild = ''(
-        cd /global/nixpkgs && 
-        git checkout nixos-unstable && 
-        sudo nixos-rebuild switch -I nixpkgs=/global/nixpkgs
-      )'';
+      nixrc = "vim /cfg/system/nixos";
     };
     ohMyZsh = let 
       packages = [
