@@ -2,23 +2,19 @@
 { config, lib, pkgs, ...}:
 
 let
-  music = "/home/infinisil/Music";
-  mpdPort = 6600;
-  mpdHttpPort = 8300;
   password = (import ./private.nix).mpd;
 in
+
+with lib;
 
 {
   imports = [
     ./base.nix
+    ./mpd.nix
+    ./mpdClient.nix
   ];
 
-  networking.firewall.allowedTCPPorts = [ mpdPort mpdHttpPort ];
-
-  environment.variables = {
-    MPD_HOST = "${password}@infinisil.io";
-    MPD_PORT = "${toString mpdPort}";
-  };
+  networking.firewall.allowedTCPPorts = [ config.mpd.port config.mpd.httpPort ];
 
   services.mpd = {
     enable = true;
@@ -33,12 +29,12 @@ in
       audio_output {
         type            "httpd"
         name            "My HTTP Stream"
-	encoder		"lame"
-        port            "${toString mpdHttpPort}"
-        bitrate		"256"
+        encoder		      "lame"
+        port            "${toString config.mpd.httpPort}"
+        bitrate		      "${toString config.mpd.bitRate}"
         format          "44100:24:2"
-	max_clients	"0"
-	mixer_type	"software"
+        max_clients	    "0"
+        mixer_type	    "software"
       }
       password "${password}@read,add,control"
     '';
