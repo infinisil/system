@@ -16,7 +16,7 @@ in
   networking.firewall.allowedTCPPorts = [ mpdPort mpdHttpPort ];
 
   environment.variables = {
-    MPD_HOST = "${password}@localhost";
+    MPD_HOST = "${password}@infinisil.io";
     MPD_PORT = "${toString mpdPort}";
   };
 

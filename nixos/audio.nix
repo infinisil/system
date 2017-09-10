@@ -33,7 +33,7 @@ in
   ];
 
   environment.variables = {
-    MPD_HOST = "${password}@207.154.251.58";
+    MPD_HOST = "${password}@infinisil.io";
     MPD_PORT = "6600";
   };
 
