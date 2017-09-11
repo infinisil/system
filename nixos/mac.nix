@@ -1,14 +1,13 @@
-{ config, pkgs, options, ... }:
+{ config, pkgs, lib, options, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
     ./audio.nix
     ./say.nix
     ./base.nix
     ./console.nix
     ./localserver.nix
     ./x.nix
-    #./ss.nix
     ./extraUsers.nix
     ./touchpad.nix
   ];
@@ -63,6 +62,17 @@
     extraHosts = ''
       192.168.1.1 swisscom.mobile
     '';
+  };
+
+  fileSystems = let
+    options = [
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5"
+    ];
+  in {
+    "/boot/1".options = options;
+    "/boot/2".options = options;
+    "/boot/3".options = options;
   };
 
   boot = {
