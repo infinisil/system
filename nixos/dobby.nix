@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, fetchFromGitHub, ... }:
-
 {
   imports = [
       /etc/nixos/hardware-configuration.nix
@@ -14,6 +13,7 @@
       ./console.nix
       ./mpdServer.nix
       ./mail.nix
+      ./namecoin.nix
     ];
   
   environment.systemPackages = with pkgs; [
