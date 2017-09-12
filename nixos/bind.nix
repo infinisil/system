@@ -79,7 +79,7 @@
             dav IN CNAME infinisil.io.
             keys IN CNAME infinisil.io.
             test IN CNAME infinisil.io.
-
+            mail IN CNAME infinisil.io.
           '';
 
           master = true;

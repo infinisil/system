@@ -1,19 +1,19 @@
 { config, pkgs, ... }:
 {
   imports = [
-    (builtins.fetchTarball "github.com/Infinisil/nixos-mailserver/archive/master.tar.gz")
+    /home/infinisil/src/nixos-mailserver
   ];
 
   mailserver = {
     enable = true;
     domain = "infinisil.io";
-    login_accounts = [
+    loginAccounts = [
       {
         name = "contact";
-        hashedPassword = "$6$1KkG2bzCymm2$xvy9FtswaF9sTHiTCJhc0pOBVTF3mT2/W5Mcuz29GpbZ.Swq53zhy9NNYjqKZEphQVfZOjKnY2631JfRmVH.1/";
+        hashedPassword = "$6$XUfpGpld$a1uW9TvvHpVWgTYj0JSzQSmc2r88pjCDLvXHc4D6WRAaPtAMVx1VuwnVQ2NkjZiHeioQWnDd93Blo2ipOoBNb1";
       }
     ];
-    valiases = {
+    virtualAliases = {
       admin = "contact";
     };
   };
