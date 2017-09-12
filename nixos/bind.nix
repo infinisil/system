@@ -1,5 +1,12 @@
 { config, lib, pkgs, fetchFromGitHub, ... }:
 
+with lib;
+
+let
+  domain = "infinisil.io";
+  ip = "139.59.149.43";
+  subdomains = [ "www" "dav" "keys" "test" "mail" ];
+in
 {
   networking.firewall = {
     allowedTCPPorts = [ 53 ];
@@ -56,11 +63,11 @@
      '';
       zones = [
         {
-          file = builtins.toFile "infinisil.io" ''
+          file = builtins.toFile domain ''
             $TTL 1d
-            $ORIGIN infinisil.io.
+            $ORIGIN ${domain}.
 
-            @ IN SOA ns3.infinisil.io. hostmaster.infinisil.io. (
+            @ IN SOA ns3.${domain}. hostmaster.${domain}. (
               2
               3H
               15
@@ -68,22 +75,20 @@
               3h
             )
 
-            infinisil.io. IN NS ns3.infinisil.io.
-            infinisil.io. IN NS ns4.infinisil.io.
+            ${domain}. IN NS ns3.${domain}.
+            ${domain}. IN NS ns4.${domain}.
 
-            ns3 IN A 139.59.149.43
-            ns4 IN A 139.59.149.43
+            ns3 IN A ${ip}
+            ns4 IN A ${ip}
 
-            @ IN A 139.59.149.43
-            www IN CNAME infinisil.io.
-            dav IN CNAME infinisil.io.
-            keys IN CNAME infinisil.io.
-            test IN CNAME infinisil.io.
-            mail IN CNAME infinisil.io.
+            @ IN A ${ip}
+            ${concatMapStringsSep "\n" (sub:
+              "${sub} IN CNAME ${domain}."
+            ) subdomains}
           '';
 
           master = true;
-          name = "infinisil.io";
+          name = domain;
         }
       ];
     };
