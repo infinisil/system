@@ -124,6 +124,7 @@
     asciinema
     neofetch
     neovim
+    openssl
     thunderbird
     sakura
     tldr
