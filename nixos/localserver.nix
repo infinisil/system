@@ -11,7 +11,7 @@
     {
       name = "ssh";
       user = "root";
-      extraArguments = ''-N -R 222:localhost:22 root@infinisil.io'';
+      extraArguments = ''-N -R 223:localhost:22 root@infinisil.io'';
     }
   ];
 

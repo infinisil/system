@@ -130,9 +130,12 @@
     tldr
     youtube-dl
     perl
+    mtr
     python
     nix-repl
     franz
+    iftop
+    atool
     mpd
     nox
     deluge
