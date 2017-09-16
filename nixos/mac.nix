@@ -119,11 +119,13 @@
     haskellPackages.xmobar
     (haskellPackages.ghcWithPackages (p: [ p.fuzzy ]))
     pass
+    wget
     gnupg
     taskwarrior
     asciinema
     neofetch
     neovim
+    tree
     openssl
     thunderbird
     sakura
