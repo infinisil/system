@@ -10,6 +10,7 @@
     ./x.nix
     ./extraUsers.nix
     ./touchpad.nix
+    #./cuberite.nix
   ];
   programs.oblogout.enable = true;
 
