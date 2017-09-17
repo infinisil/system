@@ -31,7 +31,7 @@ let cfg = config.mpd; in {
         max_clients     "0"
         mixer_type      "software"
       }
-      password "${confg.passwords.mpd}@read,add,control"
+      password "${config.passwords.mpd}@read,add,control"
     '';
   };
 

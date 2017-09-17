@@ -1,18 +1,8 @@
 { pkgs, lib, ... }:
-let
-  keys = import ./keys.nix;
+let keys = import ./keys.nix; in
 
-  valToPath = name: value: if builtins.isAttrs value then ''
-    mkdir "${name}" && pushd "${name}"
-    ${lib.concatMapStringsSep "\n" (attrName: valToPath attrName value.${attrName}) (builtins.attrNames value)}
-    popd
-  '' else ''
-    echo "${toString value}" > "${name}"
-  '';
+with import ../lib { inherit pkgs; };
 
-  inherit (import ./lib) attrToDerivation;
-in
-  
 with keys; {
   imports = [
     ./git-host.nix

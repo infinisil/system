@@ -6,7 +6,7 @@ let lib = pkgs.lib; in {
     # Maps an attrset/path to a build script that recursively creates the equivalent directory/file structure
     valToPath = name: value: if builtins.isAttrs value then ''
       mkdir "${name}" && pushd "${name}"
-      ${lib.concatMapStringsSep "\n" (name: valToPath name value.${attrName}) (builtins.attrNames value)}
+      ${lib.concatMapStringsSep "\n" (name: valToPath name value.${name}) (builtins.attrNames value)}
       popd
     '' else ''
       cp "${value}" "${name}"
