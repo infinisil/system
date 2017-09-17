@@ -18,6 +18,7 @@
   
   environment.systemPackages = with pkgs; [
     git
+    youtube-dl
     coreutils
     neovim
     tmux
@@ -66,6 +67,7 @@
         22 # SSH
         80 # HTTP
         443 # HTTPS
+        5001 # iperf
         5201 # ??
         2022 # ??
         5232 # Radicale
