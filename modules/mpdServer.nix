@@ -1,15 +1,10 @@
 
 { config, lib, pkgs, ...}:
 
-let
-  password = (import ./private.nix).mpd;
-in
-
 with lib;
 
 let cfg = config.mpd; in {
   imports = [
-    ./base.nix
     ./mpd.nix
     ./mpdClient.nix
   ];
@@ -36,7 +31,7 @@ let cfg = config.mpd; in {
         max_clients     "0"
         mixer_type      "software"
       }
-      password "${password}@read,add,control"
+      password "${confg.passwords.mpd}@read,add,control"
     '';
   };
 

@@ -6,14 +6,14 @@
 {
   imports = [
       /etc/nixos/hardware-configuration.nix
-      ./base.nix
-      ./ssh.nix
-      ./radicale.nix
-      ./bind.nix
-      ./console.nix
-      ./mpdServer.nix
-      ./mail.nix
-      ./namecoin.nix
+      ../modules/base.nix
+      ../modules/ssh.nix
+      ../modules/radicale.nix
+      ../modules/bind.nix
+      ../modules/console.nix
+      ../modules/mpdServer.nix
+      ../modules/mail.nix
+      ../modules/namecoin.nix
     ];
   
   environment.systemPackages = with pkgs; [
@@ -45,8 +45,8 @@
     autoOptimiseStore = true;
     nixPath = [
       "nixpkgs=/root/nixpkgs"
-      "nixos-config=/cfg/system/nixos/dobby.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
+      "nixos-config=/cfg/system/machines/dobby.nix"
+      "modules=/cfg/system/modules"
     ];
   };
 

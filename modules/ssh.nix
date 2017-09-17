@@ -9,8 +9,8 @@ let
   '' else ''
     echo "${toString value}" > "${name}"
   '';
-  
-  attrToDerivation = name: attrs: pkgs.runCommand name {} (valToPath "$out" attrs);
+
+  inherit (import ./lib) attrToDerivation;
 in
   
 with keys; {

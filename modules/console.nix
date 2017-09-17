@@ -3,18 +3,15 @@
   imports = [
     ./keylayout.nix
   ];
-
-  environment.variables = {
-    EDITOR = "${pkgs.neovim}/bin/nvim";
-  };
   
+  programs.command-not-found.enable = true;
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
     enableCompletion = true;
     shellAliases = {
-      vimrc = "vim $HOME/.config/nvim/init.vim";
       nixrc = "vim /cfg/system/nixos";
     };
     ohMyZsh = let 
@@ -47,18 +44,6 @@
       theme = "powerlevel9k/powerlevel9k";
       plugins = [ "git" "pass" "brew" "colored-man" "colorize" ];
     };
-    shellInit = ''
-      # Simple function to enumerate all snapshots of a directory
-      # Example: To list all files of all snapshots of the `dir` directory of the current folder:
-      # ls $(snaps dir)
-      #
-      # To view all versions of a file in vim:
-      # vim $(snaps dir)
-      function snaps() {
-        local mount=$(stat -c '%m' .)
-        echo "$mount/.zfs/snapshot/*/$(realpath . --relative-to=$mount)/$1"
-      }
-    '';
   };
 
   users.defaultUserShell = pkgs.zsh;

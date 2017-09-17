@@ -1,8 +1,7 @@
-{ config, lib, pkgs, ...}:
+{ pkgs, ...}:
 
 {
   imports = [
-    ./base.nix
     ./mpdClient.nix
   ];
 

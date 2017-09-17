@@ -15,6 +15,24 @@
   environment.systemPackages = with pkgs; [
     xclip
     evince
+    vlc
+    arandr
+    lxappearance
+    #arc-theme
+    #gtk_engines
+    gtk-engine-murrine
+    gnome3.gnome_terminal
+    compton
+    #shotcut #video editor
+    xbindkeys
+    xbindkeys-config
+    dmenu
+    xlibs.xev
+    deluge
+    firefox
+    thunderbird
+    haskellPackages.xmobar
+    (haskellPackages.ghcWithPackages (p: [ p.fuzzy ]))
   ];
   
   services = {
