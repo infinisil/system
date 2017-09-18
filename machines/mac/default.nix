@@ -1,7 +1,8 @@
 { config, pkgs, lib, options, ... }:
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware.nix
+    ./boot.nix
     <modules/audio.nix>
     <modules/base.nix>
     <modules/console.nix>
@@ -9,7 +10,6 @@
     <modules/x.nix>
     <modules/touchpad.nix>
     <modules/wlan.nix>
-    ./boot.nix
     #<modules/cuberite.nix>
   ];
 
