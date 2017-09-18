@@ -1,19 +1,32 @@
-{ ... }:
+{ lib, ... }:
+
+with lib;
 
 let
-  single = fs: { ... }: {
-    fileSystems.${fs}.options = [ 
-      "x-systemd.automount"
-      "x-systemd.device-timeout=5"
-    ];
+  single = n: device:
+    let
+      fs = "/boot/${toString n}";
+    in {
+      fileSystems.${fs} = mkForce {
+        inherit device;
+        fsType = "vfat";
+        options = [
+          "x-systemd.automount"
+          "x-systemd.device-timeout=10"
+        ];
+      };
 
-    boot.loader.grub.mirroredBoots = [{
-      devices = [ "nodev" ];
-      path = fs;
-    }];
-  };
+      boot.loader.grub.mirroredBoots = [{
+        devices = [ "nodev" ];
+        path = fs;
+      }];
+    };
 
-  boots = map single [ "/boot/1" "/boot/2" "/boot/3" ];
+  boots = imap single [
+    "/dev/disk/by-uuid/20AA-D17C"
+    "/dev/disk/by-uuid/2114-63F3"
+    "/dev/disk/by-uuid/20EB-DFC7"
+  ];
 in
 {
   imports = [

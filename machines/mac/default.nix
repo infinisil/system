@@ -19,6 +19,15 @@
 
   users.extraUsers.infinisil.extraGroups = [ "networkmanager" ];
 
+  #fileSystems."/betty" = lib.mkForce {
+  #  device = "betty";
+  #  fsType = "zfs";
+  #  options = [
+  #    "x-systemd.automount"
+  #    "x-systemd.device-timeout=10"
+  #  ];
+  #};
+
   virtualisation = {
     docker.enable = false;
     virtualbox = {
@@ -99,7 +108,7 @@
       enable = true;
       autoCreation = true;
     };
-    
+
     samba = {
       enable = true;
       shares = {
@@ -113,7 +122,7 @@
         };
       };
     };
-    
+
     physlock.enable = true;
   };
 
