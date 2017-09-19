@@ -13,6 +13,9 @@
   };
 
   environment.systemPackages = with pkgs; [
+    gnome3.gconf
+    gnome3.gnome_terminal
+    guake
     xclip
     evince
     vlc
@@ -21,7 +24,6 @@
     #arc-theme
     #gtk_engines
     gtk-engine-murrine
-    gnome3.gnome_terminal
     compton
     #shotcut #video editor
     xbindkeys
@@ -34,9 +36,9 @@
     haskellPackages.xmobar
     (haskellPackages.ghcWithPackages (p: [ p.fuzzy ]))
   ];
-  
+
   services = {
-    
+
     redshift = {
       enable = true;
       latitude = "47";
@@ -58,8 +60,13 @@
       exportConfiguration = true;
       wacom.enable = true;
 
-      displayManager.slim.enable = true;
-      displayManager.slim.defaultUser = "infinisil";
+      displayManager.sddm = {
+        enable = true;
+        autoLogin = {
+          enable = true;
+          user = "infinisil";
+        };
+      };
       displayManager.sessionCommands = ''
         # Set GTK_DATA_PREFIX so that GTK+ can find the themes
         export GTK_DATA_PREFIX=${config.system.path}
@@ -68,7 +75,7 @@
         export GTK_PATH=${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0
         ${pkgs.xbindkeys}/bin/xbindkeys
       '';
-        
+
       desktopManager.default = "none";
       windowManager = {
         default = "xmonad";

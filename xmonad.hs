@@ -165,7 +165,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ def
-       { terminal = "gnome-terminal"
+       { terminal = "konsole"
        , modMask = mod4Mask
        , manageHook = (isFullscreen --> doFullFloat) <+> manageDocks <+> manageHook def
        , layoutHook = lessBorders OnlyFloat $ fullscreenFull layout

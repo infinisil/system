@@ -1,7 +1,6 @@
 { config, pkgs, lib, options, ... }:
 {
   imports = [
-    ./hardware.nix
     ./boot.nix
     <modules/audio.nix>
     <modules/base.nix>
@@ -123,6 +122,7 @@
       };
     };
 
+    dbus.socketActivated = true;
     physlock.enable = true;
   };
 

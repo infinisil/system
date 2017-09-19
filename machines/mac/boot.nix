@@ -30,7 +30,7 @@ let
 in
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware.nix
   ] ++ boots;
 
   boot = {
