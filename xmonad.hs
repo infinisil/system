@@ -51,16 +51,16 @@ c5 = "#B96746"
 ppconfig :: XPConfig
 ppconfig = def
 	{ font = "xft: Helvetica Neue LT Std:style=55 Roman,Regular"
-	, bgColor = c1
-	, fgColor = c4
-	, bgHLight = c2
-	, fgHLight = c4
+	, bgColor = "#2b2b29"
+	, fgColor = "#c3ae93"
+	, bgHLight = "#575743"
+	, fgHLight = "#e3ab66"
 	, searchPredicate = Fuzz.test
 	, alwaysHighlight = False
 	, borderColor = c4
 	, promptBorderWidth = 1
 	, height = 20
-	, maxComplRows = Just 3
+	, maxComplRows = Just 5
 	, historyFilter = deleteConsecutive
 	}
 
@@ -178,7 +178,7 @@ main = do
                        { ppOutput = hPutStrLn xmproc
                        , ppTitle = xmobarColor "green" "" . shorten 50
                        }
-       , borderWidth = 2
+       , borderWidth = 1
        , normalBorderColor = "#000000"
        , focusedBorderColor = "#DD5500"
        , keys = myKeys
