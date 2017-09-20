@@ -9,18 +9,24 @@ let cfg = config.mpd; in {
     ./mpdClient.nix
   ];
 
-  networking.firewall.allowedTCPPorts = [ cfg.port cfg.httpPort ];
+  networking.firewall.allowedTCPPorts = optional (! cfg.local) [ cfg.port cfg.httpPort ];
 
-  services.mpd = let cfg = config.mpd; in {
+  services.mpd = {
     enable = true;
     user = "infinisil";
     group = "users";
     musicDirectory = "${cfg.musicDir}/data";
-    readonlyPlaylists = true;
+    readonlyPlaylists = ! cfg.local;
     playlistDirectory = "${cfg.musicDir}/playlists";
     network.listenAddress = "0.0.0.0";
     network.port = cfg.port;
-    extraConfig = ''
+    extraConfig = if cfg.local then ''
+      audio_output {
+        type "pulse"
+        name "MPD PulseAudio Output"
+        server "127.0.0.1"
+      }
+    '' else ''
       audio_output {
         type            "httpd"
         name            "My HTTP Stream"
@@ -34,6 +40,10 @@ let cfg = config.mpd; in {
       password "${config.passwords.mpd}@read,add,control"
     '';
   };
+
+  hardware.pulseaudio.${if cfg.local then "extraConfig" else null} = ''
+    load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+  '';
 
   # Needs to be mounted before mpd is started and unmounted after mpd stops
   systemd.services.mpd.serviceConfig.after = [ "home-infinisil-Music.mount" ];

@@ -9,8 +9,11 @@
     <modules/x.nix>
     <modules/touchpad.nix>
     <modules/wlan.nix>
+    #<modules/mpdServer.nix>
     #<modules/cuberite.nix>
   ];
+
+  mpd.local = true;
 
   hardware.cpu.intel.updateMicrocode = true;
 

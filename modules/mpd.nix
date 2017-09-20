@@ -25,6 +25,12 @@ with lib;
       default = 192;
       description = "MPD HTTP stream bitrate";
     };
+
+    local = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether this is meant to be local";
+    };
   };
 
   config.mpd = {
