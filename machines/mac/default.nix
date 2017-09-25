@@ -33,7 +33,7 @@
   virtualisation = {
     docker.enable = false;
     virtualbox = {
-      host.enable = false;
+      host.enable = true;
     };
   };
 
