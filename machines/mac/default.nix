@@ -104,8 +104,6 @@
   };
 
   services = {
-    emacs.enable = true;
-
     znapzend = {
       enable = true;
       autoCreation = true;
