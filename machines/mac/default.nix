@@ -73,6 +73,7 @@
 
 
   environment.systemPackages = with pkgs; [
+    efibootmgr
     pass
     gnupg
     taskwarrior

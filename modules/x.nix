@@ -9,10 +9,18 @@
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       nerdfonts
+      hanazono
+      ipafont
+      mplus-outline-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      noto-fonts
+      wqy_zenhei
     ];
   };
 
   environment.systemPackages = with pkgs; [
+    gnome3.gnome-font-viewer
     gnome3.gconf
     gnome3.gnome_terminal
     guake
