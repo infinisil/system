@@ -26,6 +26,10 @@
 
   services.nginx = {
     enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
     virtualHosts."localhost" = {
       root = "/webroot";
       listen = [ { port = 80; addr = "0.0.0.0"; } ];
