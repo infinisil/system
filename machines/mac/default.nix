@@ -33,7 +33,7 @@
   virtualisation = {
     docker.enable = false;
     virtualbox = {
-      host.enable = false;
+      host.enable = true;
     };
   };
 
@@ -73,6 +73,7 @@
 
 
   environment.systemPackages = with pkgs; [
+    efibootmgr
     pass
     gnupg
     taskwarrior
@@ -104,8 +105,6 @@
   };
 
   services = {
-    emacs.enable = true;
-
     znapzend = {
       enable = true;
       autoCreation = true;

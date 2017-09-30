@@ -6,7 +6,7 @@ let
   domain = "infinisil.io";
   ip = "139.59.149.43";
   ip6 = "2a03:b0c0:3:d0::5df6:1";
-  subdomains = [ "www" "dav" "keys" "test" "mail" ];
+  subdomains = [ "www" "dav" "keys" "test" "mail" "mac" ];
 in
 {
   networking.firewall = {

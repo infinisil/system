@@ -2,16 +2,18 @@
 {
 
   networking.firewall.allowedTCPPorts = [ 80 ];
-  services.autossh.sessions = [
+  services.autossh.sessions = let
+    common = ''-o "ServerAliveInterval 15" -N infinisil.io'';
+  in [
     {
       name = "localserver";
       user = "root";
-      extraArguments = ''-o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -N -R 81:localhost:80 root@infinisil.io'';
+      extraArguments = ''-R 81:localhost:80 '' + common;
     }
     {
       name = "ssh";
       user = "root";
-      extraArguments = ''-N -R 223:localhost:22 root@infinisil.io'';
+      extraArguments = ''-R 223:localhost:22 '' + common;
     }
   ];
 
