@@ -85,10 +85,10 @@
 
     nginx = {
       enable = true;
-      package = pkgs.nginxMainline;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
+      recommendedProxySettings = true;
 
       virtualHosts."www.infinisil.io".globalRedirect = "infinisil.io";
       virtualHosts."infinisil.io" = {
@@ -98,6 +98,9 @@
         locations."/pwp".extraConfig = "autoindex on;";
       };
       virtualHosts."mac.infinisil.io" = {
+        forceSSL = true;
+        enableACME = true;
+        root = "/webroot/mac";
         locations."/" = {
           proxyPass = "http://localhost:81";
         };
