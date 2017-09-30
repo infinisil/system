@@ -9,7 +9,7 @@ let cfg = config.mpd; in {
     ./mpdClient.nix
   ];
 
-  networking.firewall.allowedTCPPorts = optional (! cfg.local) [ cfg.port cfg.httpPort ];
+  networking.firewall.allowedTCPPorts = optionals (! cfg.local) [ cfg.port cfg.httpPort ];
 
   services.mpd = {
     enable = true;
@@ -38,6 +38,8 @@ let cfg = config.mpd; in {
         mixer_type      "software"
       }
       password "${config.passwords.mpd}@read,add,control"
+    '' + ''
+      replaygain "track"
     '';
   };
 

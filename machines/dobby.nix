@@ -15,7 +15,7 @@
       <modules/mail.nix>
       <modules/namecoin.nix>
     ];
-  
+
   environment.systemPackages = with pkgs; [
     git
     youtube-dl
@@ -95,7 +95,7 @@
         forceSSL = true;
         enableACME = true;
         root = "/webroot/www";
-        locations."/".extraConfig = "autoindex on;";
+        locations."/pwp".extraConfig = "autoindex on;";
       };
       virtualHosts."mac.infinisil.io" = {
         locations."/" = {
