@@ -28,6 +28,7 @@
     evince
     vlc
     arandr
+    xorg.xmessage
     lxappearance
     #arc-theme
     #gtk_engines
@@ -42,11 +43,10 @@
     firefox
     thunderbird
     haskellPackages.xmobar
-    (haskellPackages.ghcWithPackages (p: [ p.fuzzy ]))
+    (haskellPackages.ghcWithPackages (p: with p; [ xmonad xmonad-contrib fuzzy ]))
   ];
 
   services = {
-
     redshift = {
       enable = true;
       latitude = "47";
@@ -54,11 +54,6 @@
     };
 
     mbpfan.enable = true;
-
-    compton = {
-      enable = false;
-      backend = "glx";
-    };
 
     gnome3.gnome-terminal-server.enable = true;
 
@@ -71,7 +66,7 @@
       displayManager.sddm = {
         enable = true;
         autoLogin = {
-          enable = true;
+          enable = false;
           user = "infinisil";
         };
       };
@@ -83,19 +78,6 @@
         export GTK_PATH=${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0
         ${pkgs.xbindkeys}/bin/xbindkeys
       '';
-
-      desktopManager.default = "none";
-      windowManager = {
-        default = "xmonad";
-        xmonad = {
-          enable = true;
-          enableContribAndExtras = true;
-          extraPackages = hp: with hp; [
-            xmobar
-            fuzzy
-          ];
-        };
-      };
     };
   };
 }
