@@ -96,6 +96,7 @@
     libnotify
     twmn
     dunst
+    mpc_cli
     jq
     samba
   ];
@@ -126,7 +127,14 @@
 
     dbus.socketActivated = true;
     physlock.enable = true;
+
+    ipfs = {
+      enable = true;
+      autoMount = true;
+    };
   };
+
+  systemd.services.ipfs.wantedBy = lib.mkForce [];
 
   system.stateVersion = "16.09";
 }
