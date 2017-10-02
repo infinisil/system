@@ -21,8 +21,10 @@
 
   users.extraUsers.root.openssh.authorizedKeys.keys = [ (import ./keys.nix).server.root ];
 
-  services.openssh.enable = true;
-
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+  };
 
   services.nginx = {
     enable = true;
