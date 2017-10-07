@@ -10,4 +10,6 @@
   };
 
   users.groups.git.gid = null;
+
+  users.extraUsers.infinisil.extraGroups = [ "git" ];
 }

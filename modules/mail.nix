@@ -5,7 +5,7 @@
   ];
 
   mailserver = {
-    enable = true;
+    enable = false;
     domain = "infinisil.io";
     loginAccounts = [
       {

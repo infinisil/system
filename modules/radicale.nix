@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     apacheHttpd
   ];
-  
+
   networking.firewall.allowedTCPPorts = [ 5232 ];
   networking.firewall.allowedUDPPorts = [ 5232 ];
 
@@ -25,6 +25,7 @@
 
   services.radicale = {
     enable = true;
+    package = pkgs.radicale2;
     config = ''
       [auth]
       type = htpasswd

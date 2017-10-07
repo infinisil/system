@@ -14,6 +14,7 @@
       <modules/mpdServer.nix>
       <modules/mail.nix>
       <modules/namecoin.nix>
+      ../private/default.nix
     ];
 
   environment.systemPackages = with pkgs; [
@@ -116,6 +117,34 @@
     znapzend = {
       enable = true;
       autoCreation = true;
+    };
+
+    ipfs = {
+      enable = true;
+      dataDir = "/var/lib/ipfs";
+    };
+
+    znc = {
+      enable = true;
+      openFirewall = true;
+      confOptions = {
+        nick = "infinisil";
+        userName = "infinisil";
+        networks.freenode = {
+          userName = "infinisil";
+          server = "chat.freenode.net";
+          modules = [ "sasl" "log" ];
+          channels = [
+            "nixos"
+            "emacs"
+            "#linux"
+            "anime"
+            "idris"
+            "xmonad"
+            "beets"
+          ];
+        };
+      };
     };
   };
 
