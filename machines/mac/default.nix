@@ -21,6 +21,10 @@
 
   users.extraUsers.infinisil.extraGroups = [ "networkmanager" ];
 
+  users.extraUsers.testuser = {
+    description = "Test User";
+    isNormalUser = true;
+  };
   #fileSystems."/betty" = lib.mkForce {
   #  device = "betty";
   #  fsType = "zfs";
@@ -130,7 +134,7 @@
 
     ipfs = {
       enable = true;
-      autoMount = true;
+      dataDir = "/var/lib/ipfs";
     };
   };
 

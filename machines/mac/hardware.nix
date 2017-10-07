@@ -52,6 +52,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/ipfs" =
+    { device = "main/data/ipfs";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/5937b768-05cf-4f36-bb5e-966e7edc6715"; }
     ];
