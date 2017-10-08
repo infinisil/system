@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let keys = import ./keys.nix; in
 
 with import ../lib { inherit pkgs; };
