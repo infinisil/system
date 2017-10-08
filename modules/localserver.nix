@@ -3,7 +3,7 @@
 
   networking.firewall.allowedTCPPorts = [ 80 ];
   services.autossh.sessions = let
-    common = ''-o "ServerAliveInterval 15" -N infinisil.io'';
+    common = ''-o "ServerAliveInterval 15" -N ${config.domain}'';
   in [
     {
       name = "localserver";

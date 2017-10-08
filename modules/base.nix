@@ -2,6 +2,7 @@
 {
   imports = [
     ./passwords.nix
+    ./network.nix
   ];
 
   users.extraUsers.infinisil = {

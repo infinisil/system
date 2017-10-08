@@ -9,7 +9,7 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."dav.infinisil.io" = {
+    virtualHosts."dav.${config.domain}" = {
       enableACME = true;
       forceSSL = true;
       root = "/webroot/dav/";

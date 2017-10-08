@@ -1,4 +1,5 @@
 { config, pkgs, lib, options, ... }:
+
 {
   imports = [
     ./boot.nix
@@ -61,7 +62,7 @@
     hostName = "nixos";
     hostId = "34cc680d";
     nameservers = [
-      "139.59.149.43"
+      (import ../.).dobby.config.networking.interfaces.eth0.ipAddress
     ];
     wireless.enable = true;
     firewall = {

@@ -3,9 +3,9 @@
 with lib;
 
 let
-  domain = "infinisil.io";
-  ip = "139.59.149.43";
-  ip6 = "2a03:b0c0:3:d0::5df6:1";
+  domain = config.domain;
+  ip = config.networking.interfaces.eth0.ipAddress;
+  ip6 = config.networking.interfaces.eth0.ipv6Address;
   subdomains = [
     "www"
     "dav"

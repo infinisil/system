@@ -3,6 +3,15 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, fetchFromGitHub, ... }:
+
+with lib;
+
+let
+
+  domain = config.domain;
+
+in
+
 {
   imports = [
       /etc/nixos/hardware-configuration.nix
@@ -91,14 +100,14 @@
       recommendedTlsSettings = true;
       recommendedProxySettings = true;
 
-      virtualHosts."www.infinisil.io".globalRedirect = "infinisil.io";
-      virtualHosts."infinisil.io" = {
+      virtualHosts."www.${domain}".globalRedirect = domain;
+      virtualHosts."${domain}" = {
         forceSSL = true;
         enableACME = true;
         root = "/webroot/www";
         locations."/pwp".extraConfig = "autoindex on;";
       };
-      virtualHosts."mac.infinisil.io" = {
+      virtualHosts."mac.${domain}" = {
         forceSSL = true;
         enableACME = true;
         root = "/webroot/mac";
@@ -106,7 +115,7 @@
           proxyPass = "http://localhost:81";
         };
       };
-      virtualHosts."test.infinisil.io" = {
+      virtualHosts."test.${domain}" = {
         forceSSL = true;
         enableACME = true;
         root = "/webroot/test";

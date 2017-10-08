@@ -5,8 +5,8 @@
   ];
 
   mailserver = {
+    inherit (config) domain;
     enable = false;
-    domain = "infinisil.io";
     loginAccounts = [
       {
         name = "contact";

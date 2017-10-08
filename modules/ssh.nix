@@ -11,9 +11,9 @@ with keys; {
 
   programs.ssh.startAgent = true;
   services.openssh.enable = true;
-  
+
   services.nginx = {
-    virtualHosts."keys.infinisil.io" = {
+    virtualHosts."keys.${config.domain}" = {
       forceSSL = true;
       enableACME = true;
       root = "/webserver"; # Needed for ACME
