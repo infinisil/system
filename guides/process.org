@@ -1,6 +1,6 @@
 * Getting ZFS on a DO droplet's main disk with NixOS
 
-- Use a Debian <9 Droplet with at least 1GB RAM
+- Use a Debian Droplet with at least 1GB RAM
 - Use clever's kexec, with the following changes to the configuration.nix:
   - add "net.ifnames=0" to boot.kernelParams
   - Remove the autostart systemd timer and service
@@ -15,7 +15,7 @@
     #+END_SRC
     where x is the default gateway, y is the ip and z the mask length, all available through the DO console
   - Your SSH key(s)
-- Build and put it on the machine: 
+- Build and put it on the machine:
 #+BEGIN_SRC bash
 nix-build '<nixpkgs/nixos>' -A config.system.build.kexec_tarball -I nixos-config=./configuration.nix -Q -j 4
 scp result/tarball/nixos-system-x86_64-linux.tar.xz root@y.y.y.y:/
@@ -25,11 +25,13 @@ scp result/tarball/nixos-system-x86_64-linux.tar.xz root@y.y.y.y:/
 #+BEGIN_SRC bash
 ssh root@y.y.y.y
 cd /
+apt-get install xz-utils
 tar -xf nixos-system-x86_64-linux.tar.xz
 ./kexec-nixos
 #+END_SRC
 
-- Reconnect with SSH, you should now see a running nixos system to use for installing
+- Wait for the ~+ kexec -e~ line then terminate the ssh connection
+- Reconnect with SSH, you should now see a running nixos system to use for installing. You need to remove the ip's line in ~/.ssh/known_hosts for this to work.
 - repartition your main disk using ~fdisk~, to such a configuration:
 #+BEGIN_SRC example
 /dev/vda1 200MB boot partition (Linux Filesystem)
@@ -42,7 +44,7 @@ tar -xf nixos-system-x86_64-linux.tar.xz
 #+BEGIN_SRC bash
 mkfs.ext4 /dev/vda1
 mkswap /dev/vda2
-zpool create -o ashift=12 -o altroot=/mnt -o compression=lz4 -O mountpoint=none main /dev/vda3
+zpool create -o ashift=12 -o altroot=/mnt -O compression=lz4 -O mountpoint=none main /dev/vda3
 zfs create -o mountpoint=legacy main/root
 zfs create -o mountpoint=legacy main/root/nixos
 zfs create -o mountpoint=legacy main/home
