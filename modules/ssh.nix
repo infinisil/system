@@ -10,7 +10,11 @@ with keys; {
   ];
 
   programs.ssh.startAgent = true;
-  services.openssh.enable = true;
+
+  services.openssh = {
+    enable = true;
+    forwardX11 = true;
+  };
 
   services.nginx = {
     virtualHosts."keys.${config.domain}" = {
