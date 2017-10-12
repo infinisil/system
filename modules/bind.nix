@@ -42,22 +42,21 @@ in
             $TTL 1d
             $ORIGIN ${domain}.
 
-            @ IN SOA ns3.${domain}. hostmaster.${domain}. (
-              2
+            @ IN SOA ns1.${domain}. hostmaster.${domain}. (
+              3
               3H
               15
               1w
               3h
             )
 
-            ${domain}. IN NS ns3.${domain}.
-            ${domain}. IN NS ns4.${domain}.
+            ${domain}. IN NS ns1.${domain}.
+            ${domain}. IN NS ns2.${domain}.
 
-            ns3 IN A ${ip}
-            ns4 IN A ${ip}
+            ns1 IN A ${ip}
+            ns2 IN A ${ip}
 
             @ IN A ${ip}
-            @ IN AAAA ${ip6}
             ${concatMapStringsSep "\n" (sub:
               "${sub} IN CNAME ${domain}."
             ) subdomains}

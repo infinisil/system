@@ -20,6 +20,6 @@ in
   };
 
   config = {
-    domain = "infinisil.io";
+    domain = "infinisil.com";
   };
 }
