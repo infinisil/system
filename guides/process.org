@@ -34,31 +34,28 @@ tar -xf nixos-system-x86_64-linux.tar.xz
 - Reconnect with SSH, you should now see a running nixos system to use for installing. You need to remove the ip's line in ~/.ssh/known_hosts for this to work.
 - repartition your main disk using ~fdisk~, to such a configuration:
 #+BEGIN_SRC example
-/dev/vda1 200MB boot partition (Linux Filesystem)
-/dev/vda2 4GB swap partition (Linux swap)
-/dev/vda3 left, zfs partition (Solaris /usr & Apple zfs)
-/dev/vda15 BIOS boot (unchanged)
+/dev/vda1 1M BIOS boot partition (BIOS boot)
+/dev/vda2 200M boot partition (EFI System)
+/dev/vda3 2GB swap partition (Linux swap)
+/dev/vda4 rest, zfs partition (Linux Filesystem)
 #+END_SRC
 
 - Create the file systems:
 #+BEGIN_SRC bash
-mkfs.ext4 /dev/vda1
-mkswap /dev/vda2
-zpool create -o ashift=12 -o altroot=/mnt -O compression=lz4 -O mountpoint=none main /dev/vda3
-zfs create -o mountpoint=legacy main/root
-zfs create -o mountpoint=legacy main/root/nixos
-zfs create -o mountpoint=legacy main/home
+mkfs.ext4 /dev/vda2
+mkswap /dev/vda3
+zpool create -O compress=on -O mountpoint=legacy main /dev/vda4
+zfs create -o xattr=off -o atime=off main/nix
 #+END_SRC
 
 - Mount them:
 #+BEGIN_SRC bash
-swapon /dev/vda2
+swapon /dev/vda3
 mkdir /mnt
-mount -t zfs main/root /mnt
-mkdir /mnt/boot /mnt/nix /mnt/home
-mount -t zfs main/root/nixos /mnt/nix
-mount -t zfs main/home /mnt/home
-mount /dev/vda1 /mnt/boot
+mount -t zfs main /mnt
+mkdir /mnt/boot /mnt/nix
+mount -t zfs main/nix /mnt/nix
+mount /dev/vda2 /mnt/boot
 #+END_SRC
 
 - Generate the configs:
