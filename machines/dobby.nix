@@ -147,11 +147,21 @@ in
           channels = [
             "nixos"
             "emacs"
-            "#linux"
+            "linux"
             "anime"
             "idris"
             "xmonad"
             "beets"
+            "znc"
+            "nixos-wiki"
+            "purism"
+            "youtube-dl"
+            "bash"
+            "mpd"
+            "git"
+            "gpg"
+            "crypto"
+            "ffmpeg"
           ];
         };
       };

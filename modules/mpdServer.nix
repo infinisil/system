@@ -33,9 +33,9 @@ let cfg = config.mpd; in {
         encoder         "lame"
         port            "${toString cfg.httpPort}"
         bitrate         "${toString cfg.bitRate}"
-        format          "44100:24:2"
+        format          "44100:16:2"
         max_clients     "0"
-        mixer_type      "software"
+        always_on "yes"
       }
       password "${config.passwords.mpd}@read,add,control"
     '' + ''
