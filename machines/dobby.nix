@@ -113,7 +113,7 @@ in
         enableACME = true;
         root = "/webroot/mac";
         locations."/" = {
-          proxyPass = "http://localhost:81";
+          proxyPass = "http://localhost:1808";
         };
       };
       virtualHosts."test.${domain}" = {
