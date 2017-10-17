@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -Q -i bash -p graphviz feh
 tmp=$(mktemp)
-dot -Tpng <(nix-store -q --graph $@) > $tmp
-feh -. $tmp
+dot -Tsvg <(nix-store -q --graph $@) > $tmp
+firefox $tmp

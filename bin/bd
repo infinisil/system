@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-dirname K$(realpath "$(which $1)")"
