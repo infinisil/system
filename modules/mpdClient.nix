@@ -1,5 +1,11 @@
 { config, lib, pkgs, ...}:
 
+let
+
+  domain = (import ../machines).dobby.networking.domain;
+
+in
+
 {
   imports = [
     ./base.nix
@@ -11,7 +17,7 @@
   ] ++ lib.optional config.services.xserver.enable pkgs.sonata;
 
   environment.variables = {
-    MPD_HOST = "${config.passwords.mpd}@${config.networking.domain}";
+    MPD_HOST = "${config.passwords.mpd}@${domain}";
     MPD_PORT = "${toString config.mpd.port}";
   };
 }

@@ -63,7 +63,7 @@
     hostName = "nixos";
     hostId = "34cc680d";
     nameservers = [
-      (import ../.).dobby.config.networking.interfaces.eth0.ipAddress
+      (import ../.).dobby.networking.interfaces.eth0.ipAddress
     ];
     wireless.enable = true;
     firewall = {

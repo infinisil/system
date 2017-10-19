@@ -1,9 +1,16 @@
 { config, pkgs, ... }:
+
+let
+
+  domain = (import ../machines).dobby.networking.domain;
+
+in
+
 {
 
   networking.firewall.allowedTCPPorts = [ 80 ];
   services.autossh.sessions = let
-    common = ''-o "ServerAliveInterval 15" -N ${config.domain}'';
+    common = ''-o "ServerAliveInterval 15" -N ${domain}'';
   in [
     {
       name = "localserver";
