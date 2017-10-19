@@ -9,7 +9,7 @@ let cfg = config.mpd; in {
     ./mpdClient.nix
   ];
 
-  networking.firewall.allowedTCPPorts = optionals (! cfg.local) [ cfg.port cfg.httpPort ];
+  networking.firewall.allowedTCPPorts = optionals (! cfg.local) [ cfg.port ];
 
   services.mpd = {
     enable = true;
@@ -18,7 +18,6 @@ let cfg = config.mpd; in {
     musicDirectory = "${cfg.musicDir}/data";
     readonlyPlaylists = ! cfg.local;
     playlistDirectory = "${cfg.musicDir}/playlists";
-    network.listenAddress = "0.0.0.0";
     network.port = cfg.port;
     extraConfig = if cfg.local then ''
       audio_output {
@@ -42,7 +41,12 @@ let cfg = config.mpd; in {
       replaygain "track"
     '';
   };
-
+  services.nginx.virtualHosts."tune.${config.networking.domain}" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "/webroot";
+    locations."/".proxyPass = "http://localhost:${toString cfg.httpPort}";
+  };
   hardware.pulseaudio.${if cfg.local then "extraConfig" else null} = ''
     load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
   '';

@@ -8,7 +8,7 @@ with lib;
 
 let
 
-  domain = config.domain;
+  domain = config.networking.domain;
 
 in
 
@@ -64,6 +64,7 @@ in
   networking = {
     hostName = "dobby";
     hostId = "ecb69508";
+    domain = "infinisil.com";
     nameservers = [ "8.8.8.8" ];
     defaultGateway = "139.59.144.1";
     #defaultGateway6 = "2a03:b0c0:3:d0::1";
@@ -140,6 +141,9 @@ in
       confOptions = {
         nick = "infinisil";
         userName = "infinisil";
+        extraUserConf = ''
+          AutoClearChanBuffer = false
+        '';
         networks.freenode = {
           userName = "infinisil";
           server = "chat.freenode.net";

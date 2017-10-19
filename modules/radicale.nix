@@ -9,7 +9,7 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."dav.${config.domain}" = {
+    virtualHosts."dav.${config.networking.domain}" = {
       enableACME = true;
       forceSSL = true;
       root = "/webroot/dav/";

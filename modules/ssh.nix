@@ -17,7 +17,7 @@ with keys; {
   };
 
   services.nginx = {
-    virtualHosts."keys.${config.domain}" = {
+    virtualHosts."keys.${config.networking.domain}" = {
       forceSSL = true;
       enableACME = true;
       root = "/webserver"; # Needed for ACME
