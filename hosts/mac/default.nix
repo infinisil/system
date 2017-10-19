@@ -112,7 +112,7 @@
   ];
 
   environment.variables = {
-    PATH = "/global/system/bin";
+    PATH = "/cfg/bin";
     NIXOPS_DEPLOYMENT = "infinisil";
   };
 
