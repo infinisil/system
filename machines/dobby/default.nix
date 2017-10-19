@@ -14,7 +14,8 @@ in
 
 {
   imports = [
-      /etc/nixos/hardware-configuration.nix
+      ./hardware.nix
+      ../../private
       <modules/base.nix>
       <modules/ssh.nix>
       <modules/radicale.nix>
@@ -23,7 +24,6 @@ in
       <modules/mpdServer.nix>
       <modules/mail.nix>
       <modules/namecoin.nix>
-      ../private/default.nix
     ];
 
   environment.systemPackages = with pkgs; [
@@ -56,7 +56,7 @@ in
     autoOptimiseStore = true;
     nixPath = [
       "nixpkgs=/root/nixpkgs"
-      "nixos-config=/cfg/machines/dobby.nix"
+      "nixos-config=/cfg/machines/dobby"
       "modules=/cfg/modules"
     ];
   };
