@@ -36,5 +36,6 @@
     tree
     wget
     cacert
+    nixUnstable
   ];
 }

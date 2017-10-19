@@ -57,5 +57,7 @@ in
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
+
+    supportedFilesystems = [ "exfat" ];
   };
 }

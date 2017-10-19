@@ -10,6 +10,7 @@
     <modules/x.nix>
     <modules/touchpad.nix>
     <modules/wlan.nix>
+    /home/infinisil/src/nixpkgs/nixos/modules/services/hardware/usbmuxd.nix
     #<modules/mpdServer.nix>
     #<modules/cuberite.nix>
   ];
@@ -111,6 +112,9 @@
   };
 
   services = {
+
+    usbmuxd.enable = true;
+
     znapzend = {
       enable = true;
       autoCreation = true;
