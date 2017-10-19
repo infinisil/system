@@ -10,9 +10,6 @@
     <cfg/modules/x.nix>
     <cfg/modules/touchpad.nix>
     <cfg/modules/wlan.nix>
-    /home/infinisil/src/nixpkgs/nixos/modules/services/hardware/usbmuxd.nix
-    #<modules/mpdServer.nix>
-    #<modules/cuberite.nix>
   ];
 
   mpd.local = true;
