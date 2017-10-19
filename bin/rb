@@ -1,6 +1,7 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p nixops
 
+
 if [ "$1" = "b" ]; then
 	build="--build-only"
 	printf "Only building "
@@ -9,7 +10,7 @@ else
 	printf "Building and activating "
 fi
 
-if [ "$1" != "" ]; then
+if [ "$1" = "mac" ] || [ "$1" == "dobby" ]; then
 	include="--include $1"
 	printf "%s\n" "$1"
 	shift
@@ -18,4 +19,4 @@ else
 fi
 
 set -x
-sudo nixops deploy -d infinisil $include $build $@
+NIXOPS_DEPLOYMENT=${NIXOPS_DEPLOYMENT:-infinisil} sudo nixops deploy $build $include $@
