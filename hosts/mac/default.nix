@@ -83,6 +83,7 @@
 
 
   environment.systemPackages = with pkgs; [
+    nixops
     efibootmgr
     pass
     gnupg
@@ -113,7 +114,6 @@
 
   environment.variables = {
     PATH = "/cfg/bin";
-    NIXOPS_DEPLOYMENT = "infinisil";
   };
 
   services = {

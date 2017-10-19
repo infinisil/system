@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-if [ "$1" != "" ]; then
-	include="--include $1"
-	echo Rebuilding $1 host
-	shift
-fi
-
-sudo nixops deploy $include $@
