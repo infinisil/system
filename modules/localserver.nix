@@ -2,7 +2,7 @@
 
 let
 
-  domain = (import ../machines).dobby.networking.domain;
+  domain = (import <cfg/hosts>).dobby.networking.domain;
 
 in
 

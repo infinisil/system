@@ -3,13 +3,13 @@
 {
   imports = [
     ./boot.nix
-    <modules/audio.nix>
-    <modules/base.nix>
-    <modules/console.nix>
-    <modules/localserver.nix>
-    <modules/x.nix>
-    <modules/touchpad.nix>
-    <modules/wlan.nix>
+    <cfg/modules/audio.nix>
+    <cfg/modules/base.nix>
+    <cfg/modules/console.nix>
+    <cfg/modules/localserver.nix>
+    <cfg/modules/x.nix>
+    <cfg/modules/touchpad.nix>
+    <cfg/modules/wlan.nix>
     /home/infinisil/src/nixpkgs/nixos/modules/services/hardware/usbmuxd.nix
     #<modules/mpdServer.nix>
     #<modules/cuberite.nix>
@@ -27,6 +27,10 @@
     description = "Test User";
     isNormalUser = true;
   };
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    (import <cfg/modules/keys.nix>).mac.nixos.root
+  ];
   #fileSystems."/betty" = lib.mkForce {
   #  device = "betty";
   #  fsType = "zfs";
@@ -53,9 +57,9 @@
       options = "--delete-older-than 30d";
     };
     nixPath = [
-      "nixpkgs=/root/nixpkgs"
-      "nixos-config=/cfg/machines/mac"
-      "modules=/cfg/modules"
+      "cfg=/cfg"
+      "nixpkgs=/cfg/nixpkgs"
+      "nixos-config=/cfg/hosts/mac"
     ];
   };
 
@@ -109,6 +113,7 @@
 
   environment.variables = {
     PATH = "/global/system/bin";
+    NIXOPS_DEPLOYMENT = "infinisil";
   };
 
   services = {

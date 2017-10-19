@@ -16,14 +16,14 @@ in
   imports = [
       ./hardware.nix
       ../../private
-      <modules/base.nix>
-      <modules/ssh.nix>
-      <modules/radicale.nix>
-      <modules/bind.nix>
-      <modules/console.nix>
-      <modules/mpdServer.nix>
-      <modules/mail.nix>
-      <modules/namecoin.nix>
+      <cfg/modules/base.nix>
+      <cfg/modules/ssh.nix>
+      <cfg/modules/radicale.nix>
+      <cfg/modules/bind.nix>
+      <cfg/modules/console.nix>
+      <cfg/modules/mpdServer.nix>
+      <cfg/modules/mail.nix>
+      <cfg/modules/namecoin.nix>
     ];
 
   environment.systemPackages = with pkgs; [
@@ -55,11 +55,18 @@ in
     trustedUsers = [ "root" "@wheel" ];
     autoOptimiseStore = true;
     nixPath = [
-      "nixpkgs=/root/nixpkgs"
-      "nixos-config=/cfg/machines/dobby"
-      "modules=/cfg/modules"
+      # Ruin the config so we don't accidentally run
+      # nixos-rebuild switch on the host (thanks grahamc!)
+      "nixos-config=${pkgs.writeText "configuration.nix" ''
+        throw "Hey dummy, you're on your server! Use NixOps!"
+      ''}"
+      "nixpkgs=/run/current-system/nixpkgs"
     ];
   };
+
+  system.extraSystemBuilderCmds = ''
+    ln -sv ${lib.cleanSource pkgs.path} $out/nixpkgs
+  '';
 
   networking = {
     hostName = "dobby";
@@ -150,6 +157,8 @@ in
           modules = [ "sasl" "log" ];
           channels = [
             "nixos"
+            "nixos-dev"
+            "nixos-wiki"
             "emacs"
             "linux"
             "anime"
@@ -157,7 +166,6 @@ in
             "xmonad"
             "beets"
             "znc"
-            "nixos-wiki"
             "purism"
             "youtube-dl"
             "bash"

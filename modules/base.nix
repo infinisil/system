@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, lib, ...}:
 {
   imports = [
     ./passwords.nix
@@ -25,7 +25,7 @@
   time.timeZone = "Europe/Zurich";
 
   # links the contents of the directory where this file is located to /run/current-system/configuration
-  system.extraSystemBuilderCmds = "ln -sv ${./.} $out/configuration";
+  system.extraSystemBuilderCmds = "ln -sv ${lib.cleanSource <cfg>} $out/configuration";
 
   security.sudo.wheelNeedsPassword = false;
 
