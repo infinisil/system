@@ -19,6 +19,7 @@ let cfg = config.mpd; in {
     readonlyPlaylists = ! cfg.local;
     playlistDirectory = "${cfg.musicDir}/playlists";
     network.port = cfg.port;
+    network.listenAddress = "0.0.0.0";
     extraConfig = if cfg.local then ''
       audio_output {
         type "pulse"
