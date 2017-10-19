@@ -3,7 +3,7 @@
 with lib;
 
 let
-  domain = config.domain;
+  domain = config.networking.domain;
   ip = config.networking.interfaces.eth0.ipAddress;
   ip6 = config.networking.interfaces.eth0.ipv6Address;
   subdomains = [
@@ -13,6 +13,7 @@ let
     "test"
     "mail"
     "mac"
+    "tune"
   ];
 in
 {
