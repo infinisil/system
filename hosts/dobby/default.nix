@@ -158,7 +158,11 @@ in
         networks.freenode = {
           userName = "infinisil";
           server = "chat.freenode.net";
-          modules = [ "sasl" "log" ];
+          modules = [
+            "sasl"
+            "log"
+            "savebuff ${config.passwords.znc-savebuff}"
+          ];
           channels = [
             "nixos"
             "nixos-dev"
