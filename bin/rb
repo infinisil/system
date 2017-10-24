@@ -18,5 +18,4 @@ else
 	printf "\n"
 fi
 
-set -x
 NIXOPS_DEPLOYMENT=${NIXOPS_DEPLOYMENT:-infinisil} sudo nixops deploy $build $include $@

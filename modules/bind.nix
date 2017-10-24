@@ -14,6 +14,7 @@ let
     "mail"
     "mac"
     "tune"
+    "chat"
   ];
 in
 {

@@ -15,6 +15,8 @@ in
 {
   imports = [
       ./hardware.nix
+      ./info.nix
+      ./youtube.nix
       ../../private
       <cfg/modules/base.nix>
       <cfg/modules/ssh.nix>
@@ -145,11 +147,13 @@ in
     znc = {
       enable = true;
       openFirewall = true;
+      mutable = false;
       confOptions = {
         nick = "infinisil";
         userName = "infinisil";
         extraUserConf = ''
           AutoClearChanBuffer = false
+          AutoClearQueryBuffer = false
         '';
         networks.freenode = {
           userName = "infinisil";
@@ -174,6 +178,7 @@ in
             "gpg"
             "crypto"
             "ffmpeg"
+            "zfsonlinux"
           ];
         };
       };

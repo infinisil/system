@@ -58,6 +58,6 @@ in
       efiInstallAsRemovable = true;
     };
 
-    supportedFilesystems = [ "exfat" ];
+    supportedFilesystems = [ "exfat" "ntfs" ];
   };
 }

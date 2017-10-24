@@ -43,8 +43,6 @@ let cfg = config.mpd; in {
     '';
   };
   services.nginx.virtualHosts."tune.${config.networking.domain}" = {
-    forceSSL = true;
-    enableACME = true;
     root = "/webroot";
     locations."/".proxyPass = "http://localhost:${toString cfg.httpPort}";
   };
@@ -53,5 +51,5 @@ let cfg = config.mpd; in {
   '';
 
   # Needs to be mounted before mpd is started and unmounted after mpd stops
-  systemd.services.mpd.serviceConfig.after = [ "home-infinisil-Music.mount" ];
+  systemd.services.mpd.after = [ "home-infinisil-Music.mount" ];
 }
