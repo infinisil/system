@@ -22,7 +22,6 @@ in
         exec = pkgs.writeScript "exec" ''
           #!${pkgs.bash}/bin/bash
           ${pkgs.beets}/bin/beet -v import -sAI --set=now=1 "$1"
-          ${pkgs.beets}/bin/beet write
           ${pkgs.beets}/bin/beet play -y now:1
         '';
         args = lib.concatStringsSep " " [
