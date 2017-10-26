@@ -35,7 +35,10 @@ in
 
   boot = {
     cleanTmpDir = true;
-    zfs.devNodes = "/dev/mapper";
+    zfs = {
+      devNodes = "/dev/mapper";
+      enableUnstable = true;
+    };
 
     initrd.luks.devices = {
       key = {
