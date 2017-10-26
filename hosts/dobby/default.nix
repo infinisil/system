@@ -14,6 +14,7 @@ in
 
 {
   imports = [
+      ./server
       ./hardware.nix
       ./info.nix
       ./youtube.nix
