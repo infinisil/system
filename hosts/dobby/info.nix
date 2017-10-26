@@ -105,9 +105,9 @@ in {
       script = ''
         mpc waitmessage nope
         path="${musicDir}/data/$(mpc current -f '%file%')"
-        mpc next
+        mpc del 0
         echo Noping $path
-        beet mod -y path:"$path" nope=1
+        beet mod -y path:"$path" nope=1 &
       '';
     };
 
