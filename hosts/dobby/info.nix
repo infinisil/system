@@ -110,6 +110,16 @@ in {
         beet mod -y path:"$path" nope=1
       '';
     };
+
+    tag = mkMpdService {
+      name = "tag";
+      script = ''
+        tag=$(mpc waitmessage tag)
+        path="${musicDir}/data/$(mpc current -f '%file%')"
+        echo Modifying $path: $tag
+        beet mod -y path:"$path" $tag || true
+      '';
+    };
   };
 }
 
