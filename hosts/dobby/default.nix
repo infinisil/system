@@ -183,6 +183,9 @@ in
             "crypto"
             "ffmpeg"
             "zfsonlinux"
+            "weechat"
+            "deluge"
+            "ipfs"
           ];
         };
       };
