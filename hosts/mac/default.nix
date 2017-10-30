@@ -3,9 +3,7 @@
 {
   imports = [
     ./boot.nix
-    ./info.nix
     <cfg/modules/audio.nix>
-    <cfg/modules/localMpdServer.nix>
     <cfg/modules/base.nix>
     <cfg/modules/console.nix>
     <cfg/modules/localserver.nix>
