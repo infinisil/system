@@ -26,25 +26,17 @@ with lib;
     extraConfig = ''
       replaygain "track"
       audio_output {
-        type            "httpd"
-        name            "My HTTP Stream"
-        encoder         "lame"
-        port            "${toString config.mpd.httpPort}"
-        bitrate         "${toString config.mpd.bitRate}"
-        format          "44100:16:2"
-        max_clients     "0"
-        always_on "yes"
+        type "pulse"
+        name "MPD PulseAudio Output"
+        server "127.0.0.1"
       }
-      password "${config.passwords.mpd}@read,add,control"
+      password "${config.private.passwords.mpd}@read,add,control"
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ config.mpd.port ];
-
-  services.nginx.virtualHosts."tune.${config.networking.domain}" = {
-    root = "/webroot";
-    locations."/".proxyPass = "http://localhost:${toString config.mpd.httpPort}";
-  };
+  hardware.pulseaudio.extraConfig = ''
+    load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+  '';
 
   # Needs to be mounted before mpd is started and unmounted after mpd stops
   systemd.services.mpd.after = [ "home-infinisil-Music.mount" ];
