@@ -3,7 +3,7 @@ let
   conf = ''
     network={
       ssid="infinisil"
-      psk="${config.passwords.iPhoneWlan}"
+      psk="${config.private.passwords."wlan/iPhone"}"
       priority=10
     }
     network={
@@ -11,7 +11,7 @@ let
       key_mgmt=WPA-EAP
       eap=TTLS
       identity="msilvan"
-      password="${config.passwords.ethWlan}"
+      password="${config.private.passwords."wlan/eth"}"
       priority=5
       phase2="auth=MSCHAPV2"
     }

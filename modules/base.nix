@@ -1,7 +1,7 @@
 { pkgs, lib, ...}:
 {
   imports = [
-    ./passwords.nix
+    ../private
   ];
 
   users.extraUsers.infinisil = {
