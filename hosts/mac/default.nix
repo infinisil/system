@@ -29,6 +29,7 @@
 
   users.users.root.openssh.authorizedKeys.keys = [
     (import <cfg/modules/keys.nix>).mac.nixos.root
+    (import <cfg/modules/keys.nix>).nixops.mac
   ];
   #fileSystems."/betty" = lib.mkForce {
   #  device = "betty";
