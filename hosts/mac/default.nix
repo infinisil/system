@@ -125,6 +125,8 @@
       autoCreation = true;
     };
 
+    zfs.autoScrub.enable = true;
+
     samba = {
       enable = true;
       shares = {
