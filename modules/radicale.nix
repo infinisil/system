@@ -7,6 +7,8 @@
   networking.firewall.allowedTCPPorts = [ 5232 ];
   networking.firewall.allowedUDPPorts = [ 5232 ];
 
+  networking.subdomains = [ "dav" ];
+
   services.nginx = {
     enable = true;
     virtualHosts."dav.${config.networking.domain}" = {

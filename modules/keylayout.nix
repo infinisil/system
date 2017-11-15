@@ -1,4 +1,3 @@
-
 { config, pkgs, ... }:
 let
   keymap = pkgs.writeText "keymap.xkb" ''
@@ -34,4 +33,10 @@ in
       ${pkgs.xcape}/bin/xcape -e '#94=Escape' &
     '';
   };
+
+  environment.systemPackages = [
+    pkgs.xorg.xkbcomp
+  ];
+
+  environment.etc."X11/keymap.xkb".source = keymap;
 }

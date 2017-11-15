@@ -1,9 +1,7 @@
 { pkgs, ... }:
 
 {
-  networking.firewall.allowedUDPPorts = [
-    4446
-  ];
+  networking.firewall.allowedUDPPorts = [ 4446 ];
 
   systemd.services.chat = {
     description = "Chat service for Distributed Systems";

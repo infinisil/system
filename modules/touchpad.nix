@@ -2,8 +2,6 @@
 { config, pkgs, ... }:
 {
   services.xserver = {
-    enable = true;
-
     # from github.com/bernerdschaefer/dotfiles/blob/bs-nixos/nixos/configuration.nix
     multitouch = {
       enable = true;

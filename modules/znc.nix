@@ -1,0 +1,72 @@
+{ config, ... }:
+
+{
+
+  users.users.infinisil.extraGroups = [ "znc" ];
+
+  services.znc = {
+    enable = true;
+    openFirewall = true;
+    mutable = false;
+    confOptions = {
+      nick = "infinisil";
+      userName = "infinisil";
+      extraUserConf = ''
+        AutoClearChanBuffer = false
+        AutoClearQueryBuffer = false
+      '';
+      networks.freenode = {
+        userName = "infinisil";
+        server = "chat.freenode.net";
+        modules = [
+          "sasl"
+          "log"
+          "savebuff ${config.private.passwords.znc-savebuff}"
+        ];
+        channels = [
+          "nixos"
+          "nixos-dev"
+          "nixos-wiki"
+          "emacs"
+          "linux"
+          "anime"
+          "idris"
+          "xmonad"
+          "beets"
+          "znc"
+          "zsh"
+          "purism"
+          "youtube-dl"
+          "bash"
+          "mpd"
+          "git"
+          "gpg"
+          "crypto"
+          "ffmpeg"
+          "zfsonlinux"
+          "weechat"
+          "deluge"
+          "ipfs"
+          "openssh"
+          "systemd"
+          "vim"
+          "haskell"
+        ];
+      };
+      networks.mozilla = {
+        userName = "infinisil";
+        server = "irc.mozilla.org";
+        modules = [
+          "log"
+          "savebuff ${config.private.passwords.znc-savebuff}"
+        ];
+        channels = [
+          "firefox"
+          "nightly"
+          "rust"
+        ];
+      };
+    };
+  };
+
+}

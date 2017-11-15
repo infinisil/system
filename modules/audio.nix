@@ -16,7 +16,6 @@
 
   environment.systemPackages = with pkgs; [
     blueman
-    beets
     pavucontrol
   ];
 }

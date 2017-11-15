@@ -34,7 +34,7 @@ let
     left join item_attributes
       on items.id = item_attributes.entity_id
       and item_attributes.key = \"rating\"
-    where path like \"%$(${pkgs.mpc_cli}/bin/mpc current -f '%file%')\"
+    where path like \"%$1\"
     "
 
     ${pkgs.sqlite}/bin/sqlite3 ${musicDir}/beets/beets.db "$sql"
@@ -47,7 +47,11 @@ let
       export PATH=${pkgs.mpc_cli}/bin:${pkgs.beets}/bin:$PATH
 
       function info() {
-        info="$(${query})"
+        current="$(mpc current -f %file%)"
+        if [ -z "$current" ]; then
+          return 0
+        fi
+        info="$(${query} "$current")"
         echo $info
         mpc sendmessage info "$info" || true
       }

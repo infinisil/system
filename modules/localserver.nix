@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ nodes, config, pkgs, ... }:
 
 let
 
-  domain = (import <cfg/hosts>).dobby.networking.domain;
+  domain = nodes.server.config.networking.domain;
 
 in
 
@@ -20,13 +20,17 @@ in
     {
       name = "ssh";
       user = "root";
-      extraArguments = ''-R 223:localhost:22 '' + common;
+      extraArguments = ''-R 2222:localhost:22 '' + common;
     }
   ];
 
-  users.extraUsers.infinisil.openssh.authorizedKeys.keys = [ (import ./keys.nix).server.infinisil ];
+  users.extraUsers.infinisil.openssh.authorizedKeys.keys = [
+    config.sshkeys.server.infinisil
+  ];
 
-  users.extraUsers.root.openssh.authorizedKeys.keys = [ (import ./keys.nix).server.root ];
+  users.extraUsers.root.openssh.authorizedKeys.keys = [
+    config.sshkeys.server.root
+  ];
 
   services.openssh = {
     enable = true;

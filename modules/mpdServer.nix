@@ -37,14 +37,18 @@ let cfg = config.mpd; in {
         max_clients     "0"
         always_on "yes"
       }
-      password "${config.passwords.mpd}@read,add,control"
+      password "${config.private.passwords.mpd}@read,add,control"
     '' + ''
       replaygain "track"
     '';
   };
+
+  networking.subdomains = [ "tune" ];
+
   services.nginx.virtualHosts."tune.${config.networking.domain}" = {
     root = "/webroot";
     locations."/".proxyPass = "http://localhost:${toString cfg.httpPort}";
+    #basicAuth.infinisil = config.private.passwords."tune.infinisil.com";
   };
   hardware.pulseaudio.${if cfg.local then "extraConfig" else null} = ''
     load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1

@@ -10,7 +10,7 @@ else
 	printf "Building and activating "
 fi
 
-if [ "$1" = "mac" ] || [ "$1" == "dobby" ]; then
+if [ "$1" = "laptop" ] || [ "$1" == "server" ]; then
 	include="--include $1"
 	printf "%s\n" "$1"
 	shift

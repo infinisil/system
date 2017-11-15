@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ./keylayout.nix
-  ];
-
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
@@ -20,6 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    libnotify
     gnome3.gnome-font-viewer
     gnome3.gconf
     gnome3.gnome_terminal
@@ -36,6 +33,7 @@
     compton
     #shotcut #video editor
     xbindkeys
+    xwinwrap
     xbindkeys-config
     dmenu
     xlibs.xev
@@ -43,19 +41,17 @@
     firefox
     thunderbird
     haskellPackages.xmobar
-    (haskellPackages.ghcWithPackages (p: with p; [ xmonad xmonad-contrib fuzzy ]))
+    (haskellPackages.ghcWithPackages (p: with p; [
+      xmonad
+      xmonad-contrib
+      fuzzy
+    ]))
   ];
 
   services = {
-    redshift = {
-      enable = true;
-      latitude = "47";
-      longitude = "9";
-    };
-
-    mbpfan.enable = true;
-
     gnome3.gnome-terminal-server.enable = true;
+
+    physlock.enable = true;
 
     xserver = {
       enable = true;
@@ -70,6 +66,7 @@
           user = "infinisil";
         };
       };
+
       displayManager.sessionCommands = ''
         # Set GTK_DATA_PREFIX so that GTK+ can find the themes
         export GTK_DATA_PREFIX=${config.system.path}

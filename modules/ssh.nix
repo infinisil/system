@@ -1,20 +1,17 @@
 { config, pkgs, lib, ... }:
-let keys = import ./keys.nix; in
 
-with import ../lib { inherit pkgs; };
-
-with keys; {
+{
   imports = [
     ./git-host.nix
-    ./base.nix
   ];
 
   programs.ssh.startAgent = true;
 
-  services.openssh = {
-    enable = true;
-    forwardX11 = true;
-  };
+  services.openssh.enable = true;
+
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  networking.subdomains = [ "keys" ];
 
   services.nginx = {
     virtualHosts."keys.${config.networking.domain}" = {
@@ -22,13 +19,13 @@ with keys; {
       enableACME = true;
       root = "/webserver"; # Needed for ACME
       locations."/" = {
-        root = attrToDerivation "keys" keys;
+        root = config.lib.mine.attrToDerivation "keys" config.sshkeys;
         extraConfig = "autoindex on;";
       };
     };
   };
 
-  users.users = {
+  users.users = with config.sshkeys; {
     root.openssh.authorizedKeys.keys = [
       mac.nixos.root
     ];

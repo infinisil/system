@@ -18,7 +18,7 @@ in
 
     serviceConfig = {
       User = "infinisil";
-      Environment = "MPD_HOST=${config.passwords.mpd}@infinisil.com";
+      Environment = "MPD_HOST=${config.private.passwords.mpd}@infinisil.com";
       Restart = "always";
       RestartSec = 10;
       ExecStart = let
@@ -39,7 +39,7 @@ in
           "--add-metadata"
           "-o \"${dataDir}/videos/%(title)s.%(ext)s\""
           "--exec '${exec} {}'"
-          (import ../../private/youtube.nix).youtubeDownloadPlaylist
+          config.private.youtubePlaylist
         ];
         youtube-script = pkgs.writeScriptBin "youtube-script" ''
           #!${pkgs.bash}/bin/bash

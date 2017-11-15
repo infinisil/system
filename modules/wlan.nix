@@ -18,7 +18,7 @@ let
     network={
       ssid="Swisscom"
       key_mgmt=NONE
-      priority=2
+      priority=1
     }
     network={
       ssid="FRITZ!Box 7490"
@@ -29,4 +29,11 @@ let
 in
 {
   environment.etc."wpa_supplicant.conf".text = conf;
+
+  networking = {
+    wireless.enable = true;
+    extraHosts = ''
+      192.168.1.1 swisscom.mobile
+    '';
+  };
 }
