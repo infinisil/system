@@ -51,6 +51,7 @@
           "systemd"
           "vim"
           "haskell"
+          "ghc-mod"
         ];
       };
       networks.mozilla = {
