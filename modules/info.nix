@@ -14,16 +14,16 @@ let
       else (
         \" - \" || (
           case
-            when (value >= 1.0) then \"\"
-            when (value >= 0.9) then \"\"
-            when (value >= 0.8) then \"\"
-            when (value >= 0.7) then \"\"
-            when (value >= 0.6) then \"\"
-            when (value >= 0.5) then \"\"
-            when (value >= 0.4) then \"\"
-            when (value >= 0.3) then \"\"
-            when (value >= 0.2) then \"\"
-            when (value >= 0.1) then \"\"
+            when (value = 10.0) then \"\"
+            when (value = 9.0) then \"\"
+            when (value = 8.0) then \"\"
+            when (value = 7.0) then \"\"
+            when (value = 6.0) then \"\"
+            when (value = 5.0) then \"\"
+            when (value = 4.0) then \"\"
+            when (value = 3.0) then \"\"
+            when (value = 2.0) then \"\"
+            when (value = 1.0) then \"\"
             else \"\"
           end
         )
