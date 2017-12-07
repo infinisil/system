@@ -38,14 +38,8 @@
     dmenu
     xlibs.xev
     deluge
-    firefox
     thunderbird
     haskellPackages.xmobar
-    (haskellPackages.ghcWithPackages (p: with p; [
-      xmonad
-      xmonad-contrib
-      fuzzy
-    ]))
   ];
 
   services = {
