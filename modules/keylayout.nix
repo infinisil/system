@@ -30,7 +30,6 @@ in
     # When X started, load the customized one
     displayManager.sessionCommands = ''
       ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${keymap} $DISPLAY
-      ${pkgs.xcape}/bin/xcape -e '#94=Escape' &
     '';
   };
 
