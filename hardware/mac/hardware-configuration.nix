@@ -8,7 +8,7 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "ohci_pci" "usbhid" "uas" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "ohci_pci" "firewire_ohci" "usbhid" "usb_storage" "sd_mod" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
@@ -32,18 +32,13 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/ipfs" =
+    { device = "main/data/ipfs";
+      fsType = "zfs";
+    };
+
   fileSystems."/home/infinisil" =
     { device = "main/data/users/infinisil";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home/infinisil/Music" =
-    { device = "main/music";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home/infinisil/imp" =
-    { device = "main/data/important/users/infinisil";
       fsType = "zfs";
     };
 
@@ -52,15 +47,20 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var/lib/ipfs" =
-    { device = "main/data/ipfs";
+  fileSystems."/home/infinisil/imp" =
+    { device = "main/data/important/users/infinisil";
       fsType = "zfs";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/3B5B-4209";
+      fsType = "vfat";
+    };
+
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/5937b768-05cf-4f36-bb5e-966e7edc6715"; }
+    [ { device = "/dev/disk/by-uuid/7ad864a0-75c9-4696-8532-6b405ac94d21"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
 }
