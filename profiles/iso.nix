@@ -5,4 +5,8 @@
     ./defaults.nix
     ../modules/keylayout.nix
   ];
+
+  boot.supportedFilesystems = [ "zfs" ];
+
+  boot.zfs.enableUnstable = true;
 }
