@@ -18,7 +18,7 @@ let
     };
 
     nixops = {
-      mac = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKvQacUXH9alOeDhaPaTDyf0BVOH3jFbR9czWHqOeo63 NixOps client key for mac";
+      laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAMJ1ifrHIL+BLd6Qy6Ec4XU/+f8QJVieGn6O97c6lsi NixOps client key for laptop";
     };
 
     iPhone = {
