@@ -29,5 +29,11 @@
         Option "HorizScrollDelta" "-500"
       '';
     };
+
+    libinput = {
+      #enable = true;
+      accelSpeed = "1.0";
+      naturalScrolling = true;
+    };
   };
 }
