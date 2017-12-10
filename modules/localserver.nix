@@ -10,17 +10,17 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 ];
   services.autossh.sessions = let
-    common = ''-o "ServerAliveInterval 15" -N ${domain}'';
+    common = ''-o "ServerAliveInterval 15" -o "ExitOnForwardFailure yes" -N ${domain}'';
   in [
     {
       name = "localserver";
       user = "root";
-      extraArguments = ''-R 1808:localhost:80 '' + common;
+      extraArguments = ''-R 1809:localhost:80 '' + common;
     }
     {
       name = "ssh";
       user = "root";
-      extraArguments = ''-R 2222:localhost:22 '' + common;
+      extraArguments = ''-R 2221:localhost:22 '' + common;
     }
   ];
 

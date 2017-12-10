@@ -72,7 +72,7 @@
       forceSSL = true;
       enableACME = true;
       root = "/webroot/mac";
-      locations."/".proxyPass = "http://localhost:1808";
+      locations."/".proxyPass = "http://localhost:1809";
     };
   };
 

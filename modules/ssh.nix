@@ -7,7 +7,12 @@
 
   programs.ssh.startAgent = true;
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      ClientAliveInterval 15
+    '';
+  };
 
   networking.firewall.allowedTCPPorts = [ 22 ];
 
