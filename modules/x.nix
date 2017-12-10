@@ -12,6 +12,7 @@
       noto-fonts-emoji
       noto-fonts
       wqy_zenhei
+      input-fonts
     ];
   };
 
