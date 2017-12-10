@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
 
@@ -20,4 +20,6 @@
   ];
 
   services.mbpfan.enable = true;
+
+  powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
 }

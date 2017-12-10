@@ -8,7 +8,7 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "ohci_pci" "firewire_ohci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
@@ -42,13 +42,13 @@
       fsType = "zfs";
     };
 
-  fileSystems."/root/imp" =
-    { device = "main/data/important/users/root";
+  fileSystems."/home/infinisil/imp" =
+    { device = "main/data/important/users/infinisil";
       fsType = "zfs";
     };
 
-  fileSystems."/home/infinisil/imp" =
-    { device = "main/data/important/users/infinisil";
+  fileSystems."/root/imp" =
+    { device = "main/data/important/users/root";
       fsType = "zfs";
     };
 
@@ -57,10 +57,15 @@
       fsType = "vfat";
     };
 
+  fileSystems."/home/infinisil/Music" =
+    { device = "main/server/music";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/7ad864a0-75c9-4696-8532-6b405ac94d21"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
