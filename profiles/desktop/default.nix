@@ -15,6 +15,7 @@
     config.sshkeys.mac.nixos.root
   ];
 
+
   virtualisation.virtualbox.host.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -31,6 +32,7 @@
     nameservers = [
       nodes.server.config.deployment.targetHost
     ];
+    firewall.allowedTCPPorts = [ 8081 ];
   };
 
   nix = {
