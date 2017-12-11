@@ -15,5 +15,7 @@ with lib;
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
+
+    plymouth.enable = true;
   };
 }
