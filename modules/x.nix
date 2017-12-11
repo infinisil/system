@@ -39,6 +39,7 @@
     dmenu
     xlibs.xev
     deluge
+    firefox
     thunderbird
     haskellPackages.xmobar
   ];
