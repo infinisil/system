@@ -25,6 +25,7 @@
     xclip
     evince
     vlc
+    pcmanfm
     arandr
     xorg.xmessage
     lxappearance
@@ -58,7 +59,7 @@
       displayManager.sddm = {
         enable = true;
         autoLogin = {
-          enable = true;
+          enable = false;
           user = "infinisil";
         };
       };

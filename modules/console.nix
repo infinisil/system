@@ -23,6 +23,9 @@
     wget
     ripgrep
     tree
+    file
+    mediainfo
+    loc
   ];
 
   users.defaultUserShell = pkgs.zsh;
