@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-sudo zpool export betty
-xrandr --output eDP1 --mode 1440x900
-xrandr --output DP1 --off
-xinput --set-prop bcm5974 "Device Enabled" 1
