@@ -13,7 +13,6 @@
     ../../modules/namecoin.nix
     ../../modules/youtube.nix
     ../../modules/info.nix
-    ../../modules/chatserver
     ../../modules/ipfs.nix
     ../../modules/znc.nix
     ../../private/server.nix
