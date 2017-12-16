@@ -19,6 +19,11 @@
     ];
   };
 
+  home-manager.users.infinisil = {
+    home.homeDirectory = "/home/infinisil";
+    home.username = "infinisil";
+  };
+
   nix = {
     useSandbox = true;
     buildCores = 0;
@@ -27,11 +32,13 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    (import ../home-manager/overlay.nix)
+  ];
 
   security.sudo.wheelNeedsPassword = false;
 
   boot.loader.grub.splashImage = null;
 
   boot.cleanTmpDir = true;
-
 }

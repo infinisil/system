@@ -8,6 +8,7 @@
     ../../modules/radicale.nix
     ../../modules/bind.nix
     ../../modules/console.nix
+    ../../modules/beets.nix
     ../../modules/mpdServer.nix
     ../../modules/namecoin.nix
     ../../modules/youtube.nix
@@ -85,4 +86,25 @@
     locations."/".extraConfig = "autoindex on;";
   };
 
+
+  home-manager.users.infinisil = {
+    # https://github.com/keybase/keybase-issues/issues/1712#issuecomment-141226705
+    home.sessionVariables.GPG_TTY = "$(tty)";
+
+    programs.htop.meters = {
+      left = [
+        "Memory"
+        "CPU"
+        "Swap"
+        { kind = "CPU"; mode = 3; }
+      ];
+      right = [
+        { kind = "Clock"; mode = 4; }
+        "Uptime"
+        "Tasks"
+        "LoadAverage"
+      ];
+    };
+
+  };
 }

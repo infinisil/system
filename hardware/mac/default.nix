@@ -22,4 +22,26 @@
   services.mbpfan.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
+
+  home-manager.users.infinisil = {
+
+    programs.htop.meters = {
+      left = [
+        "Memory"
+        "CPU"
+        "LeftCPUs2"
+        "RightCPUs2"
+        "Swap"
+        { kind = "CPU"; mode = 3; }
+      ];
+      right = [
+        { kind = "Clock"; mode = 4; }
+        "Uptime"
+        "Tasks"
+        "LoadAverage"
+        { kind = "Battery"; mode = 1; }
+      ];
+    };
+
+  };
 }

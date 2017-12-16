@@ -17,5 +17,14 @@
   environment.systemPackages = with pkgs; [
     blueman
     pavucontrol
+    cli-visualizer
   ];
+
+  home-manager.users.infinisil = {
+
+    home.file.".config/vis/config".text = ''
+      audio.sources=pulse
+    '';
+
+  };
 }

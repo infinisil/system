@@ -7,3 +7,6 @@
 [submodule "home-manager"]
 	path = home-manager
 	url = git@github.com:Infinisil/home-manager
+[submodule "nixpkgs-mozilla"]
+	path = nixpkgs-mozilla
+	url = git@github.com:Infinisil/nixpkgs-mozilla

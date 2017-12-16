@@ -4,11 +4,16 @@
     ../defaults.nix
     ../test.nix
     ../../modules/audio.nix
-    ../../modules/x.nix
+    ../../modules/x
     ../../modules/console.nix
     ../../modules/ipfs.nix
     ../../modules/localserver.nix
     ../../modules/keylayout.nix
+    ../../modules/task.nix
+    ../../modules/say.nix
+    ../../modules/emacs.nix
+    ../../modules/audioclient.nix
+    ../../modules/sshclient.nix
   ];
 
   users.users.root.openssh.authorizedKeys.keys = [
@@ -24,6 +29,20 @@
     neofetch
     youtube-dl
     ffmpeg-full
+    stack
+    imagemagick7Big
+    (idrisPackages.with-packages (with idrisPackages; [
+      base
+      contrib
+      effects
+      pruviloj
+
+      lightyear
+      #wl-pprint broken
+      specdris
+      #httpclient broken
+      bi
+    ]))
   ];
 
   environment.variables.PATH = "/cfg/bin";
