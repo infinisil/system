@@ -4,3 +4,6 @@
 [submodule "private"]
 	path = private
 	url = git@infinisil.com:private
+[submodule "home-manager"]
+	path = home-manager
+	url = git@github.com:Infinisil/home-manager

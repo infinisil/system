@@ -7,6 +7,7 @@
     ../modules/keys.nix
     ../lib
     ../private
+    ../home-manager/nixos
   ];
 
   users.extraUsers.infinisil = {
