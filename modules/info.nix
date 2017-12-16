@@ -37,7 +37,7 @@ let
     where path like \"%$1\"
     "
 
-    ${pkgs.sqlite}/bin/sqlite3 ${musicDir}/beets/beets.db "$sql"
+    ${pkgs.sqlite}/bin/sqlite3 --init /dev/null ${musicDir}/beets/beets.db "$sql"
   '';
 
   mkMpdService = { name, description ? name, script }@attrs: let
