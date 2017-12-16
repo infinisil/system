@@ -13,6 +13,7 @@ with lib;
     {
       services.ipfs = {
         enable = true;
+        autoMount = true;
         dataDir = "/var/lib/ipfs";
       };
 
