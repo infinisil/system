@@ -141,6 +141,170 @@ in
       '';
     };
 
+    home.file.".config/konsolerc".text = ''
+      [Desktop Entry]
+      DefaultProfile=Ancient.profile
+
+      [Favorite Profiles]
+      Favorites=
+
+      [KonsoleWindow]
+      ShowAppNameOnTitleBar=false
+      ShowMenuBarByDefault=false
+
+      [MainWindow]
+      Height 1440=1403
+      Height 720=691
+      Height 800=763
+      Height 900=863
+      MenuBar=Disabled
+      State=AAAA/wAAAAD9AAAAAAAACgAAAAWDAAAABAAAAAQAAAAIAAAACPwAAAAA
+      ToolBarsMovable=Disabled
+      Width 1280=632
+      Width 1440=712
+      Width 2560=845
+
+      [Open-with settings]
+      CompletionMode=5
+      History=firefox %U,firefox
+
+      [TabBar]
+      TabBarVisibility=ShowTabBarWhenNeeded
+    '';
+
+    home.file.".local/share/konsole/Ancient.profile".text = ''
+      [Appearance]
+      AntiAliasFonts=true
+      BoldIntense=true
+      ColorScheme=Red
+      Font=SauceCodePro Nerd Font,11,-1,5,50,0,0,0,0,0
+      UseFontLineChararacters=false
+
+      [Cursor Options]
+      CursorShape=0
+
+      [General]
+      Environment=TERM=xterm-256color,COLORTERM=truecolor
+      Name=Ancient
+      Parent=FALLBACK/
+      ShowTerminalSizeHint=false
+
+      [Interaction Options]
+      OpenLinksByDirectClickEnabled=true
+      TripleClickMode=0
+      UnderlineFilesEnabled=false
+
+      [Keyboard]
+      KeyBindings=default
+
+      [Scrolling]
+      HistoryMode=2
+      ScrollBarPosition=2
+
+      [Terminal Features]
+      BlinkingCursorEnabled=true
+    '';
+
+    home.file.".local/share/konsole/Red.colorscheme".text = ''
+      [Background]
+      Color=43,43,41
+      MaxRandomHue=0
+      MaxRandomSaturation=0
+      MaxRandomValue=0
+
+      [BackgroundFaint]
+      Color=0,0,0
+
+      [BackgroundIntense]
+      Color=87,87,67
+
+      [Color0]
+      Color=54,54,54
+
+      [Color0Faint]
+      Color=24,24,24
+
+      [Color0Intense]
+      Color=99,99,99
+
+      [Color1]
+      Color=195,117,97
+
+      [Color1Faint]
+      Color=101,25,0
+
+      [Color1Intense]
+      Color=219,102,73
+
+      [Color2]
+      Color=160,165,126
+
+      [Color2Faint]
+      Color=0,101,0
+
+      [Color2Intense]
+      Color=192,203,91
+
+      [Color3]
+      Color=209,163,117
+
+      [Color3Faint]
+      Color=101,74,0
+
+      [Color3Intense]
+      Color=221,155,88
+
+      [Color4]
+      Color=142,129,175
+
+      [Color4Faint]
+      Color=0,24,102
+
+      [Color4Intense]
+      Color=221,167,100
+
+      [Color5]
+      Color=171,113,126
+
+      [Color5Faint]
+      Color=95,5,95
+
+      [Color5Intense]
+      Color=210,100,96
+
+      [Color6]
+      Color=152,185,177
+
+      [Color6Faint]
+      Color=0,94,163
+
+      [Color6Intense]
+      Color=109,206,180
+
+      [Color7]
+      Color=208,208,208
+
+      [Color7Faint]
+      Color=101,101,101
+
+      [Color7Intense]
+      Color=249,249,249
+
+      [Foreground]
+      Color=219,195,165
+
+      [ForegroundFaint]
+      Color=205,0,0
+
+      [ForegroundIntense]
+      Color=227,171,102
+
+      [General]
+      Description=Ancient
+      Opacity=1
+      Wallpaper=
+    '';
+
     home.keyboard.layout = "dvp";
 
     home.packages = with pkgs; [
