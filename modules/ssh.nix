@@ -46,6 +46,8 @@
       mac.osx.infinisil
       iPhone.pass
       mac.osx.old
+      pc.root
+      pc.infinisil
     ];
   };
 }

@@ -18,8 +18,8 @@
 
   users.users.root.openssh.authorizedKeys.keys = [
     config.sshkeys.mac.nixos.root
+    config.sshkeys.pc.root
   ];
-
 
   virtualisation.virtualbox.host.enable = true;
 
