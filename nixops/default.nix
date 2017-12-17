@@ -48,4 +48,25 @@
       '';
     };
   };
+
+  pc = { pkgs, nodes, config, lib, ... }: {
+    deployment.targetHost = "192.168.1.12";
+
+    imports = [
+      ../hardware/pc
+      ../profiles/desktop
+    ];
+
+    environment.systemPackages = with pkgs; [
+      steam
+    ];
+
+    networking = {
+      hostName = "nepnep";
+      hostId = "56236562";
+      extraHosts = ''
+        ${nodes.server.config.deployment.targetHost} ${nodes.server.config.networking.domain} ${nodes.server.config.networking.hostName}
+      '';
+    };
+  };
 }
