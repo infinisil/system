@@ -74,6 +74,8 @@ in
               ${concatMapStringsSep "\n" (sub:
                 "${sub} IN CNAME ${domain}."
               ) config.networking.subdomains}
+
+              @ IN TXT "dnslink=/ipns/QmcF3xqxFZxDLBJ5fNmr8vZ5p83SoS5zuavYMhizh2L1dp"
             '';
           }
         ];
