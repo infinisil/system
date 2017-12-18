@@ -19,11 +19,6 @@
     ];
   };
 
-  home-manager.users.infinisil = {
-    home.homeDirectory = "/home/infinisil";
-    home.username = "infinisil";
-  };
-
   nix = {
     useSandbox = true;
     buildCores = 0;
