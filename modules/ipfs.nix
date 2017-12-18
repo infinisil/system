@@ -13,13 +13,15 @@ with lib;
     {
       services.ipfs = {
         enable = true;
-        autoMount = true;
+        autoMount = false;
         dataDir = "/var/lib/ipfs";
       };
 
       users.users.infinisil.extraGroups = [
         "ipfs"
       ];
+
+      networking.firewall.allowedTCPPorts = [ 4001 ];
     }
     (mkIf (! config.services.ipfs.autostart) {
       systemd.services.ipfs.wantedBy = mkForce [];
