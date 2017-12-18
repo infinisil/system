@@ -24,14 +24,6 @@ in
     }
   ];
 
-  users.extraUsers.infinisil.openssh.authorizedKeys.keys = [
-    config.sshkeys.server.infinisil
-  ];
-
-  users.extraUsers.root.openssh.authorizedKeys.keys = [
-    config.sshkeys.server.root
-  ];
-
   services.openssh = {
     enable = true;
     passwordAuthentication = false;

@@ -14,6 +14,7 @@
     ../../modules/emacs.nix
     ../../modules/audioclient.nix
     ../../modules/sshclient.nix
+    ../../modules/ssh.nix
   ];
 
   users.users.root.openssh.authorizedKeys.keys = [

@@ -3,8 +3,8 @@
 {
 
   imports = [
+    ./ssh.nix
     ../../modules/web.nix
-    ../../modules/ssh.nix
     ../../modules/radicale.nix
     ../../modules/bind.nix
     ../../modules/console.nix
@@ -13,6 +13,8 @@
     ../../modules/namecoin.nix
     ../../modules/youtube.nix
     ../../modules/info.nix
+    ../../modules/git-host.nix
+    ../../modules/ssh.nix
     ../../modules/ipfs.nix
     ../../modules/znc.nix
     ../../private/server.nix
