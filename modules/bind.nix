@@ -36,10 +36,6 @@ in
     ];
 
     services = {
-      fail2ban = {
-        enable = true;
-      };
-
       bind = {
         enable = true;
         cacheNetworks = [
