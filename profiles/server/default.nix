@@ -49,7 +49,7 @@
     passwordAuthentication = false;
   };
 
-  services.ipfs.autostart = true;
+  services.ipfs.autostart = false;
 
   nix = {
     autoOptimiseStore = true;
@@ -76,7 +76,7 @@
     };
   };
 
-  networking.subdomains = [ "test" ];
+  networking.subdomains = [ "test" "ipfs" ];
 
   services.nginx.virtualHosts."test.${config.networking.domain}" = {
     forceSSL = true;
@@ -85,6 +85,12 @@
     locations."/".extraConfig = "autoindex on;";
   };
 
+  services.nginx.virtualHosts."ipfs.${config.networking.domain}" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "/webroot";
+    locations."/".proxyPass = "http://localhost:8080";
+  };
 
   home-manager.users.infinisil = {
     # https://github.com/keybase/keybase-issues/issues/1712#issuecomment-141226705
