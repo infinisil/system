@@ -37,14 +37,25 @@ let
       root = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzMEOE8qGqPor0IcRfPisrPAGNPONksDbv4KlfdNMMS21NbuNshdkoMEm76ld9EfBaDHzJ4yta4M79UItuuqX6e+y5eY2140AxC0HoQcjURJiu7rnVGVBmnpdUrh8GlugvIksBbjKfkaC6c6VePeKKku62GZEZgS0iaAblNs3bBI7BCO1pFDgmZKar+1YV3mN9SqazDz9NkoAZJilUCzgxlhj3WOy/DWsWf7g/ahoSaVfNlE+U/OHeItyejPIcdZyW+/0qdWOZlyOzAsR3haPQQMGJIq2EO92Te30oPo5RFtMl9eibFwSN4IwSbHAMPo/HpR+A/igFYkYjJHxktjNX root@mail.infinisil.io";
     };
   };
+
+  all = collect (x: ! builtins.isAttrs x) keys;
 in
 
 {
 
-  options.sshkeys = mkOption {
-    type = types.attrs;
-    default = keys;
-    readOnly = true;
-  };
+  options = {
 
+    sshkeys = mkOption {
+      type = types.attrs;
+      default = keys;
+      readOnly = true;
+    };
+
+    allsshkeys = mkOption {
+      type = types.listOf types.str;
+      default = all;
+      readOnly = true;
+    };
+
+  };
 }
