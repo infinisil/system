@@ -15,4 +15,6 @@
     rpc.password = "ccgjkqbxtnheprcgansaoetuh";
   };
 
+  systemd.services.namecoind.wantedBy = lib.mkForce [];
+
 }
