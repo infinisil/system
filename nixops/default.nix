@@ -55,7 +55,8 @@
   };
 
   pc = { pkgs, nodes, config, lib, ... }: {
-    deployment.targetHost = "192.168.1.31";
+    deployment.targetHost = "infinisil.com";
+    deployment.targetPort = 2222;
 
     imports = [
       ../hardware/pc
