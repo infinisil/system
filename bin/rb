@@ -7,15 +7,9 @@ if [ "$1" = "b" ]; then
 	printf "Only building "
 	shift
 else
-	printf "Building and activating "
+	printf "Building and activating\n"
 fi
 
-if [ "$1" = "laptop" ] || [ "$1" == "server" ]; then
-	include="--include $1"
-	printf "%s\n" "$1"
-	shift
-else
-	printf "\n"
-fi
 
-NIXOPS_DEPLOYMENT=${NIXOPS_DEPLOYMENT:-infinisil} sudo nixops deploy $build $include $@
+NIXOPS_DEPLOYMENT=${NIXOPS_DEPLOYMENT:-infinisil} \
+sudo nixops deploy $build $@
