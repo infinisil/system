@@ -3,7 +3,8 @@
 
     programs.ssh = {
       enable = true;
-      controlMaster = "yes";
+      controlMaster = "auto";
+      controlPersist = "60";
       matchBlocks = {
         inf = {
           hostname = "infinisil.com";
