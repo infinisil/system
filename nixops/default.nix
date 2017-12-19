@@ -40,6 +40,11 @@
       ../profiles/desktop
     ];
 
+    localserver = {
+      webserverport = 1801;
+      sshport = 2221;
+    };
+
     networking = {
       hostName = "emma";
       hostId = "34cc680d";
@@ -50,12 +55,17 @@
   };
 
   pc = { pkgs, nodes, config, lib, ... }: {
-    deployment.targetHost = "192.168.1.12";
+    deployment.targetHost = "192.168.1.31";
 
     imports = [
       ../hardware/pc
       ../profiles/desktop
     ];
+
+    localserver = {
+      webserverport = 1802;
+      sshport = 2222;
+    };
 
     environment.systemPackages = with pkgs; [
       steam

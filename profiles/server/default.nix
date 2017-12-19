@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ nodes, config, lib, pkgs, ... }:
 
 {
 
@@ -42,7 +42,7 @@
 
   networking.firewall.allowedTCPPorts = [
     5001 # iperf
-  ];
+  ] ++ [ nodes.pc.config.localserver.sshport nodes.laptop.config.localserver.sshport ];
 
   networking.firewall.logRefusedConnections = true;
 
@@ -74,11 +74,17 @@
       forceSSL = true;
       enableACME = true;
       root = "/webroot/mac";
-      locations."/".proxyPass = "http://localhost:1809";
+      locations."/".proxyPass = "http://localhost:${toString nodes.laptop.config.localserver.webserverport}";
+    };
+    virtualHosts."pc.${config.networking.domain}" = {
+      forceSSL = true;
+      enableACME = true;
+      root = "/webroot/pc";
+      locations."/".proxyPass = "http://localhost:${toString nodes.pc.config.localserver.webserverport}";
     };
   };
 
-  networking.subdomains = [ "test" "ipfs" ];
+  networking.subdomains = [ "test" "ipfs" ] ++ [ "mac" "pc" ];
 
   services.nginx.virtualHosts."test.${config.networking.domain}" = {
     forceSSL = true;

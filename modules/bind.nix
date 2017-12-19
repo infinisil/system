@@ -24,8 +24,6 @@ in
 
   config = {
 
-    networking.subdomains = [ "mac" ];
-
     networking.firewall = {
       allowedTCPPorts = [ 53 ];
       allowedUDPPorts = [ 53 ];

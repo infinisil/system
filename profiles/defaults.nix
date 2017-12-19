@@ -5,6 +5,7 @@
   imports = [
     ../modules/ch.nix
     ../modules/keys.nix
+    ../modules/sshclient.nix
     ../lib
     ../private
     ../home-manager/nixos
