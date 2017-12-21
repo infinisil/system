@@ -7,6 +7,7 @@
     home = "/home/git";
     group = "git";
     description = "Git repository user";
+    openssh.authorizedKeys.keys = config.allsshkeys;
   };
 
   users.groups.git.gid = null;
