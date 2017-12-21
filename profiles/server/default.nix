@@ -13,6 +13,7 @@
     ../../modules/namecoin.nix
     ../../modules/youtube.nix
     ../../modules/info.nix
+    ../../modules/remote.nix
     ../../modules/git-host.nix
     ../../modules/ssh.nix
     ../../modules/ipfs.nix
@@ -60,19 +61,7 @@
       dates = "daily";
       options = "--delete-older-than 7d";
     };
-    nixPath = [
-      # Ruin the config so we don't accidentally run
-      # nixos-rebuild switch on the host (thanks grahamc!)
-      "nixos-config=${pkgs.writeText "throw-configuration.nix" ''
-        throw "Hey dummy, you're on your server! Use NixOps!"
-      ''}"
-      "nixpkgs=/run/current-system/nixpkgs"
-    ];
   };
-
-  system.extraSystemBuilderCmds = ''
-    ln -sv ${lib.cleanSource pkgs.path} $out/nixpkgs
-  '';
 
   services.nginx = {
     virtualHosts."mac.${config.networking.domain}" = {

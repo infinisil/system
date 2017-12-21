@@ -61,6 +61,7 @@
     imports = [
       ../hardware/pc
       ../profiles/desktop
+      ../modules/remote.nix
     ];
 
     localserver = {
