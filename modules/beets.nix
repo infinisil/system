@@ -98,6 +98,7 @@ in
           name = "${name}.m3u";
           inherit query;
         }) {
+          okay = "^nope:1 ^rating:0..5";
           unrated = "^rating:0..10 ^nope:1";
           decentSongs = "^nope:1 rating:6.. length:..10:00 , ^nope:1 now:1 length:..10:00";
           decentMixes = "^nope:1 rating:6.. length:10:00.. , ^nope:1 now:1 length:10:00..";
