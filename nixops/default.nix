@@ -71,6 +71,13 @@
       sshport = 2222;
     };
 
+    services.nginx.virtualHosts."pc.${nodes.server.config.networking.domain}".locations."/betty" = {
+      root = "/";
+      extraConfig = ''
+        autoindex on;
+      '';
+    };
+
     environment.systemPackages = with pkgs; [
       steam
     ];
