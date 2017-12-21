@@ -104,6 +104,9 @@ in
         gstp = "git stash pop";
         glum = "git pull upstream master";
         gwch = "git whatchanged -p --abbrev-commit --pretty=medium";
+
+        # This makes it so that every library is included by default
+        idris = ''idris $($(which -p idris) --listlibs | grep -v ".*\.ibc$" | sed -e "s/^/-p /" | paste -sd" ")'';
       };
       initExtra = ''
         HISTFILE=$HOME/.config/zsh/.zsh_history
