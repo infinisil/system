@@ -349,8 +349,8 @@ in
     };
 
     programs.zsh.shellAliases = {
-      copy = "${pkgs.xclip}/bin/xclip -selection clipboard";
-      paste = "${pkgs.xclip}/bin/xclip -selection clipboard -o";
+      pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard";
+      pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -o";
       aniwp = "xwinwrap -ov -fs -ni -- mpv --loop=inf -wid WID --panscan=1";
     };
   };
