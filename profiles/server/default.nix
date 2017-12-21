@@ -86,6 +86,7 @@
       enableACME = true;
       root = "/webroot/pc";
       locations."/".proxyPass = "http://localhost:${toString nodes.pc.config.localserver.webserverport}";
+      basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
     };
   };
 
