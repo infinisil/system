@@ -15,6 +15,7 @@
     imports = [
       ../hardware/paul
       ../profiles/server
+      ../profiles/weak.nix
     ];
 
     networking = {
@@ -38,6 +39,7 @@
     imports = [
       ../hardware/mac
       ../profiles/desktop
+      ../profiles/weak.nix
     ];
 
     localserver = {
