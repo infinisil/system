@@ -35,12 +35,12 @@ with lib;
       {
         name = "localserver";
         user = "root";
-        extraArguments = ''-R ${toString cfg.webserverport}:localhost:80 '' + common;
+        extraArguments = ''-v -R ${toString cfg.webserverport}:localhost:80 '' + common;
       }
       {
         name = "ssh";
         user = "root";
-        extraArguments = ''-R \*:${toString cfg.sshport}:localhost:22 '' + common;
+        extraArguments = ''-v -R \*:${toString cfg.sshport}:localhost:22 '' + common;
       }
     ];
 
