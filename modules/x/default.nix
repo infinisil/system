@@ -177,7 +177,7 @@ in
       AntiAliasFonts=true
       BoldIntense=true
       ColorScheme=Red
-      Font=SauceCodePro Nerd Font,11,-1,5,50,0,0,0,0,0
+      Font=SauceCodePro Nerd Font,10,-1,5,50,0,0,0,0,0
       UseFontLineChararacters=false
 
       [Cursor Options]
