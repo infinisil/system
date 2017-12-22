@@ -6,6 +6,29 @@ let
 
   domain = nodes.server.config.networking.domain;
 
+  mkService = desc: raction: {
+    description = "remote ssh port forwarding for ${desc}";
+
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      ExecStart = let
+        args = lib.concatStringsSep " " [
+          "-o \"ServerAliveInterval 15\""
+          "-o \"ExitOnForwardFailure yes\""
+          "-o \"ControlMaster no\""
+          "-o \"ControlPersist no\""
+          "-n -N"
+          "-R ${raction}"
+          domain
+        ];
+      in "${pkgs.openssh}/bin/ssh ${args}";
+      Restart = "on-failure";
+      RestartSec = 10;
+    };
+  };
+
 in
 
 with lib;
@@ -15,12 +38,12 @@ with lib;
   options.localserver = {
 
     webserverport = mkOption {
-      type = types.int;
+      type = types.ints.u16;
       description = "which port to use for the webserver";
     };
 
     sshport = mkOption {
-      type = types.int;
+      type = types.ints.u16;
       description = "which port to use for ssh";
     };
 
@@ -29,20 +52,11 @@ with lib;
   config = {
 
     networking.firewall.allowedTCPPorts = [ 80 ];
-    services.autossh.sessions = let
-      common = ''-o "ServerAliveInterval 15" -o "ExitOnForwardFailure yes" -N ${domain}'';
-    in [
-      {
-        name = "localserver";
-        user = "root";
-        extraArguments = ''-v -R ${toString cfg.webserverport}:localhost:80 '' + common;
-      }
-      {
-        name = "ssh";
-        user = "root";
-        extraArguments = ''-v -R \*:${toString cfg.sshport}:localhost:22 '' + common;
-      }
-    ];
+
+    systemd.services = {
+      sshr = mkService "ssh" "\*:${toString cfg.sshport}:localhost:22";
+      webr = mkService "webserver" "${toString cfg.webserverport}:localhost:80";
+    };
 
     services.openssh = {
       enable = true;
