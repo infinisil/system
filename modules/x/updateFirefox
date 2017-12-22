@@ -1,5 +1,0 @@
-#! /usr/bin/env bash
-
-cd /cfg/nixpkgs-mozilla
-nix-build '<nixpkgs>' -A firefox-nightly-bin.updateScript
-./result
