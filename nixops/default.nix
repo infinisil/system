@@ -42,6 +42,13 @@
       ../profiles/weak.nix
     ];
 
+    services.nfs.server = {
+      enable = true;
+      exports = ''
+        /home/infinisil 192.168.1.34(rw)
+      '';
+    };
+
     localserver = {
       webserverport = 1801;
       sshport = 2221;
@@ -53,6 +60,8 @@
       extraHosts = ''
         ${nodes.server.config.deployment.targetHost} ${nodes.server.config.networking.domain} ${nodes.server.config.networking.hostName}
       '';
+      firewall.allowedTCPPorts = [ 111 2049 ];
+      firewall.allowedUDPPorts = [ 111 2049 ];
     };
   };
 
@@ -65,6 +74,11 @@
       ../profiles/desktop
       ../modules/remote.nix
     ];
+
+    fileSystems."/mnt/home" = {
+      device = "192.168.1.48:/home/infinisil";
+      fsType = "nfs";
+    };
 
     localserver = {
       webserverport = 1802;
