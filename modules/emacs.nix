@@ -125,7 +125,7 @@
        '(ido-enable-flex-matching t)
        '(ido-everywhere t)
        '(ido-mode (quote both) nil (ido))
-       '(idris-interpreter-flags (quote ("-p" "Bi")))
+       '(idris-interpreter-flags (quote ("-p" "Bi" "-p" "lightyear")))
        '(menu-bar-mode nil)
        '(scroll-bar-mode nil)
        '(tool-bar-mode nil))
