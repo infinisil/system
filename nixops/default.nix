@@ -45,7 +45,7 @@
     services.nfs.server = {
       enable = true;
       exports = ''
-        /home/infinisil 192.168.1.34(rw)
+        /home/infinisil 192.168.1.25(rw)
       '';
     };
 
@@ -76,7 +76,7 @@
     ];
 
     fileSystems."/mnt/home" = {
-      device = "192.168.1.48:/home/infinisil";
+      device = "192.168.1.16:/home/infinisil";
       fsType = "nfs";
     };
 
