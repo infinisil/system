@@ -51,6 +51,7 @@
           "vim"
           "haskell"
           "ghc-mod"
+          "openvpn"
         ];
       };
       networks.mozilla = {
