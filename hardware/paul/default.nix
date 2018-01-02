@@ -19,9 +19,9 @@
       };
 
       "main/data/music" = rec {
-        plan = "1d=>1h,1w=>1d";
+        plan = "1d=>1h,1w=>1d,1m=>1w";
         destinations.pc = {
-          plan = plan + ",1m=>1w";
+          plan = plan + ",1y=>1m";
           host = "pc";
           dataset = "main/server/music";
         };
