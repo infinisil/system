@@ -9,7 +9,7 @@ let cfg = config.mpd; in {
     ./mpdClient.nix
   ];
 
-  networking.firewall.allowedTCPPorts = optionals (! cfg.local) [ cfg.port ];
+  networking.firewall.allowedTCPPorts = optionals (! cfg.local) [ cfg.port 6725 ];
 
   services.mpd = {
     enable = true;
@@ -29,7 +29,19 @@ let cfg = config.mpd; in {
     '' else ''
       audio_output {
         type            "httpd"
-        name            "My HTTP Stream"
+        name            "My HTTP Stream, opus"
+        encoder         "opus"
+        signal          "music"
+        complexity      "10"
+        port            "6725"
+        bitrate         "128000"
+        format          "48000:16:2"
+        max_clients     "0"
+        always_on       "yes"
+      }
+      audio_output {
+        type            "httpd"
+        name            "My HTTP Stream, normal mp3 lame"
         encoder         "lame"
         port            "${toString cfg.httpPort}"
         bitrate         "${toString cfg.bitRate}"
@@ -48,6 +60,7 @@ let cfg = config.mpd; in {
   services.nginx.virtualHosts."tune.${config.networking.domain}" = {
     root = "/webroot";
     locations."/".proxyPass = "http://localhost:${toString cfg.httpPort}";
+    locations."/opus/".proxyPass = "http://localhost:6725";
     #basicAuth.infinisil = config.private.passwords."tune.infinisil.com";
   };
   hardware.pulseaudio.${if cfg.local then "extraConfig" else null} = ''
