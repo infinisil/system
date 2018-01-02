@@ -27,6 +27,7 @@
           "nixos"
           "nixos-dev"
           "nixos-wiki"
+          "nixos-borg"
           "emacs"
           "linux"
           "anime"
@@ -52,6 +53,8 @@
           "haskell"
           "ghc-mod"
           "openvpn"
+          "agda"
+          "#dependent"
         ];
       };
       networks.mozilla = {
