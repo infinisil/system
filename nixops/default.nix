@@ -76,7 +76,7 @@
     ];
 
     fileSystems."/mnt/home" = {
-      device = "192.168.1.16:/home/infinisil";
+      device = "192.168.1.19:/home/infinisil";
       fsType = "nfs";
     };
 
