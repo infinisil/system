@@ -30,7 +30,7 @@ in
       };
 
       Service = {
-        ExecStart = "${pkgs.mpv}/bin/mpv http://tune.infinisil.com --quiet";
+        ExecStart = "${pkgs.mpv}/bin/mpv http://tune.infinisil.com/opus --quiet";
         Restart = "on-success";
         SuccessExitStatus = 4;
         RestartPreventExitStatus = 4;
