@@ -46,8 +46,8 @@ in
           while true; do
             echo Checking for new videos
             ${pkgs.youtube-dl}/bin/youtube-dl ${args}
-            echo Sleeping for 10 seconds
-            sleep 10
+            echo Sleeping for 1 minute
+            sleep 60
           done
         '';
       in "${youtube-script}/bin/youtube-script";
