@@ -20,6 +20,7 @@
     ../../modules/znc.nix
     ../../private/server.nix
     /home/infinisil/eth/DS/CardGame/Server/module.nix
+    /home/infinisil/prj/nixbot/module.nix
   ];
 
   boot.loader.timeout = 60;
