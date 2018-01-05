@@ -64,7 +64,7 @@
     nixPath = [
       "cfg=/cfg"
       "nixpkgs=/cfg/nixpkgs"
-      "nixos-config=/cfg/hosts/mac"
+      "nixos-config=/cfg/profiles/desktop"
     ];
   };
 
