@@ -34,7 +34,6 @@
   security.pam.services.su.forwardXAuth = lib.mkForce false;
   #environment.noXlibs = true;
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
-  services.nixosManual.enable = false;
   programs.info.enable = false;
 
   environment.systemPackages = with pkgs; [
