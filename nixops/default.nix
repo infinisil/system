@@ -1,8 +1,18 @@
+{ dirty }:
+
 {
   network.description = "Infinisil's machines";
 
-  defaults = {
+  defaults = { pkgs, lib, ... }: {
     deployment.alwaysActivate = true;
+
+    system.nixosLabel = let cfg = ../.; in builtins.readFile (pkgs.runCommand "cfgVersion" {} ''
+      label=$(printf "${lib.optionalString dirty "%.7s-dirty-"}%.35s" \
+        ${lib.optionalString dirty ''"$(${pkgs.nix}/bin/nix-hash ${cfg} --base32)"''} \
+        "$(${pkgs.git}/bin/git -C ${cfg} log --pretty=format:'%h-%f' -n 1)")
+      echo Generated nixosLabel: "$label"
+      echo -n $label > $out
+    '');
 
     imports = [
       ../profiles/defaults.nix

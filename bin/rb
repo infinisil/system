@@ -1,15 +1,33 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nixops
+#!nix-shell -i bash -p nixops git
 
+set -e
 
-if [ "$1" = "b" ]; then
-	build="--build-only"
-	printf "Only building "
-	shift
-else
-	printf "Building and activating\n"
+# Give the opportunity to commit
+if [[ $(git -C /cfg diff --shortstat) != "" ]]; then
+	if [[ "$1" == "a" ]]; then
+		shift
+		git -C /cfg commit -p -v --amend || true
+	else
+		git -C /cfg commit -p -v || true
+	fi
 fi
 
+# If the first argument is b, just build
+if [ "$1" = "b" ]; then
+	shift
+	echo Only building..
+	build="--build-only"
+else
+	echo Building and activating..
+fi
 
-NIXOPS_DEPLOYMENT=${NIXOPS_DEPLOYMENT:-infinisil} \
-sudo nixops deploy $build $@
+# evaluate dirty status
+if [[ $(git -C /cfg diff --shortstat) != "" ]]; then
+	dirty=true
+else
+	dirty=false
+fi
+
+sudo nixops set-args -d infinisil --arg dirty "$dirty"
+sudo nixops deploy -d infinisil $build $@
