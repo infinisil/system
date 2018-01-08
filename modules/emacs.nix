@@ -9,27 +9,10 @@
       network-simple
     ]);
 
-    ghc-mod-wrapped = let
-      ghc-mod = pkgs.haskellPackages.ghc-mod;
-    in pkgs.runCommand "ghc-mod-wrapped" {
-      buildInputs = [ pkgs.makeWrapper ];
-    } ''
-      mkdir $out
-      ln -s ${ghc-mod}/* $out
-
-      rm $out/bin
-      mkdir $out/bin
-      ln -s ${ghc-mod}/bin/* $out/bin
-      rm $out/bin/ghc-mod
-      makeWrapper ${ghc-mod}/bin/ghc-mod $out/bin/ghc-mod \
-        --run 'export NIX_GHC_LIBDIR="$(ghc --print-libdir)"'
-        #--set NIX_GHC_LIBDIR "$(${ghc}/bin/ghc --print-libdir)"
-    '';
-  in {
+    in {
 
     home.packages = with pkgs; [
       ghc
-      ghc-mod-wrapped
       haskellPackages.stylish-haskell
       haskellPackages.hasktags
       haskellPackages.hindent
@@ -162,7 +145,6 @@
         company-ghc
 
         haskell-mode
-        ghc-mod
         hindent
 
         better-defaults
