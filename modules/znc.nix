@@ -56,6 +56,9 @@
           "agda"
           "#dependent"
           "alacritty"
+          "bottest"
+          "haskell-ide-engine"
+          "pulseaudio"
         ];
       };
       networks.mozilla = {
