@@ -13,14 +13,8 @@ let
         hostname = "infinisil.com";
         user = "git";
       };
-      laptop = {
-        hostname = "infinisil.com";
-        port = nodes.laptop.config.localserver.sshport;
-      };
-      pc = {
-        hostname = "infinisil.com";
-        port = nodes.pc.config.localserver.sshport;
-      };
+      laptop.proxyCommand = "sh -c 'ping 192.168.1.19 -w1 && nc 192.168.1.19 22 || nc infinisil.com ${toString nodes.laptop.config.localserver.sshport}'";
+      pc.proxyCommand = "sh -c 'ping 192.168.1.25 -w1 && nc 192.168.1.25 22 || nc infinisil.com ${toString nodes.pc.config.localserver.sshport}'";
     };
   };
 
