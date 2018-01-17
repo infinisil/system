@@ -10,7 +10,7 @@
   };
 
   services.namecoind = {
-    enable = true;
+    enable = false;
     rpc.user = "infinisil";
     rpc.password = "ccgjkqbxtnheprcgansaoetuh";
   };

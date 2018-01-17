@@ -32,18 +32,18 @@
     ffmpeg-full
     stack
     imagemagick7Big
-    (idrisPackages.with-packages (with idrisPackages; [
-      base
-      contrib
-      effects
-      pruviloj
+    #(idrisPackages.with-packages (with idrisPackages; [
+    #  base
+    #  contrib
+    #  effects
+    #  pruviloj
 
-      lightyear
-      #wl-pprint broken
-      specdris
-      #httpclient broken
-      bi
-    ]))
+    #  lightyear
+    #  #wl-pprint broken
+    #  specdris
+    #  #httpclient broken
+    #  bi
+    #]))
   ];
 
   environment.variables.PATH = "/cfg/bin";
