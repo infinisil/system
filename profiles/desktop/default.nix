@@ -11,7 +11,7 @@
     ../../modules/keylayout.nix
     ../../modules/task.nix
     ../../modules/say.nix
-    ../../modules/emacs.nix
+    ../../modules/emacs
     ../../modules/audioclient.nix
     ../../modules/sshclient.nix
     ../../modules/ssh.nix
