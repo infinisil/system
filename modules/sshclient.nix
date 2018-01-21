@@ -1,4 +1,4 @@
-{ nodes, ... }:
+{ nodes, pkgs, ... }:
 
 let
   options = {
@@ -13,8 +13,8 @@ let
         hostname = "infinisil.com";
         user = "git";
       };
-      laptop.proxyCommand = "sh -c 'ping 192.168.1.19 -w1 && nc 192.168.1.19 22 || nc infinisil.com ${toString nodes.laptop.config.localserver.sshport}'";
-      pc.proxyCommand = "sh -c 'ping 192.168.1.25 -w1 && nc 192.168.1.25 22 || nc infinisil.com ${toString nodes.pc.config.localserver.sshport}'";
+      laptop.proxyCommand = "${pkgs.bash}/bin/bash -c '/run/wrappers/bin/ping 192.168.1.19 -w1 && ${pkgs.netcat}/bin/nc 192.168.1.19 22 || ${pkgs.netcat}/bin/nc infinisil.com ${toString nodes.laptop.config.localserver.sshport}'";
+      pc.proxyCommand = "${pkgs.bash}/bin/bash -c '/run/wrappers/bin/ping 192.168.1.25 -w1 && ${pkgs.netcat}/bin/nc 192.168.1.25 22 || ${pkgs.netcat}/bin/nc infinisil.com ${toString nodes.pc.config.localserver.sshport}'";
     };
   };
 
