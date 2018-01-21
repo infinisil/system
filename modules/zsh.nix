@@ -139,6 +139,15 @@ in
           cd *
         }
 
+
+        function pr() {
+          cd ~/src/nixpkgs
+          ${pkgs.git}/bin/git fetch -fu \
+            ''${2:-$(${pkgs.git}/bin/git remote | grep "^upstream" || echo origin)} \
+            "refs/pull/$1/head:pr/$1" && \
+            ${pkgs.git}/bin/git checkout "pr/$1";
+        }
+
         mkdir -p $HOME/.cache/prezto
 
         source ${prezto}/init.zsh
