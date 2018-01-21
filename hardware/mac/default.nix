@@ -29,9 +29,9 @@
       plan = "15min=>5min,1h=>15min,1d=>1h,1w=>1d,1m=>1w";
       recursive = true;
       destinations.backup = {
-        dataset = "betty/backup";
+        dataset = "main/betty/backup";
+        host = "pc";
         plan = plan + ",1y=>1m";
-        presend = "zpool import -f betty | true";
       };
     };
   };
