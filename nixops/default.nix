@@ -15,6 +15,7 @@
     '');
 
     imports = [
+      ../new-modules
       ../profiles/defaults.nix
     ];
   };

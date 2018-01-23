@@ -11,6 +11,8 @@
     ../home-manager/nixos
   ];
 
+  mine.mainUser = "infinisil";
+
   users.extraUsers.infinisil = {
     description = "Silvan Mosberger";
     isNormalUser = true;
