@@ -11,7 +11,7 @@
     ../home-manager/nixos
   ];
 
-  mine.mainUser = "infinisil";
+  mine.mainUsers = [ "infinisil" ];
 
   users.extraUsers.infinisil = {
     description = "Silvan Mosberger";

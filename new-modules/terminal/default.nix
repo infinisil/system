@@ -16,22 +16,18 @@ in
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
+  config = mkIf cfg.enable {
 
-      environment.systemPackages = [
-        pkgs.alacritty
-      ];
+    environment.systemPackages = [
+      pkgs.alacritty
+    ];
 
-    }
-    (mkIf (config.mine.mainUser != null) {
+    mine.userConfig = {
 
-      home-manager.users.${config.mine.mainUser} = {
+      xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
 
-        xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
+    };
 
-      };
-    })
-  ]);
+  };
 
 }

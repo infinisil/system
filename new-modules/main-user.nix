@@ -4,15 +4,38 @@ with lib;
 
 {
 
-  options.mine.mainUser = mkOption {
-    type = types.nullOr types.str;
-    example = "paul";
-    description = "Main user for this system";
+  # TODO: Have an option to set which user needs X stuff (root doesn't)
+
+  options.mine = {
+
+    mainUsers = mkOption {
+      type = types.listOf types.str;
+      example = [ "paul" "john" ];
+      default = [];
+      description = "Main users for this system";
+    };
+
+    userConfig = mkOption {
+      # Should be home-manager submodule
+      type = types.unspecified;
+      description = "Home-manager configuration to be used for all main users";
+    };
+
   };
 
-  config.assertions = [{
-    assertion = config.mine.mainUser != null -> builtins.hasAttr config.mine.mainUser config.users.users;
-    message = "The main user ${config.mine.mainUser} has to exist";
-  }];
+  config = {
+
+    home-manager.users = mkMerge (map (user: {
+
+      "${user}" = config.mine.userConfig;
+
+    }) config.mine.mainUsers);
+
+    assertions = map (user: {
+      assertion = builtins.hasAttr user config.users.users;
+      message = "The main user ${user} has to exist";
+    }) config.mine.mainUsers;
+
+  };
 
 }
