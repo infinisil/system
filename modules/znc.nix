@@ -59,6 +59,7 @@
           "bottest"
           "haskell-ide-engine"
           "pulseaudio"
+          "tmux"
         ];
       };
       networks.mozilla = {
