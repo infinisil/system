@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-with import ../../scripts { inherit pkgs lib; };
 
 let
   home = config.home-manager.users.infinisil;
@@ -55,9 +54,9 @@ let
               fi
             done
           ''}" "info"
-        , Run Com "${power}" [] "power" 10
-        , Run Com "${batt}" [] "bt" 50
-        , Run Com "${playing}" [] "playing" 10
+        , Run Com "${config.scripts.power}" [] "power" 10
+        , Run Com "${config.scripts.batt}" [] "bt" 50
+        , Run Com "${config.scripts.playing}" [] "playing" 10
       ]
       , sepChar = "%"
       , alignSep = "}{"
@@ -65,6 +64,75 @@ let
       }
   '';
 in {
+
+  scripts = {
+
+    power = ''
+      ${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/BAT0/current_now)/1000000"
+    '';
+    batt = ''
+      PATH="${pkgs.acpi}/bin:${pkgs.gawk}/bin:${pkgs.bc}/bin:$PATH"
+      acpiout=$(acpi -b)
+
+      battstat=$(echo $acpiout | awk '{print $3}')
+      battstat=''${battstat%?}
+
+      charge_now=$(cat /sys/class/power_supply/BAT0/charge_now)
+      charge_full=$(cat /sys/class/power_supply/BAT0/charge_full)
+
+      charge=$(bc << EOF
+      scale=2
+      c = 100 * $charge_now / $charge_full
+
+      "<fc=#"
+
+      if (c <= 12) {
+        print "CE3E25>", c, "% </fc>"
+        halt
+      }
+      if (c <= 37) {
+        print "DB721C>", c, "% </fc>"
+        halt
+      }
+      if (c <= 62) {
+        print "CC9B20>", c, "% </fc>"
+        halt
+      }
+      if (c <= 87) {
+        print "AFAA13>", c, "% </fc>"
+        halt
+      }
+
+      print "5CBA1A>", c, "% </fc>"
+
+      EOF
+      )
+
+      case $battstat in
+      Full)
+        ;;
+      Discharging)
+        postfix="(-$(date -u -d $(acpi -b | awk '{print $5}') +"%Hh%M"))"
+        ;;
+      Charging)
+        postfix="(+$(date -u -d $(acpi -b | awk '{print $5}') +"%Hh%M"))"
+        ;;
+      *)
+        ;;
+      esac
+
+      echo "$charge $postfix"
+    '';
+    playing = ''
+      status="$(systemctl --user is-active music)"
+      if [ $status = active ]; then
+        echo 
+      else
+        echo 
+      fi
+    '';
+
+  };
 
   home-manager.users.infinisil = {
 

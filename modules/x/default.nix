@@ -47,7 +47,6 @@ in
 {
 
   imports = [
-    ./xmonad.nix
     ./xmobar.nix
     ./live-wallpaper.nix
     ./dunst.nix

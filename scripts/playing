@@ -1,6 +1,0 @@
-status="$(systemctl --user is-active music)"
-if [ $status = active ]; then
-	echo 
-else
-	echo 
-fi

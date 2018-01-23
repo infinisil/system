@@ -1,5 +1,0 @@
-if [ $(systemctl --user is-active music) == "active" ]; then
-	systemctl --user stop music
-else
-	systemctl --user start music
-fi

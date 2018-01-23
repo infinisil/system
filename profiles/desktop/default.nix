@@ -17,7 +17,7 @@
     ../../modules/ssh.nix
   ];
 
-  mine.terminal.enable = true;
+  mine.wm.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = [
     config.sshkeys.mac.nixos.root
