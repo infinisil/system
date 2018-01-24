@@ -24,6 +24,7 @@
           "watch"
           "block_motd"
           "autoattach"
+          "savebuff ${config.private.passwords.znc-savebuff}"
         ];
         channels = let
           detached = [
