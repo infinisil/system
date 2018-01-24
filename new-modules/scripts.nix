@@ -32,12 +32,12 @@ in
     '';
   };
 
-  config = {
+  #config = {
 
-    system.extraSystemBuilderCmds = ''
-      ln -s ${scriptDrv} $out/scripts
-    '';
+  #  system.extraSystemBuilderCmds = ''
+  #    ln -s ${scriptDrv} $out/scripts
+  #  '';
 
-  };
+  #};
 
 }
