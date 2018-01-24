@@ -4,8 +4,6 @@ with lib;
 
 {
 
-  # TODO: Have an option to set which user needs X stuff (root doesn't)
-
   options.mine = {
 
     mainUsers = mkOption {
@@ -15,9 +13,17 @@ with lib;
       description = "Main users for this system";
     };
 
+    xUserConfig = mkOption {
+      # Should be home-manager submodule
+      type = types.unspecified;
+      default = {};
+      description = "Home-manager configuration to be used for all main X users";
+    };
+
     userConfig = mkOption {
       # Should be home-manager submodule
       type = types.unspecified;
+      default = {};
       description = "Home-manager configuration to be used for all main users";
     };
 
@@ -27,7 +33,11 @@ with lib;
 
     home-manager.users = mkMerge (map (user: {
 
-      "${user}" = config.mine.userConfig;
+      "${user}" = mkMerge [
+        config.mine.userConfig
+        (mkIf (config.services.xserver.enable && user != "root")
+          config.mine.xUserConfig)
+      ];
 
     }) config.mine.mainUsers);
 

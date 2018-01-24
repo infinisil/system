@@ -22,7 +22,7 @@ in
       pkgs.alacritty
     ];
 
-    mine.userConfig = {
+    mine.xUserConfig = {
 
       xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
 

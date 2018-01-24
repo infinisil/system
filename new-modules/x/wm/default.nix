@@ -80,7 +80,7 @@ with lib;
       value = "${mpc} sendmessage rating ${toString n}";
     }) (range 1 10));
 
-    mine.userConfig = {
+    mine.xUserConfig = {
 
       xsession.windowManager.xmonad = {
         enable = true;
