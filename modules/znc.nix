@@ -13,6 +13,7 @@
       userName = "infinisil";
       extraUserConf = ''
         AutoClearChanBuffer = false
+        AutoClearQueryBuffer = false
       '';
       networks.freenode = {
         userName = "infinisil";
