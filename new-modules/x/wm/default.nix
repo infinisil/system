@@ -70,8 +70,8 @@ with lib;
       toggleMute = "${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
       playpause = toggleService true "music";
       firefox = "${pkgs.firefox-nightly-bin}/bin/firefox";
-      #terminal = "${pkgs.alacritty}/bin/alacritty";
-      terminal = "${pkgs.konsole}/bin/konsole";
+      terminal = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux";
+      irc = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.weechat}/bin/weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
       dmenu_run = "${pkgs.dmenu}/bin/dmenu_run";
 

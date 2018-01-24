@@ -20,6 +20,7 @@ in
 
     environment.systemPackages = [
       pkgs.alacritty
+      pkgs.tmux
     ];
 
     mine.xUserConfig = {

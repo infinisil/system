@@ -68,6 +68,7 @@ myKeymap c =
   , ("M4-S-<Tab>", windows W.focusUp)
   , ("M4-r", spawn "@dmenu_run@")
   , ("M4-c", spawn "@terminal@")
+  , ("M4-i", spawn "@irc@")
   , ("M4-<Return>", windows W.swapMaster)
   , ("M4-p", passPrompt ppconfig)
   , ("M4-e", spawn "@emacs@")
@@ -122,7 +123,7 @@ main :: IO ()
 main = xmonad $ EWMH.ewmh $ docks $ myConfig
 
 myConfig = def
-    { terminal = "@konsole@"
+    { terminal = "@terminal@"
     , modMask = mod4Mask
     , manageHook =
       (title =? "Dunst" --> insertPosition Above Older) <+>
