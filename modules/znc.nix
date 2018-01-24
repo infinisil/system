@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
 
@@ -8,7 +8,11 @@
     enable = true;
     openFirewall = true;
     mutable = false;
+    modulePackages = [
+      pkgs.zncModules.playback
+    ];
     confOptions = {
+      modules = [ "playback" ];
       nick = "infinisil";
       userName = "infinisil";
       extraUserConf = ''
