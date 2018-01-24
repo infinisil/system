@@ -13,7 +13,6 @@
       userName = "infinisil";
       extraUserConf = ''
         AutoClearChanBuffer = false
-        AutoClearQueryBuffer = false
       '';
       networks.freenode = {
         userName = "infinisil";
@@ -21,46 +20,58 @@
         modules = [
           "sasl"
           "log"
-          "savebuff ${config.private.passwords.znc-savebuff}"
+          "watch"
+          "block_motd"
+          "autoattach"
         ];
-        channels = [
+        channels = let
+          detached = [
+            "youtube-dl"
+            "#crypto"
+            "openvpn"
+            "alacritty"
+            "znc"
+            "zsh"
+            "emacs"
+            "vim"
+            "nixos-wiki"
+            "ffmpeg"
+            "xmonad"
+            "nixos-dev"
+            "deluge"
+            "mpd"
+            "anime"
+            "weechat"
+            "beets"
+            "git"
+            "purism"
+            "ipfs"
+            "ghc-mod"
+            "haskell-ide-engine"
+            "openssh"
+            "nixos-borg"
+            "#linux"
+            "gnupg"
+            "zfsonlinux"
+            "#dependent"
+            "bash"
+            "bottest"
+            "tmux"
+            "agda"
+            "pulseaudio"
+          ];
+        in (map (c: {
+          name = c;
+          detached = true;
+        }) detached) ++ [
           "nixos"
-          "nixos-dev"
-          "nixos-wiki"
-          "nixos-borg"
-          "emacs"
-          "linux"
-          "anime"
           "idris"
-          "xmonad"
-          "beets"
-          "znc"
-          "zsh"
-          "purism"
-          "youtube-dl"
-          "bash"
-          "mpd"
-          "git"
-          "gnupg"
-          "crypto"
-          "ffmpeg"
-          "zfsonlinux"
-          "weechat"
-          "deluge"
-          "ipfs"
-          "openssh"
-          "vim"
           "haskell"
-          "ghc-mod"
-          "openvpn"
-          "agda"
-          "#dependent"
-          "alacritty"
-          "bottest"
-          "haskell-ide-engine"
-          "pulseaudio"
-          "tmux"
         ];
+        extraConf = ''
+          RealName = Silvan Mosberger
+          QuitMsg = Configuring ZNC, sorry for the join/quits!
+        '';
       };
       networks.mozilla = {
         userName = "infinisil";
