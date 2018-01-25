@@ -27,6 +27,11 @@ in
 
       xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
 
+      home.file.".tmux.conf".text = ''
+        set -g default-terminal "xterm-256color"
+        set -g destroy-unattached "on"
+      '';
+
     };
 
   };
