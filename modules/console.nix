@@ -92,6 +92,7 @@ let
         set hidden
         set termguicolors
         set showcmd
+        set background=dark
 
         highlight OverLength ctermbg=red ctermfg=white guibg=#592929
         match OverLength /\%81v.\+/
