@@ -311,7 +311,6 @@ in
         'spectrum' \
         'utility' \
         'completion' \
-        'git' \
         'fasd' \
         'syntax-highlighting' \
         'history-substring-search' \
