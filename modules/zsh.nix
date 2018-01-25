@@ -5,8 +5,8 @@ let
   prezto = pkgs.fetchFromGitHub {
     owner = "sorin-ionescu";
     repo = "prezto";
-    rev = "4b0ecffacadec6c9553be894cdcd36ecafac7662";
-    sha256 = "1dzfd0hwchmwgd61386dk2q813nvbqfbynn3r56w4965s9923mk3";
+    rev = "54d2a76731041ccefd0f19e17fd87e970081cea7";
+    sha256 = "0nggm7w6h16h6yi55z7wvw9n01pbd0h5b2s1dfbh2wx0s988235c";
     fetchSubmodules = true;
     postFetch = ''
       cd $out
@@ -15,9 +15,14 @@ let
           'cache_file="''${0:h}/cache.zsh"' \
           "cache_file=\"\$HOME/.cache/prezto/$(basename $(dirname $f)).zsh\""
       done
+      for f in $(find . -type f -name '*.zsh'); do
+        ${pkgs.zsh}/bin/zsh -c "zcompile $f"
+      done
     '';
   };
+
 in
+
 
 {
 
