@@ -4,6 +4,7 @@
 
     home.packages = with pkgs; [
       haskellPackages.haskell-ide-engine
+      haskell.compiler.ghc822
     ];
 
     home.file.".emacs.d/init.el".text = ''
@@ -35,8 +36,11 @@
 
         company
         company-ghc
+        melpaPackages.company-lsp
 
         flycheck
+        flycheck-haskell
+        ghc
         lsp-mode
         lsp-haskell
         lsp-ui

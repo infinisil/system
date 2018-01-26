@@ -41,6 +41,8 @@
 ;(setq evil-leader/in-all-states t)
 (which-key-mode)
 
+;(require 'company-lsp)
+;(add-to-list 'company-backends 'company-lsp)
 ;(require 'company-ghc)
 ;(add-to-list 'company-backends 'company-ghc)
 ;(add-to-list 'company-backends 'company-nixos-options)
@@ -48,7 +50,7 @@
 ;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 ;(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 ;(add-hook 'haskell-mode-hook 'haskell-doc-mode)
-;(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'after-init-hook 'global-company-mode)
 
 (let
     ((homepath (concat (getenv "HOME") "/.nix-profile/bin"))
