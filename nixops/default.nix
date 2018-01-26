@@ -54,7 +54,7 @@
     ];
 
     services.nfs.server = {
-      enable = true;
+      enable = false;
       exports = ''
         /home/infinisil 192.168.1.25(rw)
       '';
@@ -85,10 +85,10 @@
       ../modules/remote.nix
     ];
 
-    fileSystems."/mnt/home" = {
-      device = "192.168.1.19:/home/infinisil";
-      fsType = "nfs";
-    };
+    #fileSystems."/mnt/home" = {
+    #  device = "192.168.1.19:/home/infinisil";
+    #  fsType = "nfs";
+    #};
 
     localserver = {
       webserverport = 1802;
