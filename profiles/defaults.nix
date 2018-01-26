@@ -23,6 +23,7 @@
   };
 
   nix = {
+    package = pkgs.nixUnstable;
     useSandbox = true;
     buildCores = 0;
     autoOptimiseStore = true;
