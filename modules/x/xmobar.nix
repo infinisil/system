@@ -60,7 +60,7 @@ let
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% } %info%  %playing% { %power%A  | %dynnetwork%%cpu%  | %bt% | <fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% } %info%  %playing% { ${optionalString config.mine.hasBattery "%power%A  | "}%dynnetwork%%cpu%  | ${optionalString config.mine.hasBattery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {

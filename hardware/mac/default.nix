@@ -13,6 +13,8 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  mine.hasBattery = true;
+
   environment.systemPackages = with pkgs; [
     efibootmgr
     acpi
