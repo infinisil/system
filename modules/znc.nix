@@ -8,8 +8,9 @@
     enable = true;
     openFirewall = true;
     mutable = false;
-    modulePackages = [
-      pkgs.zncModules.playback
+    modulePackages = with pkgs.zncModules; [
+      playback
+      backlog
     ];
     confOptions = {
       modules = [ "playback" ];
@@ -25,6 +26,7 @@
         modules = [
           "sasl"
           "log"
+          "backlog"
           "watch"
           "block_motd"
           "autoattach"
