@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   imports = [
-    ./nixos/modules/profiles/demo.nix
+    <nixpkgs/nixos/modules/profiles/demo.nix>
   ];
 
   nixpkgs.config.allowUnfree = true;
