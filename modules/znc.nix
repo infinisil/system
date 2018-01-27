@@ -55,7 +55,6 @@
             "purism"
             "ipfs"
             "ghc-mod"
-            "haskell-ide-engine"
             "openssh"
             "nixos-borg"
             "#linux"
@@ -67,6 +66,7 @@
             "tmux"
             "agda"
             "pulseaudio"
+            "cuberite"
           ];
         in (map (c: {
           name = c;
@@ -75,6 +75,7 @@
           "nixos"
           "idris"
           "haskell"
+          "haskell-ide-engine"
         ];
         extraConf = ''
           RealName = Silvan Mosberger
