@@ -32,7 +32,7 @@
       recursive = true;
       destinations.backup = {
         dataset = "main/betty/backup";
-        host = "pc";
+        host = "192.168.1.25";
         plan = plan + ",1y=>1m";
       };
     };
