@@ -1,3 +1,3 @@
 # System configuration
 
-This is my NixOS system configuration. Most user-level stuff is not here, as I'm in the process of splitting it in its own repository. System config is stuff that would be nice to have as a default, as in I could set up an account for somebody with these defaults and it would be a decent starter setup.
+This is my NixOS system configuration, including home-manager stuff. All of that is managed by nixops for multiple machines with different profiles.
