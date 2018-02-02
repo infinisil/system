@@ -100,7 +100,10 @@ in
   services = {
     gnome3.gnome-terminal-server.enable = true;
 
-    physlock.enable = true;
+    physlock = {
+      enable = true;
+      allowAnyUser = true;
+    };
 
     xserver = {
       enable = true;
