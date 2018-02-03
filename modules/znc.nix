@@ -1,5 +1,24 @@
 { pkgs, config, ... }:
 
+let
+
+  sharedNetworkModules = [
+    "sasl"
+    "log"
+    "backlog"
+    "watch"
+    "block_motd"
+    "autoattach"
+    "savebuff ${config.private.passwords.znc-savebuff}"
+  ];
+
+  sharedExtraConf = ''
+    RealName = Silvan Mosberger
+    QuitMsg = Configuring ZNC, sorry for the join/quits!
+  '';
+
+in
+
 {
 
   users.users.infinisil.extraGroups = [ "znc" ];
@@ -23,15 +42,7 @@
       networks.freenode = {
         userName = "infinisil";
         server = "chat.freenode.net";
-        modules = [
-          "sasl"
-          "log"
-          "backlog"
-          "watch"
-          "block_motd"
-          "autoattach"
-          "savebuff ${config.private.passwords.znc-savebuff}"
-        ];
+        modules = sharedNetworkModules;
         channels = let
           detached = [
             "youtube-dl"
@@ -77,23 +88,18 @@
           "haskell"
           "haskell-ide-engine"
         ];
-        extraConf = ''
-          RealName = Silvan Mosberger
-          QuitMsg = Configuring ZNC, sorry for the join/quits!
-        '';
+        extraConf = sharedExtraConf;
       };
       networks.mozilla = {
         userName = "infinisil";
         server = "irc.mozilla.org";
-        modules = [
-          "log"
-          "savebuff ${config.private.passwords.znc-savebuff}"
-        ];
+        modules = sharedNetworkModules;
         channels = [
           "firefox"
           "nightly"
           "rust"
         ];
+        extraConf = sharedExtraConf;
       };
     };
   };
