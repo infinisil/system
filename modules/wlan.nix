@@ -22,7 +22,7 @@
         priority = 10;
       };
 
-      Swisscom.priority = 5;
+      Swisscom.priority = 2;
 
       "FRITZ!Box 7490".priority = 3;
 
