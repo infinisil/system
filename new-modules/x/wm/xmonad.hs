@@ -26,6 +26,8 @@ import qualified XMonad.StackSet                     as W
 import           XMonad.Util.Cursor
 import           XMonad.Util.EZConfig
 
+import XMonad.Layout.IndependentScreens (withScreens, onCurrentScreen, workspaces', countScreens)
+
 layout =
   let
     tiled = Tall 1 (3/100) (1/2)
@@ -115,14 +117,16 @@ myKeymap c =
   , ("<Break> w j", withFocused (sendMessage . wideWindowAlt))
   , ("<Break> w <Space>", sendMessage resetAlt)
   ] ++ [
-  ("M4-" ++ shift ++ key, windows $ f i) |
-    (i, key) <- zip (XMonad.workspaces c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
+  ("M4-" ++ shift ++ key, windows $ onCurrentScreen f i) |
+    (i, key) <- zip (workspaces' c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
 
 
 main :: IO ()
-main = xmonad $ EWMH.ewmh $ docks $ myConfig
+main = do
+  nScreens <- countScreens
+  xmonad $ EWMH.ewmh $ docks $ myConfig nScreens
 
-myConfig = def
+myConfig n = def
     { terminal = "@terminal@"
     , modMask = mod4Mask
     , manageHook =
@@ -130,6 +134,7 @@ myConfig = def
       (isFullscreen --> doFullFloat) <+>
       manageHook def
     , layoutHook = layout
+    , workspaces = withScreens n ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     , handleEventHook =
       handleEventHook def <+>
       EWMH.fullscreenEventHook
@@ -142,6 +147,6 @@ myConfig = def
     , keys = \c -> mkKeymap c (myKeymap c)
     , startupHook = do
         return ()
-        checkKeymap myConfig (myKeymap myConfig)
+        --checkKeymap myConfig (myKeymap myConfig)
         setDefaultCursor xC_left_ptr
     }
