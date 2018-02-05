@@ -1,18 +1,11 @@
 { config, pkgs, ... }:
 let
 
-
-  gist = pkgs.writeScriptBin "gist" ''
-    #!${pkgs.stdenv.shell}
-    GITHUB_AUTH_TOKEN=${config.private.gistToken} ${pkgs.gist}/bin/gist -s "$@"
-  '';
-
   home = {
 
     manual.manpages.enable = true;
 
     home.packages = with pkgs; [
-      gist
       ranger
       gnupg
       fd

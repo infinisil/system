@@ -51,6 +51,7 @@ in
       shellAliases = let
         exa = "${pkgs.exa}/bin/exa --group-directories-first";
       in {
+        gist = "${pkgs.gist}/bin/gist -s";
         e = "emacsclient -n -c";
         rh = "home-manager switch";
         sc = "sudo systemctl";
