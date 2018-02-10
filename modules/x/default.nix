@@ -105,6 +105,10 @@ in
       allowAnyUser = true;
     };
 
+    logind.extraConfig = ''
+      HandlePowerKey=suspend
+    '';
+
     xserver = {
       enable = true;
       dpi = 96;
