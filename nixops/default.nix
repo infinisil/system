@@ -71,7 +71,7 @@
       extraHosts = ''
         ${nodes.server.config.deployment.targetHost} ${nodes.server.config.networking.domain} ${nodes.server.config.networking.hostName}
       '';
-      firewall.allowedTCPPorts = [ 111 2049 ];
+      firewall.allowedTCPPorts = [ 111 2049 1500 ];
       firewall.allowedUDPPorts = [ 111 2049 ];
     };
   };
