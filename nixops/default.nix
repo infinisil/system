@@ -15,6 +15,7 @@
     '');
 
     imports = [
+      ../personal
       ../new-modules
       ../profiles/defaults.nix
     ];

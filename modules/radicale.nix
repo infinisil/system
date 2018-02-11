@@ -7,7 +7,7 @@
   networking.firewall.allowedTCPPorts = [ 5232 ];
   networking.firewall.allowedUDPPorts = [ 5232 ];
 
-  networking.subdomains = [ "dav" ];
+  mine.subdomains = [ "dav" ];
 
   services.nginx = {
     enable = true;

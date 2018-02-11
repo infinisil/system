@@ -10,7 +10,7 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  networking.subdomains = [ "www" ];
+  mine.subdomains = [ "www" ];
 
   services.nginx = {
     enable = true;

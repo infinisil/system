@@ -6,7 +6,6 @@
     ./ssh.nix
     ../../modules/web.nix
     ../../modules/radicale.nix
-    ../../modules/bind.nix
     ../../modules/console.nix
     ../../modules/beets.nix
     ../../modules/mpdServer.nix
@@ -22,6 +21,8 @@
     #/home/infinisil/eth/DS/CardGame/Server/module.nix
     #/home/infinisil/prj/nixbot/module.nix
   ];
+
+  mine.dns.enable = true;
 
   boot.loader.timeout = 60;
 
@@ -79,7 +80,7 @@
     };
   };
 
-  networking.subdomains = [ "test" "ipfs" ] ++ [ "mac" "pc" ];
+  mine.subdomains = [ "test" "ipfs" ] ++ [ "mac" "pc" ];
 
   services.nginx.virtualHosts."test.${config.networking.domain}" = {
     forceSSL = true;

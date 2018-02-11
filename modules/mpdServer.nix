@@ -55,7 +55,7 @@ let cfg = config.mpd; in {
     '';
   };
 
-  networking.subdomains = [ "tune" ];
+  mine.subdomains = [ "tune" ];
 
   services.nginx.virtualHosts."tune.${config.networking.domain}" = {
     root = "/webroot";

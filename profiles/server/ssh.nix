@@ -2,7 +2,7 @@
 
 {
 
-  networking.subdomains = [ "keys" ];
+  mine.subdomains = [ "keys" ];
 
   services.nginx = {
     virtualHosts."keys.${config.networking.domain}" = {

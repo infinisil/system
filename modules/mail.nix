@@ -4,7 +4,7 @@
     /home/infinisil/src/nixos-mailserver
   ];
 
-  networking.subdomains = [ "mail" ];
+  mine.subdomains = [ "mail" ];
 
   mailserver = {
     inherit (config) domain;
