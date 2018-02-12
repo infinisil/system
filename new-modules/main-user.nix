@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ options, config, lib, ... }:
 
 with lib;
 
@@ -14,15 +14,13 @@ with lib;
     };
 
     xUserConfig = mkOption {
-      # Should be home-manager submodule
-      type = types.unspecified;
+      type = options.home-manager.users.type.functor.wrapped;
       default = {};
-      description = "Home-manager configuration to be used for all main X users";
+      description = "Home-manager configuration to be used for all main X users, this will in all cases exclude the root user";
     };
 
     userConfig = mkOption {
-      # Should be home-manager submodule
-      type = types.unspecified;
+      type = options.home-manager.users.type.functor.wrapped;
       default = {};
       description = "Home-manager configuration to be used for all main users";
     };
@@ -31,15 +29,15 @@ with lib;
 
   config = {
 
-    home-manager.users = mkMerge (map (user: {
+    home-manager.users = mkMerge (flip map config.mine.mainUsers (user: {
 
-      "${user}" = mkMerge [
-        config.mine.userConfig
+      ${user} = mkMerge [
+        (mkAliasDefinitions options.mine.userConfig)
         (mkIf (config.services.xserver.enable && user != "root")
-          config.mine.xUserConfig)
+          (mkAliasDefinitions options.mine.xUserConfig))
       ];
 
-    }) config.mine.mainUsers);
+    }));
 
     assertions = map (user: {
       assertion = builtins.hasAttr user config.users.users;
@@ -47,5 +45,4 @@ with lib;
     }) config.mine.mainUsers;
 
   };
-
 }
