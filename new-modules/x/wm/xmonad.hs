@@ -143,7 +143,7 @@ myConfig n = def
       } >>= xmonadPropLog
     , borderWidth = 2
     , normalBorderColor = "#000000"
-    , focusedBorderColor = "#DD5500"
+    , focusedBorderColor = "#FFFFFF"
     , keys = \c -> mkKeymap c (myKeymap c)
     , startupHook = do
         return ()
