@@ -2,6 +2,16 @@
 
 with lib;
 
+let
+
+  weechat = pkgs.weechat.override { configure = { availablePlugins, ... }: {
+    plugins = with availablePlugins; [
+      (python.withPackages (ps: with ps; [ twitter ]))
+    ];
+  };};
+
+in
+
 {
 
   options = {
@@ -71,7 +81,7 @@ with lib;
       playpause = toggleService true "music";
       firefox = "${pkgs.firefox-nightly-bin}/bin/firefox";
       terminal = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux";
-      irc = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.weechat}/bin/weechat";
+      irc = "${pkgs.alacritty}/bin/alacritty -e ${weechat}/bin/weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
       dmenu_run = "${pkgs.dmenu}/bin/dmenu_run";
 
@@ -81,6 +91,8 @@ with lib;
     }) (range 1 10));
 
     mine.xUserConfig = {
+
+      home.packages = [ weechat ];
 
       xsession.windowManager.xmonad = {
         enable = true;

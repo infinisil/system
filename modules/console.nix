@@ -21,7 +21,6 @@ let
       ncdu
       whois
       exa
-      weechat
       aspellDicts.en
       expect
       ansifilter
