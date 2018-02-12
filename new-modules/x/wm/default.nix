@@ -5,9 +5,9 @@ with lib;
 let
 
   weechat = pkgs.weechat.override { configure = { availablePlugins, ... }: {
-    plugins = with availablePlugins; [
-      (python.withPackages (ps: with ps; [ twitter ]))
-    ];
+    plugins = builtins.attrValues (availablePlugins // {
+      python = availablePlugins.python.withPackages (ps: with ps; [ twitter ]);
+    });
   };};
 
 in
