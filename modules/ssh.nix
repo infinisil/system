@@ -6,6 +6,7 @@
 
   services.openssh = {
     enable = true;
+    forwardX11 = true;
     gatewayPorts = "clientspecified";
     extraConfig = ''
       ClientAliveInterval 15

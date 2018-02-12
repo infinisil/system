@@ -31,8 +31,6 @@
   boot.kernelParams = [ "panic=1" "boot.panic_on_fail" ];
   systemd.enableEmergencyMode = false;
   fonts.fontconfig.enable = false;
-  programs.ssh.setXAuthLocation = false;
-  security.pam.services.su.forwardXAuth = lib.mkForce false;
   #environment.noXlibs = true;
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
   programs.info.enable = false;
