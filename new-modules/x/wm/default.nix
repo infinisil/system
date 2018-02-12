@@ -90,9 +90,13 @@ in
       value = "${mpc} sendmessage rating ${toString n}";
     }) (range 1 10));
 
-    mine.xUserConfig = {
+    mine.userConfig = {
 
       home.packages = [ weechat ];
+
+    };
+
+    mine.xUserConfig = {
 
       xsession.windowManager.xmonad = {
         enable = true;
