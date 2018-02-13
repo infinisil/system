@@ -96,7 +96,10 @@ in
         userName = "infinisil";
         server = "irc.mozilla.org";
         modules = sharedNetworkModules;
-        channels = [
+        channels = map (c: {
+          name = c;
+          detached = true;
+        }) [
           "firefox"
           "nightly"
           "rust"
