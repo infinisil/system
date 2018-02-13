@@ -30,8 +30,10 @@ in
     modulePackages = with pkgs.zncModules; [
       playback
       backlog
+      push
     ];
     confOptions = {
+      userModules = [ "push" ];
       modules = [ "playback" ];
       nick = "infinisil";
       userName = "infinisil";
