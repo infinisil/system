@@ -22,6 +22,8 @@ in
 
     mine.terminal.enable = true;
 
+    mine.sddm.enable = true;
+
     nixpkgs.overlays = [
       (import ../../../nixpkgs-mozilla/firefox-overlay.nix)
     ];
