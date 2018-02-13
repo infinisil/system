@@ -15,6 +15,11 @@
 
   mine.hasBattery = true;
 
+  system.activationScripts.lidWakeDisable = lib.stringAfter [ "specialfs" ] ''
+    # Disable lid wake ability, fixes laptop waking up a few seconds after suspending without actually doing anything
+    cat /proc/acpi/wakeup | grep -q 'LID0.*enabled' && echo LID0 > /proc/acpi/wakeup
+  '';
+
   environment.systemPackages = with pkgs; [
     efibootmgr
     acpi
