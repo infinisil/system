@@ -11,6 +11,10 @@
     ../../modules/zfs.nix
   ];
 
+  services.xserver.deviceSection = ''
+    Option "TearFree" "true"
+  '';
+
   hardware.cpu.intel.updateMicrocode = true;
 
   mine.hasBattery = true;
