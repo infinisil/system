@@ -23,6 +23,14 @@
 
   mine.hasBattery = true;
 
+  services.xserver.videoDrivers = [ "intel" ];
+
+  hardware.opengl.extraPackages = with pkgs; [
+    vaapiIntel
+    vaapiVdpau
+    libvdpau-va-gl
+  ];
+
   environment.systemPackages = with pkgs; [
     efibootmgr
     acpi
