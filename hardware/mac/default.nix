@@ -17,6 +17,8 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  services.tlp.enable = true;
+
   mine.hasBattery = true;
 
   environment.systemPackages = with pkgs; [
@@ -26,8 +28,6 @@
   ];
 
   services.mbpfan.enable = true;
-
-  powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
 
   services.znapzend = {
     pure = true;
