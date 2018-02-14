@@ -18,6 +18,9 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   boot.kernelParams = [ "acpi_osi=" ];
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
 
   services.tlp.enable = true;
 
