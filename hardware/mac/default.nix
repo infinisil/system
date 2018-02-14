@@ -17,6 +17,8 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  boot.kernelParams = [ "acpi_osi=" ];
+
   services.tlp.enable = true;
 
   mine.hasBattery = true;

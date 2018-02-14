@@ -60,7 +60,7 @@ let
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% } %info%  %playing% { ${optionalString config.mine.hasBattery "%power%A  | "}%dynnetwork%%cpu%  | ${optionalString config.mine.hasBattery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% } %info%  %playing% { ${optionalString config.mine.hasBattery "%power%W  | "}%dynnetwork%%cpu%  | ${optionalString config.mine.hasBattery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
@@ -68,7 +68,7 @@ in {
   scripts = {
 
     power = ''
-      ${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/BAT0/current_now)/1000000"
+      ${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/BAT0/power_now)/1000000"
     '';
     batt = ''
       PATH="${pkgs.acpi}/bin:${pkgs.gawk}/bin:${pkgs.bc}/bin:$PATH"
@@ -77,8 +77,8 @@ in {
       battstat=$(echo $acpiout | awk '{print $3}')
       battstat=''${battstat%?}
 
-      charge_now=$(cat /sys/class/power_supply/BAT0/charge_now)
-      charge_full=$(cat /sys/class/power_supply/BAT0/charge_full)
+      charge_now=$(cat /sys/class/power_supply/BAT0/energy_now)
+      charge_full=$(cat /sys/class/power_supply/BAT0/energy_full)
 
       charge=$(bc << EOF
       scale=2
