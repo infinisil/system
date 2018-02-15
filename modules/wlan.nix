@@ -1,5 +1,9 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
+
+  environment.systemPackages = with pkgs; [
+    wpa_supplicant_gui
+  ];
 
   networking.wireless = {
     enable = true;
