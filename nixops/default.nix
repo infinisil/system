@@ -17,6 +17,7 @@
     imports = [
       ../personal
       ../new-modules
+      ../pkgs
       ../profiles/defaults.nix
     ];
   };
