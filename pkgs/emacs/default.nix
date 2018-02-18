@@ -1,5 +1,6 @@
 {
-  lib, emacsWithPackages, runCommand, writeTextDir, makeWrapper
+  lib, emacsWithPackages, runCommand, writeTextDir, makeWrapper,
+  debug ? false
 }:
 
 with lib;
@@ -22,11 +23,8 @@ let
 
   init = writeTextDir "init.el" (''
     (package-initialize)
-
   '' + concatMapStringsSep "\n\n" (filename: ''
-    ; ### This next part comes from ${filename} ###
-    ${builtins.readFile "${./.}/${filename}"}
-    ; ######
+    (load "${(if debug then toString else id) ./.}/${filename}")
   '') (builtins.attrNames elFilesWithPkgs));
 in
   runCommand "custom-emacs" {
@@ -61,4 +59,3 @@ in
       --add-flags -q \
       --add-flags "-l ${init}/init.el"
   ''
-
