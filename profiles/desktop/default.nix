@@ -49,8 +49,6 @@
     #]))
   ];
 
-  environment.variables.PATH = "/cfg/bin";
-
   networking = {
     nameservers = [
       nodes.server.config.deployment.targetHost

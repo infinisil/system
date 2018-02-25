@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nixops git
+#!/usr/bin/env bash
 
 set -e
 
@@ -29,5 +28,5 @@ else
 	dirty=false
 fi
 
-sudo nixops set-args -d infinisil --arg dirty "$dirty"
-sudo nixops deploy -d infinisil $build $@
+sudo @nixops@ set-args -d infinisil --arg dirty "$dirty"
+sudo @nixops@ deploy -d infinisil $build $@
