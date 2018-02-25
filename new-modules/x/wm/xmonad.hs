@@ -59,7 +59,7 @@ ppconfig = def
   , historyFilter = deleteConsecutive
   }
 
-myKeymap c =
+myKeymap c n =
   [ ("M4-f", spawn "@firefox@")
   , ("M4-w", kill)
   , ("M4-<Space>", spawn "@dmenu_run@")
@@ -93,14 +93,14 @@ myKeymap c =
   , ("<Break> t l", spawn "@toggleLive@")
   , ("<Break> t p", spawn "@toggle@")
   , ("<Break> t c", spawn "@toggleCompton@")
-  , ("<XF86AudioPlay>", spawn "@playpause@")
-  , ("<XF86AudioNext>", spawn "@next@")
-  , ("<XF86AudioPrev>", spawn "@prev@")
-  , ("<XF86AudioRaiseVolume>", spawn "@volUp@")
-  , ("<XF86AudioLowerVolume>", spawn "@volDown@")
-  , ("<XF86AudioMute>", spawn "@toggleMute@")
-  , ("<XF86MonBrightnessUp>", spawn "@brightUp@")
-  , ("<XF86MonBrightnessDown>", spawn "@brightDown@")
+  , ("<F8>", spawn "@playpause@")
+  , ("<F9>", spawn "@next@")
+  , ("<F7>", spawn "@prev@")
+  , ("<F12>", spawn "@volUp@")
+  , ("<F11>", spawn "@volDown@")
+  , ("<F10>", spawn "@toggleMute@")
+  , ("<F2>", spawn "@brightUp@")
+  , ("<F1>", spawn "@brightDown@")
   ] ++
   [ ("M4-<Tab>", windows W.focusDown)
   , ("M4-S-<Tab>", windows W.focusUp)
@@ -122,8 +122,8 @@ myKeymap c =
   , ("M4-b b", sendMessage Balance)
   , ("M4-b e", sendMessage Equalize)
   ] ++ [
-  ("M4-" ++ shift ++ key, windows $ onCurrentScreen f i) |
-    (i, key) <- zip (workspaces' c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
+  ("M4-" ++ shift ++ key, windows $ (if n == 1 then id else onCurrentScreen) f i) |
+    (i, key) <- zip (if n == 1 then XMonad.workspaces c else workspaces' c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
 
 myNavigation2DConfig :: Navigation2DConfig
 myNavigation2DConfig = def
@@ -143,7 +143,7 @@ myConfig n = def
       (isFullscreen --> doFullFloat) <+>
       manageHook def
     , layoutHook = layout
-    , workspaces = withScreens n ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    , workspaces = (if n == 1 then id else withScreens n) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     , handleEventHook =
       handleEventHook def <+>
       EWMH.fullscreenEventHook
@@ -153,7 +153,7 @@ myConfig n = def
     , borderWidth = 2
     , normalBorderColor = "#000000"
     , focusedBorderColor = "#FFFFFF"
-    , keys = \c -> mkKeymap c (myKeymap c)
+    , keys = \c -> mkKeymap c (myKeymap c n)
     , startupHook = do
         return ()
         --checkKeymap myConfig (myKeymap myConfig)
