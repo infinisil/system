@@ -4,7 +4,6 @@
 
   imports = [
     ./boot.nix
-    ./samba.nix
     ./hardware-configuration.nix
     ../../modules/wlan.nix
     ../../modules/touchpad.nix
