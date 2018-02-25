@@ -115,6 +115,7 @@ in
       };
       initExtra = ''
         HISTFILE=$HOME/.config/zsh/.zsh_history
+        export EDITOR=vim
 
         function mktest() {
           mkdir -p $HOME/Test/$1
