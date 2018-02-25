@@ -8,6 +8,8 @@ import qualified XMonad.Hooks.EwmhDesktops           as EWMH
 import           XMonad.Hooks.InsertPosition
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
+import           XMonad.Actions.Navigation2D
+import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.BoringWindows
 import           XMonad.Layout.CenteredMaster
 import           XMonad.Layout.Fullscreen
@@ -18,7 +20,6 @@ import           XMonad.Layout.Named
 import           XMonad.Layout.NoBorders             (noBorders, smartBorders)
 import           XMonad.Layout.Spacing               (smartSpacing)
 import           XMonad.Layout.SubLayouts
-import           XMonad.Layout.WindowNavigation
 import           XMonad.Prompt
 import           XMonad.Prompt.Pass
 import           XMonad.Prompt.XMonad
@@ -30,10 +31,11 @@ import XMonad.Layout.IndependentScreens (withScreens, onCurrentScreen, workspace
 
 layout =
   let
-    tiled = Tall 1 (3/100) (1/2)
-    mods = avoidStruts . smartBorders . smartSpacing 1
+    -- tiled = Tall 1 (3/100) (1/2)
+    mods = avoidStruts . smartBorders
   in
-    mods $ mkToggle (single FULL) (Mirror tiled ||| tiled) ||| Full ||| MosaicAlt M.empty
+    mods $ mkToggle (single FULL) emptyBSP
+    -- mods $ mkToggle (single FULL) (Mirror tiled ||| tiled) ||| Full ||| MosaicAlt M.empty
 
 c1 = "#6F1313"
 c2 = "#A93316"
@@ -58,25 +60,14 @@ ppconfig = def
   }
 
 myKeymap c =
-  [ ("M4-S-l", windows W.swapDown  )
-  , ("M4-S-h", windows W.swapUp    )
-  , ("M4-,", sendMessage (IncMasterN 1))
-  , ("M4-.", sendMessage (IncMasterN (-1)))
-  , ("M4-f", spawn "@firefox@")
+  [ ("M4-f", spawn "@firefox@")
   , ("M4-w", kill)
-  --, ("<Break> w", kill)
-  , ("M4-<Space>", sendMessage NextLayout)
-  , ("M4-<Tab>", windows W.focusDown)
-  , ("M4-S-<Tab>", windows W.focusUp)
-  , ("M4-r", spawn "@dmenu_run@")
+  , ("M4-<Space>", spawn "@dmenu_run@")
   , ("M4-c", spawn "@terminal@")
   , ("M4-i", spawn "@irc@")
-  , ("M4-<Return>", windows W.swapMaster)
   , ("M4-p", passPrompt ppconfig)
   , ("M4-e", spawn "@emacs@")
   , ("M4-t", withFocused $ windows . W.sink)
-  , ("M4-j", sendMessage Shrink)
-  , ("M4-k", sendMessage Expand)
   , ("M4-m", sendMessage $ Toggle FULL)
   , ("<Break> x", xmonadPrompt def)
   , ("<Break> s m", spawn "@mobile@")
@@ -111,20 +102,38 @@ myKeymap c =
   , ("<XF86MonBrightnessUp>", spawn "@brightUp@")
   , ("<XF86MonBrightnessDown>", spawn "@brightDown@")
   ] ++
-  [ ("<Break> w h", withFocused (sendMessage . shrinkWindowAlt))
-  , ("<Break> w l", withFocused (sendMessage . expandWindowAlt))
-  , ("<Break> w k", withFocused (sendMessage . tallWindowAlt))
-  , ("<Break> w j", withFocused (sendMessage . wideWindowAlt))
-  , ("<Break> w <Space>", sendMessage resetAlt)
+  [ ("M4-<Tab>", windows W.focusDown)
+  , ("M4-S-<Tab>", windows W.focusUp)
+  , ("M4-S-l", sendMessage $ MoveSplit R)
+  , ("M4-S-h", sendMessage $ MoveSplit L)
+  , ("M4-S-j", sendMessage $ MoveSplit D)
+  , ("M4-S-k", sendMessage $ MoveSplit U)
+  , ("M4-u", sendMessage FocusParent)
+  , ("M4-l", windowGo R False)
+  , ("M4-h", windowGo L False)
+  , ("M4-j", windowGo D False)
+  , ("M4-k", windowGo U False)
+  , ("M4-C-l", windowSwap R False)
+  , ("M4-C-h", windowSwap L False)
+  , ("M4-C-j", windowSwap D False)
+  , ("M4-C-k", windowSwap U False)
+  , ("M4-s", sendMessage Swap)
+  , ("M4-r", sendMessage Rotate)
+  , ("M4-b b", sendMessage Balance)
+  , ("M4-b e", sendMessage Equalize)
   ] ++ [
   ("M4-" ++ shift ++ key, windows $ onCurrentScreen f i) |
     (i, key) <- zip (workspaces' c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
 
+myNavigation2DConfig :: Navigation2DConfig
+myNavigation2DConfig = def
+  { defaultTiledNavigation = hybridNavigation
+  }
 
 main :: IO ()
 main = do
   nScreens <- countScreens
-  xmonad $ EWMH.ewmh $ docks $ myConfig nScreens
+  xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens
 
 myConfig n = def
     { terminal = "@terminal@"
