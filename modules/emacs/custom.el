@@ -7,13 +7,17 @@
  '(company-minimum-prefix-length 1)
  '(custom-safe-themes
    (quote
-    ("d411730c6ed8440b4a2b92948d997c4b71332acf9bb13b31e9445da16445fe43" "4eb982b248bf818a72877ecb126a2f95d71eea24680022789b14c3dec7629c1b" default)))
+    ("8e4efc4bed89c4e67167fdabff77102abeb0b1c203953de1e6ab4d2e3a02939a" "d411730c6ed8440b4a2b92948d997c4b71332acf9bb13b31e9445da16445fe43" "4eb982b248bf818a72877ecb126a2f95d71eea24680022789b14c3dec7629c1b" default)))
  '(global-linum-mode t)
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
  '(ido-mode (quote both) nil (ido))
  '(idris-interpreter-flags (quote ("-p" "Bi" "-p" "lightyear")))
  '(menu-bar-mode nil)
+ '(org-format-latex-options
+   (quote
+    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
