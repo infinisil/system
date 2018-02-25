@@ -53,6 +53,7 @@
       ../hardware/mac
       ../profiles/desktop
       ../profiles/weak.nix
+      ../profiles/eth.nix
     ];
 
     services.nfs.server = {
