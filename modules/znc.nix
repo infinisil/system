@@ -80,6 +80,7 @@ in
             "agda"
             "pulseaudio"
             "cuberite"
+            "shirakumo"
           ];
         in (map (c: {
           name = c;
@@ -103,7 +104,14 @@ in
           "firefox"
           "nightly"
           "rust"
+          "rust-beginners"
         ];
+        extraConf = sharedExtraConf;
+      };
+      networks.snoonet = {
+        userName = "infinisil";
+        server = "irc.snoonet.org";
+        modules = sharedNetworkModules;
         extraConf = sharedExtraConf;
       };
     };
