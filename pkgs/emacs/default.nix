@@ -1,5 +1,5 @@
 {
-  lib, emacsWithPackages, runCommand, writeTextDir, makeWrapper,
+  stdenv, lib, emacsPackagesNg, fetchFromGitHub, writeTextDir, writeScriptBin, makeWrapper,
   debug ? false
 }:
 
@@ -19,7 +19,12 @@ let
 
   epkgsNames = flatten (builtins.attrValues elFilesWithPkgs);
 
-  emacs = emacsWithPackages (epkgs: map (name: epkgs.${name}) epkgsNames);
+  overrides = super: self: {
+  };
+
+  emacsWithPackages' = (emacsPackagesNg.overrideScope overrides).emacsWithPackages;
+
+  emacs = emacsWithPackages' (epkgs: map (name: epkgs.melpaPackages.${name} or epkgs.${name}) epkgsNames);
 
   init = writeTextDir "init.el" (''
     (package-initialize)
@@ -27,35 +32,9 @@ let
     (load "${(if debug then toString else id) ./.}/${filename}")
   '') (builtins.attrNames elFilesWithPkgs));
 in
-  runCommand "custom-emacs" {
-    buildInputs = [
-      makeWrapper
-    ];
-    passthru = {
-      inherit emacs init;
-    };
-  } ''
-    mkdir $out
-
-    # Link every folder in the original emacs
-    for dir in ${emacs}/*; do
-      ln -s $dir $out/$(basename $dir)
-    done
-
-    # Except bin
-    rm $out/bin
-    mkdir $out/bin
-
-    # Because we link every file of bin
-    for bin in ${emacs}/bin/*; do
-      ln -s $bin $out/bin/$(basename $bin)
-    done
-
-    # Except emacs
-    rm $out/bin/emacs
-
-    # Because we wrap it with certain arguments
-    makeWrapper ${emacs}/bin/emacs $out/bin/emacs \
-      --add-flags -q \
-      --add-flags "-l ${init}/init.el"
-  ''
+  lib.extendDerivation true {
+    inherit emacs init;
+  } (writeScriptBin "emacs" ''
+    #!${stdenv.shell}
+    ${emacs}/bin/emacs -q -l ${init}/init.el
+  '')

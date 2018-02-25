@@ -15,4 +15,8 @@
 
 (setenv "NIX_REMOTE" "daemon")
 
+(setq custom-file "/cfg/modules/emacs/custom.el")
+(load custom-file)
+
 (load-theme 'gruvbox)
+(global-visual-line-mode)
