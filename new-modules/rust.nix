@@ -24,7 +24,7 @@ with lib;
     ];
 
     environment.systemPackages = with pkgs.rustChannelOf {
-      date = "2018-02-19";
+      date = "2018-02-25";
       channel = "nightly";
     }; [
       rust
