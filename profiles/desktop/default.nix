@@ -18,6 +18,7 @@
   ];
 
   mine.wm.enable = true;
+  mine.dev.rust.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = [
     config.sshkeys.mac.nixos.root
