@@ -135,10 +135,6 @@ in
 
   home-manager.users.infinisil = {
 
-    home.file.".profile".text = ''
-      source ${home.programs.zsh.dotDir}/.zshenv
-    '';
-
     xsession = {
       enable = true;
       profileExtra = ''
