@@ -114,6 +114,18 @@ in
         modules = sharedNetworkModules;
         extraConf = sharedExtraConf;
       };
+      networks.tymoon = {
+        userName = "infinisil";
+        server = "irc.tymoon.eu";
+        modules = sharedNetworkModules;
+        extraConf = sharedExtraConf;
+        channels = [
+          {
+            name = "Stevenchan";
+            detached = true;
+          }
+        ];
+      };
     };
   };
 
