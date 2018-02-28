@@ -3,9 +3,9 @@
   haskell-ide-engine = (import (pkgs.fetchFromGitHub {
     owner = "domenkozar";
     repo = "hie-nix";
-    rev = "42fe84af0a0bed1251774cf42805c42f01ecfa12";
-    sha256 = "1n2f8icmlsamg65j4q1wagpcnclah6ykjnnn2x45rf5i7qfdi6x0";
-  }))."hie-8.2";
+    rev = "7dbd28563198c33b17ae9b5ebabf6c0a08d21953";
+    sha256 = "1mq2vll2mq0bkb2xg8874dyvq8dakaqf1lnz5n0i23s39bldjdmr";
+  }) {}).hie82;
 
 in
   {
