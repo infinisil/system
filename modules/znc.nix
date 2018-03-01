@@ -113,12 +113,23 @@ in
         server = "irc.snoonet.org";
         modules = sharedNetworkModules;
         extraConf = sharedExtraConf;
+        port = 6667;
+        useSSL = false;
       };
       networks.tymoon = {
         userName = "infinisil";
         server = "irc.tymoon.eu";
-        modules = sharedNetworkModules;
+        modules = [
+          "log"
+          "backlog"
+          "watch"
+          "block_motd"
+          "autoattach"
+          "savebuff ${config.private.passwords.znc-savebuff}"
+        ];
         extraConf = sharedExtraConf;
+        useSSL = false;
+        port = 6667;
         channels = [
           {
             name = "Stevenchan";
