@@ -70,6 +70,7 @@ in
             "ghc-mod"
             "openssh"
             "nixos-borg"
+            "nixos-chat"
             "#linux"
             "gnupg"
             "zfsonlinux"
