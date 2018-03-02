@@ -85,7 +85,7 @@ in
       terminal = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux";
       irc = "exec ${pkgs.alacritty}/bin/alacritty -e ${weechat}/bin/weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
-      dmenu_run = "${pkgs.dmenu}/bin/dmenu_run";
+      run = "${pkgs.rofi}/bin/rofi -show run";
 
     } // listToAttrs (map (n: {
       name = "rate${toString n}";

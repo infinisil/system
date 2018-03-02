@@ -62,7 +62,7 @@ ppconfig = def
 myKeymap c n =
   [ ("M4-f", spawn "@firefox@")
   , ("M4-w", kill)
-  , ("M4-<Space>", spawn "@dmenu_run@")
+  , ("M4-<Space>", spawn "@run@")
   , ("M4-c", spawn "@terminal@")
   , ("M4-i", spawn "@irc@")
   , ("M4-p", passPrompt ppconfig)
