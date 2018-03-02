@@ -59,6 +59,8 @@ let cfg = config.mpd; in {
 
   services.nginx.virtualHosts."tune.${config.networking.domain}" = {
     root = "/webroot";
+    enableACME = true;
+    forceSSL = true;
     locations."/".proxyPass = "http://localhost:${toString cfg.httpPort}";
     locations."/opus/".proxyPass = "http://localhost:6725";
     #basicAuth.infinisil = config.private.passwords."tune.infinisil.com";
