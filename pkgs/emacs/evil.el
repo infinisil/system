@@ -1,6 +1,9 @@
 ; evil evil-collection evil-leader which-key
 
+(setq evil-want-integration nil)
+(setq evil-collection-setup-minibuffer t)
 (evil-mode 1)
+(evil-collection-init)
 
 (global-evil-leader-mode)
 (require 'evil-leader)
