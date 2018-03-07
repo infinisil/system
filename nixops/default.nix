@@ -86,6 +86,7 @@
       ../hardware/pc
       ../profiles/desktop
       ../modules/remote.nix
+      ../private/shinas
     ];
 
     #fileSystems."/mnt/home" = {
