@@ -104,6 +104,8 @@ myKeymap c n =
   ] ++
   [ ("M4-<Tab>", windows W.focusDown)
   , ("M4-S-<Tab>", windows W.focusUp)
+  , ("M4-a", sendMessage SelectNode)
+  , ("M4-o", sendMessage MoveNode)
   , ("M4-S-l", sendMessage $ MoveSplit R)
   , ("M4-S-h", sendMessage $ MoveSplit L)
   , ("M4-S-j", sendMessage $ MoveSplit D)
