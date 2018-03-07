@@ -16,7 +16,8 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  boot.kernelParams = [ "acpi_osi=" ];
+  # Seems to cause a bunch of problems
+  # boot.kernelParams = [ "acpi_osi=" ];
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
   '';
