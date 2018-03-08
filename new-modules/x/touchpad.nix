@@ -1,15 +1,36 @@
+{ config, lib, pkgs, ... }:
 
-{ config, pkgs, ... }:
+with lib;
+
+let
+
+  cfg = config.mine.touchpad;
+
+in
+
 {
-  services.xserver = {
-    # from github.com/bernerdschaefer/dotfiles/blob/bs-nixos/nixos/configuration.nix
+
+  options.mine.touchpad = {
+    enable = mkEnableOption "touchpad config";
+
+    driver = mkOption {
+      type = types.enum [ "multitouch" "synaptics" "libinput" ];
+      default = "multitouch";
+      description = "Which driver to use";
+    };
+  };
+
+  config.services.xserver = mkIf cfg.enable {
+
     multitouch = {
-      enable = true;
+      enable = cfg.driver == "multitouch";
       invertScroll = true;
       buttonsMap = [1 3 2];
+      ignorePalm = true;
     };
+
     synaptics = {
-      #enable = true; # Only applies when multitouch is disabled
+      enable = cfg.driver == "synaptics";
       #buttonsMap = [ 1 3 2 ];
       tapButtons = true;
       twoFingerScroll = true;
@@ -31,9 +52,10 @@
     };
 
     libinput = {
-      #enable = true;
+      enable = cfg.driver == "libinput";
       accelSpeed = "1.0";
       naturalScrolling = true;
     };
+
   };
 }

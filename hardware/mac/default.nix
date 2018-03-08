@@ -6,7 +6,6 @@
     ./boot.nix
     ./hardware-configuration.nix
     ../../modules/wlan.nix
-    ../../modules/touchpad.nix
     ../../modules/zfs.nix
   ];
 
@@ -25,6 +24,7 @@
   services.tlp.enable = true;
 
   mine.hasBattery = true;
+  mine.touchpad.enable = true;
 
   services.xserver.videoDrivers = [ "intel" ];
 
