@@ -10,7 +10,6 @@
     ../../modules/localserver.nix
     ../../modules/keylayout.nix
     ../../modules/task.nix
-    ../../modules/say.nix
     ../../modules/emacs
     ../../modules/audioclient.nix
     ../../modules/sshclient.nix
@@ -19,6 +18,7 @@
 
   mine.wm.enable = true;
   mine.dev.rust.enable = true;
+  mine.sound.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = [
     config.sshkeys.mac.nixos.root
