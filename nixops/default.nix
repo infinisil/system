@@ -39,9 +39,11 @@
       defaultGateway = "139.59.144.1";
       #defaultGateway6 = "2a03:b0c0:3:d0::1";
       interfaces.eth0 = {
-        ipAddress = config.deployment.targetHost;
+        ipv4.addresses = [{
+          address = config.deployment.targetHost;
+          prefixLength = 20;
+        }];
         #ipv6Address = "2a03:b0c0:3:d0::5df6:1";
-        prefixLength = 20;
       };
     };
   };
