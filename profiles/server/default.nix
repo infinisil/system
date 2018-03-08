@@ -10,7 +10,6 @@
     ../../modules/beets.nix
     ../../modules/mpdServer.nix
     ../../modules/namecoin.nix
-    ../../modules/youtube.nix
     ../../modules/info.nix
     ../../modules/remote.nix
     ../../modules/git-host.nix
@@ -23,6 +22,12 @@
   ];
 
   mine.dns.enable = true;
+  mine.youtubeDl = {
+    enable = true;
+    user = "infinisil";
+    mpdHost = "${config.private.passwords.mpd}@${config.networking.domain}";
+    youtubePlaylist = config.private.youtubePlaylist;
+  };
 
   boot.loader.timeout = 60;
 
