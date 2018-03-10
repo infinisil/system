@@ -5,8 +5,8 @@ with lib;
 let
 
   domain = config.networking.domain;
-  ip = config.networking.interfaces.eth0.ipAddress;
-  ip6 = config.networking.interfaces.eth0.ipv6Address;
+  ip = (head config.networking.interfaces.eth0.ipv4.addresses).address;
+  ip6 = (head config.networking.interfaces.eth0.ipv6.addresses).address;
 
 in
 
@@ -67,6 +67,8 @@ in
           ns2 IN A ${ip}
 
           @ IN A ${ip}
+          @ IN AAAA ${ip6}
+
           ${concatMapStringsSep "\n" (sub:
             "${sub} IN CNAME ${domain}."
           ) config.mine.subdomains}

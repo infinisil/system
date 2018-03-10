@@ -37,13 +37,16 @@
       domain = "infinisil.com";
       nameservers = [ "8.8.8.8" ];
       defaultGateway = "139.59.144.1";
-      #defaultGateway6 = "2a03:b0c0:3:d0::1";
+      defaultGateway6 = "2a03:b0c0:3:d0::1";
       interfaces.eth0 = {
         ipv4.addresses = [{
-          address = config.deployment.targetHost;
+          address = "139.59.149.43";
           prefixLength = 20;
         }];
-        #ipv6Address = "2a03:b0c0:3:d0::5df6:1";
+        ipv6.addresses = [{
+          address = "2a03:b0c0:3:d0::5df6:1";
+          prefixLength = 64;
+        }];
       };
     };
   };
