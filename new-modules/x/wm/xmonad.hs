@@ -85,6 +85,7 @@ myKeymap c n =
   , ("<Break> m n", spawn "@nope@")
   , ("<Break> s n", spawn "@nani@")
   , ("<Break> s e", spawn "@explosion@")
+  , ("<Break> s b", spawn "@baka@")
   , ("M4-n", spawn "@nope@")
   , ("<Break> m t", spawn "@tag@")
   , ("<Break> b h", spawn "home-manager switch")
