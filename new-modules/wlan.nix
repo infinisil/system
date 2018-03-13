@@ -4,7 +4,11 @@ with lib;
 
 {
 
-  options.mine.wlan.enable = mkEnableOption "wlan config";
+  options.mine.wlan.enable = mkOption {
+    type = types.bool;
+    default = config.mine.hardware.wlan;
+    description = "Enable wlan config";
+  };
 
   config = mkIf config.mine.wlan.enable {
 

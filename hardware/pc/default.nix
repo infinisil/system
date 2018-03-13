@@ -1,10 +1,17 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/zfs.nix
   ];
+
+  mine.hardware = {
+    swap = true;
+    cpuCount = 8;
+    audio = true;
+  };
 
   boot = {
     zfs.enableUnstable = true;
@@ -27,8 +34,6 @@
     SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
     KERNEL=="uinput", MODE="0660", GROUP="users", OPTIONS+="static_node=uinput"
   '';
-
-  powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
 
   system.stateVersion = "18.03";
 

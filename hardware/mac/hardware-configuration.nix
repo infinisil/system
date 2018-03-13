@@ -8,7 +8,7 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "ohci_pci" "firewire_ohci" "usbhid" "usb_storage" "sd_mod" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
@@ -27,11 +27,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/root" =
-    { device = "main/data/users/root";
-      fsType = "zfs";
-    };
-
   fileSystems."/var/lib/ipfs" =
     { device = "main/data/ipfs";
       fsType = "zfs";
@@ -39,6 +34,16 @@
 
   fileSystems."/home/infinisil" =
     { device = "main/data/users/infinisil";
+      fsType = "zfs";
+    };
+
+  fileSystems."/root" =
+    { device = "main/data/users/root";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/infinisil/Music" =
+    { device = "main/server/music";
       fsType = "zfs";
     };
 
@@ -55,11 +60,6 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/3B5B-4209";
       fsType = "vfat";
-    };
-
-  fileSystems."/home/infinisil/Music" =
-    { device = "main/server/music";
-      fsType = "zfs";
     };
 
   swapDevices =

@@ -1,4 +1,6 @@
 { pkgs, config, ... }:
+
+# See https://github.com/r-raymond/nixos-mailserver/wiki/How-to-Add-Radicale-to-SNM
 {
   environment.systemPackages = with pkgs; [
     apacheHttpd

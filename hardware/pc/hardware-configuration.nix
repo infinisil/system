@@ -8,7 +8,7 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "uas" "sd_mod" "sr_mod" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -25,6 +25,11 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/0072-55B1";
       fsType = "vfat";
+    };
+
+  fileSystems."/betty" =
+    { device = "main/betty";
+      fsType = "zfs";
     };
 
   swapDevices = [ ];

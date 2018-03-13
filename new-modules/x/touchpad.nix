@@ -11,7 +11,11 @@ in
 {
 
   options.mine.touchpad = {
-    enable = mkEnableOption "touchpad config";
+    enable = mkOption {
+      type = types.bool;
+      default = config.mine.hardware.touchpad;
+      description = "Enable touchpad config";
+    };
 
     driver = mkOption {
       type = types.enum [ "multitouch" "synaptics" "libinput" ];

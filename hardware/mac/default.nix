@@ -5,7 +5,6 @@
   imports = [
     ./boot.nix
     ./hardware-configuration.nix
-    ../../modules/zfs.nix
   ];
 
   services.xserver.deviceSection = ''
@@ -22,9 +21,16 @@
 
   services.tlp.enable = true;
 
-  mine.hasBattery = true;
-  mine.wlan.enable = true;
-  mine.touchpad.enable = true;
+  hardware.bluetooth.enable = true;
+
+  mine.hardware = {
+    battery = true;
+    cpuCount = 4;
+    swap = true;
+    touchpad = true;
+    wlan = true;
+    audio = true;
+  };
 
   services.xserver.videoDrivers = [ "intel" ];
 
@@ -53,27 +59,5 @@
         plan = plan + ",1y=>1m";
       };
     };
-  };
-
-  home-manager.users.infinisil = {
-
-    programs.htop.meters = {
-      left = [
-        "Memory"
-        "CPU"
-        "LeftCPUs2"
-        "RightCPUs2"
-        "Swap"
-        { kind = "CPU"; mode = 3; }
-      ];
-      right = [
-        { kind = "Clock"; mode = 4; }
-        "Uptime"
-        "Tasks"
-        "LoadAverage"
-        { kind = "Battery"; mode = 1; }
-      ];
-    };
-
   };
 }
