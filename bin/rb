@@ -23,10 +23,15 @@ fi
 
 # evaluate dirty status
 if [[ $(git -C /cfg diff --shortstat) != "" ]]; then
-	dirty=true
+	label=$(printf "%.7s-dirty-%.35s" \
+		"$(nix-hash /cfg --base32)" \
+		"$(git -C /cfg log --pretty=format:'%h-%f' -n 1)")
 else
-	dirty=false
+	label=$(printf "%.35s" \
+		"$(git -C /cfg log --pretty=format:'%h-%f' -n 1)")
 fi
 
-sudo @nixops@ set-args -d infinisil --arg dirty "$dirty"
+
+
+sudo @nixops@ set-args -d infinisil --argstr label "$label"
 sudo @nixops@ deploy -d infinisil $build $@
