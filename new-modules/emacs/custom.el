@@ -12,7 +12,7 @@
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
  '(ido-mode (quote both) nil (ido))
- '(idris-interpreter-flags (quote ("-p" "Bi" "-p" "lightyear")))
+ '(idris-interpreter-flags nil)
  '(menu-bar-mode nil)
  '(org-format-latex-options
    (quote
