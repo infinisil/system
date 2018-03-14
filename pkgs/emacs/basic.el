@@ -15,7 +15,7 @@
 
 (setenv "NIX_REMOTE" "daemon")
 
-(setq custom-file "/cfg/modules/emacs/custom.el")
+(setq custom-file "/cfg/new-modules/emacs/custom.el")
 (load custom-file)
 
 (load-theme 'gruvbox)

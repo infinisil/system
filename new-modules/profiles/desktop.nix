@@ -10,6 +10,8 @@ with lib;
 
   config = mkIf config.mine.profiles.desktop.enable {
 
+    mine.emacs.enable = true;
+
     mine.x.enable = true;
     mine.wm.enable = true;
     mine.dev.rust.enable = true;
