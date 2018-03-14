@@ -23,9 +23,8 @@ with lib;
       wacom.enable = true;
 
       displayManager = {
-        slim.enable = true;
         sddm = {
-          enable = false;
+          enable = true;
           autoLogin = {
             enable = false;
             user = "infinisil";
