@@ -131,7 +131,7 @@ in
           ${domain}. 14400 IN MX 10 mail.${domain}.
 
           ${domain}. IN TXT "v=spf1 ip4:${ip} -all"
-          _dmarc IN TXT "v=DMARC1;p=reject;rua=dmarc_agg@${domain}"
+          _dmarc IN TXT "v=DMARC1; p=none; rua=mailto:dmarc_agg@${domain}"
 
           mail._domainkey.${domain}. IN TXT "v=DKIM1; p=${config.mine.dns.dkimKey}"
 
