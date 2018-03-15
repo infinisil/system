@@ -58,6 +58,7 @@ with lib;
     };
 
     environment.systemPackages = with pkgs; [
+      feh
       libnotify
       gnome3.gnome-font-viewer
       gnome3.gconf
