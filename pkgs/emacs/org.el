@@ -1,3 +1,3 @@
-; org markdown-mode
+; org markdown-mode latex-preview-pane latex-extra
 
 
