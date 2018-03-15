@@ -117,7 +117,7 @@ in
         name = domain;
         master = true;
         file = builtins.toFile domain ''
-          $TTL 1d
+          $TTL 600
           $ORIGIN ${domain}.
 
           @ IN SOA ns1.${domain}. hostmaster.${domain}. (
@@ -128,7 +128,7 @@ in
             3h
           )
 
-          ${domain}. 14400 IN MX 10 mail.${domain}.
+          ${domain}. IN MX 10 mail.${domain}.
 
           ${domain}. IN TXT "v=spf1 ip4:${ip} -all"
           _dmarc IN TXT "v=DMARC1; p=none; rua=mailto:dmarc_agg@${domain}"
