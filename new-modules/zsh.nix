@@ -115,6 +115,7 @@ mkIf config.mine.console.enable {
       };
       initExtra = ''
         HISTFILE=$HOME/.config/zsh/.zsh_history
+        HISTSIZE=1000000
         export EDITOR=vim
 
         function mktest() {
