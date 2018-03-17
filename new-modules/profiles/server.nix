@@ -25,6 +25,8 @@ with lib;
       keys.enable = true;
     };
 
+    mine.gitHost.enable = true;
+
     mine.dns.enable = true;
 
     mine.znc.enable = true;

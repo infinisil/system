@@ -9,6 +9,10 @@
       inf = {
         hostname = "infinisil.com";
       };
+      git = {
+        hostname = "infinisil.com";
+        user = "git";
+      };
       kuro = {
         hostname = "kuro.desu.tk";
         user = "infinisil";
