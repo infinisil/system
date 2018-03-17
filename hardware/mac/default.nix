@@ -56,7 +56,7 @@
       plan = "15min=>5min,1h=>15min,1d=>1h,1w=>1d,1m=>1w";
       recursive = true;
       destinations.backup = {
-        dataset = "main/betty/backup";
+        dataset = "main/backup/laptop";
         host = "192.168.1.25";
         plan = plan + ",1y=>1m";
       };
