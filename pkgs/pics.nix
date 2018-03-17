@@ -5,7 +5,7 @@ let
     #!${stdenv.shell}
     if [ $(($2 > $3)) -eq 1 ]; then
       ${feh}/bin/feh --bg-fill "$1"
-      ln "$1" $HOME/pics/wallpapers/desktop-p
+      ln "$1" $HOME/pics/wallpapers/current
     else
       ln "$1" $HOME/pics/wallpapers/phone
       ${rsync}/bin/rsync -avz --delete $HOME/pics/wallpapers/phone/ inf:/webroot/www/pwp
