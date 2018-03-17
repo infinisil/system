@@ -11,16 +11,6 @@ let
 
   timeType = types.str;
 
-  ipv4ListType = mkOptionType {
-    name = "ipv4List";
-    description = "IPv4 address";
-    check = val: isList val && length val == 4 && all types.ints.u8.check val;
-    merge = mergeOneOption;
-  };
-
-  ipv4Type = types.coercedTo types.str (ipString:
-    map toInt (splitString "." ipString)) ipv4ListType;
-
   records = {
 
     a = {
