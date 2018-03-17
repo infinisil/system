@@ -2,6 +2,7 @@
 
   imports = [
     ../hardware/yuri
+    ../private/server.nix
   ];
 
   mine.profiles.server.enable = true;
