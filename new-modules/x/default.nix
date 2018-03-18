@@ -81,7 +81,7 @@ with lib;
       xbindkeys-config
       dmenu
       xlibs.xev
-      deluge
+      mine.deluge
       firefox
       thunderbird
       haskellPackages.xmobar
