@@ -69,6 +69,8 @@ with lib;
       passwordAuthentication = false;
     };
 
+    services.vnstat.enable = true;
+
     nix = {
       autoOptimiseStore = true;
       gc = {
