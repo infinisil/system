@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ nodes, config, pkgs, lib, ... }:
 
 with lib;
 
@@ -11,6 +11,11 @@ with lib;
     swap = true;
     cpuCount = 8;
     audio = true;
+  };
+
+  mine.openvpn.client = {
+    enable = true;
+    server = nodes.yuri;
   };
 
   boot = {

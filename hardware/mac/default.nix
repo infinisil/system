@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ nodes, pkgs, lib, ... }:
 
 {
 
@@ -30,6 +30,11 @@
     touchpad = true;
     wlan = true;
     audio = true;
+  };
+
+  mine.openvpn.client = {
+    enable = true;
+    server = nodes.yuri;
   };
 
   services.xserver.videoDrivers = [ "intel" ];
