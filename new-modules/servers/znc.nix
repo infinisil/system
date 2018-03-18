@@ -138,6 +138,21 @@ in
           useSSL = false;
           port = 6667;
         };
+        networks.twitch = {
+          userName = "infinisil";
+          password = config.private.passwords.twitchChatOauth;
+          server = "irc.chat.twitch.tv";
+          modules = [
+            "autoattach"
+          ];
+          channels = cfg.channels.twitch or [] ++
+            map (c: {
+              # Twitch channels don't work correctly with uppercase
+              name = toLower c;
+              detached = true;
+            }) (cfg.detachedChannels.twitch or []);
+          extraConf = sharedExtraConf;
+        };
       };
     };
 

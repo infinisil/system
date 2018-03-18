@@ -56,6 +56,15 @@
       "rust-beginners"
     ];
 
+    detachedChannels.twitch = [
+      "baggers___"
+      "emongg"
+      "timthetatman"
+      "ster"
+      "xqcow"
+      "aimbotcalvin"
+    ];
+
     realName = "Silvan Mosberger";
     quitMsg = "Configuring ZNC, sorry for the join/quits!";
     nick = "infinisil";
