@@ -16,4 +16,6 @@
 
   mine.dns.ipnsHash = "QmcF3xqxFZxDLBJ5fNmr8vZ5p83SoS5zuavYMhizh2L1dp";
 
+  mine.openvpn.server.subnet = "10.149.76.0";
+
 }

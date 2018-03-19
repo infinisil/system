@@ -25,7 +25,7 @@ let
   '';
 
   server = ''
-    server 10.149.76.0 255.255.255.0
+    server ${cfg.server.subnet} ${cfg.server.subnetMask}
     port ${toString port}
 
     topology subnet
@@ -70,10 +70,23 @@ in
 
   options.mine.openvpn = {
 
-    isServer = mkOption {
-      type = types.bool;
-      default = false;
-      description = "whether this is the server. If true the client config will be ignored. If true the client config will be ignored.";
+    server = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = "whether this is the server. If true the client config will be ignored. If true the client config will be ignored.";
+      };
+
+      subnet = mkOption {
+        type = types.str;
+        description = "Private subnet to use";
+      };
+
+      subnetMask = mkOption {
+        type = types.str;
+        default = "255.255.255.0";
+        description = "Subnet mask to use";
+      };
     };
 
     client = {
@@ -87,7 +100,7 @@ in
   };
 
   config = mkMerge [
-    (mkIf cfg.isServer {
+    (mkIf cfg.server.enable {
 
       networking = {
         firewall = {
@@ -106,10 +119,10 @@ in
 
       environment.etc = {
         "openvpn/clients/emma".text = ''
-          ifconfig-push 10.149.76.3 255.255.255.0
+          ifconfig-push 10.149.76.3 ${cfg.server.subnetMask}
         '';
         "openvpn/clients/nepnep".text = ''
-          ifconfig-push 10.149.76.2 255.255.255.0
+          ifconfig-push 10.149.76.2 ${cfg.server.subnetMask}
         '';
       };
 
@@ -118,22 +131,18 @@ in
     })
     (mkIf cfg.client.enable {
 
-      services.openvpn.servers.server = {
-        config = client;
-      };
-
+      services.openvpn.servers.server.config = client;
 
       assertions = [{
-        assertion = cfg.client.server.config.mine.openvpn.isServer;
+        assertion = cfg.client.server.config.mine.openvpn.server.enable;
         message = ''
           The server ${cfg.client.server.config.networking.hostName} of the
           client ${config.networking.hostName} doesn't have the option
-          mine.openvpn.isServer set to true.
+          mine.openvpn.server.enable set to true.
         '';
       }];
 
     })
   ];
-
 
 }
