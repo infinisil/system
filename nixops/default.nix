@@ -16,17 +16,17 @@
   };
 
   yuri = {
-    deployment.targetHost = "207.154.198.134";
+    deployment.targetHost = "10.149.76.1";
     imports = [ ./yuri.nix ];
   };
 
   laptop = {
-    deployment.targetHost = "localhost";
+    deployment.targetHost = "10.149.76.3";
     imports = [ ./emma.nix ];
   };
 
   pc = {
-    deployment.targetHost = "pc";
+    deployment.targetHost = "10.149.76.2";
     imports = [ ./nepnep.nix ];
   };
 }
