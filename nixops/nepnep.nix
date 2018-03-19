@@ -23,15 +23,15 @@
     "nixpkgs=${lib.cleanSource <nixpkgs>}"
   ];
 
-  services.openvpn.servers.server = {
-    up = ''
-      ip route append 10.149.76.3 protocol static src 192.168.1.25 \
-        nexthop dev eno1 || true
-    '';
-    down = ''
-      ip route del 10.149.76.3 || true
-    '';
-  };
+  #services.openvpn.servers.server = {
+  #  up = ''
+  #    ip route append 10.149.76.3 protocol static src 192.168.1.25 \
+  #      nexthop dev eno1 || true
+  #  '';
+  #  down = ''
+  #    ip route del 10.149.76.3 || true
+  #  '';
+  #};
 
   networking = {
     hostName = "paul";
