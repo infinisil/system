@@ -7,6 +7,8 @@ with lib;
     ./hardware-configuration.nix
   ];
 
+  mine.deluged.enable = true;
+
   mine.hardware = {
     swap = true;
     cpuCount = 8;

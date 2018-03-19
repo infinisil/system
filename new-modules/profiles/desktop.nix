@@ -29,6 +29,7 @@ with lib;
       ffmpeg-full
       stack
       imagemagick7Big
+      mine.deluge
     ];
 
     services.usbmuxd.enable = true;
