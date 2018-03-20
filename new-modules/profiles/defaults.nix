@@ -37,4 +37,6 @@
 
   boot.cleanTmpDir = true;
 
+  boot.loader.grub.splashImage = ../../assets/grub.png;
+
 }
