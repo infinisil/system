@@ -37,7 +37,7 @@ let
       };
       config = ''
         [General]
-        background=Assets/Background.jpg
+        background=${config.mine.assets.display-manager}
         autoFocusPassword=true
         enableHDPI=false
       '';

@@ -12,6 +12,7 @@
       ../home-manager/nixos
       ../lib
       ../pkgs
+      ../assets
     ];
   };
 

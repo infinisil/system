@@ -40,7 +40,7 @@ with lib;
 
     boot.plymouth.enable = true;
 
-    boot.loader.grub.splashImage = ../../assets/grub.png;
+    boot.loader.grub.splashImage = config.mine.assets.grub;
 
   };
 
