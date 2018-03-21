@@ -26,6 +26,7 @@
 (evil-leader/set-key "f r" 'recentf-open-files)
 (evil-leader/set-key "f s" 'save-buffer)
 
+(global-set-key (kbd "M-p") (defun revert-buffer-no-confirm() (interactive) (revert-buffer t t)))
 
 (which-key-add-key-based-replacements "SPC w" "window")
 (evil-leader/set-key "w o" 'delete-other-windows)
