@@ -1,10 +1,19 @@
 { config, lib, ... }:
 
+with lib;
+
 {
 
-  time.timeZone = lib.mkDefault "Europe/Zurich";
+  time.timeZone = mkDefault "Europe/Zurich";
 
   mine.mainUsers = [ "infinisil" "root" ];
+
+  # https://www.quad9.net/
+  networking.nameservers = mkDefault [
+    "9.9.9.9"
+    "149.112.112.112"
+    "2620:fe::fe"
+  ];
 
   mine.keylayout.enable = true;
 

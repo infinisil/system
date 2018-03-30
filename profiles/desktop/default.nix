@@ -24,10 +24,5 @@
     #]))
   ];
 
-  networking = {
-    nameservers = [
-      "8.8.8.8"
-    ];
-    firewall.allowedTCPPorts = [ 8081 ];
-  };
+  networking.firewall.allowedTCPPorts = [ 8081 ];
 }
