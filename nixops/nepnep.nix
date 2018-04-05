@@ -20,6 +20,7 @@
   ];
 
   nix.nixPath = [
+    "$HOME/.nix"
     "nixpkgs=${lib.cleanSource <nixpkgs>}"
   ];
 
