@@ -32,6 +32,12 @@ with lib;
     };
   };
 
+  services.znapzend = {
+    enable = true;
+    pure = true;
+    zetup.main.plan = "1hour=>5min,1day=>1hour,1week=>1day,1month=>1week,1year=>1month,10years=>1year";
+  };
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.opengl.driSupport32Bit = true;
