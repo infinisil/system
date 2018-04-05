@@ -43,6 +43,7 @@
       "pulseaudio"
       "cuberite"
       "shirakumo"
+      "pijul"
     ];
 
     channels.tymoon = [
