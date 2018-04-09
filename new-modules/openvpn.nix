@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 
 with lib;
 
@@ -130,6 +130,13 @@ in
 
     })
     (mkIf cfg.client.enable {
+
+      systemd.services.openvpn-server-start = {
+        description = "OpenVPN server restart after suspend script";
+        wantedBy = [ "suspend.target" ];
+        after = [ "suspend.target" ];
+        serviceConfig.ExecStart = "${pkgs.systemd}/bin/systemctl --no-block restart openvpn-server";
+      };
 
       services.openvpn.servers.server.config = client;
 
