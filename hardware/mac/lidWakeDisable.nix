@@ -6,6 +6,7 @@
   '';
 
   # This might be a better alternative, test this if it ever happens again
+  # Update: doesn't work
   #services.udev.extraRules = ''
   #  SUBSYSTEM=="platform", KERNEL=="PNP0C0D:00", ATTR{power/wakeup}="disabled"
   #'';

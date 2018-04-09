@@ -5,6 +5,7 @@
   imports = [
     ./boot.nix
     ./hardware-configuration.nix
+    ./lidWakeDisable.nix
   ];
 
   services.xserver.deviceSection = ''
