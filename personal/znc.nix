@@ -6,6 +6,10 @@
       "idris"
       "haskell"
       "haskell-ide-engine"
+      "pijul"
+      "nixos-borg"
+      "nixos-chat"
+      "#LucidDreaming"
     ];
     detachedChannels.freenode = [
       "youtube-dl"
@@ -17,7 +21,6 @@
       "emacs"
       "vim"
       "nixos-wiki"
-      "ffmpeg"
       "xmonad"
       "nixos-dev"
       "deluge"
@@ -30,29 +33,21 @@
       "ipfs"
       "ghc-mod"
       "openssh"
-      "nixos-borg"
-      "nixos-chat"
       "#linux"
-      "gnupg"
       "zfsonlinux"
       "#dependent"
       "bash"
       "bottest"
       "tmux"
-      "agda"
-      "pulseaudio"
-      "cuberite"
-      "shirakumo"
-      "pijul"
+      "#networking"
+      "#programming"
     ];
 
-    channels.tymoon = [
+    detachedChannels.tymoon = [
       "Stevenchan"
     ];
 
     detachedChannels.mozilla = [
-      "firefox"
-      "nightly"
       "rust"
       "rust-beginners"
     ];
