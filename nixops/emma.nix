@@ -10,6 +10,13 @@
 
   mine.live-wallpaper.enable = true;
 
+  mine.server-sync = {
+    enable = true;
+    dataDir = "server/data";
+    uploadDir = "server/upload";
+    server = "infinisil.com";
+  };
+
   mine.rpf.client = {
     server = nodes.yuri;
     webport = 8021;
