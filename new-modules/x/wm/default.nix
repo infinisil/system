@@ -25,10 +25,6 @@ in
 
     mine.sddm.enable = true;
 
-    nixpkgs.overlays = [
-      (import ../../../nixpkgs-mozilla/firefox-overlay.nix)
-    ];
-
     scripts = let
       pactl = "${pkgs.pulseaudioLight}/bin/pactl";
       mpc = "MPD_HOST=${config.environment.variables.MPD_HOST} ${pkgs.mpc_cli}/bin/mpc";
@@ -82,7 +78,7 @@ in
       '';
       toggleMute = "${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
       playpause = toggleService true "music";
-      firefox = "${pkgs.firefox-nightly-bin}/bin/firefox";
+      firefox = "${pkgs.firefox-beta-bin}/bin/firefox";
       terminal = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux";
       irc = "exec ${pkgs.alacritty}/bin/alacritty -e ${weechat}/bin/weechat";
       zpool = "${pkgs.zfs}/bin/zpool";

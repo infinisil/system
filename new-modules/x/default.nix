@@ -81,7 +81,7 @@ with lib;
       xbindkeys-config
       dmenu
       xlibs.xev
-      firefox
+      firefox-beta-bin
       thunderbird
       haskellPackages.xmobar
     ];
@@ -101,7 +101,6 @@ with lib;
         mine.screenshot
         thunderbird
         helvetica-neue-lt-std
-        firefox-nightly-bin
         mine.arcred
       ];
 
