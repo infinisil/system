@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nixops git nix
 
 set -e
 
@@ -33,5 +34,5 @@ fi
 
 
 
-sudo @nixops@ set-args -d infinisil --argstr label "$label"
-sudo @nixops@ deploy -d infinisil $build $@
+sudo nixops set-args -d infinisil --argstr label "$label"
+sudo nixops deploy -d infinisil $build $@
