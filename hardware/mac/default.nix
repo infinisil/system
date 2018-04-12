@@ -22,7 +22,10 @@
 
   services.tlp.enable = true;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
 
   mine.hardware = {
     battery = true;
