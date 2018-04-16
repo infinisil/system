@@ -66,7 +66,7 @@ let
     after = [ "mpd.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      Environment = "MPD_HOST=${cfg.password}@localhost";
+      Environment = "MPD_HOST=${config.mine.mpdHost}";
       ExecStart = "${exec}";
       Restart = "on-failure";
       RestartSec = 1;

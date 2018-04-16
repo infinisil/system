@@ -21,48 +21,65 @@ in
 
 {
 
-  config.mine.userConfig = mkIf cfg.client.enable (mkMerge [
-    (mkIf (!cfg.server.enable) {
+  options.mine = {
+    mpdHost = mkOption {
+      type = types.str;
+    };
 
-      home.packages = with pkgs; [
-        (writeScriptBin "beet" ''
-          #!${stdenv.shell}
-          ssh -q -t ${serverIp} "beet ''${@@Q}"
-        '')
-      ];
+    mpdPort = mkOption {
+      type = types.str;
+    };
+  };
 
-    })
-    {
 
-      home.packages = with pkgs; [
-        mpc_cli
-        ncmpcpp
-      ];
+  config = {
 
-      programs.zsh.shellAliases.beet = "noglob beet";
+    mine.mpdHost = "${serverPassword}@${serverIp}";
+    mine.mpdPort = "${toString serverPort}";
 
-      home.sessionVariables = {
-        MPD_HOST = "${serverPassword}@${serverIp}";
-        MPD_PORT = "${toString serverPort}";
-      };
+    mine.userConfig = mkIf cfg.client.enable (mkMerge [
+      (mkIf (!cfg.server.enable) {
 
-    }
-    (mkIf cfg.client.listen {
+        home.packages = with pkgs; [
+          (writeScriptBin "beet" ''
+            #!${stdenv.shell}
+            ssh -q -t ${serverIp} "beet ''${@@Q}"
+          '')
+        ];
 
-      systemd.user.services.music = {
-        Unit = {
-          Description = "Play music";
-          After = [ "graphical-session-pre.target" "network.target" ];
+      })
+      {
+
+        home.packages = with pkgs; [
+          mpc_cli
+          ncmpcpp
+        ];
+
+        programs.zsh.shellAliases.beet = "noglob beet";
+
+        home.sessionVariables = {
+          MPD_HOST = config.mine.mpdHost;
+          MPD_PORT = config.mine.mpdPort;
         };
 
-        Service = {
-          ExecStart = "${pkgs.mpv}/bin/mpv https://tune.${serverDomain}/opus --quiet";
-          Restart = "on-success";
-          SuccessExitStatus = 4;
-          RestartPreventExitStatus = 4;
-        };
-      };
+      }
+      (mkIf cfg.client.listen {
 
-    })
-  ]);
+        systemd.user.services.music = {
+          Unit = {
+            Description = "Play music";
+            After = [ "graphical-session-pre.target" "network.target" ];
+          };
+
+          Service = {
+            ExecStart = "${pkgs.mpv}/bin/mpv https://tune.${serverDomain}/opus --quiet";
+            Restart = "on-success";
+            SuccessExitStatus = 4;
+            RestartPreventExitStatus = 4;
+          };
+        };
+
+      })
+    ]);
+  };
 }

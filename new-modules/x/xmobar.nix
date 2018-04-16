@@ -43,7 +43,7 @@ let
           , "-h" , "red" ] 10
         , Run CommandReader "${pkgs.writeScript "info" ''
             #!${pkgs.bash}/bin/bash
-            export MPD_HOST="${config.environment.variables.MPD_HOST}"
+            export MPD_HOST="${config.mine.mpdHost}"
             ${pkgs.mpc_cli}/bin/mpc waitmessage info &
             ${pkgs.mpc_cli}/bin/mpc sendmessage updateInfo update
             while true; do

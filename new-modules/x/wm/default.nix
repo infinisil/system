@@ -27,7 +27,7 @@ in
 
     scripts = let
       pactl = "${pkgs.pulseaudioLight}/bin/pactl";
-      mpc = "MPD_HOST=${config.environment.variables.MPD_HOST} ${pkgs.mpc_cli}/bin/mpc";
+      mpc = "MPD_HOST=${config.mine.mpdHost} ${pkgs.mpc_cli}/bin/mpc";
 
       vol = up: ''
         ${pactl} set-sink-mute @DEFAULT_SINK@ false
