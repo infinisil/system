@@ -59,9 +59,6 @@ mkIf config.mine.console.enable {
       history.size = 1000000;
       shellAliases = let
       in {
-        exa = "${pkgs.exa}/bin/exa --group-directories-first --color-scale -g";
-        ls = "exa";
-        l = "exa -laah";
         gist = "${pkgs.gist}/bin/gist";
 
         sc = "sudo systemctl";
@@ -119,6 +116,12 @@ mkIf config.mine.console.enable {
         gwch = "git whatchanged -p --abbrev-commit --pretty=medium";
 
       };
+      plugins = [
+        {
+          name = "pass";
+          src = "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/pass";
+        }
+      ];
       initExtra = ''
         source ${prezto}/init.zsh
 
@@ -127,6 +130,10 @@ mkIf config.mine.console.enable {
         export SAVEHIST=$HISTSIZE
 
         export EDITOR=vim
+
+        alias exa="${pkgs.exa}/bin/exa --group-directories-first --color-scale -g"
+        alias ls="exa"
+        alias l="exa -laah"
 
         function mktest() {
           mkdir -p "$HOME/Test/$1"
