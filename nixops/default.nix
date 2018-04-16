@@ -18,16 +18,25 @@
 
   yuri = {
     deployment.targetHost = "10.149.76.1";
-    imports = [ ./yuri.nix ];
+    imports = [
+      ./yuri.nix
+      ../tmp/yuri.nix
+    ];
   };
 
   laptop = {
     deployment.targetHost = "10.149.76.3";
-    imports = [ ./emma.nix ];
+    imports = [
+      ./emma.nix
+      ../tmp/laptop.nix
+    ];
   };
 
   pc = {
     deployment.targetHost = "10.149.76.2";
-    imports = [ ./nepnep.nix ];
+    imports = [
+      ./nepnep.nix
+      ../tmp/pc.nix
+    ];
   };
 }

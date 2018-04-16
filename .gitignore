@@ -2,5 +2,6 @@
 *.tex
 *.swp
 result
+tmp
 TAGS
 **/#*#
