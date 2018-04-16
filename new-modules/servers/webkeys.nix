@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, mylib, ... }:
 
 with lib;
 
@@ -16,7 +16,10 @@ with lib;
         enableACME = true;
         root = "/webserver"; # Needed for ACME
         locations."/" = {
-          root = config.lib.mine.attrToDerivation "keys" config.mine.sshkeys;
+          root = mylib.attrToDerivation {
+            name = "keys";
+            value = config.mine.sshkeys;
+          };
           extraConfig = "autoindex on;";
         };
       };
