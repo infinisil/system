@@ -4,22 +4,32 @@ with lib;
 
 let
 
-  prezto = pkgs.fetchFromGitHub {
-    owner = "sorin-ionescu";
-    repo = "prezto";
-    rev = "54d2a76731041ccefd0f19e17fd87e970081cea7";
-    sha256 = "0nggm7w6h16h6yi55z7wvw9n01pbd0h5b2s1dfbh2wx0s988235c";
-    fetchSubmodules = true;
-    postFetch = ''
-      cd $out
+  prezto = pkgs.stdenv.mkDerivation {
+    name = "prezto";
+    src = pkgs.fetchFromGitHub {
+      owner = "sorin-ionescu";
+      repo = "prezto";
+      rev = "300102897a4710e1559e4435c686f794d126d3c3";
+      sha256 = "00f53kx72sbng1k6rdicmz3j04zfgmydaxixm8wp4pq7apffcb34";
+      fetchSubmodules = true;
+    };
+
+    buildInputs = [ pkgs.zsh ];
+
+    buildPhase = ''
       for f in $(find modules -type f -name '*.zsh'); do
-        substituteInPlace $f --replace \
+        substituteInPlace "$f" --replace \
           'cache_file="''${0:h}/cache.zsh"' \
           "cache_file=\"\$HOME/.cache/prezto/$(basename $(dirname $f)).zsh\""
       done
+
       for f in $(find . -type f -name '*.zsh'); do
-        ${pkgs.zsh}/bin/zsh -c "zcompile $f"
+        zsh -c "zcompile $f"
       done
+    '';
+
+    installPhase = ''
+      cp -r . $out
     '';
   };
 
@@ -46,37 +56,35 @@ mkIf config.mine.console.enable {
     programs.zsh = {
       enable = true;
       dotDir = ".config/zsh";
-      history.size = 100000;
-      history.path = ".config/zsh/.zsh_history";
+      history.size = 1000000;
       shellAliases = let
-        exa = "${pkgs.exa}/bin/exa --group-directories-first";
       in {
-        gist = "${pkgs.gist}/bin/gist -s";
-        e = "emacsclient -n -c";
-        rh = "home-manager switch";
+        exa = "${pkgs.exa}/bin/exa --group-directories-first --color-scale -g";
+        ls = "exa";
+        l = "exa -laah";
+        gist = "${pkgs.gist}/bin/gist";
+
         sc = "sudo systemctl";
         scu = "systemctl --user";
         jc = "journalctl";
         jcu = "journalctl --user";
-        v = "vim";
-        f = "vim $(fd | fzf)";
+
         ne = "nix-instantiate --eval";
         ni = "nix-instantiate";
         ns = "nix-shell";
         nb = "nix-build";
         feh = "feh -.ZB black";
 
-        beet = "noglob beet";
-
         g = "git";
         ga = "git add";
         gaa = "git add --all";
 
         gbs = "git bisect";
+        gbss = "git bisect start";
         gbsb = "git bisect bad";
         gbsg = "git bisect good";
-        gbsr = "git bisect reset";
-        gbss = "git bisect start";
+        gbsr = "git bisect run";
+        gbsre = "git bisect reset";
 
         gc = "git commit -v";
         "gc!" = "git commit -v --amend";
@@ -88,7 +96,7 @@ mkIf config.mine.console.enable {
         gcp = "git cherry-pick";
 
         gd = "git diff";
-        gdca = "git diff --cached";
+        gdc = "git diff --cached";
         gdw = "git diff --word-diff";
         gdcw = "git diff --cached --word-diff";
 
@@ -97,7 +105,7 @@ mkIf config.mine.console.enable {
         glg = "git log --stat";
         glgp = "git log --stat -p";
         gp = "git push";
-        gr = "git remote";
+        gr = "git remote -v";
         grb = "git rebase";
         grbi = "git rebase -i";
         grhh = "git reset --hard HEAD";
@@ -110,17 +118,19 @@ mkIf config.mine.console.enable {
         glum = "git pull upstream master";
         gwch = "git whatchanged -p --abbrev-commit --pretty=medium";
 
-        # This makes it so that every library is included by default
-        idris = ''idris $($(which -p idris) --listlibs | grep -v ".*\.ibc$" | sed -e "s/^/-p /" | paste -sd" ")'';
       };
       initExtra = ''
-        HISTFILE=$HOME/.config/zsh/.zsh_history
-        HISTSIZE=1000000
+        source ${prezto}/init.zsh
+
+        export HISTFILE=$HOME/.config/zsh/.zsh_history
+        export HISTSIZE=1000000
+        export SAVEHIST=$HISTSIZE
+
         export EDITOR=vim
 
         function mktest() {
-          mkdir -p $HOME/Test/$1
-          cd $HOME/Test/$1
+          mkdir -p "$HOME/Test/$1"
+          cd "$HOME/Test/$1"
         }
 
         function nixrc() {
@@ -146,9 +156,7 @@ mkIf config.mine.console.enable {
           cd *
         }
 
-
         function pr() {
-          cd ~/src/nixpkgs
           ${pkgs.git}/bin/git fetch -fu \
             ''${2:-$(${pkgs.git}/bin/git remote | grep "^upstream" || echo origin)} \
             "refs/pull/$1/head:pr/$1" && \
@@ -157,30 +165,7 @@ mkIf config.mine.console.enable {
 
         mkdir -p $HOME/.cache/prezto
 
-        source ${prezto}/init.zsh
-        source ${pkgs.fzf}/share/fzf/completion.zsh
-        source ${pkgs.fzf}/share/fzf/key-bindings.zsh
-
         bindkey '^ ' autosuggest-execute
-
-        unalias -m 'l*'
-        alias ls=exa
-
-        alias a='fasd -a'        # any
-        alias s='fasd -si'       # show / search / select
-        alias d='fasd -d'        # directory
-        alias f='fasd -f'        # file
-        alias sd='fasd -sid'     # interactive directory selection
-        alias sf='fasd -sif'     # interactive file selection
-        alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-        alias zz='fasd_cd -d -i' # cd with interactive selection
-
-        alias v='f -e vim'
-        alias o='a -e xdg-open'
-
-        alias exa='exa --group-directories-first --color-scale -g'
-        alias l='exa -laah'
-        alias t='exa -laTh'
 
         unsetopt correct_all
         __cd() {
