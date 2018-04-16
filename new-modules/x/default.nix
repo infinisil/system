@@ -122,8 +122,8 @@ with lib;
         fade = true;
         vSync = "opengl";
         backend = "xrender";
-        activeOpacity = "0.95";
-        inactiveOpacity = "0.80";
+        activeOpacity = "0.85";
+        inactiveOpacity = "0.70";
         extraOptions = ''
           no-fading-openclose = true;
           glx-swap-method = "buffer-age" # Fixes dpms standy resuming glitches
