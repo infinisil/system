@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: with lib; with pkgs; {
+{ pkgs, lib, ... }: with lib; {
 
   _module.args.mylib = {
 
@@ -9,11 +9,13 @@
         ${concatMapStringsSep "\n" (name: valToPath (escapeShellArg name) value.${name}) (builtins.attrNames value)}
         popd
       '' else ''
-        ln -s ${escapeShellArg (if strings then writeText "file" value else value)} ${name}
+        ln -s ${escapeShellArg (if strings then pkgs.writeText "file" value else value)} ${name}
       '';
-    in runCommand name {
+    in pkgs.runCommand name {
       preferLocalBuild = true;
     } (valToPath "$out" value);
+
+    dag = import ./dag.nix { inherit lib; };
   };
 
 }
