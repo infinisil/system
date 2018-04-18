@@ -18,6 +18,7 @@ with lib;
     mine.wm.enable = true;
     mine.dev.rust.enable = true;
     mine.dev.idris.enable = true;
+    mine.dev.haskell.enable = true;
 
     mine.music.client = {
       enable = true;
