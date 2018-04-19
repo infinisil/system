@@ -16,6 +16,7 @@ in
       neotree
       gruvbox-theme
       which-key
+      editorconfig
     ];
 
     init = {
@@ -25,6 +26,8 @@ in
 
       base = dag.entryAfter [ "theme" ] ''
         (require 'better-defaults)
+
+        (editorconfig-mode 1)
 
         (require 'recentf)
         (recentf-mode)
