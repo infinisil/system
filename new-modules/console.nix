@@ -20,7 +20,7 @@ with lib;
     };
 
     environment.systemPackages = with pkgs; [
-      git
+      gitFull
       lsof
       pass
       gnupg
