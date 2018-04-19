@@ -1,0 +1,21 @@
+* Development process for Haskell
+** With stack
+
+- stack new <name> simple
+- Set nix: enable: true in stack.yaml
+- Open in emacs and wait
+
+New dependencies:
+- Add to <name>.cabal
+- In emacs: (lsp-restart-worspace) and wait
+
+Compiling from CLI:
+- stack build
+
+Compiling with Nix:
+- stack2nix . > default.nix
+- nix-build -A <name>
+
+*** Notes
+
+I think it should be possible to use nix' ghc and packages by giving some --use-system-ghc flag to stack.
