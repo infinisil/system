@@ -10,9 +10,7 @@ with lib;
 
   # https://www.quad9.net/
   networking.nameservers = mkDefault [
-    "9.9.9.9"
-    "149.112.112.112"
-    "2620:fe::fe"
+    "1.1.1.1"
   ];
 
   mine.keylayout.enable = true;
