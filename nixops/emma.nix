@@ -24,9 +24,7 @@
     subdomain = "mac";
   };
 
-  nix.nixPath = [
-    "nixpkgs=/cfg/nixpkgs"
-  ];
+  nix.nixPath = [ "/cfg" ];
 
   #services.openvpn.servers.server = {
   #  up = ''
