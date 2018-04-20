@@ -1,0 +1,12 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nix-prefetch-git jq
+shopt -s globstar nullglob
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+targets=${@:-$(find "$DIR" -name '*.json')}
+
+for target in $targets; do
+	echo "Updating $target.."
+	url=$(jq ".url" -r "$target")
+	nix-prefetch-git --unpack "$url" > "$target"
+done
