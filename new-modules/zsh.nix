@@ -102,6 +102,7 @@ mkIf config.mine.console.enable {
         glg = "git log --stat";
         glgp = "git log --stat -p";
         gp = "git push";
+        gpsup = "git push -u origin $(git symbolic-ref --short HEAD)";
         gr = "git remote -v";
         grb = "git rebase";
         grbi = "git rebase -i";
@@ -124,6 +125,8 @@ mkIf config.mine.console.enable {
       ];
       initExtra = ''
         source ${prezto}/init.zsh
+        source ${pkgs.fzf}/share/fzf/completion.zsh
+        source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
         export HISTFILE=$HOME/.config/zsh/.zsh_history
         export HISTSIZE=1000000
@@ -134,6 +137,7 @@ mkIf config.mine.console.enable {
         alias exa="${pkgs.exa}/bin/exa --group-directories-first --color-scale -g"
         alias ls="exa"
         alias l="exa -laah"
+        alias t="exa -laTh"
 
         function mktest() {
           mkdir -p "$HOME/Test/$1"
