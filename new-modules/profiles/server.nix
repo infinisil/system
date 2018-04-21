@@ -1,4 +1,4 @@
-{ nodes, config, lib, pkgs, ... }:
+{ options, nodes, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -7,6 +7,15 @@ with lib;
   options.mine.profiles.server.enable = mkEnableOption "server profile";
 
   config = mkIf config.mine.profiles.server.enable {
+
+    services.sshd = {
+      kexAlgorithms = options.services.sshd.kexAlgorithms.default ++ [
+        "diffie-hellman-group14-sha1"
+      ];
+      macs = options.services.sshd.macs.default ++ [
+        "hmac-sha1"
+      ];
+    };
 
     mine.music = {
       server = {
@@ -53,7 +62,6 @@ with lib;
     systemd.enableEmergencyMode = false;
     fonts.fontconfig.enable = false;
     i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
-    programs.info.enable = false;
 
     environment.systemPackages = with pkgs; [
       youtube-dl

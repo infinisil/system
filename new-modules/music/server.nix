@@ -249,8 +249,8 @@ in
     }
     (mkIf (!cfg.local) {
       networking.firewall.allowedTCPPorts = [ cfg.port cfg.mp3Port cfg.opusPort ];
+
       services.mpd = {
-        readonlyPlaylists = false;
         extraConfig = ''
           audio_output {
             type            "httpd"
@@ -291,8 +291,8 @@ in
 
     })
     (mkIf cfg.local {
+      #systemd.services.mpd.ExecPreStart = mkForce null;
       services.mpd = {
-        readonlyPlaylists = true;
         extraConfig = ''
           audio_output {
             type "pulse"
