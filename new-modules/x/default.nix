@@ -20,7 +20,6 @@ with lib;
       enable = true;
       dpi = 96;
       exportConfiguration = true;
-      wacom.enable = true;
 
       displayManager = {
         sddm = {

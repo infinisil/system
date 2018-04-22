@@ -12,6 +12,8 @@ with lib;
 
     mine.emacs.enable = true;
 
+    mine.drawing.enable = true;
+
     mine.taskclient.enable = true;
 
     mine.x.enable = true;
