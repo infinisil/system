@@ -11,7 +11,7 @@ in
 {
 
   mine.emacs = {
-    packages = with pkgs.emacsPackagesNg; [
+    packages = with pkgs.epkgs; [
       better-defaults
       neotree
       gruvbox-theme
@@ -28,6 +28,7 @@ in
         (require 'better-defaults)
 
         (editorconfig-mode 1)
+        ${lib.optionalString config.mine.emacs.usePretest "(pixel-scroll-mode)"}
 
         (require 'recentf)
         (recentf-mode)

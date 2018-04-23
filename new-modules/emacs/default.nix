@@ -35,7 +35,20 @@ let
     "; Section ${name}\n${data}"
   ) (dag.dagTopoSort cfg.init).result);
 
-  emacs = pkgs.emacsPackagesNg.emacsWithPackages (_: cfg.packages);
+  overlay = self: super: {
+    emacsPretest = super.emacs.overrideAttrs (old: {
+      name = "emacs-pretest-26.1";
+      src = super.fetchurl {
+        url = "ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-26.1-rc1.tar.xz";
+        sha256 = "0n2pl1i4piga43p1kbscbb2sgg74gy4qq5jgmmrnxf80vrlfd535";
+      };
+      patches = [];
+    });
+
+    epkgs = super.emacsPackagesNgGen (if cfg.usePretest then self.emacsPretest else self.emacs);
+  };
+
+  emacs = pkgs.epkgs.emacsWithPackages (_: cfg.packages);
 
 in
 
@@ -43,6 +56,8 @@ in
 
   options.mine.emacs = {
     enable = mkEnableOption "emacs config";
+
+    usePretest = mkEnableOption "emacs pretest";
 
     package = mkOption {
       type = types.package;
@@ -64,6 +79,8 @@ in
   };
 
   config = mkIf cfg.enable {
+
+    nixpkgs.overlays = [ overlay ];
 
     mine.emacs.init.pkgs = dag.entryAnywhere ''
       (package-initialize)

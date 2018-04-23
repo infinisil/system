@@ -46,7 +46,7 @@ in
     (mkIf config.mine.emacs.enable {
       mine.emacs = {
 
-        packages = with pkgs.emacsPackagesNg; [
+        packages = with pkgs.epkgs; [
           company
           flycheck
           lsp-mode

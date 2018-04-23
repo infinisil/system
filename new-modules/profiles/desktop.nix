@@ -10,7 +10,10 @@ with lib;
 
   config = mkIf config.mine.profiles.desktop.enable {
 
-    mine.emacs.enable = true;
+    mine.emacs = {
+      enable = true;
+      usePretest = true;
+    };
 
     mine.drawing.enable = true;
 

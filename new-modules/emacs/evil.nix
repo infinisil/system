@@ -12,7 +12,7 @@ in
 
   mine.emacs = {
 
-    packages = with pkgs.emacsPackagesNg; [
+    packages = with pkgs.epkgs; [
       evil
       evil-collection
       evil-leader
