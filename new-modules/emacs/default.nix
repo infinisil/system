@@ -14,7 +14,7 @@ in
     enable = mkEnableOption "emacs config";
 
     config = mkOption {
-      type = types.submodule (import ../../emacs/submodule.nix { inherit pkgs; });
+      type = types.submodule (import <emacs/module.nix> { inherit pkgs; });
       default = {};
       description = "submodule";
     };
