@@ -1,3 +1,4 @@
+{ pkgs }:
 { lib, config, dag, ... }:
 
 with lib;
@@ -25,8 +26,7 @@ let
     };
   };
 
-  pkgs = import <nixpkgs> {};
-  dag = import ../../lib/dag.nix { inherit lib; };
+  dag = import ../lib/dag.nix { inherit lib; };
 
   # TODO: Handle dag cycle error gracefully
   initFile = pkgs.writeText "init.el" (concatMapStringsSep "\n\n" ({ name, data }:
@@ -50,6 +50,11 @@ let
 in
 
 {
+
+  imports = [
+    ./base.nix
+    ./evil.nix
+  ];
 
   options = {
 
