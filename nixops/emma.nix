@@ -4,6 +4,8 @@
     ../hardware/mac
   ];
 
+  mine.string-transfer.enable = true;
+
   mine.profiles.desktop.enable = true;
 
   mine.eth.sem6.enable = true;
