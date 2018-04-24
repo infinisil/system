@@ -1,17 +1,11 @@
-{ lib, config, pkgs, mylib, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 
-let
-
-  dag = mylib.dag;
-
-in
-
 {
 
-  mine.emacs = {
-    packages = with pkgs.epkgs; [
+  mine.emacs.config = { epkgs, dag, ... }: {
+    packages = with epkgs; [
       better-defaults
       neotree
       gruvbox-theme
@@ -28,7 +22,7 @@ in
         (require 'better-defaults)
 
         (editorconfig-mode 1)
-        ${lib.optionalString config.mine.emacs.usePretest "(pixel-scroll-mode)"}
+        ${lib.optionalString config.mine.emacs.config.usePretest "(pixel-scroll-mode)"}
 
         (require 'recentf)
         (recentf-mode)

@@ -1,18 +1,12 @@
-{ mylib, pkgs, lib, config, ... }:
+{ pkgs, lib, config, ... }:
 
 with lib;
 
-let
-
-  dag = mylib.dag;
-
-in
-
 {
 
-  mine.emacs = {
+  mine.emacs.config = { epkgs, dag, ... }: {
 
-    packages = with pkgs.epkgs; [
+    packages = with epkgs; [
       evil
       evil-collection
       evil-leader

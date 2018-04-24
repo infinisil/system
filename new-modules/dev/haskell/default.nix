@@ -1,10 +1,8 @@
-{ lib, config, pkgs, mylib, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 
 let
-
-  dag = mylib.dag;
 
   hie-nix = pkgs.fetchFromGitHub {
     owner = "domenkozar";
@@ -44,9 +42,9 @@ in
       ];
     }
     (mkIf config.mine.emacs.enable {
-      mine.emacs = {
+      mine.emacs.config = { epkgs, dag, ... }: {
 
-        packages = with pkgs.epkgs; [
+        packages = with epkgs; [
           company
           flycheck
           lsp-mode

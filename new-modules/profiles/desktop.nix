@@ -12,7 +12,7 @@ with lib;
 
     mine.emacs = {
       enable = true;
-      usePretest = true;
+      config.usePretest = true;
     };
 
     mine.drawing.enable = true;
