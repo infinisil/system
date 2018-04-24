@@ -28,47 +28,20 @@ in
 
   options.mine.dev.haskell.enable = mkEnableOption "Haskell dev config";
 
-  config = mkIf config.mine.dev.haskell.enable (mkMerge [
-    {
-      environment.systemPackages = with pkgs; [
-        haskell.compiler.ghc822
-        hie.hie82
+  config = mkIf config.mine.dev.haskell.enable {
 
-        stack
-        myStack2nix
+    environment.systemPackages = with pkgs; [
+      haskell.compiler.ghc822
+      hie.hie82
 
-        cabal2nix
-        cabal-install
-      ];
-    }
-    (mkIf config.mine.emacs.enable {
-      mine.emacs.config = { epkgs, dag, ... }: {
+      stack
+      myStack2nix
 
-        packages = with epkgs; [
-          company
-          flycheck
-          lsp-mode
-          lsp-ui
-          lsp-haskell
-          haskell-mode
-          company-quickhelp
-        ];
+      cabal2nix
+      cabal-install
+    ];
 
-        init.hs = dag.entryAfter [ "pkgs" ] ''
-          (require 'lsp-ui)
-          (require 'lsp-haskell)
-          (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-          (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
-          (add-hook 'haskell-mode-hook 'flycheck-mode)
-          ;(require 'company-lsp)
-          ;(push 'company-lsp company-backends)
-          (setq company-minimum-prefix-length 1)
-          (setq company-idle-delay 0)
-          (global-company-mode)
-          (company-quickhelp-mode)
-        '';
-      };
-    })
-  ]);
+    mine.emacs.config.haskell = true;
 
+  };
 }

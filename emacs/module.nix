@@ -54,6 +54,7 @@ in
   imports = [
     ./base.nix
     ./evil.nix
+    ./haskell.nix
   ];
 
   options = {
