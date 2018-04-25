@@ -7,7 +7,7 @@ mapAttrs' (name: type: {
   value = let file = ./. + "/${name}"; in
   lib.callPackageWith (pkgs // {
     inherit debug;
-    passwords = import ../private/passwords/gen.nix;
+    passwords = import ../../external/private/passwords/gen.nix;
   }) file {};
 }) (filterAttrs (name: type:
   (type == "directory" && builtins.pathExists "${toString ./.}/${name}/default.nix") ||

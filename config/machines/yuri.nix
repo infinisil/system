@@ -2,7 +2,7 @@
 
   imports = [
     ../hardware/yuri
-    ../private/server.nix
+    ../../external/private/server.nix
   ];
 
   mine.profiles.server.enable = true;
@@ -11,8 +11,8 @@
 
     enable = true;
     clients = with nodes; [
-      laptop
-      pc
+      emma
+      nepnep
     ];
 
   };

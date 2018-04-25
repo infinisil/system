@@ -32,7 +32,7 @@ else
 		"$(git -C /cfg log --pretty=format:'%h-%f' -n 1)")
 fi
 
-
+export NIX_PATH=/cfg/nixpath
 
 sudo nixops set-args -d infinisil --argstr label "$label"
 sudo nixops deploy -d infinisil $build $@

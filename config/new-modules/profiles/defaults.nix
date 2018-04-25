@@ -36,7 +36,7 @@ with lib;
     config.allowUnfree = true;
 
     overlays = [
-      (import ../../home-manager/overlay.nix)
+      (import ../../../external/home-manager/overlay.nix)
     ];
   };
 
