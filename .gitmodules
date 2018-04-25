@@ -1,12 +1,12 @@
 [submodule "nixpkgs"]
-	path = nixpkgs
+	path = external/nixpkgs
 	url = git@github.com:Infinisil/nixpkgs
 [submodule "private"]
-	path = private
+	path = external/private
 	url = git@infinisil.com:private
 [submodule "home-manager"]
-	path = home-manager
+	path = external/home-manager
 	url = git@github.com:Infinisil/home-manager
 [submodule "nixops"]
-	path = nixops
+	path = external/nixops
 	url = https://github.com/NixOS/nixops
