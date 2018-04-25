@@ -1,0 +1,26 @@
+* Emacs configuration
+
+This directory contains all of my emacs configuration, buildable with Nix through the following command, ran in this directory:
+
+#+BEGIN_SRC shell
+  nix-build -A emacs -A initFile
+#+END_SRC
+
+You can also pass an argument to e.g. disable the haskell development environment:
+
+#+BEGIN_SRC shell
+  nix-build -A emacs -A initFile --arg config '{ haskell = false; }'
+#+END_SRC
+
+Alternatively, you can write a simple nix file to add more configuration. This assumes that ~emacs~ in ~NIX_PATH~ points to this directory:
+
+#+BEGIN_SRC nix
+  import <emacs> {
+    config = { dag, ... }: {
+      haskell = false;
+      init.foo = dag.entryAfter [ "pkgs" ] ''
+        (message "hi!")
+      '';
+    };
+  }
+#+END_SRC
