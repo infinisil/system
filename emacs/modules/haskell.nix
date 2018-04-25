@@ -4,7 +4,11 @@ with lib;
 
 {
 
-  options.haskell = mkEnableOption "Haskell";
+  options.haskell = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Haskell emacs stuff";
+  };
 
   config = mkIf config.haskell {
     packages = with epkgs; [

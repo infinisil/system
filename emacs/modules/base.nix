@@ -6,6 +6,7 @@
     gruvbox-theme
     which-key
     editorconfig
+    flycheck
   ];
 
   init = {
@@ -30,6 +31,8 @@
           (add-to-list 'exec-path systempath)
           (add-to-list 'exec-path homepath)
           )
+
+      (add-hook 'after-init-hook #'global-flycheck-mode)
 
       (setenv "NIX_REMOTE" "daemon")
 

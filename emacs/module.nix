@@ -45,7 +45,7 @@ let
       else pkgs.emacs
     );
 
-  emacs = epkgs.emacsWithPackages (_: config.packages);
+  emacs = epkgs.emacsWithPackages (_: lib.unique config.packages);
 
 in
 
@@ -92,7 +92,7 @@ in
   config = {
 
     _module.args = {
-      inherit dag epkgs;
+      inherit pkgs dag epkgs;
     };
 
     inherit initFile emacs;

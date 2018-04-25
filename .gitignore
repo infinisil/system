@@ -1,7 +1,7 @@
 *.pdf
 *.tex
 *.swp
-result
+result*
 tmp
 TAGS
 **/#*#
