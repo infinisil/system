@@ -51,11 +51,8 @@ in
 
 {
 
-  imports = [
-    ./base.nix
-    ./evil.nix
-    ./haskell.nix
-  ];
+  imports = map (name: "${./modules}/${name}")
+    (builtins.attrNames (builtins.readDir ./modules));
 
   options = {
 
