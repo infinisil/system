@@ -1,0 +1,9 @@
+* Nixops evaluation
+
+This directory allows you to use the nix-build/nix-instantiate/etc. commands directly with the nixops derivations, which are not exported with nixops by default.
+
+Usable by running a command like this in the current directory
+
+#+BEGIN_SRC bash
+  nix-instantiate --eval -A nodes.emma.config.networking.hostName
+#+END_SRC
