@@ -47,6 +47,11 @@ let
 
   emacs = epkgs.emacsWithPackages (_: lib.unique config.packages);
 
+  exec = pkgs.writeScriptBin "myemacs" ''
+    #!${pkgs.stdenv.shell}
+    exec ${emacs}/bin/emacs -q -l ${initFile}
+  '';
+
 in
 
 {
@@ -87,6 +92,12 @@ in
       readOnly = true;
       description = "Emacs";
     };
+
+    exec = mkOption {
+      type = types.package;
+      readOnly = true;
+      description = "All-in-one executable";
+    };
   };
 
   config = {
@@ -95,7 +106,7 @@ in
       inherit pkgs dag epkgs;
     };
 
-    inherit initFile emacs;
+    inherit initFile emacs exec;
 
     init.pkgs = dag.entryAnywhere ''
       (package-initialize)
