@@ -11,9 +11,12 @@
     imports = [ ../config/machines/yuri.nix ];
   };
 
-  emma = {
+  emma = { pkgs, ... }: {
     deployment.targetHost = "10.149.76.3";
     imports = [ ../config/machines/emma.nix ];
+    environment.systemPackages = [
+      (pkgs.callPackage ./rebuild.nix { })
+    ];
   };
 
   nepnep = {
