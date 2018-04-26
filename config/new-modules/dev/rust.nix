@@ -9,6 +9,20 @@ let
     sha256 = "1r2jglgl9k881byv1kc3rdda2lzaarvb0xn7nx3q0b3h25apjff5";
   };
 
+  rust = let
+    channel = pkgs.rustChannelOf {
+      channel = "nightly";
+    };
+  in channel.rust.override {
+    extensions = [
+      "rls-preview"
+      "rustfmt-preview"
+      "rust-analysis"
+      "rust-std"
+      "rust-src"
+    ];
+  };
+
 in
 
 with lib;
@@ -23,17 +37,8 @@ with lib;
       (import "${nixpkgs-mozilla}/rust-overlay.nix")
     ];
 
-    environment.systemPackages = with pkgs.rustChannelOf {
-      date = "2018-02-25";
-      channel = "nightly";
-    }; [
+    environment.systemPackages = [
       rust
-      (rust.override {
-        extensions = [
-          "rls-preview"
-          "rustfmt-preview"
-        ];
-      })
     ];
 
   };
