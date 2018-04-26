@@ -39,6 +39,10 @@ with lib;
       stack
       imagemagick7Big
       mine.deluge
+      nix-prefetch-git
+      audacity
+      sshfs
+      nix-index
     ];
 
     services.usbmuxd.enable = true;

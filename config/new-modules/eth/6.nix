@@ -12,6 +12,10 @@ with lib;
       package = pkgs.postgresql100;
     };
 
+    environment.systemPackages = with pkgs; [
+      subversion
+    ];
+
     mine.dev.java.enable = true;
   };
 

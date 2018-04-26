@@ -30,6 +30,7 @@ with lib;
       nix-repl
       iftop
       atool
+      unzip
       jq
       bc
       wget
@@ -38,6 +39,8 @@ with lib;
       file
       mediainfo
       loc
+      nmap
+      traceroute
     ];
 
     users.defaultUserShell = pkgs.zsh;

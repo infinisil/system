@@ -39,6 +39,8 @@ in
 
       cabal2nix
       cabal-install
+
+      haskellPackages.pointfree
     ];
 
     mine.emacs.config.haskell = true;
