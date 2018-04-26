@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+deployment=infinisil
+if [ -f info.json ]; then
+	rm info.json
+	echo "Deleted info.json"
+fi
+
+echo "Generating new info.json.."
+sudo nixops export | \
+	jq "to_entries | \
+		map(select(.value.name == \"$deployment\"))[0] | \
+		{ \
+			uuid: .key, \
+			networkExprs: .value.nixExprs | fromjson, \
+			deploymentName: .value.name, \
+			args: .value.args | fromjson | with_entries(.value |= fromjson) \
+		}" | \
+	tee info.json | jq
