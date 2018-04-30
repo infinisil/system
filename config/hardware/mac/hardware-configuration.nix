@@ -42,21 +42,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home/infinisil/Music" =
-    { device = "main/server/music";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home/infinisil/imp" =
-    { device = "main/data/important/users/infinisil";
-      fsType = "zfs";
-    };
-
-  fileSystems."/root/imp" =
-    { device = "main/data/important/users/root";
-      fsType = "zfs";
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/3B5B-4209";
       fsType = "vfat";
