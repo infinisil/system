@@ -7,6 +7,7 @@
     which-key
     editorconfig
     flycheck
+    company
   ];
 
   init = {
@@ -19,6 +20,10 @@
 
       (editorconfig-mode 1)
       ${lib.optionalString config.usePretest "(pixel-scroll-mode)"}
+
+      (setq company-minimum-prefix-length 0)
+      (setq company-idle-delay 0.1)
+      (global-company-mode)
 
       (require 'recentf)
       (recentf-mode)

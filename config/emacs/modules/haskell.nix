@@ -29,8 +29,6 @@ with lib;
       (add-hook 'haskell-mode-hook 'flycheck-mode)
       ;(require 'company-lsp)
       ;(push 'company-lsp company-backends)
-      (setq company-minimum-prefix-length 1)
-      (setq company-idle-delay 0)
       (global-company-mode)
       (company-quickhelp-mode)
     '';
