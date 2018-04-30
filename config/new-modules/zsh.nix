@@ -72,6 +72,8 @@ mkIf config.mine.console.enable {
         nb = "nix-build";
         feh = "feh -.ZB black";
 
+        gh = "git log --no-merges --date-order --pretty=format:\"%C(auto)%h %s %Cgreen(%cr)\" | fzf +s --preview=\"git show \\$(echo {} | cut -d\\\" \\\" -f1) --color=always\"";
+
         g = "git";
         ga = "git add";
         gaa = "git add --all";
@@ -142,18 +144,6 @@ mkIf config.mine.console.enable {
         function mktest() {
           mkdir -p "$HOME/Test/$1"
           cd "$HOME/Test/$1"
-        }
-
-        function nixrc() {
-          cd /cfg
-          vim .
-          git commit -av
-        }
-
-        function homerc() {
-          cd $HOME/cfg
-          vim .
-          git commit -av
         }
 
         function nsrc() {
