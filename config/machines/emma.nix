@@ -12,6 +12,8 @@
 
   mine.live-wallpaper.enable = true;
 
+  mine.dev.rust.enable = true;
+
   mine.server-sync = {
     enable = true;
     dataDir = "server/data";

@@ -8,6 +8,10 @@
 
   mine.shinas = true;
 
+  mine.eth.sem6.enable = true;
+
+  mine.dev.rust.enable = true;
+
   mine.server-sync = {
     enable = true;
     dataDir = "server/data";
