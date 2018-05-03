@@ -26,9 +26,7 @@
     subdomain = "pc";
   };
 
-  environment.systemPackages = with pkgs; [
-    steam
-  ];
+  mine.gaming.enable = true;
 
   nix.nixPath = [
     "$HOME/.nix"
