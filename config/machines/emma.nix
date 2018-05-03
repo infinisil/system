@@ -49,5 +49,6 @@
   networking = {
     hostName = "emma";
     hostId = "34cc680d";
+    firewall.allowedTCPPorts = [ 1500 1501 ];
   };
 }
