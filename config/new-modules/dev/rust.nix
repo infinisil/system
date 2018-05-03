@@ -11,6 +11,7 @@ let
 
   rust = let
     channel = pkgs.rustChannelOf {
+      date = "2018-04-29";
       channel = "nightly";
     };
   in channel.rust.override {
