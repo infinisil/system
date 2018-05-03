@@ -8,14 +8,7 @@ with lib;
 
   config = mkIf config.mine.profiles.server.enable {
 
-    services.sshd = {
-      kexAlgorithms = options.services.sshd.kexAlgorithms.default ++ [
-        "diffie-hellman-group14-sha1"
-      ];
-      macs = options.services.sshd.macs.default ++ [
-        "hmac-sha1"
-      ];
-    };
+    mine.radicale.enable = true;
 
     mine.music = {
       server = {
@@ -77,6 +70,12 @@ with lib;
     services.openssh = {
       enable = true;
       passwordAuthentication = false;
+      kexAlgorithms = options.services.openssh.kexAlgorithms.default ++ [
+        "diffie-hellman-group14-sha1"
+      ];
+      macs = options.services.openssh.macs.default ++ [
+        "hmac-sha1"
+      ];
     };
 
     services.vnstat.enable = true;
