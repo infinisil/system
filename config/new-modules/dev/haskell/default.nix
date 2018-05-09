@@ -41,6 +41,7 @@ in
       cabal-install
 
       haskellPackages.pointfree
+      haskellPackages.stylish-haskell
     ];
 
     mine.emacs.config.haskell = true;

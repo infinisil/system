@@ -21,8 +21,8 @@
       (editorconfig-mode 1)
       ${lib.optionalString config.usePretest "(pixel-scroll-mode)"}
 
-      (setq company-minimum-prefix-length 0)
-      (setq company-idle-delay 0.1)
+      (setq company-minimum-prefix-length 1)
+      (setq company-idle-delay 0.3)
       (global-company-mode)
 
       (require 'recentf)
