@@ -1,4 +1,4 @@
-{ nodes, lib, pkgs, ... }: {
+{ config, nodes, lib, pkgs, ... }: {
 
   imports = [
     ../hardware/pc
@@ -32,6 +32,14 @@
     "$HOME/.nix"
     "nixpkgs=${lib.cleanSource <nixpkgs>}"
   ];
+
+  services.nginx.virtualHosts.localhost = {
+    basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
+    locations."/betty/" = {
+      root = "/betty";
+      extraConfig = "autoindex on;";
+    };
+  };
 
   #services.openvpn.servers.server = {
   #  up = ''
