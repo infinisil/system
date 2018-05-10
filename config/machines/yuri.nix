@@ -3,6 +3,7 @@
   imports = [
     ../hardware/yuri
     ../../external/private/server.nix
+    /home/infinisil/prj/nixbot/module.nix
   ];
 
   mine.profiles.server.enable = true;
