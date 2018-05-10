@@ -44,10 +44,16 @@ in
               sleep 0.5
             done
 
+            id=$(xsetwacom list | ${pkgs.ripgrep}/bin/rg 'id: (.*)\stype: PAD' -r '$1' -o)
+            if [ -z "$id" ]; then
+              echo "Found device, but no PAD device"
+              exit 0
+            fi
+
             echo "Wacom device found, setting properties.."
 
             set -x
-            xsetwacom set "Wacom Intuos PT S Pad pad" button 1 "key ctrl z"
+            xsetwacom set $id button 1 "key ctrl z"
           '';
           Type = "oneshot";
         };
