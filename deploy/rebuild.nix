@@ -5,6 +5,6 @@ writeScriptBin "rb" ''
   label=$(printf "%.35s" \
     "$(${git}/bin/git -C /cfg log --pretty=format:'%h-%f' -n 1)")
 
-  sudo ${nixops}/bin/nixops set-args -d infinisil --argstr label "$label"
-  sudo ${nixops}/bin/nixops deploy -d infinisil $@
+  sudo ${nixops}/bin/nixops set-args -s ${toString ../external/private/deployments.nixops} -d infinisil --argstr label "$label"
+  sudo ${nixops}/bin/nixops deploy -s ${toString ../external/private/deployments.nixops} -d infinisil $@
 ''
