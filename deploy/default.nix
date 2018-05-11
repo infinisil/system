@@ -19,8 +19,11 @@
     ];
   };
 
-  nepnep = {
+  nepnep = { pkgs, ... }: {
     deployment.targetHost = "10.149.76.2";
     imports = [ ../config/machines/nepnep.nix ];
+    environment.systemPackages = [
+      (pkgs.callPackage ./rebuild.nix { })
+    ];
   };
 }
