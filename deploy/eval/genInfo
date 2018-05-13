@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
 deployment=infinisil
 if [ -f info.json ]; then
 	rm info.json
@@ -7,7 +9,7 @@ if [ -f info.json ]; then
 fi
 
 echo "Generating new info.json.."
-sudo nixops export | \
+sudo nixops export -s "$SCRIPTPATH/../../external/private/deployments.nixops" | \
 	jq "to_entries | \
 		map(select(.value.name == \"$deployment\"))[0] | \
 		{ \

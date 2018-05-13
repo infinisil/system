@@ -7,3 +7,8 @@ Usable by running a command like this in the current directory
 #+BEGIN_SRC bash
   nix-instantiate --eval -A nodes.emma.config.networking.hostName
 #+END_SRC
+
+Building a certain system fully can be done with
+#+BEGIN_SRC bash
+  nix-build -A nodes.emma.config.system.build.toplevel
+#+END_SRC
