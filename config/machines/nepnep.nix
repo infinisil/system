@@ -29,8 +29,7 @@
   mine.gaming.enable = true;
 
   nix.nixPath = [
-    "$HOME/.nix"
-    "nixpkgs=${lib.cleanSource <nixpkgs>}"
+    "nixpkgs=/cfg/external/nixpkgs"
   ];
 
   services.nginx.virtualHosts.localhost = {
