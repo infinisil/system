@@ -1,4 +1,4 @@
-{ pkgs ? import ../nixpkgs {}, lib ? pkgs.lib, debug ? false }:
+{ pkgs ? import ../../external/nixpkgs {}, lib ? pkgs.lib, debug ? false }:
 
 with lib;
 
