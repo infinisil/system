@@ -9,6 +9,7 @@
       "pijul"
       "nixos-borg"
       "nixos-chat"
+      "#nixos-anime"
     ];
     detachedChannels.freenode = [
       "youtube-dl"
