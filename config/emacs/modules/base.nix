@@ -8,6 +8,7 @@
     editorconfig
     flycheck
     company
+    magit
   ];
 
   init = {
