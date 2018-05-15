@@ -1,70 +1,88 @@
-{ config, ... }: {
+{ config, ... }:
+
+let
+
+  detach = name: { inherit name; detached = true; };
+
+in
+
+{
 
   mine.znc = {
-    channels.freenode = [
-      "nixos"
-      "idris"
-      "haskell"
-      "haskell-ide-engine"
-      "pijul"
-      "nixos-borg"
-      "nixos-chat"
-      "#nixos-anime"
-    ];
-    detachedChannels.freenode = [
-      "youtube-dl"
-      "#crypto"
-      "openvpn"
-      "alacritty"
-      "znc"
-      "zsh"
-      "emacs"
-      "vim"
-      "nixos-wiki"
-      "xmonad"
-      "nixos-dev"
-      "deluge"
-      "mpd"
-      "anime"
-      "weechat"
-      "beets"
-      "git"
-      "purism"
-      "ipfs"
-      "ghc-mod"
-      "openssh"
-      "#linux"
-      "zfsonlinux"
-      "#dependent"
-      "bash"
-      "bottest"
-      "tmux"
-      "#networking"
-      "#programming"
-    ];
-
-    detachedChannels.tymoon = [
-      "Stevenchan"
-    ];
-
-    detachedChannels.mozilla = [
-      "rust"
-      "rust-beginners"
-    ];
-
-    detachedChannels.twitch = [
-      "baggers___"
-      "emongg"
-      "timthetatman"
-      "ster"
-      "xqcow"
-      "aimbotcalvin"
-    ];
-
-    realName = "Silvan Mosberger";
-    quitMsg = "Configuring ZNC, sorry for the join/quits!";
-    nick = "infinisil";
+    defaultNick = "infinisil";
     savebuffPassword = config.private.passwords.znc-savebuff;
+  };
+
+  services.znc = {
+    confOptions = {
+      nick = "infinisil";
+      userName = "infinisil";
+      passBlock = config.private.zncPassBlock;
+      networks = {
+        freenode.channels = [
+          "nixos"
+          "idris"
+          "haskell"
+          "haskell-ide-engine"
+          "pijul"
+          "nixos-borg"
+          "nixos-chat"
+          "#nixos-anime"
+          "bottest"
+        ] ++ map detach [
+          "youtube-dl"
+          "#crypto"
+          "openvpn"
+          "alacritty"
+          "znc"
+          "zsh"
+          "emacs"
+          "vim"
+          "nixos-wiki"
+          "xmonad"
+          "nixos-dev"
+          "deluge"
+          "mpd"
+          "anime"
+          "weechat"
+          "beets"
+          "git"
+          "purism"
+          "ipfs"
+          "ghc-mod"
+          "openssh"
+          "#linux"
+          #"zfsonlinux"
+          "#dependent"
+          "bash"
+          "tmux"
+          "#networking"
+          "#programming"
+        ];
+
+        tymoon.channels = [ (detach "Stevenchan") ];
+
+        mozilla.channels = map detach [
+          "rust"
+          "rust-beginners"
+        ];
+
+        # Needs to be lower caps
+        twitch.channels = map detach [
+          "baggers___"
+          "emongg"
+          "timthetatman"
+          "ster"
+          "xqcow"
+          "aimbotcalvin"
+        ];
+
+        gitter.password = config.private.passwords.gitterIrc;
+
+        twitch.password = config.private.passwords.twitchChatOauth;
+
+      };
+    };
   };
 
 }
