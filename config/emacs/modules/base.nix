@@ -1,51 +1,65 @@
-{ lib, config, epkgs, dag, ... }: {
+{ lib, config, epkgs, dag, ... }:
 
-  packages = with epkgs; [
-    better-defaults
-    neotree
-    gruvbox-theme
-    which-key
-    editorconfig
-    flycheck
-    company
-    magit
-  ];
+with lib;
 
-  init = {
-    theme = dag.entryAfter [ "pkgs" ] ''
-      (load-theme 'gruvbox t)
-    '';
+{
 
-    base = dag.entryAfter [ "theme" ] ''
-      (require 'better-defaults)
+  options.base = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Whether to enable base";
+  };
 
-      (editorconfig-mode 1)
-      ${lib.optionalString config.usePretest "(pixel-scroll-mode)"}
+  config = mkIf config.base {
 
-      (setq company-minimum-prefix-length 1)
-      (setq company-idle-delay 0.3)
-      (global-company-mode)
+    packages = with epkgs; [
+      better-defaults
+      neotree
+      gruvbox-theme
+      which-key
+      editorconfig
+      flycheck
+      company
+      magit
+    ];
 
-      (require 'recentf)
-      (recentf-mode)
-      (which-key-mode)
+    init = {
+      theme = dag.entryAfter [ "pkgs" ] ''
+        (load-theme 'gruvbox t)
+      '';
 
-      (let
-          ((homepath (concat (getenv "HOME") "/.nix-profile/bin"))
-           (systempath "/run/current-system/sw/bin"))
-          (setenv "PATH" (concat homepath ":" systempath ":" (getenv "PATH")))
-          (add-to-list 'exec-path systempath)
-          (add-to-list 'exec-path homepath)
-          )
+      base = dag.entryAfter [ "theme" ] ''
+        (require 'better-defaults)
 
-      (add-hook 'after-init-hook #'global-flycheck-mode)
+        (editorconfig-mode 1)
+        ${lib.optionalString config.usePretest "(pixel-scroll-mode)"}
 
-      (setenv "NIX_REMOTE" "daemon")
+        (setq company-minimum-prefix-length 1)
+        (setq company-idle-delay 0.3)
+        (global-company-mode)
 
-      (setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
-      (load custom-file)
+        (require 'recentf)
+        (recentf-mode)
+        (which-key-mode)
 
-      (global-visual-line-mode)
-    '';
+        (let
+            ((homepath (concat (getenv "HOME") "/.nix-profile/bin"))
+             (systempath "/run/current-system/sw/bin"))
+            (setenv "PATH" (concat homepath ":" systempath ":" (getenv "PATH")))
+            (add-to-list 'exec-path systempath)
+            (add-to-list 'exec-path homepath)
+            )
+
+        (add-hook 'after-init-hook #'global-flycheck-mode)
+
+        (setenv "NIX_REMOTE" "daemon")
+
+        (setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
+        (load custom-file)
+
+        (global-visual-line-mode)
+      '';
+    };
+
   };
 }

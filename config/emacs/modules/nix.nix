@@ -51,6 +51,7 @@ in
 
       nixflycheck = dag.entryAfter [ "pkgs" ] ''
 
+        (require 'flycheck)
         ; Combination of flychecks nix checker and rebar3 checker's color stripping
         ; Because there is no way to prevent nix-instantiate from outputting colors
         (flycheck-define-checker mynix
