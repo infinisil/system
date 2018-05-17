@@ -113,7 +113,7 @@ with lib;
       services.random-background = {
         enable = true;
         imageDirectory = "%h/pics/wallpapers/desktop";
-        interval = "20";
+        interval = "120";
       };
 
       programs.zsh.shellAliases = {
