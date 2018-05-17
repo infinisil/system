@@ -14,6 +14,8 @@
 
   mine.dev.rust.enable = true;
 
+  hardware.opengl.enable = true;
+
   mine.server-sync = {
     enable = true;
     dataDir = "server/data";

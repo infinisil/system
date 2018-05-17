@@ -6,6 +6,8 @@
 
   mine.profiles.desktop.enable = true;
 
+  mine.compton.highend = true;
+
   mine.shinas = true;
 
   mine.eth.sem6.enable = true;

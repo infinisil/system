@@ -10,6 +10,8 @@ with lib;
 
     mine.dunst.enable = true;
 
+    mine.compton.enable = true;
+
     services.physlock.enable = true;
 
     services.logind.extraConfig = ''
@@ -73,7 +75,6 @@ with lib;
       #arc-theme
       #gtk_engines
       gtk-engine-murrine
-      compton
       #shotcut #video editor
       xbindkeys
       xwinwrap
@@ -113,25 +114,6 @@ with lib;
         enable = true;
         imageDirectory = "%h/pics/wallpapers/desktop";
         interval = "20";
-      };
-
-
-      services.compton = {
-        enable = true;
-        fade = true;
-        vSync = "opengl";
-        backend = "xrender";
-        activeOpacity = "0.85";
-        inactiveOpacity = "0.70";
-        extraOptions = ''
-          no-fading-openclose = true;
-          glx-swap-method = "buffer-age" # Fixes dpms standy resuming glitches
-          paint-on-overlay = true; # Fixes xmobar not being visible when restarted, EDIT: It doesn't
-          focus-exclude = [
-            "override_redirect"
-          ];
-          glx-no-rebind-pixmap = true;
-        '';
       };
 
       programs.zsh.shellAliases = {
