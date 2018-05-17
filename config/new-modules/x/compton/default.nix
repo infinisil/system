@@ -50,7 +50,7 @@ in
           cfg = ./compton-high.conf;
           autoStart = cfg.highend;
         }) {
-          Unit.Conflicts = [ "compton-low.service" ];
+          Unit.Conflicts = [ "compton-low.service" "compton-trans.service" ];
         };
 
         compton-low = recursiveUpdate (mkComptonService {
@@ -58,7 +58,15 @@ in
           cfg = ./compton-low.conf;
           autoStart = ! cfg.highend;
         }) {
-          Unit.Conflicts = [ "compton-high.service" ];
+          Unit.Conflicts = [ "compton-high.service" "compton-trans.service" ];
+        };
+
+        compton-trans = recursiveUpdate (mkComptonService {
+          variantName = "Trans";
+          cfg = ./compton-trans.conf;
+          autoStart = false;
+        }) {
+          Unit.Conflicts = [ "compton-high.service" "compton-low.service" ];
         };
       };
     };
