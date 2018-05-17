@@ -1,4 +1,6 @@
-{ stdenv, writeScriptBin, git, nixops }:
+{ pkgs ? import ../external/nixpkgs {} }:
+
+with pkgs;
 
 writeScriptBin "rb" ''
   #!${stdenv.shell}

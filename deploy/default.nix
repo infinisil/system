@@ -1,4 +1,10 @@
-{ label }: {
+{ label }:
+
+let
+
+  rebuild = import ./rebuild.nix {};
+
+in {
   network.description = "Infinisil's machines";
 
   defaults = {
@@ -14,16 +20,12 @@
   emma = { pkgs, ... }: {
     deployment.targetHost = "10.149.76.3";
     imports = [ ../config/machines/emma.nix ];
-    environment.systemPackages = [
-      (pkgs.callPackage ./rebuild.nix { })
-    ];
+    environment.systemPackages = [ rebuild ];
   };
 
   nepnep = { pkgs, ... }: {
     deployment.targetHost = "10.149.76.2";
     imports = [ ../config/machines/nepnep.nix ];
-    environment.systemPackages = [
-      (pkgs.callPackage ./rebuild.nix { })
-    ];
+    environment.systemPackages = [ rebuild ];
   };
 }
