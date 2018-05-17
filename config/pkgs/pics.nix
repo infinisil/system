@@ -1,4 +1,4 @@
-{ stdenv, writeScript, writeScriptBin, feh, rsync }:
+{ stdenv, writeScript, writeScriptBin, feh, rsync, exa }:
 
 let
   action = writeScript "action" ''
@@ -8,9 +8,11 @@ let
       ln "$1" $HOME/pics/wallpapers/current
     else
       ln "$1" $HOME/pics/wallpapers/phone
-      ${rsync}/bin/rsync -avz --delete $HOME/pics/wallpapers/phone/ inf:/webroot/www/pwp
+      ${rsync}/bin/rsync -rvz $HOME/pics/wallpapers/phone/ inf:/webroot/www/pwp
     fi
   '';
 in writeScriptBin "pics" ''
-  ${feh}/bin/feh -.zZY -B black -A "${action} %F %w %h &" -D 3 ~/pics/anime
+  #!${stdenv.shell}
+  cd ~/pics/anime
+  ${feh}/bin/feh -.Z -B black -A "${action} %F %w %h &" -D 3 -f <(${exa}/bin/exa -s created | tac)
 ''
