@@ -6,7 +6,7 @@ let
 
   cfg = config.mine.compton;
 
-  package = pkgs.mine.compton-kawase;
+  package = pkgs.mine.compton-kawase { nvidia = cfg.nvidia; };
 
   mkComptonService = { autoStart, variantName, cfg }: recursiveUpdate {
     Unit.Description = "Compton X11 compositor - ${variantName}";
@@ -33,6 +33,8 @@ in
   options.mine.compton = {
 
     enable = mkEnableOption "compton config";
+
+    nvidia = mkEnableOption "nvidia stuff";
 
     highend = mkEnableOption "use high-end by default";
 

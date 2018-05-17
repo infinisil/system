@@ -40,6 +40,8 @@ with lib;
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  mine.compton.nvidia = true;
+
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 

@@ -1,4 +1,6 @@
-{ fetchFromGitHub }:
+{ lib, fetchFromGitHub }:
+
+{ nvidia ? false }:
 
 let
   nixpkgs = fetchFromGitHub {
@@ -8,7 +10,21 @@ let
     sha256 = "0kniph5rnyhqqdhlrffsrqys4s49yp0jikifcms5kdkmz08ggfks";
   };
 
-  pkgs = import nixpkgs {};
+  pkgs = import nixpkgs { config.allowUnfree = true; };
+
+  # From https://github.com/guibou/nixGL
+  nvidiaVersion = "390.48";
+  nvidiaLibs = (pkgs.linuxPackages.nvidia_x11.override {
+    libsOnly = true;
+    kernel = null;
+  }).overrideAttrs(oldAttrs: rec {
+    name = "nvidia-${nvidiaVersion}";
+    src = pkgs.fetchurl {
+      url = "http://download.nvidia.com/XFree86/Linux-x86_64/${nvidiaVersion}/NVIDIA-Linux-x86_64-${nvidiaVersion}.run";
+      sha256 = "16a3blvizcksmaxr644s857yanw3i3vcvqvn7qnwbsbqpmxga09c";
+    };
+    useGLVND = 0;
+  });
 
   compton-kawase = pkgs.compton-git.overrideAttrs (old: {
 
@@ -23,7 +39,10 @@ let
 
     hardeningDisable = [ "format" ];
 
-    postInstall = ''
+    postInstall = if nvidia then ''
+      wrapProgram $out/bin/compton \
+        --set LD_LIBRARY_PATH "${nvidiaLibs}/lib"
+    '' else ''
       wrapProgram $out/bin/compton \
         --set LIBGL_DRIVERS_PATH "${pkgs.mesa_drivers}/lib/dri"
     '';
