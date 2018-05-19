@@ -144,8 +144,9 @@ main :: IO ()
 main = do
   nScreens <- countScreens
   let spacing = fromMaybe False . readMaybe $ "@spacing@"
-  let layout = if spacing then layoutSpacing else layout
-  xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layout
+  if spacing
+    then xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
+    else xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layout
 
 myConfig n layout = def
     { terminal = "@terminal@"
