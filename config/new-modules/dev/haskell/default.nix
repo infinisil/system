@@ -5,17 +5,17 @@ with lib;
 let
 
   hie-nix = pkgs.fetchFromGitHub {
-    owner = "domenkozar";
+    owner = "sectore";
     repo = "hie-nix";
-    rev = "dbb89939da8997cc6d863705387ce7783d8b6958";
-    sha256 = "1bcw59zwf788wg686p3qmcq03fr7bvgbcaa83vq8gvg231bgid4m";
+    rev = "64f075b8d2f42b529b8cb1657c332c8b685479e8";
+    sha256 = "1v25q340vzw5sjcn7b6kaswa896smb3g9mz0bz889n8krgxg4r0g";
   };
 
   stack2nixSrc = pkgs.fetchFromGitHub {
-    owner = "input-output-hk";
+    owner = "sectore";
     repo = "stack2nix";
-    rev = "b614c56ea3c36d9f5940fb1852b7957cad586547";
-    sha256 = "1nk3pax43zz15lqn2j963zkn9x9na7q2kid9vk5kxif9daymq4wd";
+    rev = "4e4141d1f4a4626030f11bdf7623ccc7640f7b08";
+    sha256 = "1v5pm770pmalxwvf6ddg196m17ga5lj30r1xq2sdd7fi330k0i27";
   };
 
   hie = import hie-nix {};
