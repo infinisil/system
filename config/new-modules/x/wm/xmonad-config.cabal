@@ -22,3 +22,4 @@ executable xmonad-config
                      , X11
                      , fuzzy
                      , containers
+                     , text
