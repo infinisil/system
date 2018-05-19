@@ -98,7 +98,6 @@ with lib;
       home.packages = with pkgs; [
         mpv
         mine.pics
-        mine.screenshot
         thunderbird
         helvetica-neue-lt-std
         mine.arcred

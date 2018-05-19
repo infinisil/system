@@ -15,6 +15,10 @@ with lib;
       config.usePretest = true;
     };
 
+    mine.userConfig = {
+      services.flameshot.enable = true;
+    };
+
     mine.drawing.enable = true;
 
     mine.taskclient.enable = true;
