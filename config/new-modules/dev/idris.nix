@@ -23,6 +23,7 @@ in
 
     environment.systemPackages = [ idris ];
 
+    mine.emacs.config.idris = true;
   };
 
 }
