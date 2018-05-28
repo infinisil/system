@@ -11,7 +11,10 @@ with lib;
     environment.systemPackages = with pkgs; [
       steam
       minecraft
-      (wine.override { wineBuild = "wineWow"; })
+      (wineStaging.override {
+        wineBuild = "wineWow";
+        gstreamerSupport = false;
+      })
     ];
 
   };
