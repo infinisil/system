@@ -21,8 +21,10 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       gitFull
+      tmux
       lsof
       pass
+      dnsutils
       gnupg
       taskwarrior
       tldr
@@ -84,6 +86,7 @@ with lib;
 
       programs.git = {
         enable = true;
+        package = pkgs.gitFull;
         userName = "Silvan Mosberger";
         userEmail = "infinisil@icloud.com";
         aliases = {
