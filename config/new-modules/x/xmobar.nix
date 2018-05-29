@@ -56,10 +56,11 @@ let
         , Run Com "${config.scripts.power}" [] "power" 10
         , Run Com "${config.scripts.batt}" [] "bt" 50
         , Run Com "${config.scripts.playing}" [] "playing" 10
+        , Run PipeReader "<test>:/home/infinisil/Test/xmobar/pipe" "testpipe"
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% | %testpipe% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
@@ -75,56 +76,49 @@ in {
       '';
       batt = ''
         PATH="${pkgs.acpi}/bin:${pkgs.gawk}/bin:${pkgs.bc}/bin:$PATH"
-        acpiout=$(acpi -b)
 
-        battstat=$(echo $acpiout | awk '{print $3}')
-        battstat=''${battstat%?}
+        battstat=$(acpi -b | cut -d' ' -f3 | tr -d ',')
 
         charge_now=$(cat /sys/class/power_supply/BAT0/charge_now)
         charge_full=$(cat /sys/class/power_supply/BAT0/charge_full)
 
-        charge=$(bc << EOF
+        charge=$(bc <<EOF
         scale=2
-        c = 100 * $charge_now / $charge_full
-
-        "<fc=#"
-
-        if (c <= 12) {
-          print "CE3E25>", c, "% </fc>"
-          halt
-        }
-        if (c <= 37) {
-          print "DB721C>", c, "% </fc>"
-          halt
-        }
-        if (c <= 62) {
-          print "CC9B20>", c, "% </fc>"
-          halt
-        }
-        if (c <= 87) {
-          print "AFAA13>", c, "% </fc>"
-          halt
-        }
-
-        print "5CBA1A>", c, "% </fc>"
-
+        100 * $charge_now / $charge_full
         EOF
         )
+
+        chargeInteger=$(printf "%.0f\n" "$charge")
+
+        if [ $chargeInteger -le 12 ]; then
+          symbol=
+        elif [ $chargeInteger -le 37 ]; then
+          symbol=
+        elif [ $chargeInteger -le 62 ]; then
+          symbol=
+        elif [ $chargeInteger -le 87 ]; then
+          symbol=
+        else
+          symbol=
+        fi
+
+        red=$(( 255 - $chargeInteger * 255 / 100 ))
+        green=$(( $chargeInteger * 255 / 100 ))
 
         case $battstat in
         Full)
           ;;
         Discharging)
-          postfix="(-$(date -u -d $(acpi -b | awk '{print $5}') +"%Hh%M"))"
+          postfix="-$(date -u -d $(acpi -b | cut -d' ' -f5) +"%Hh%M")"
           ;;
         Charging)
-          postfix="(+$(date -u -d $(acpi -b | awk '{print $5}') +"%Hh%M"))"
+          postfix="+$(date -u -d $(acpi -b | cut -d' ' -f5) +"%Hh%M")"
           ;;
         *)
           ;;
         esac
 
-        echo "$charge $postfix"
+        printf "<fc=#%02x%02x00>%s%% %s</fc> (%s)\n" "$red" "$green" "$charge" "$symbol" "$postfix"
       '';
       playing = ''
         status="$(systemctl --user is-active music)"
