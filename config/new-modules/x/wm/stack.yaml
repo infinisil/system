@@ -1,0 +1,18 @@
+resolver: lts-11.9
+
+packages:
+- .
+
+extra-deps:
+- fuzzy-0.1.0.0
+
+nix:
+  enable: true
+  packages:
+    - pkgconfig
+    - alsaLib
+    - xorg.libX11
+    - xorg.libXrandr
+    - xorg.libXinerama
+    - xorg.libXext
+    - xorg.libXft

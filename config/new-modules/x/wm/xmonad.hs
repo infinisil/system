@@ -1,14 +1,17 @@
 {-# LANGUAGE FlexibleContexts #-}
 import qualified Data.Map                            as M
+import           Data.Maybe
 import           Graphics.X11.Types
+import           System.Environment                  (getEnv)
 import qualified Text.Fuzzy                          as Fuzz
+import           Text.Read                           (readMaybe)
 import           XMonad
+import           XMonad.Actions.Navigation2D
 import           XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.EwmhDesktops           as EWMH
 import           XMonad.Hooks.InsertPosition
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
-import           XMonad.Actions.Navigation2D
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.BoringWindows
 import           XMonad.Layout.CenteredMaster
@@ -27,15 +30,19 @@ import qualified XMonad.StackSet                     as W
 import           XMonad.Util.Cursor
 import           XMonad.Util.EZConfig
 
-import XMonad.Layout.IndependentScreens (withScreens, onCurrentScreen, workspaces', countScreens)
+import           XMonad.Layout.IndependentScreens    (countScreens,
+                                                      onCurrentScreen,
+                                                      withScreens, workspaces')
+
+layoutSpacing =
+  mods $ mkToggle (single FULL) emptyBSP
+    where
+      mods = avoidStruts . smartBorders . smartSpacing 2
 
 layout =
-  let
-    -- tiled = Tall 1 (3/100) (1/2)
-    mods = avoidStruts . smartBorders
-  in
-    mods $ mkToggle (single FULL) emptyBSP
-    -- mods $ mkToggle (single FULL) (Mirror tiled ||| tiled) ||| Full ||| MosaicAlt M.empty
+  mods $ mkToggle (single FULL) emptyBSP
+    where
+      mods = avoidStruts . smartBorders
 
 c1 = "#6F1313"
 c2 = "#A93316"
@@ -136,9 +143,12 @@ myNavigation2DConfig = def
 main :: IO ()
 main = do
   nScreens <- countScreens
-  xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens
+  let spacing = fromMaybe False . readMaybe $ "@spacing@"
+  if spacing
+    then xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
+    else xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layout
 
-myConfig n = def
+myConfig n layout = def
     { terminal = "@terminal@"
     , modMask = mod4Mask
     , manageHook =

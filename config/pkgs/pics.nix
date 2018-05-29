@@ -13,6 +13,5 @@ let
   '';
 in writeScriptBin "pics" ''
   #!${stdenv.shell}
-  cd ~/pics/anime
-  ${feh}/bin/feh -.Z -B black -A "${action} %F %w %h &" -D 3 -f <(${exa}/bin/exa -s created | tac)
+  ${feh}/bin/feh -.Z -B black -A "${action} %F %w %h &" -D 3 ~/pics/anime
 ''

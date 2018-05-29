@@ -7,10 +7,10 @@ let
   cfg = config.mine.mail;
 
   module = import ((import <nixpkgs> {}).fetchFromGitHub {
-    owner = "r-raymond";
+    owner = "infinisil";
     repo = "nixos-mailserver";
-    rev = "v2.1.3";
-    sha256 = "12wbz6shz00n7nv6j8x86q7n0q0d8vvc3b2psda2hvhywxvhhf3m";
+    rev = "fix-enable-conditions";
+    sha256 = "1k8j5dn50pk6if7fgksh330bpsvxdv9s667amm1v3g8nx730vkcb";
   });
 
   domain = config.networking.domain;
