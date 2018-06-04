@@ -1,86 +1,73 @@
 { config, ... }:
 
-let
-
-  detach = name: { inherit name; detached = true; };
-
-in
-
 {
 
   mine.znc = {
     defaultNick = "infinisil";
     savebuffPassword = config.private.passwords.znc-savebuff;
+    twitchPassword = config.private.passwords.twitchChatOauth;
+    gitterPassword = config.private.passwords.gitterIrc;
   };
 
   services.znc = {
-    confOptions = {
-      nick = "infinisil";
-      userName = "infinisil";
-      passBlock = config.private.zncPassBlock;
-      networks = {
-        freenode.channels = [
-          "nixos"
-          "idris"
-          "haskell"
-          "haskell-ide-engine"
-          "pijul"
-          "nixos-borg"
-          "nixos-chat"
-          "#nixos-anime"
-          "bottest"
-        ] ++ map detach [
-          "youtube-dl"
-          "#crypto"
-          "openvpn"
-          "alacritty"
-          "znc"
-          "zsh"
-          "emacs"
-          "vim"
-          "nixos-wiki"
-          "xmonad"
-          "nixos-dev"
-          "deluge"
-          "mpd"
-          "anime"
-          "weechat"
-          "beets"
-          "git"
-          "purism"
-          "ipfs"
-          "ghc-mod"
-          "openssh"
-          "#linux"
-          #"zfsonlinux"
-          "#dependent"
-          "bash"
-          "tmux"
-          "#networking"
-          "#programming"
-        ];
-
-        tymoon.channels = [ (detach "Stevenchan") ];
-
-        mozilla.channels = map detach [
-          "rust"
-          "rust-beginners"
-        ];
-
-        # Needs to be lower caps
-        twitch.channels = map detach [
-          "baggers___"
-          "emongg"
-          "timthetatman"
-          "ster"
-          "xqcow"
-          "aimbotcalvin"
-        ];
-
-        gitter.password = config.private.passwords.gitterIrc;
-
-        twitch.password = config.private.passwords.twitchChatOauth;
-
+    config = {
+      User.infinisil = {
+        AltNick = "infinisi1";
+        RealName = "Silvan Mosberger";
+        Network.freenode.Chan = {
+          "#haskell" = { };
+          "#nixos" = { };
+          "##nixos-anime" = { };
+          "#pijul" = { };
+          "#bottest" = { };
+          "#nixos-chat" = { };
+          "#idris" = { };
+          "##crypto" = { Detached = true; };
+          "##dependent" = { Detached = true; };
+          "##linux" = { Detached = true; };
+          "##networking" = { Detached = true; };
+          "##programming" = { Detached = true; };
+          "#alacritty" = { Detached = true; };
+          "#anime" = { Detached = true; };
+          "#bash" = { Detached = true; };
+          "#beets" = { Detached = true; };
+          "#deluge" = { Detached = true; };
+          "#emacs" = { Detached = true; };
+          "#ghc-mod" = { Detached = true; };
+          "#git" = { Detached = true; };
+          "#haskell-ide-engine" = { };
+          "#ipfs" = { Detached = true; };
+          "#mpd" = { Detached = true; };
+          "#nixos-borg" = { Detached = true; };
+          "#nixos-dev" = { Detached = true; };
+          "#nixos-wiki" = { Detached = true; };
+          "#openssh" = { Detached = true; };
+          "#openvpn" = { Detached = true; };
+          "#purism" = { Detached = true; };
+          "#tmux" = { Detached = true; };
+          "#vim" = { Detached = true; };
+          "#weechat" = { Detached = true; };
+          "#xmonad" = { Detached = true; };
+          "#youtube-dl" = { Detached = true; };
+          "#znc" = { Detached = true; };
+          "#zsh" = { Detached = true; };
+          "#zfsonlinux" = { Disabled = true; };
+        };
+        Network.mozilla.Chan = {
+          "#rust" = { Detached = true; };
+          "#rust-beginners" = { Detached = true; };
+        };
+        Network.twitch.Chan = {
+          "#aimbotcalvin" = { Detached = true; };
+          "#baggers___" = { Detached = true; };
+          "#emongg" = { Detached = true; };
+          "#ster" = { Detached = true; };
+          "#timthetatman" = { Detached = true; };
+          "#xqcow" = { Detached = true; };
+        };
+        Network.tymoon.Chan = {
+          "#Stevenchan" = { Detached = true; };
+        };
       };
     };
   };

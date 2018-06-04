@@ -28,26 +28,28 @@ in
         "backlog"
         "watch"
         "autoattach"
-        "savebuff ${cfg.savebuffPassword}"
+        (mkIf (cfg.savebuffPassword != null) "savebuff ${cfg.savebuffPassword}")
       ];
-      readOnly = true;
-    };
-
-    defaultNetworkExtraConf = mkOption {
-      type = types.lines;
-      description = "Default network extra conf, provided for your own use";
-      default = ''
-        QuitMsg = Configuring ZNC, sorry for the joins/quits!
-      '';
       readOnly = true;
     };
 
     savebuffPassword = mkOption {
       type = types.nullOr types.str;
-      default = "null";
+      default = null;
       description = "Password used for the savebuff module";
     };
 
+    twitchPassword = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Password used for twitch";
+    };
+
+    gitterPassword = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Password used for gitter";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -56,51 +58,53 @@ in
       enable = true;
       openFirewall = true;
       mutable = false;
-      modulePackages = with pkgs.zncModules; [
-        playback
-        backlog
-        push
-      ];
-      confOptions = {
-        userModules = [ "push" ];
-        modules = [ "playback" ];
-        extraUserConf = ''
-          AutoClearChanBuffer = false
-          AutoClearQueryBuffer = false
-        '';
-        networks = mapAttrs (net: attrs: ({
-          userName = cfg.defaultNick;
-          modules = cfg.defaultNetworkModules;
-          extraConf = cfg.defaultNetworkExtraConf;
-        } // attrs)) {
+      config = {
+        LoadModule = [ "playback" ];
+        Listener.l = {
+          Port = 5000;
+          IPv4 = true;
+          IPv6 = true;
+          SSL = true;
+        };
+        User.${cfg.defaultNick} = {
+          Admin = mkDefault true;
+          LoadModule = [ "push" ];
+          QuitMsg = mkDefault "Configuring ZNC, sorry for the joins/quits!";
+          Nick = mkDefault cfg.defaultNick;
+          AltNick = mkDefault "${cfg.defaultNick}_";
+          Ident = mkDefault cfg.defaultNick;
 
-          freenode.server = "chat.freenode.net";
-          gitter.server = "irc.gitter.im";
-          mozilla.server = "irc.mozilla.org";
+          Network = {
+            freenode = {
+              Server = "chat.freenode.net +6697";
+              LoadModule = cfg.defaultNetworkModules;
+            };
+            gitter = mkIf (cfg.gitterPassword != null) {
+              Server = "irc.gitter.im +6697 ${cfg.gitterPassword}";
+              LoadModule = cfg.defaultNetworkModules;
+            };
+            mozilla = {
+              Server = "irc.mozilla.org +6697";
+              LoadModule = cfg.defaultNetworkModules;
+            };
+            snoonet = {
+              Server = "irc.snoonet.org 6667 ";
+              LoadModule = cfg.defaultNetworkModules;
+            };
+            tymoon = {
+              Server = "irc.tymoon.eu 6667";
+              LoadModule = cfg.defaultNetworkModules;
+            };
+            twitch = mkIf (cfg.twitchPassword != null) {
+              Server = "irc.chat.twitch.tv +6697 ${cfg.twitchPassword}";
+              LoadModule = [ "autoattach" ];
+            };
+            rizon = {
+              Server = "irc.rizon.net 6667";
+              LoadModule = cfg.defaultNetworkModules;
+            };
 
-          snoonet = {
-            server = "irc.snoonet.org";
-            port = 6667;
-            useSSL = false;
           };
-
-          tymoon = {
-            server = "irc.tymoon.eu";
-            useSSL = false;
-            port = 6667;
-          };
-
-          twitch = {
-            server = "irc.chat.twitch.tv";
-            modules = [ "autoattach" ];
-          };
-
-          rizon = {
-            server = "irc.rizon.net";
-            port = 6667;
-            useSSL = false;
-          };
-
         };
       };
     };
