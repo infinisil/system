@@ -19,4 +19,11 @@
 
   mine.openvpn.server.subnet = "10.149.76.0";
 
+  mine.xUserConfig = {
+    services.redshift = {
+      latitude = "47.4";
+      longitude = "9.2";
+    };
+  };
+
 }

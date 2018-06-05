@@ -21,6 +21,7 @@ with lib;
       flycheck
       company
       magit
+      smooth-scrolling
     ];
 
     init = {
