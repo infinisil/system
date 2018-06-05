@@ -73,6 +73,8 @@ in
           Nick = mkDefault cfg.defaultNick;
           AltNick = mkDefault "${cfg.defaultNick}_";
           Ident = mkDefault cfg.defaultNick;
+          AutoClearChanBuffer = false;
+          AutoClearQueryBuffer = false;
 
           Network = {
             freenode = {
