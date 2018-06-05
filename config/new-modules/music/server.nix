@@ -174,18 +174,67 @@ in
             password = cfg.password;
           };
 
-          smartplaylist = {
+          smartplaylist = let
+            col = prefix: attrs:
+              flatten (builtins.attrValues (mapAttrs (name: value:
+                if builtins.isAttrs value
+                then col "${prefix}${name}." value
+                else {
+                  name = "${prefix}${name}.m3u";
+                  query = value;
+                })
+              attrs));
+            createPlaylists = col "";
+            in {
             playlist_dir = "${cfg.musicDir}/playlists";
             relative_to = "${cfg.musicDir}/data";
-            playlists = mapAttrsToList (name: query: {
-              name = "${name}.m3u";
-              inherit query;
-            }) {
+            playlists = createPlaylists {
               okay = "^nope:1 ^rating:0..5";
               unrated = "^rating:0..10 ^nope:1";
               decentSongs = "^nope:1 rating:6.. length:..10:00 , ^nope:1 now:1 length:..10:00";
               decentMixes = "^nope:1 rating:6.. length:10:00.. , ^nope:1 now:1 length:10:00..";
               now = "now:1";
+              artist = {
+                Savant = "artist:Savant ^rating:0..5";
+                ThomasBergersen = "artist:'Thomas Bergersen' ^rating:0..5";
+                KatherineJenkins = "artist:'Katherine Jenkins' ^rating:0..5";
+                ProleteR = "artist:'ProleteR' ^rating:0..5";
+                Shadrew = "artist:Shadrew ^rating:0..5";
+              };
+              album = {
+                ThomasBergersen = {
+                  Illusions = "album:'Illusions' ^rating:0..5";
+                  Sun = "album:'Sun' artist:'Thomas Bergersen' ^rating:0..5";
+                };
+                YourName = "album:'Your Name.' ^rating:0..5";
+                Sigma = "album:'Σ' ^rating:0..5";
+                CobaltHour = "album:'COBALT HOUR' ^rating:0..5";
+                BenBriggs.Patreon = "artist:'Benjamin Briggs' album:'The Patreon Collection' ^rating:0..5";
+                BenBriggs.DiddyKong = "artist:'Ben Briggs' album:'DIDDY KONG RACING: bootleg circuit' ^rating:0..5";
+                Minecraft = "album:'Minecraft, Volume Beta' ^rating:0..5";
+                Lustrous = "album:'TVアニメ『宝石の国』オリジナルサウンドトラック' ^rating:0..5";
+                TreasurePlanet = "album:'Treasure Planet' ^rating:0..5";
+                Symphonic.Shades = "album:'Symphonic Shades' ^rating:0..5";
+                Symphonic.Fantasies = "album:'Symphonic Fantasies' ^rating:0..5";
+                ComputerSavvy = "album:'Computer Savvy' ^rating:0..5";
+                SpaceCadet = "album:'Space Cadet' ^rating:0..5";
+                PrincessMononoke = "album:'Princess Mononoke' ^rating:0..5";
+                Savant = mapAttrs (n: v: "artist:Savant ^rating:0..5 ${v}") {
+                  Alchemist = "album:Alchemist";
+                  Heart = "album:'♥ (heart)'";
+                  Zion = "album:ZION";
+                  Protos = "album:Protos";
+                  Orakel = "album:Orakel";
+                  Overkill = "album:Overkill";
+                  Overworld = "album:Overworld";
+                  Jester = "album:Jester";
+                  Invasion = "album:Invasion";
+                  Cult = "album:Cult";
+                  Vario = "album:Vario";
+                };
+                Highlander = "album:Highlander ^rating:0..5";
+                SecretGarden = "album:'Songs From a Secret Garden' ^rating:0..5";
+              };
             };
           };
         };

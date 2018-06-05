@@ -93,6 +93,8 @@ with lib;
         enable = true;
       };
 
+      services.redshift.enable = true;
+
       xsession.enable = true;
 
       home.packages = with pkgs; [
