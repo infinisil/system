@@ -43,7 +43,7 @@ in
         home.packages = with pkgs; [
           (writeScriptBin "beet" ''
             #!${stdenv.shell}
-            ssh -q -t ${serverIp} "beet ''${@@Q}"
+            ssh -q -t ${serverIp} "MPD_HOST=${config.mine.mpdHost} beet ''${@@Q}"
           '')
         ];
 
