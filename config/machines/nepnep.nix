@@ -28,6 +28,16 @@
     subdomain = "pc";
   };
 
+  environment.systemPackages = with pkgs; [
+    (writeScriptBin "projector" ''
+      #!${stdenv.shell}
+      xrandr --output HDMI-0 --mode 1920x1080 --output DP-4 --off
+    '')
+    (writeScriptBin "monitor" ''
+      xrandr --output HDMI-0 --off --output DP-4 --mode 2560x1440
+    '')
+  ];
+
   mine.gaming.enable = true;
 
   nix.nixPath = [
