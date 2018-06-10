@@ -54,6 +54,10 @@ in
 
   config = mkIf cfg.enable {
 
+    security.acme.certs.${config.networking.domain}.postRun = ''
+      cp full.pem "${config.services.znc.dataDir}/znc.pem"
+    '';
+
     services.znc = {
       enable = true;
       openFirewall = true;
