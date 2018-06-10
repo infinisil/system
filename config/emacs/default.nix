@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}
+{ pkgs ? import ../../external/nixpkgs {}
 , lib ? pkgs.lib
 , config ? {}
 }:

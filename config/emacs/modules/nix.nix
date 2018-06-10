@@ -77,6 +77,7 @@ in
           :modes nix-mode)
 
         (add-to-list 'flycheck-checkers 'mynix)
+        (add-to-list 'company-backends 'company-nixos-options)
       '';
     };
   };
