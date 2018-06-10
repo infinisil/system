@@ -10,6 +10,8 @@ with lib;
 
     mine.dunst.enable = true;
 
+    mine.live-wallpaper.enable = true;
+
     mine.compton.enable = true;
 
     services.physlock.enable = true;

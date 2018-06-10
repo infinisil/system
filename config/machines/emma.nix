@@ -10,8 +10,6 @@
 
   mine.eth.sem6.enable = true;
 
-  mine.live-wallpaper.enable = true;
-
   mine.dev.rust.enable = true;
 
   hardware.opengl.enable = true;
