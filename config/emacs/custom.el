@@ -13,6 +13,7 @@
  '(ido-mode (quote both) nil (ido))
  '(idris-interpreter-flags nil)
  '(menu-bar-mode nil)
+ '(nix-indent-function (quote nix-indent-line))
  '(org-format-latex-options
    (quote
     (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers

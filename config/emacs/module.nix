@@ -33,7 +33,16 @@ let
     "; Section ${name}\n${data}"
   ) (dag.dagTopoSort config.init).result);
 
-  epkgs = pkgs.emacsPackagesNgGen (if config.usePretest
+  overrides = super: self: {
+    nix-mode = super.nix-mode.overrideAttrs (old: {
+      src = builtins.fetchTarball {
+        url = "https://github.com/NixOS/nix-mode/archive/5a8b334c75f94dc22ff3c30e3886b1a198118b8a.tar.gz";
+        sha256 = "1dvmhjf4v22jsvv9hwsvadicbhgynjrihkmy6r77phvrrd3sh63p";
+      };
+    });
+  };
+
+  epkgs = (pkgs.emacsPackagesNgGen (if config.usePretest
       then pkgs.emacs.overrideAttrs (old: {
         name = "emacs-pretest-26.1";
         src = pkgs.fetchurl {
@@ -43,7 +52,7 @@ let
         patches = [];
       })
       else pkgs.emacs
-    );
+    )).overrideScope overrides;
 
   emacs = epkgs.emacsWithPackages (_: lib.unique config.packages);
 
