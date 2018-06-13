@@ -19,6 +19,7 @@ with lib;
       lsp-haskell
       haskell-mode
       company-quickhelp
+      hasky-extensions
     ];
 
     init.hs = dag.entryAfter [ "pkgs" ] ''
@@ -27,6 +28,12 @@ with lib;
       (add-hook 'lsp-mode-hook 'lsp-ui-mode)
       (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
       (add-hook 'haskell-mode-hook 'flycheck-mode)
+      (defun hasky-keys ()
+        "Hasky extension key binds"
+        (require 'hasky-extensions)
+        (local-set-key (kbd "C-c C-y") #'hasky-extensions)
+        )
+      (add-hook 'haskell-mode-hook 'hasky-keys)
       ;(require 'company-lsp)
       ;(push 'company-lsp company-backends)
       (global-company-mode)
