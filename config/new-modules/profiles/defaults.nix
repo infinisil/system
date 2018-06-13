@@ -8,7 +8,6 @@ with lib;
 
   mine.mainUsers = [ "infinisil" "root" ];
 
-  # https://www.quad9.net/
   networking.nameservers = mkDefault [
     "1.1.1.1"
   ];
@@ -30,6 +29,7 @@ with lib;
     buildCores = 0;
     autoOptimiseStore = true;
     trustedUsers = [ "root" "@wheel" ];
+    daemonNiceLevel = 1;
   };
 
   nixpkgs = {
