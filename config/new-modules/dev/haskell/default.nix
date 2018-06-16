@@ -42,6 +42,7 @@ in
 
       haskellPackages.pointfree
       haskellPackages.stylish-haskell
+      haskellPackages.hlint
     ];
 
     mine.emacs.config.haskell = true;
