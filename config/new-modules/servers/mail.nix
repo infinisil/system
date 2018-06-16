@@ -6,11 +6,9 @@ let
 
   cfg = config.mine.mail;
 
-  module = import ((import <nixpkgs> {}).fetchFromGitHub {
-    owner = "infinisil";
-    repo = "nixos-mailserver";
-    rev = "fix-enable-conditions";
-    sha256 = "1k8j5dn50pk6if7fgksh330bpsvxdv9s667amm1v3g8nx730vkcb";
+  module = import (builtins.fetchTarball {
+    url = "https://github.com/r-raymond/nixos-mailserver/archive/ffc67fef469c0ec81c83b7d2681a8b2ca0c58849.tar.gz";
+    sha256 = "1if8pshc4z5zn59zcnnjh55fk4gym0pjzlyxpc0x95l3vp916s40";
   });
 
   domain = config.networking.domain;
