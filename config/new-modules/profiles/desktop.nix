@@ -46,6 +46,8 @@ with lib;
       audacity
       sshfs
       nix-index
+      mine.hashsearch
+      blockhash
     ];
 
     services.usbmuxd.enable = true;
