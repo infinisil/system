@@ -5,22 +5,21 @@ with lib;
 let
 
   hie-nix = pkgs.fetchFromGitHub {
-    owner = "sectore";
+    owner = "domenkozar";
     repo = "hie-nix";
-    rev = "64f075b8d2f42b529b8cb1657c332c8b685479e8";
-    sha256 = "1v25q340vzw5sjcn7b6kaswa896smb3g9mz0bz889n8krgxg4r0g";
+    rev = "8f04568aa8c3215f543250eb7a1acfa0cf2d24ed";
+    sha256 = "06ygnywfnp6da0mcy4hq0xcvaaap1w3di2midv1w9b9miam8hdrn";
   };
 
   stack2nixSrc = pkgs.fetchFromGitHub {
-    owner = "sectore";
+    owner = "input-output-hk";
     repo = "stack2nix";
-    rev = "4e4141d1f4a4626030f11bdf7623ccc7640f7b08";
-    sha256 = "1v5pm770pmalxwvf6ddg196m17ga5lj30r1xq2sdd7fi330k0i27";
+    rev = "9070f9173ae32f0be6f7830c41c8cfb8e780fdbf";
+    sha256 = "1qz7yfd6icl5sddpsij6fqn2dmzxwawm7cb8aw4diqh71drr1p29";
   };
 
   hie = import hie-nix {};
-
-  myStack2nix = import "${stack2nixSrc}" {};
+  myStack2nix = import stack2nixSrc {};
 
 in
 
