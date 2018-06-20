@@ -1,17 +1,31 @@
 { label }:
 
+let
+
+  nixosConfig = builtins.toFile "configuration.nix" ''
+    builtins.trace "This machine is managed by NixOps, using dummy configuration file for evaluation" {
+      fileSystems."/".device = "/dev/sda1";
+      boot.loader.grub.device = "nodev";
+    }
+  '';
+
+in
 {
   network.description = "Infinisil's machines";
 
-  defaults = {
+  defaults = { deploymentName, ... }: {
     system.nixos.label = label;
     imports = [ ../config ];
+
+    nix.nixPath = [
+      "nixos-config=${nixosConfig}"
+    ];
 
     mine.deployer = {
       enableNixpkgs = true;
       remote = "git@github.com:Infinisil/system.git";
       nixops.state = ../external/private/deployments.nixops;
-      nixops.deployment = "infinisil";
+      nixops.deployment = deploymentName;
       directory = "/home/infinisil/cfg";
       nixpkgs = ../external/nixpkgs;
     };
