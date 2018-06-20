@@ -40,10 +40,6 @@
 
   mine.gaming.enable = true;
 
-  nix.nixPath = [
-    "nixpkgs=/cfg/external/nixpkgs"
-  ];
-
   services.nginx.virtualHosts.localhost = {
     basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
     locations."/betty/" = {

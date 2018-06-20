@@ -28,11 +28,6 @@
     subdomain = "mac";
   };
 
-  nix.nixPath = [
-    "nixpkgs=/cfg/external/nixpkgs"
-    "emacs=/cfg/config/emacs"
-  ];
-
   #services.openvpn.servers.server = {
   #  up = ''
   #    ip route append 10.149.76.2 metric 50 protocol static src 192.168.1.19 \
