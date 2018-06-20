@@ -10,6 +10,7 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       taskwarrior
+      tasknc
     ];
 
     mine.userConfig = {

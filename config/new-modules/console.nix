@@ -59,7 +59,6 @@ with lib;
         sqliteInteractive
         gnumake
         exa
-        tasknc
         asciinema
         cmatrix
         ncdu
