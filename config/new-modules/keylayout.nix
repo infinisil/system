@@ -37,12 +37,9 @@ in
         layout = "us";
         xkbVariant = "dvp";
         xkbOptions = "caps:backspace";
-
       };
 
       mine.xUserConfig = {
-        home.keyboard.layout = "dvp";
-
         xsession.profileExtra = ''
           ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${keymap} $DISPLAY
           ${pkgs.xcape}/bin/xcape -e '#94=Escape' &
@@ -59,7 +56,7 @@ in
       };
 
       environment.systemPackages = with pkgs; [
-        pkgs.xorg.xkbcomp
+        xorg.xkbcomp
       ];
 
       environment.etc."X11/keymap.xkb".source = keymap;

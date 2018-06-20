@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   networking.wireless.networks = {
     infinisil = {
       psk = "${config.private.passwords."wlan/iPhone"}";

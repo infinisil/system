@@ -13,11 +13,14 @@ with lib;
 
   config = mkIf config.mine.sound.enable {
 
-    mine.userConfig = {
-      home.packages = [
-        pkgs.mine.say
-      ];
+    environment.systemPackages = with pkgs; [
+      mine.say
+      (mkIf config.hardware.bluetooth.enable blueman)
+      pavucontrol
+      cli-visualizer
+    ];
 
+    mine.userConfig = {
       home.file.".config/vis/config".text = ''
         audio.sources=pulse
       '';
@@ -31,12 +34,5 @@ with lib;
       '';
     };
 
-    environment.systemPackages = with pkgs; [
-      blueman
-      pavucontrol
-      cli-visualizer
-    ];
-
   };
-
 }
