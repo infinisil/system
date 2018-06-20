@@ -22,7 +22,7 @@ let
       $git checkout -b "$branch"
     fi
     $git add --all
-    $git commit -v --allow-empty-message
+    $git commit -v
 
     branch="$($git rev-parse --abbrev-ref HEAD)"
     msg="$($git log --pretty=format:'%h-%f' -n 1)"
@@ -35,7 +35,7 @@ let
         "${pkgs.nixops}/bin/nixops"
       ])
     }
-
+    set -x
     $nixops set-args --argstr label "$label"
     $nixops deploy $@
   '';
