@@ -4,18 +4,19 @@ with lib;
 
 let
 
-  cfg = config.mine.ipfs;
+  cfg = config.services.ipfs;
 
 in
 
 {
 
-
-  options.mine.ipfs = {
-    enable = mkEnableOption "ipfs config";
-
+  options.services.ipfs = {
     enableGateway = mkEnableOption "ipfs gateway";
-
+    gatewayIp = mkOption {
+      type = types.ints.u16;
+      default = 8080;
+      description = "Port to use for gateway";
+    };
     autostart = mkOption {
       type = types.bool;
       default = false;
@@ -23,22 +24,19 @@ in
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = mkMerge [
     {
-      services.ipfs = {
-        enable = true;
-        autoMount = false;
-        dataDir = "/var/lib/ipfs";
-      };
-
-      users.users = mkMerge (map (user: {
-        ${user}.extraGroups = [ "ipfs" ];
-      }) config.mine.mainUsers);
-    }
-    (mkIf (! cfg.autostart) {
       systemd.services.ipfs.wantedBy = mkForce [];
+      services.ipfs.gatewayAddress = "/ip4/127.0.0.1/tcp/${toString cfg.gatewayIp}";
+    }
+    (mkIf cfg.enable {
+      users.users = mkMerge (map (user: {
+        ${user}.extraGroups = [ cfg.group ];
+      }) config.mine.mainUsers);
     })
-    (mkIf cfg.enableGateway {
+    (mkIf (! cfg.autostart) {
+    })
+    (mkIf (cfg.enable && cfg.enableGateway) {
       mine.subdomains = [ "ipfs" ];
 
       services.nginx = {
@@ -48,11 +46,11 @@ in
           forceSSL = true;
           enableACME = true;
           root = "/webroot";
-          locations."/".proxyPass = "http://localhost:8080";
+          locations."/".proxyPass = "http://localhost:${toString cfg.gatewayIp}";
         };
       };
 
     })
-  ]);
+  ];
 
 }

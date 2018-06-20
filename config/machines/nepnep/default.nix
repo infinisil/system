@@ -8,7 +8,7 @@
   mine.profiles.desktop.enable = true;
 
   mine.compton.highend = true;
-  mine.ipfs = {
+  services.ipfs = {
     enable = true;
     autostart = true;
   };

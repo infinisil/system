@@ -11,7 +11,7 @@
     server = nodes.yuri;
   };
 
-  mine.ipfs.enable = true;
+  services.ipfs.enable = true;
 
   services.znapzend = {
     enable = true;
