@@ -6,6 +6,11 @@ let
     builtins.trace "This machine is managed by NixOps, using dummy configuration file for evaluation" {
       fileSystems."/".device = "/dev/sda1";
       boot.loader.grub.device = "nodev";
+
+      assertions = [{
+        assertion = false;
+        message = "Not gonna do that for you, this is a nixops managed machine";
+      }];
     }
   '';
 
