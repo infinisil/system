@@ -8,6 +8,7 @@
     imports = [ ../config ];
 
     mine.deployer = {
+      enableNixpkgs = true;
       remote = "git@github.com:Infinisil/system.git";
       nixops.state = ../external/private/deployments.nixops;
       nixops.deployment = "infinisil";
