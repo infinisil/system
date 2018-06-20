@@ -13,7 +13,7 @@ in
 {
   network.description = "Infinisil's machines";
 
-  defaults = {
+  defaults = { deploymentName, ... }: {
     system.nixos.label = label;
     imports = [ ../config ];
 
@@ -25,7 +25,7 @@ in
       enableNixpkgs = true;
       remote = "git@github.com:Infinisil/system.git";
       nixops.state = ../external/private/deployments.nixops;
-      nixops.deployment = "infinisil";
+      nixops.deployment = deploymentName;
       directory = "/home/infinisil/cfg";
       nixpkgs = ../external/nixpkgs;
     };
