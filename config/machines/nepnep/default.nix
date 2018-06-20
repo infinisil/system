@@ -8,6 +8,10 @@
   mine.profiles.desktop.enable = true;
 
   mine.compton.highend = true;
+  mine.ipfs = {
+    enable = true;
+    autostart = true;
+  };
 
   mine.shinas = true;
 

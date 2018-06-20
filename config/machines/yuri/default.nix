@@ -9,6 +9,12 @@
 
   mine.profiles.server.enable = true;
 
+  mine.ipfs = {
+    enable = true;
+    autostart = true;
+    enableGateway = true;
+  };
+
   boot = {
     loader.grub.device = "/dev/vda";
     zfs.devNodes = "/dev";
