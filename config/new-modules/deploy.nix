@@ -16,20 +16,16 @@ let
       $git checkout "${cfg.branch}"
       $git pull --rebase --recurse-submodules --autostash
     fi
-    if [ -z "$($git add --all --dry-run)" ]; then
-      cancommit=1
-    else
-      cancommit=0
-    fi
-    if [ "$($git rev-parse --abbrev-ref HEAD)" = "${cfg.branch}" ] && [ "$cancommit" = "1" ]; then
-      echo -n "Enter new branch name [master]: "
-      read branch
-      if [ -z "$branch" ]; then
-        branch=${cfg.branch}
+    if [ ! -z "$($git add --all --dry-run)" ]; then
+      if [ "$($git rev-parse --abbrev-ref HEAD)" = "${cfg.branch}" ]; then
+        echo -n "Enter (new) feature branch name [${cfg.branch}]: "
+        read branch
+        if [ ! -z "$branch" ]; then
+          $git checkout -B "$branch"
+        fi
       fi
-      $git checkout -b "$branch"
       $git add --all
-      $git commit -v
+      $git commit -v --allow-empty-message
     fi
 
     branch="$($git rev-parse --abbrev-ref HEAD)"
