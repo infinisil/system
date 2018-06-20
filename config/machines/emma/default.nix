@@ -1,8 +1,30 @@
 { nodes, ... }: {
 
   imports = [
-    ../hardware/mac
+    ../../hardware/mac
+    ./boot.nix
+    ./hardware-configuration.nix
   ];
+
+  mine.openvpn.client = {
+    enable = true;
+    server = nodes.yuri;
+  };
+
+  services.znapzend = {
+    enable = true;
+    autoCreation = true;
+    pure = true;
+    zetup."main/data" = rec {
+      plan = "15min=>5min,1h=>15min,1d=>1h,1w=>1d,1m=>1w";
+      recursive = true;
+      destinations.backup = {
+        dataset = "main/backup/laptop";
+        host = "192.168.1.25";
+        plan = plan + ",1y=>1m";
+      };
+    };
+  };
 
   mine.string-transfer.enable = true;
 
@@ -27,19 +49,6 @@
     sshport = 2021;
     subdomain = "mac";
   };
-
-  #services.openvpn.servers.server = {
-  #  up = ''
-  #    ip route append 10.149.76.2 metric 50 protocol static src 192.168.1.19 \
-  #      nexthop dev enp11s0 || true
-  #    ip route append 10.149.76.2 metric 100 protocol static src 192.168.1.30 \
-  #      nexthop dev wlp2s0 || true
-  #  '';
-  #  down = ''
-  #    ip route del 10.149.76.2 || true
-  #    ip route del 10.149.76.2 || true
-  #  '';
-  #};
 
   networking = {
     hostName = "emma";

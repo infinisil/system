@@ -1,7 +1,8 @@
-{ config, nodes, lib, pkgs, ... }: {
+{ config, nodes, pkgs, ... }: {
 
   imports = [
-    ../hardware/pc
+    ../../hardware/pc
+    ./hardware-configuration.nix
   ];
 
   mine.profiles.desktop.enable = true;
@@ -19,6 +20,37 @@
     dataDir = "server/data";
     uploadDir = "server/upload";
     server = "infinisil.com";
+  };
+
+  services.znapzend = {
+    enable = true;
+    pure = true;
+    zetup.main.plan = "1hour=>5min,1day=>1hour,1week=>1day,1month=>1week,1year=>1month,10years=>1year";
+  };
+  mine.deluged.enable = true;
+  mine.openvpn.client = {
+    enable = true;
+    server = nodes.yuri;
+  };
+
+  system.stateVersion = "18.03";
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
+    KERNEL=="uinput", MODE="0660", GROUP="users", OPTIONS+="static_node=uinput"
+  '';
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  boot = {
+    zfs.enableUnstable = true;
+    loader = {
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+      };
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   mine.rpf.client = {
@@ -47,16 +79,6 @@
       extraConfig = "autoindex on;";
     };
   };
-
-  #services.openvpn.servers.server = {
-  #  up = ''
-  #    ip route append 10.149.76.3 protocol static src 192.168.1.25 \
-  #      nexthop dev eno1 || true
-  #  '';
-  #  down = ''
-  #    ip route del 10.149.76.3 || true
-  #  '';
-  #};
 
   networking = {
     hostName = "paul";

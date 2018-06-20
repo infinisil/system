@@ -38,18 +38,18 @@ in
 
   yuri = {
     deployment.targetHost = "10.149.76.1";
-    imports = [ ../config/machines/yuri.nix ];
+    imports = [ ../config/machines/yuri ];
   };
 
   emma = { pkgs, ... }: {
     deployment.targetHost = "10.149.76.3";
-    imports = [ ../config/machines/emma.nix ];
+    imports = [ ../config/machines/emma ];
     mine.deployer.enable = true;
   };
 
   nepnep = { pkgs, ... }: {
     deployment.targetHost = "10.149.76.2";
-    imports = [ ../config/machines/nepnep.nix ];
+    imports = [ ../config/machines/nepnep ];
     mine.deployer.enable = true;
   };
 }

@@ -1,7 +1,3 @@
-{ lib, ... }:
-
-with lib;
-
 {
   boot = {
     zfs = {
