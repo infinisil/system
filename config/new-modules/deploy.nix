@@ -28,11 +28,14 @@ let
     msg="$($git log --pretty=format:'%h-%f' -n 1)"
     label="$(printf "%s-%.35s" "$branch" "$msg")"
 
-    nixops="sudo ${pkgs.nixops}/bin/nixops"
-    ${optionalString (cfg.nixops.state != null) ''
-      export NIXOPS_STATE="${cfg.nixops.state}"
-    ''}
-    export NIXOPS_DEPLOYMENT="${cfg.nixops.deployment}"
+    nixops=${concatStringsSep " " (
+      (optional (cfg.nixops.state != null) "NIXOPS_STATE=\"${cfg.nixops.state}\"") ++ [
+        "NIXOPS_DEPLOYMENT=\"${cfg.nixops.deployment}\""
+        "sudo"
+        "${pkgs.nixops}/bin/nixops"
+      ])
+    }
+
     $nixops set-args --argstr label "$label"
     $nixops deploy $@
   '';
