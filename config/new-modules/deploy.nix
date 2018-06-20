@@ -11,18 +11,26 @@ let
     #!${pkgs.stdenv.shell}
     set -euo pipefail
     git="${pkgs.git}/bin/git -C ${cfg.directory}"
-    if [ "''${1:-a}" = "--update" ]; then
+    if [ "''${1:-}" = "--update" ]; then
       shift
       $git checkout "${cfg.branch}"
       $git pull --rebase --recurse-submodules --autostash
     fi
-    if [ "$(git rev-parse --abbrev-ref HEAD)" = "${cfg.branch}" ]; then
-      echo -n "Enter new branch name: "
-      read branch
-      $git checkout -b "$branch"
+    if [ -z "$($git add --all --dry-run)" ]; then
+      cancommit=1
+    else
+      cancommit=0
     fi
-    $git add --all
-    $git commit -v
+    if [ "$($git rev-parse --abbrev-ref HEAD)" = "${cfg.branch}" ] && [ "$cancommit" = "1" ]; then
+      echo -n "Enter new branch name [master]: "
+      read branch
+      if [ -z "$branch" ]; then
+        branch=${cfg.branch}
+      fi
+      $git checkout -b "$branch"
+      $git add --all
+      $git commit -v
+    fi
 
     branch="$($git rev-parse --abbrev-ref HEAD)"
     msg="$($git log --pretty=format:'%h-%f' -n 1)"
