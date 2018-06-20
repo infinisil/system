@@ -136,7 +136,7 @@ in
       }];
 
       nix.nixPath = [
-        "nixpkgs=${cleanSource cfg.nixpkgs}"
+        "nixpkgs=${cleanSource (toString cfg.nixpkgs)}"
       ];
     })
   ];
