@@ -10,6 +10,8 @@ with lib;
 
     mine.radicale.enable = true;
 
+    services.taskserver.enable = true;
+
     mine.music = {
       server = {
         enable = true;
