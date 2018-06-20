@@ -34,8 +34,6 @@ in
       users.users = mkMerge (map (user: {
         ${user}.extraGroups = [ "ipfs" ];
       }) config.mine.mainUsers);
-
-      #networking.firewall.allowedTCPPorts = [ 4001 ];
     }
     (mkIf (! cfg.autostart) {
       systemd.services.ipfs.wantedBy = mkForce [];
@@ -45,6 +43,7 @@ in
 
       services.nginx = {
         enable = true;
+        recommendedProxySettings = mkForce false;
         virtualHosts."ipfs.${config.networking.domain}" = {
           forceSSL = true;
           enableACME = true;
