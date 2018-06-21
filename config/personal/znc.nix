@@ -22,6 +22,7 @@
           "#bottest" = { };
           "#nixos-chat" = { };
           "#idris" = { };
+          "##classical" = { };
           "##crypto" = { Detached = true; };
           "##dependent" = { Detached = true; };
           "##linux" = { Detached = true; };
