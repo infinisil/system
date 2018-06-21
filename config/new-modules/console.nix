@@ -14,12 +14,15 @@ with lib;
 
     programs.command-not-found.enable = true;
 
+    environment.pathsToLink = [ "/share/zsh" ];
+
     programs.zsh = {
       enable = true;
       enableCompletion = false;
     };
 
     environment.systemPackages = with pkgs; [
+      nix-zsh-completions
       gitFull
       tmux
       lsof
