@@ -10,27 +10,30 @@ let
   rebuild = pkgs.writeScriptBin "rb" ''
     #!${pkgs.stdenv.shell}
     set -euo pipefail
-    git="${pkgs.git}/bin/git -C ${cfg.directory}"
+
+    git() { ${pkgs.git}/bin/git -C "${cfg.directory}" "$@"; }
+    gitbranch() { git symbolic-ref --short HEAD; }
+
     if [ "''${1:-}" = "--update" ]; then
       shift
-      $git checkout "${cfg.branch}"
-      $git pull --rebase --recurse-submodules --autostash
+      git checkout "${cfg.branch}"
+      git pull --rebase --recurse-submodules --autostash
     fi
-    if [ ! -z "$($git add --all --dry-run)" ]; then
-      if [ "$($git rev-parse --abbrev-ref HEAD)" = "${cfg.branch}" ]; then
+    if [ ! -z "$(git add --all --dry-run)" ]; then
+      if [ "$(gitbranch)" = "${cfg.branch}" ]; then
         echo -n "Enter (new) feature branch name [${cfg.branch}]: "
         read branch
         if [ ! -z "$branch" ]; then
-          $git checkout -B "$branch"
+          git checkout -B "$branch"
         fi
       fi
-      $git add --all
-      $git commit -v --allow-empty-message
+      git add --all
+      git commit -v --allow-empty-message
     fi
 
-    branch="$($git rev-parse --abbrev-ref HEAD | \
+    branch="$(gitbranch | \
       sed 's/^\.*//' | tr -cs '+-._?=[:alnum:]' -)"
-    msg="$($git log --pretty=format:'%h-%f' -n 1)"
+    msg="$(git log --pretty=format:'%h-%f' -n 1)"
     label="$(printf "%s-%.35s" "$branch" "$msg")"
 
     nixops="sudo ${pkgs.nixops}/bin/nixops"
