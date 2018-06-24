@@ -43,7 +43,7 @@ with lib;
       tree
       file
       mediainfo
-      loc
+      tokei
       nmap
       traceroute
     ];
