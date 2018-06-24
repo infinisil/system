@@ -28,7 +28,8 @@ let
       $git commit -v --allow-empty-message
     fi
 
-    branch="$($git rev-parse --abbrev-ref HEAD)"
+    branch="$($git rev-parse --abbrev-ref HEAD | \
+      sed 's/^\.*//' | tr -cs '+-._?=[:alnum:]' -)"
     msg="$($git log --pretty=format:'%h-%f' -n 1)"
     label="$(printf "%s-%.35s" "$branch" "$msg")"
 
