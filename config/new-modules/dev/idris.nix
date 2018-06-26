@@ -10,7 +10,7 @@ let
     effects
     pruviloj
     lightyear
-    #bi
+    bi
   ];
 
 in
