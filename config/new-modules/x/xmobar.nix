@@ -34,6 +34,7 @@ let
           ,	"-h", "red" ] 50
         , Run Date "%a %d.%m %T" "date" 10
         , Run XMonadLog
+        , Run Memory [] 10
         , Run DynNetwork
           [ "-t" , "<tx><rx> | "
           , "-L" , "10000"
@@ -60,7 +61,7 @@ let
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% | %testpipe% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% | %testpipe% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
