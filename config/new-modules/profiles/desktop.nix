@@ -52,6 +52,7 @@ with lib;
       sshfs
       nix-index
       mine.hashsearch
+      mine.imgurdl
       blockhash
     ];
 
