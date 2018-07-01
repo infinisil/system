@@ -3,7 +3,6 @@
 with lib;
 
 {
-
   time.timeZone = mkDefault "Europe/Zurich";
 
   mine.mainUsers = [ "infinisil" "root" ];

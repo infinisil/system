@@ -1,9 +1,17 @@
-{ config, nodes, pkgs, ... }: {
+{ lib, config, nodes, pkgs, ... }: {
 
   imports = [
     ../../hardware/pc
     ./hardware-configuration.nix
   ];
+
+  mine.sshMounts = lib.mapAttrs (name: value: {
+    host = "infinisil@${value}:/home/infinisil";
+    identity = "/home/infinisil/.ssh/id_rsa";
+  }) {
+    inf = "infinisil.com";
+    emmaLocal = "192.168.1.19";
+  };
 
   mine.profiles.desktop.enable = true;
 

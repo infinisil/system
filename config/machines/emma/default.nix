@@ -1,10 +1,18 @@
-{ nodes, ... }: {
+{ lib, nodes, ... }: {
 
   imports = [
     ../../hardware/mac
     ./boot.nix
     ./hardware-configuration.nix
   ];
+
+  mine.sshMounts = lib.mapAttrs (name: value: {
+    host = "infinisil@${value}:/home/infinisil";
+    identity = "/home/infinisil/.ssh/id_rsa";
+  }) {
+    inf = "infinisil.com";
+    nepLocal = "192.168.1.25";
+  };
 
   mine.openvpn.client = {
     enable = true;
