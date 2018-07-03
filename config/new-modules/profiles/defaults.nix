@@ -29,6 +29,13 @@ with lib;
     autoOptimiseStore = true;
     trustedUsers = [ "root" "@wheel" ];
     daemonNiceLevel = 1;
+
+    binaryCaches = [
+      "https://r-ryantm.cachix.org"
+    ];
+    binaryCachePublicKeys = [
+      "r-ryantm.cachix.org-1:gkUbLkouDAyvBdpBX0JOdIiD2/DP1ldF3Z3Y6Gqcc4c="
+    ];
   };
 
   nixpkgs = {
