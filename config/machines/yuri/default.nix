@@ -70,6 +70,8 @@
         prefixLength = 64;
       }];
     };
+
+    firewall.allowedTCPPorts = [ 12345 ];
   };
 
   system.stateVersion = "18.03";
