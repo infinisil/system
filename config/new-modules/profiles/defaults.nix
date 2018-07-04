@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ options, config, lib, ... }:
 
 with lib;
 
@@ -30,7 +30,7 @@ with lib;
     trustedUsers = [ "root" "@wheel" ];
     daemonNiceLevel = 1;
 
-    binaryCaches = [
+    binaryCaches = options.nix.binaryCaches.default ++ [
       "https://r-ryantm.cachix.org"
       "https://cachix.cachix.org"
     ];
