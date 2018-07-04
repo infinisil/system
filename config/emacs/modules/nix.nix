@@ -52,31 +52,6 @@ in
       nixflycheck = dag.entryAfter [ "pkgs" ] ''
 
         (require 'flycheck)
-        ; Combination of flychecks nix checker and rebar3 checker's color stripping
-        ; Because there is no way to prevent nix-instantiate from outputting colors
-        (flycheck-define-checker mynix
-          "Nix checker using nix-instantiate.
-
-        See URL `https://nixos.org/nix/manual/#sec-nix-instantiate'."
-          :command ("nix-instantiate" "--parse" "-")
-          :standard-input t
-          :error-patterns
-          ((error line-start
-                  "error: " (message) " at " (file-name) ":" line ":" column
-                  line-end))
-          :error-parser
-          (lambda (output checker buffer)
-            (require 'ansi-color)
-            (flycheck-parse-with-patterns
-             (and (fboundp 'ansi-color-filter-apply) (ansi-color-filter-apply output))
-             checker buffer))
-          :error-filter
-          (lambda (errors)
-            (flycheck-sanitize-errors
-             (flycheck-remove-error-file-names "(string)" errors)))
-          :modes nix-mode)
-
-        (add-to-list 'flycheck-checkers 'mynix)
         (add-to-list 'company-backends 'company-nixos-options)
       '';
     };
