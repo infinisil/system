@@ -118,6 +118,7 @@ mkIf config.mine.console.enable {
         glum = "git pull upstream master";
         gwch = "git whatchanged -p --abbrev-commit --pretty=medium";
 
+        nix-shell = "nix-shell --command zsh";
       };
       plugins = [
         {
