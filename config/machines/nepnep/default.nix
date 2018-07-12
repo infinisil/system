@@ -45,7 +45,6 @@
     server = nodes.yuri;
   };
 
-  system.stateVersion = "18.03";
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
     KERNEL=="uinput", MODE="0660", GROUP="users", OPTIONS+="static_node=uinput"
