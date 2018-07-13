@@ -33,7 +33,7 @@ let
 
     branch="$(gitbranch | \
       sed 's/^\.*//' | tr -cs '+-._?=[:alnum:]' -)"
-    msg="$(git log --pretty=format:'%h-%f' -n 1)"
+    msg="$(git log --pretty=format:'%h-%f' -1 --no-merges)"
     label="$(printf "%s-%.35s" "$branch" "$msg")"
 
     nixops="sudo ${pkgs.nixops}/bin/nixops"
