@@ -18,8 +18,16 @@ let
     sha256 = "1qz7yfd6icl5sddpsij6fqn2dmzxwawm7cb8aw4diqh71drr1p29";
   };
 
+  snackSrc = pkgs.fetchFromGitHub {
+    owner = "nmattia";
+    repo = "snack";
+    rev = "fd3ddd7074d919980074eec39b19299e193e595c";
+    sha256 = "08nasv39hnc7klagwgg2am3xgkinwh8rfaxy4amsi1cii29grxbp";
+  };
+
   hie = import hie-nix {};
   myStack2nix = import stack2nixSrc {};
+  snack = (import snackSrc).snack-exe;
 
 in
 
@@ -42,6 +50,8 @@ in
       haskellPackages.pointfree
       haskellPackages.stylish-haskell
       haskellPackages.hlint
+
+      snack
     ];
 
     mine.emacs.config.haskell = true;
