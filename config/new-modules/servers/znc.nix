@@ -97,10 +97,6 @@ in
               Server = "irc.snoonet.org 6667 ";
               LoadModule = cfg.defaultNetworkModules;
             };
-            tymoon = {
-              Server = "irc.tymoon.eu 6667";
-              LoadModule = cfg.defaultNetworkModules;
-            };
             twitch = mkIf (cfg.twitchPassword != null) {
               Server = "irc.chat.twitch.tv +6697 ${cfg.twitchPassword}";
               LoadModule = [ "autoattach" ];
