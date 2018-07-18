@@ -271,9 +271,9 @@ mkIf config.mine.console.enable {
           compadd $(mpc channels)
         }
 
-        buildpull() {
-          pull=$1; shift
-          nix-build "$(curl "https://api.github.com/repos/NixOS/nixpkgs/pulls/$pull" | jq -r '.head | .repo.html_url + "/archive/" + .sha + ".tar.gz"')" "$@"
+        pull() {
+          curl "https://api.github.com/repos/NixOS/nixpkgs/pulls/$1" \
+            | jq -r '.head | .repo.html_url + "/archive/" + .sha + ".tar.gz"'
         }
 
         zle -N __cd
