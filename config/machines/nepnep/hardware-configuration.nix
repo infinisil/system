@@ -22,17 +22,19 @@
       fsType = "zfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0072-55B1";
-      fsType = "vfat";
-    };
-
   fileSystems."/betty" =
     { device = "main/betty";
       fsType = "zfs";
     };
 
-  swapDevices = [ ];
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/0072-55B1";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/bee530de-fa34-4720-b047-121be58dff56"; }
+    ];
 
   nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
