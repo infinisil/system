@@ -11,7 +11,7 @@
  '(ido-enable-flex-matching t)
  '(ido-everywhere t)
  '(ido-mode (quote both) nil (ido))
- '(idris-interpreter-flags nil)
+ '(idris-interpreter-flags (quote ("-p" "contrib")))
  '(menu-bar-mode nil)
  '(nix-indent-function (quote nix-indent-line))
  '(org-format-latex-options
