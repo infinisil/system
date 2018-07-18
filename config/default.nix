@@ -5,7 +5,7 @@
     ./lib
     ./new-modules
     ./personal
-    ./pkgs
+    ./pkgs/module.nix
     ../external/home-manager/nixos
     ../external/private
   ];
