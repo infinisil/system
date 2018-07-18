@@ -13,7 +13,7 @@ let
   pkgs = import nixpkgs { config.allowUnfree = true; };
 
   # From https://github.com/guibou/nixGL
-  nvidiaVersion = "390.48";
+  nvidiaVersion = "390.67";
   nvidiaLibs = (pkgs.linuxPackages.nvidia_x11.override {
     libsOnly = true;
     kernel = null;
@@ -21,7 +21,7 @@ let
     name = "nvidia-${nvidiaVersion}";
     src = pkgs.fetchurl {
       url = "http://download.nvidia.com/XFree86/Linux-x86_64/${nvidiaVersion}/NVIDIA-Linux-x86_64-${nvidiaVersion}.run";
-      sha256 = "16a3blvizcksmaxr644s857yanw3i3vcvqvn7qnwbsbqpmxga09c";
+      sha256 = "0np6xj93fali2hss8xsdlmy5ykjgn4hx6mzjr8dpbdi0fhdcmwkd";
     };
     useGLVND = 0;
   });
