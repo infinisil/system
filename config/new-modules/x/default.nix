@@ -83,7 +83,6 @@ with lib;
       xbindkeys-config
       dmenu
       xlibs.xev
-      firefox-beta-bin
       thunderbird
       haskellPackages.xmobar
     ];
@@ -106,12 +105,6 @@ with lib;
         helvetica-neue-lt-std
         mine.arcred
       ];
-
-      programs.browserpass = {
-        enable = true;
-        browsers = [ "firefox" ];
-      };
-
 
       services.random-background = {
         enable = true;

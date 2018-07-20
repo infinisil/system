@@ -78,7 +78,7 @@ in
       '';
       toggleMute = "${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
       playpause = toggleService true "music";
-      firefox = "${pkgs.firefox-beta-bin}/bin/firefox";
+      firefox = "${config.mine.firefox}/bin/firefox";
       terminal = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux";
       irc = "exec ${pkgs.alacritty}/bin/alacritty -e ${weechat}/bin/weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
