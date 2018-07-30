@@ -22,11 +22,14 @@
           "#nixos-chat" = { };
           "#idris" = { };
           "##classical" = { };
+          "#nix-lang" = { };
+          "#nixcon" = { Detached = true; };
           "##linux" = { Detached = true; };
           "#anime" = { Detached = true; };
           "#nixos-borg" = { Detached = true; };
           "#nixos-dev" = { Detached = true; };
           "#nixos-wiki" = { Detached = true; };
+          "#nixos-nur" = { Detached = true; };
           "#zfsonlinux" = { Disabled = true; };
         };
         Network.mozilla.Chan = {
