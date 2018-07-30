@@ -37,7 +37,7 @@
   services.znapzend = {
     enable = true;
     pure = true;
-    zetup.main.plan = "1hour=>5min,1day=>1hour,1week=>1day,1month=>1week,1year=>1month,10years=>1year";
+    zetup.main.plan = "1hour=>5min,1day=>1hour,1week=>1day,1month=>1week";
   };
   mine.deluged.enable = true;
   mine.openvpn.client = {

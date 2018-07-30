@@ -39,7 +39,7 @@
         destinations.pc = {
           host = "pc";
           dataset = "main/backup/server";
-          plan = "1day=>1hour,1week=>1day,1month=>1week,1year=>1month";
+          plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
       };
     };

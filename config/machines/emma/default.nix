@@ -31,7 +31,7 @@
       destinations.backup = {
         dataset = "main/backup/laptop";
         host = "192.168.1.25";
-        plan = plan + ",1y=>1m";
+        inherit plan;
       };
     };
   };
