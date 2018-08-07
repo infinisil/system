@@ -26,13 +26,14 @@ writeScriptBin "imgurdl" ''
   numlength=$(echo -n "$num" | wc -m)
   prettyNum=$(printf "%.''${numlength}d" "$num")
 
-  echo "Found $num image links"
+  echo "Found $num image links. Downloading to album folder ./$albumid in current directory"
+  mkdir "$albumid"
 
   n=1
   echo "$urls" | while read url; do
     prettyN=$(printf "%.''${numlength}d" "$n")
     echo "[$prettyN/$prettyNum] Downloading $url.."
-    ${wget}/bin/wget -q -O "$albumid-$prettyN.png" "$url"
+    ${wget}/bin/wget -q -O "$albumid/$prettyN.png" "$url"
     n=$(( n + 1 ))
   done
 ''
