@@ -60,6 +60,7 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       youtube-dl
+      mine.imgurdl
     ];
 
     networking.firewall.allowedTCPPorts = [
