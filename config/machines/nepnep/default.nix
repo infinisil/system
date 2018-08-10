@@ -79,6 +79,7 @@
     (writeScriptBin "monitor" ''
       xrandr --output HDMI-0 --off --output DP-4 --mode 2560x1440
     '')
+    discord
   ];
 
   mine.gaming.enable = true;
