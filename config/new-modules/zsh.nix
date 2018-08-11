@@ -272,8 +272,9 @@ mkIf config.mine.console.enable {
         }
 
         pull() {
-          curl "https://api.github.com/repos/NixOS/nixpkgs/pulls/$1" \
-            | jq -r '.head | .repo.html_url + "/archive/" + .sha + ".tar.gz"'
+          url=$(curl "https://api.github.com/repos/NixOS/nixpkgs/pulls/$1" \
+            | jq -r '.head | .repo.html_url + "/archive/" + .sha + ".tar.gz"')
+          nix-prefetch-url --print-path --unpack "$url" | tail -1
         }
 
         zle -N __cd
