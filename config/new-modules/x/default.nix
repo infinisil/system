@@ -64,7 +64,6 @@ with lib;
       feh
       libnotify
       gnome3.gnome-font-viewer
-      gnome3.gconf
       gnome3.gnome_terminal
       guake
       xclip
