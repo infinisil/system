@@ -32,7 +32,6 @@ with lib;
       taskwarrior
       tldr
       mtr
-      nix-repl
       iftop
       atool
       unzip
