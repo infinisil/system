@@ -42,17 +42,7 @@ let
     });
   };
 
-  epkgs = (pkgs.emacsPackagesNgGen (if config.usePretest
-      then pkgs.emacs.overrideAttrs (old: {
-        name = "emacs-pretest-26.1";
-        src = pkgs.fetchurl {
-          url = "ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-26.1-rc1.tar.xz";
-          sha256 = "0n2pl1i4piga43p1kbscbb2sgg74gy4qq5jgmmrnxf80vrlfd535";
-        };
-        patches = [];
-      })
-      else pkgs.emacs
-    )).overrideScope overrides;
+  epkgs = (pkgs.emacsPackagesNgGen pkgs.emacs).overrideScope overrides;
 
   emacs = epkgs.emacsWithPackages (_: lib.unique config.packages);
 
@@ -69,8 +59,6 @@ in
     (builtins.attrNames (builtins.readDir ./modules));
 
   options = {
-
-    usePretest = mkEnableOption "emacs pretest";
 
     package = mkOption {
       type = types.package;

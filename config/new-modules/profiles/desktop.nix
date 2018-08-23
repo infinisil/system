@@ -10,10 +10,7 @@ with lib;
 
   config = mkIf config.mine.profiles.desktop.enable {
 
-    mine.emacs = {
-      enable = true;
-      config.usePretest = true;
-    };
+    mine.emacs.enable = true;
 
     mine.userConfig = {
       services.flameshot.enable = true;
