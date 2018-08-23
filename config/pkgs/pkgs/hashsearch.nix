@@ -7,6 +7,6 @@ let
     sha256 = "11hihyljlvfxgrilfnf7ldvjrbw82rnvq5mpwgqwjvxhhv6x3adf";
   };
 
-  hashsearch = import src { inherit pkgs; };
+  hashsearch = import src { };
 
 in hashsearch
