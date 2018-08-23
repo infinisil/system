@@ -5,10 +5,10 @@ with lib;
 let
 
   hie-nix = pkgs.fetchFromGitHub {
-    owner = "domenkozar";
+    owner = "infinisil";
     repo = "hie-nix";
-    rev = "8f04568aa8c3215f543250eb7a1acfa0cf2d24ed";
-    sha256 = "06ygnywfnp6da0mcy4hq0xcvaaap1w3di2midv1w9b9miam8hdrn";
+    rev = "6e41b5fa155e30be4801af7fbc674633ca6c4d0c";
+    sha256 = "1m1hglas0ql41hbg80fn1fzl2277ad0qf2plim54vqga7lis7555";
   };
 
   stack2nixSrc = pkgs.fetchFromGitHub {
@@ -38,8 +38,7 @@ in
   config = mkIf config.mine.dev.haskell.enable {
 
     environment.systemPackages = with pkgs; [
-      haskell.compiler.ghc822
-      hie.hie82
+      hie.hies
 
       stack
       myStack2nix
