@@ -26,6 +26,12 @@ let
   };
 
   hie = import hie-nix {};
+
+  hiebin = pkgs.writeScriptBin "hie" ''
+    #!${pkgs.stdenv.shell}
+    exec ${pkgs.direnv}/bin/direnv exec . ${hie.hies}/bin/hie-wrapper "$@"
+  '';
+
   myStack2nix = import stack2nixSrc {};
   snack = (import snackSrc).snack-exe;
 
@@ -39,6 +45,7 @@ in
 
     environment.systemPackages = with pkgs; [
       hie.hies
+      hiebin
 
       stack
       myStack2nix

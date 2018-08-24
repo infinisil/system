@@ -28,7 +28,6 @@ with lib;
     init = {
       theme = dag.entryAfter [ "pkgs" ] ''
         (load-theme 'gruvbox t)
-        (direnv-mode)
       '';
 
       base = dag.entryAfter [ "theme" ] ''
