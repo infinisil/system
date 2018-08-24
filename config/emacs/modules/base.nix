@@ -60,6 +60,7 @@ with lib;
         (load custom-file)
 
         (global-visual-line-mode)
+        (load (concat (getenv "HOME") "/.emacs.d/dinit.el"))
       '';
     };
 
