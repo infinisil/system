@@ -311,7 +311,8 @@ mkIf config.mine.console.enable {
         'syntax-highlighting' \
         'history-substring-search' \
         'autosuggestions' \
-        'prompt'
+        'prompt' \
+        'git'
 
       zstyle ':prezto:module:editor' key-bindings 'vi'
       zstyle ':prezto:module:prompt' theme 'sorin'
