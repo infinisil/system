@@ -22,6 +22,7 @@ with lib;
     };
 
     environment.systemPackages = with pkgs; [
+      direnv
       nix-zsh-completions
       gitFull
       tmux
