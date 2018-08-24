@@ -49,7 +49,7 @@
     SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
     KERNEL=="uinput", MODE="0660", GROUP="users", OPTIONS+="static_node=uinput"
   '';
-  hardware.opengl.driSupport32Bit = true;
+  # hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
   boot = {
