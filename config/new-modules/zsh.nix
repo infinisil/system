@@ -130,6 +130,7 @@ mkIf config.mine.console.enable {
         source ${prezto}/init.zsh
         source ${pkgs.fzf}/share/fzf/completion.zsh
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+        eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
         export HISTFILE=$HOME/.config/zsh/.zsh_history
         export HISTSIZE=1000000
