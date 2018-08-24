@@ -36,7 +36,7 @@ with lib;
     '';
 
     environment.systemPackages = with pkgs; [
-      texlive.combined.scheme-full
+      # texlive.combined.scheme-full
       nixops
       neofetch
       youtube-dl
