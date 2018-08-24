@@ -23,6 +23,7 @@ with lib;
       magit
       smooth-scrolling
       direnv
+      helm
     ];
 
     init = {
