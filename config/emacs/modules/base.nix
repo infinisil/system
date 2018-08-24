@@ -22,6 +22,7 @@ with lib;
       company
       magit
       smooth-scrolling
+      direnv
     ];
 
     init = {
