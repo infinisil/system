@@ -26,13 +26,7 @@ with lib;
       (require 'lsp-ui)
       (require 'lsp-haskell)
       (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-      (defun hie ()
-        (direnv--maybe-update-environment)
-        (lsp-haskell-enable)
-      )
-
-      (add-hook 'haskell-mode-hook #'hie)
+      (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
       (add-hook 'haskell-mode-hook 'flycheck-mode)
       (defun hasky-keys ()
         "Hasky extension key binds"

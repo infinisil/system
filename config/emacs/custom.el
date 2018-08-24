@@ -12,7 +12,10 @@
  '(ido-everywhere t)
  '(ido-mode (quote both) nil (ido))
  '(idris-interpreter-flags (quote ("-p" "contrib")))
+ '(lsp-enable-eldoc nil)
  '(lsp-haskell-process-path-hie "hie")
+ '(lsp-ui-doc-max-height 10)
+ '(lsp-ui-doc-max-width 80)
  '(menu-bar-mode nil)
  '(nix-indent-function (quote nix-indent-line))
  '(org-format-latex-options
