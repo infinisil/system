@@ -26,9 +26,11 @@ with lib;
     init.hs = dag.entryAfter [ "pkgs" ] ''
       (require 'lsp-ui)
       (require 'lsp-haskell)
+      (add-hook 'haskell-mode-hook (lambda () (haskell-indentation-mode nil)))
       (add-hook 'lsp-mode-hook 'lsp-ui-mode)
       (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
       (add-hook 'haskell-mode-hook 'flycheck-mode)
+      (add-hook 'haskell-mode-hook 'structured-haskell-mode)
       (defun hasky-keys ()
         "Hasky extension key binds"
         (require 'hasky-extensions)
