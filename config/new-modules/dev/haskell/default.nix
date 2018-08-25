@@ -51,7 +51,6 @@ in
       myStack2nix
 
       cabal2nix
-      cabal-install
 
       haskellPackages.pointfree
       haskellPackages.stylish-haskell
