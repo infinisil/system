@@ -56,6 +56,7 @@ in
       haskellPackages.pointfree
       haskellPackages.stylish-haskell
       haskellPackages.hlint
+      haskellPackages.structured-haskell-mode
 
       snack
     ];

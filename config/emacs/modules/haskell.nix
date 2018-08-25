@@ -20,6 +20,7 @@ with lib;
       haskell-mode
       company-quickhelp
       hasky-extensions
+      structured-haskell-mode
     ];
 
     init.hs = dag.entryAfter [ "pkgs" ] ''
