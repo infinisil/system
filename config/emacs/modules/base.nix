@@ -1,4 +1,4 @@
-{ lib, config, epkgs, dag, ... }:
+{ lib, pkgs, config, epkgs, dag, ... }:
 
 with lib;
 
@@ -52,6 +52,9 @@ with lib;
             (add-to-list 'exec-path systempath)
             (add-to-list 'exec-path homepath)
             )
+
+        (setq-default ispell-program-name "${pkgs.hunspellWithDicts [ pkgs.hunspellDicts.en-us ]}/bin/hunspell")
+        (add-hook 'text-mode-hook 'flyspell-mode)
 
         (add-hook 'after-init-hook #'global-flycheck-mode)
 
