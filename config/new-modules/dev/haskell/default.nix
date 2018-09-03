@@ -7,8 +7,8 @@ let
   hie-nix = pkgs.fetchFromGitHub {
     owner = "infinisil";
     repo = "hie-nix";
-    rev = "c02228671ee1dcb652afba91e56272b11000eb1e";
-    sha256 = "10g9xnzq2mzqsxybyz80pf1mhxr1mn1kj8vqbdf08c8nglcjpzvp";
+    rev = "afbe6a889c177e92a10b2b8dceeeabdcf2f2e4fe";
+    sha256 = "1ar0h12ysh9wnkgnvhz891lvis6x9s8w3shaakfdkamxvji868qa";
   };
 
   stack2nixSrc = pkgs.fetchFromGitHub {
