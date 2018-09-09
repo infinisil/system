@@ -30,7 +30,7 @@ with lib;
       (add-hook 'lsp-mode-hook 'lsp-ui-mode)
       (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
       (add-hook 'haskell-mode-hook 'flycheck-mode)
-      (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+      ;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
       (defun hasky-keys ()
         "Hasky extension key binds"
         (require 'hasky-extensions)
