@@ -16,6 +16,11 @@ with lib;
 
     networking.firewall.allowedTCPPorts = [ 58846 ];
 
+
+    users.users = mkMerge (map (user: {
+      ${user}.extraGroups = [ "deluge" ];
+    }) config.mine.mainUsers);
+
   };
 
 }
