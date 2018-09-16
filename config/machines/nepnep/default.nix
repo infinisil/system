@@ -62,6 +62,7 @@
       };
       efi.canTouchEfiVariables = true;
     };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   mine.rpf.client = {
