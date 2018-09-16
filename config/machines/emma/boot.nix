@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   boot = {
     zfs = {
       devNodes = "/dev";
@@ -11,5 +11,6 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 }
