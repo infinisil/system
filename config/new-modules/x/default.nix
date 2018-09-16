@@ -8,6 +8,8 @@ with lib;
 
   config = mkIf config.mine.x.enable {
 
+    services.upower.enable = true;
+
     mine.dunst.enable = true;
 
     mine.live-wallpaper.enable = true;
