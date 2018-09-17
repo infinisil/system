@@ -74,7 +74,7 @@ with lib;
       xorg.xmessage
       lxappearance
       #arc-theme
-      #gtk_engines
+      gtk_engines
       gtk-engine-murrine
       #shotcut #video editor
       xbindkeys
