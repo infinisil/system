@@ -21,6 +21,7 @@ in {
         Service.ExecStart = "${pkgs.mpdris2}/bin/mpDris2";
         Service.BusName = "org.mpris.MediaPlayer2.mpd";
         Service.Environment = "MPD_HOST=${config.mine.mpdHost} MPD_PORT=${config.mine.mpdPort}";
+        Service.RestartSec = 1;
         Install.WantedBy = [ "default.target" ];
       };
 
