@@ -13,7 +13,7 @@ let
   files = dir: collect isString (mapAttrsRecursive (path: type: concatStringsSep "/" path) (getDir dir));
 
   # Filters out directories that don't end with .nix or are this file, also makes the strings absolute
-  validFiles = dir: map (file: ./. + "/${file}") (filter (file: hasSuffix ".nix" file && file != "default.nix" && ! lib.hasPrefix "x/taffybar" file) (files dir));
+  validFiles = dir: map (file: ./. + "/${file}") (filter (file: hasSuffix ".nix" file && file != "default.nix" && ! lib.hasPrefix "x/taffybar/" file) (files dir));
 
 in
 
