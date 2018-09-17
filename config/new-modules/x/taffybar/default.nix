@@ -19,6 +19,21 @@ in
 { pkgs ? import nixpkgs {}
 }:
 
-pkgs.haskellPackages.extend (pkgs.haskell.lib.packageSourceOverrides {
+with pkgs.haskell.lib;
+
+let
+
+  hpkgs = pkgs.haskell.packages.ghc822.extend (self: super: {
+    # https://github.com/NixOS/nixpkgs/pull/46766
+    ListLike = addBuildDepend super.ListLike self.semigroups;
+
+    # https://github.com/NixOS/nixpkgs/pull/46767
+    gi-glib = super.gi-glib.override { haskell-gi-overloading = self.haskell-gi-overloading_0_0; };
+    gi-cairo = super.gi-cairo.override { haskell-gi-overloading = self.haskell-gi-overloading_0_0; };
+    gi-xlib = super.gi-xlib.override { haskell-gi-overloading = self.haskell-gi-overloading_0_0; };
+  });
+in
+
+hpkgs.extend (packageSourceOverrides {
   mytaffybar = ./.;
 })
