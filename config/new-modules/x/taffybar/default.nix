@@ -34,6 +34,16 @@ let
   });
 in
 
-hpkgs.extend (packageSourceOverrides {
+(hpkgs.extend (packageSourceOverrides {
   mytaffybar = ./.;
-})
+})).extend (self: super: {
+  # https://github.com/NixOS/nixpkgs/pull/32787
+  # https://github.com/NixOS/nixpkgs/issues/39493
+  mytaffybar = super.mytaffybar.overrideAttrs (drv: {
+    nativeBuildInputs = drv.nativeBuildInputs or [] ++ [ pkgs.makeWrapper ];
+    postInstall = drv.postInstall or "" + ''
+      wrapProgram $out/bin/mytaffybar \
+        --set GDK_PIXBUF_MODULE_FILE "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+    '';
+  });
+}) // { inherit pkgs; }
