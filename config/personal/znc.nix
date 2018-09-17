@@ -23,6 +23,7 @@
           "#idris" = { };
           "##classical" = { };
           "#nix-lang" = { };
+          "##apoptosis" = { Detached = true; };
           "#nixcon" = { Detached = true; };
           "##linux" = { Detached = true; };
           "#anime" = { Detached = true; };
