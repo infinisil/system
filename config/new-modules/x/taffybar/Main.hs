@@ -82,7 +82,7 @@ main = do
           , mpris2New
           ]
         , barPosition = Top
-        , barPadding = 10
+        , barPadding = 2
         , barHeight = 50
         , widgetSpacing = 0
         }
