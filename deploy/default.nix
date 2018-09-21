@@ -36,9 +36,14 @@ in
     };
   };
 
-  yuri = {
-    deployment.targetHost = "10.149.76.1";
-    imports = [ ../config/machines/yuri ];
+  #yuri = {
+  #  deployment.targetHost = "10.149.76.1";
+  #  imports = [ ../config/machines/yuri ];
+  #};
+
+  new = {
+    deployment.targetHost = "104.248.129.84";
+    imports = [ ../config/machines/new ];
   };
 
   emma = { pkgs, ... }: {
