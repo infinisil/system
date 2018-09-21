@@ -10,7 +10,7 @@
   mine.profiles.server.enable = true;
 
   services.ipfs = {
-    enable = true;
+    #enable = true;
     autostart = true;
     enableGateway = true;
   };

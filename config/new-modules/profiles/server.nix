@@ -8,7 +8,7 @@ with lib;
 
   config = mkIf config.mine.profiles.server.enable {
 
-    mine.radicale.enable = true;
+    #mine.radicale.enable = true;
 
     services.taskserver.enable = true;
 
@@ -108,7 +108,7 @@ with lib;
     #  };
     #};
 
-    mine.subdomains = [ "mac" "pc" ];
+    #mine.subdomains = [ "mac" "pc" ];
 
     home-manager.users.infinisil = {
       # https://github.com/keybase/keybase-issues/issues/1712#issuecomment-141226705
