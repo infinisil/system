@@ -47,14 +47,14 @@ in
   };
 
   emma = { pkgs, ... }: {
-    deployment.targetHost = "10.149.76.3";
+    deployment.targetHost = "192.168.1.19";
     deployment.hasFastConnection = true;
     imports = [ ../config/machines/emma ];
     mine.deployer.enable = true;
   };
 
   nepnep = { pkgs, ... }: {
-    deployment.targetHost = "10.149.76.2";
+    deployment.targetHost = "localhost";
     imports = [ ../config/machines/nepnep ];
     mine.deployer.enable = true;
   };
