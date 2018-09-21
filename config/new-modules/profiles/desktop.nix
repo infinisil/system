@@ -27,7 +27,7 @@ with lib;
 
     mine.music.client = {
       enable = true;
-      server = nodes.yuri;
+      server = nodes.new;
     };
 
     nix.extraOptions = ''

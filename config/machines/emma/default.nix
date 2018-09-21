@@ -16,7 +16,7 @@
 
   mine.openvpn.client = {
     enable = true;
-    server = nodes.yuri;
+    server = nodes.new;
   };
 
   services.ipfs.enable = true;
@@ -54,7 +54,7 @@
   };
 
   mine.rpf.client = {
-    server = nodes.yuri;
+    server = nodes.new;
     webport = 8021;
     sshport = 2021;
     subdomain = "mac";

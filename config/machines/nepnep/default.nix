@@ -42,7 +42,7 @@
   mine.deluged.enable = true;
   mine.openvpn.client = {
     enable = true;
-    server = nodes.yuri;
+    server = nodes.new;
   };
 
   services.udev.extraRules = ''
@@ -66,7 +66,7 @@
   };
 
   mine.rpf.client = {
-    server = nodes.yuri;
+    server = nodes.new;
     webport = 8022;
     sshport = 2022;
     subdomain = "pc";
