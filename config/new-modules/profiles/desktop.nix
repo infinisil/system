@@ -52,6 +52,7 @@ with lib;
       mine.imgurdl
       blockhash
       mine.Dark
+      xournal
     ];
 
     services.usbmuxd.enable = true;
