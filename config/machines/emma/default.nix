@@ -25,11 +25,11 @@
     enable = true;
     autoCreation = true;
     pure = true;
-    zetup."main/data" = rec {
+    zetup."tank/root/data" = rec {
       plan = "15min=>5min,1h=>15min,1d=>1h,1w=>1d,1m=>1w";
       recursive = true;
       destinations.backup = {
-        dataset = "main/backup/laptop";
+        dataset = "main/backup/laptopnew";
         host = "192.168.1.25";
         inherit plan;
       };
