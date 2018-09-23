@@ -13,42 +13,37 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "main";
+    { device = "tank/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "main/nix";
+    { device = "tank/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "main/data/var";
-      fsType = "zfs";
-    };
-
-  fileSystems."/var/lib/ipfs" =
-    { device = "main/data/ipfs";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home/infinisil" =
-    { device = "main/data/users/infinisil";
+    { device = "tank/root/data/varlib";
       fsType = "zfs";
     };
 
   fileSystems."/root" =
-    { device = "main/data/users/root";
+    { device = "tank/root/data/root";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3B5B-4209";
+    { device = "/dev/disk/by-uuid/620E-3D2D";
       fsType = "vfat";
     };
 
+  fileSystems."/home" =
+    { device = "tank/root/data/home";
+      fsType = "zfs";
+    };
+
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/7ad864a0-75c9-4696-8532-6b405ac94d21"; }
+    [ { device = "/dev/disk/by-uuid/708872fa-e913-41f4-b40d-4ca497d83eeb"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;

@@ -2,7 +2,6 @@
   boot = {
     zfs = {
       devNodes = "/dev";
-      enableUnstable = true;
     };
 
     loader.grub = {
