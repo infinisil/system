@@ -11,7 +11,7 @@
     192.168.1.1 swisscom.mobile
   '';
 
-  mine.dns.dkimKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDHt0p6SsJkq7m/r21RiWyweuFrYmqzL82+LMGD3XW6u6gjvE7sTZ7zhH+sxLNEd09mipzi2gRVYdKd7zyXDmWgskU/wvR4FBvKKTb7HWFGsZpYnhbP9cmfj7A1Ezg8SkF8QM63JDf0NMNfWBOZMBvCZYPgqde93b3cjQf4NkYKEwIDAQAB";
+  mine.dns.dkimKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDqEBkfzMeMpXcHmMnasi5sE98SGIphwuWMHFmtXAtqGKsr8gjOQ5rZLTRhqOZR2CZc6xY2iCBtQ6nxFOHfJ/UW5tNanvi2nuo4jhrq9+ZNupdsKwxDpBNm7W9HVO2a0FP6dGa9bme0Zc4wqf9Socialr02YuZqRKwU3kBQtfRg4wIDAQAB";
 
   mine.dns.allowedNetworks = [
     "127.0.0.0/24"
