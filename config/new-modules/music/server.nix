@@ -191,8 +191,12 @@ in
             playlists = createPlaylists {
               ".okay" = "^nope:1 ^rating:0..5";
               ".unrated" = "^rating:0..10 ^nope:1";
-              ".decentSongs" = "^nope:1 rating:6.. length:..10:00 , ^nope:1 now:1 length:..10:00";
-              ".decentMixes" = "^nope:1 rating:6.. length:10:00.. , ^nope:1 now:1 length:10:00..";
+              ".decentSongs" = "^nope:1 rating:6.. length:..10:00";
+              ".goodSongs" = "^nope:1 rating:8.. length:..10:00";
+              ".greatSongs" = "^nope:1 rating:9.. length:..10:00";
+              ".decentMixes" = "^nope:1 rating:6.. length:10:00..";
+              ".goodMixes" = "^nope:1 rating:8.. length:10:00..";
+              ".greatMixes" = "^nope:1 rating:9.. length:10:00..";
               ".now" = "now:1";
               ".SafariSound" = "Safari Sound";
               ".Orchestral" = "orchestral:1";
