@@ -81,8 +81,8 @@ in
       toggleMute = "${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
       playpause = toggleService true "music";
       firefox = "${config.mine.firefox}/bin/firefox";
-      terminal = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux";
-      irc = "exec ${pkgs.alacritty}/bin/alacritty -e ${weechat}/bin/weechat";
+      terminal = "exec ${config.mine.terminal.binary} -e ${pkgs.tmux}/bin/tmux";
+      irc = "exec ${config.mine.terminal.binary} -e ${weechat}/bin/weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
       run = "${pkgs.rofi}/bin/rofi -show run -theme gruvbox-dark";
 

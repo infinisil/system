@@ -14,9 +14,16 @@ in
 
     enable = mkEnableOption "My terminal";
 
+    binary = mkOption {
+      type = types.path;
+      description = "Path to terminal binary";
+    };
+
   };
 
   config = mkIf cfg.enable {
+
+    mine.terminal.binary = "${pkgs.alacritty}/bin/alacritty";
 
     environment.systemPackages = [
       pkgs.alacritty
