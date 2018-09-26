@@ -23,10 +23,10 @@ in
 
   config = mkIf cfg.enable {
 
-    mine.terminal.binary = "${pkgs.alacritty}/bin/alacritty";
+    mine.terminal.binary = "${pkgs.mine.alacritty0_2}/bin/alacritty";
 
     environment.systemPackages = [
-      pkgs.alacritty
+      pkgs.mine.alacritty0_2
       pkgs.tmux
     ];
 
