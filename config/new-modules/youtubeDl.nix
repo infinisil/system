@@ -71,6 +71,7 @@ in
             "-x"
             "--download-archive ${cfg.dataDir}/ids"
             "--add-metadata"
+            "--ignore-errors"
             "-o \"${cfg.dataDir}/videos/%(title)s.%(ext)s\""
             "--exec '${exec} {}'"
             cfg.youtubePlaylist
