@@ -20,8 +20,8 @@ in
 
   config = mkIf config.mine.wm.enable {
 
-    mine.xmobar.enable = false;
-    mine.taffybar.enable = true;
+    mine.xmobar.enable = true;
+    mine.taffybar.enable = false;
 
     mine.terminal.enable = true;
 
