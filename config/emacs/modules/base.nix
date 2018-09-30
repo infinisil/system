@@ -64,6 +64,24 @@ with lib;
         (load custom-file)
 
         (global-visual-line-mode)
+
+        (defun gcm-scroll-down ()
+          (interactive)
+          (scroll-up 1))
+
+        (defun gcm-scroll-up ()
+          (interactive)
+          (scroll-down 1))
+
+        (global-set-key "\C-j" 'gcm-scroll-down)
+        (global-set-key "\C-k" 'gcm-scroll-up)
+
+        (require 'smooth-scrolling)
+        (smooth-scrolling-mode 1)
+
+        (setq mouse-wheel-scroll-amount '(5 ((shift) . 1))) ;; one line at a time
+        (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+
         (load (concat (getenv "HOME") "/.emacs.d/dinit.el"))
       '';
     };
