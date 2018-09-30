@@ -54,18 +54,6 @@ let
               fi
             done
           ''}" "info"
-        , Run Com "${pkgs.writeScript "tests" ''
-            #!${pkgs.bash}/bin/bash
-            now=$(date +%s)
-            goal=$(date --date="14:30 6 Aug" +%s)
-            echo -n "FF: $(( (goal - now) / 3600 )), "
-            goal=$(date --date="9:00 9 Aug" +%s)
-            echo -n "ML: $(( (goal - now) / 3600 )), "
-            goal=$(date --date="9:00 15 Aug" +%s)
-            echo -n "CD: $(( (goal - now) / 3600 )), "
-            goal=$(date --date="9:00 21 Aug" +%s)
-            echo -n "DD: $(( (goal - now) / 3600 )), "
-          ''}" [] "tests" 60
         , Run Com "${config.scripts.power}" [] "power" 10
         , Run Com "${config.scripts.batt}" [] "bt" 50
         , Run Com "${config.scripts.playing}" [] "playing" 10
@@ -73,7 +61,7 @@ let
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% | %tests% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
