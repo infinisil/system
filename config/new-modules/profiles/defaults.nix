@@ -34,11 +34,13 @@ with lib;
       "https://r-ryantm.cachix.org"
       "https://cachix.cachix.org"
       "https://hie-nix.cachix.org"
+      "ssh://10.149.76.3"
     ];
     binaryCachePublicKeys = [
       "r-ryantm.cachix.org-1:gkUbLkouDAyvBdpBX0JOdIiD2/DP1ldF3Z3Y6Gqcc4c="
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
       "hie-nix.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="
+      "pc.infinisil.com-1:3qy1uwb8W8nc1n+MG2khO1XSIDqJZcsZUiaTcMImMpI="
     ];
   };
 

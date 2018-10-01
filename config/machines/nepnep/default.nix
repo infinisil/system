@@ -21,6 +21,10 @@
     autostart = true;
   };
 
+  nix.extraOptions = ''
+    secret-key-files = ${config.private.nixStorePrivateKey}
+  '';
+
   mine.shinas = true;
 
   mine.eth.sem6.enable = true;
