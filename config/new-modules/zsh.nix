@@ -140,7 +140,7 @@ mkIf config.mine.console.enable {
 
         alias exa="${pkgs.exa}/bin/exa --group-directories-first --color-scale -g"
         alias ls="exa"
-        alias l="exa -laah"
+        alias l="exa -lh"
         alias t="exa -laTh"
 
         function mktest() {
