@@ -16,6 +16,7 @@ let
     };
   in channel.rust.override {
     extensions = [
+      "clippy-preview"
       "rls-preview"
       "rustfmt-preview"
       "rust-analysis"
