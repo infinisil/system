@@ -5,13 +5,13 @@ let
   nixpkgs-mozilla = (import <nixpkgs> {}).fetchFromGitHub {
     owner = "mozilla";
     repo = "nixpkgs-mozilla";
-    rev = "42a0926f2f36cac2da53782259948ba071b6c6c5";
-    sha256 = "1r2jglgl9k881byv1kc3rdda2lzaarvb0xn7nx3q0b3h25apjff5";
+    rev = "b9c99d043b1cb55ee8c08265223b7c35d687acb9";
+    sha256 = "0akyhdv5p0qiiyp6940k9bvismjqm9f8xhs0gpznjl6509dwgfxl";
   };
 
   rust = let
     channel = pkgs.rustChannelOf {
-      date = "2018-04-29";
+      date = "2018-10-03";
       channel = "nightly";
     };
   in channel.rust.override {
