@@ -37,5 +37,9 @@
       infinisil = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCfhaM5nKp4bpKM56uN3Ob9Hh2M9T836saLeGCTUa9d3c+xQM3erPxgLt5Mv+EgwHvzyk8lmI/s5za6pTzHmzYhFErPtDXD+3VWvAQxqrtyM0kRZf7+M/88/hS/2Ojn0UPkaPfoPsFRNqX5vQ3t15GPEygdbNFB17/w8dssc5UiighDBoAAU0Bs+6PZHs5JZXOG+3O5tD+1rd8oPN2t1Eqo4aOB7YPTRqUVydZz2xAQC4JHe/BH6fPeZo4GOeZMKC/FQU/oCv0E6ZuSEEDtdrWwKdxyL1HkcLm7XJVooXAJwvPwLbtZW1t4HKlVyAfT4qtAaMzPqZu7xU+wxPhbxD15 infinisil@mail.infinisil.io";
       root = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzMEOE8qGqPor0IcRfPisrPAGNPONksDbv4KlfdNMMS21NbuNshdkoMEm76ld9EfBaDHzJ4yta4M79UItuuqX6e+y5eY2140AxC0HoQcjURJiu7rnVGVBmnpdUrh8GlugvIksBbjKfkaC6c6VePeKKku62GZEZgS0iaAblNs3bBI7BCO1pFDgmZKar+1YV3mN9SqazDz9NkoAZJilUCzgxlhj3WOy/DWsWf7g/ahoSaVfNlE+U/OHeItyejPIcdZyW+/0qdWOZlyOzAsR3haPQQMGJIq2EO92Te30oPo5RFtMl9eibFwSN4IwSbHAMPo/HpR+A/igFYkYjJHxktjNX root@mail.infinisil.io";
     };
+
+    newserver = {
+      root = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCy+a8xHIs413Tv5Ql6sxG0MI93d3M+wqaVF6qnDvF4rC/64tUL6s2PEvaqJ69akmZ11xXpHtErCGZb7gq++RpXeC64SHe3D7/rKaRP8LWbIqDV37ZHJ24ubuysZWzH5jJIk0hB4/rfFuHJrPQRVbSym3el6AMloUiBa4YgtjACU1Bzb6+5LJ4C3uP4qX5Cz+YPshDTpzAAaO+frMH0PyJzIBbyCObcAokPPCl44EcqRKC0mCQnptd3ly5BBjB44oojwcv6pduQLS8leY0aisvpxooupoRUE8AvaadQgTMUHMNbf+h+nKJseiu/jSvdT2HVHmBCOCJhZ3uq8nPZcvkF root@new";
+    };
   };
 }

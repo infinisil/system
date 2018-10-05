@@ -29,16 +29,16 @@
   ];
 
   services.znapzend = {
-    enable = false;
+    enable = true;
     autoCreation = true;
     pure = true;
     zetup = {
       "tank/root/data" = {
-        plan = "1hour=>10mins,1day=>1hour,1week=>1day";
+        plan = "1day=>1hour";
         recursive = true;
         destinations.pc = {
           host = "pc";
-          dataset = "main/backup/server";
+          dataset = "main/backup/servernew";
           plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
       };
