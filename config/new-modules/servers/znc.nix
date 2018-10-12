@@ -60,16 +60,16 @@ in
 
     services.znc = {
       enable = true;
+      useLegacyConfig = false;
       openFirewall = true;
       mutable = false;
+      modulePackages = with pkgs.zncModules; [
+        playback
+        backlog
+        push
+      ];
       config = {
         LoadModule = [ "playback" ];
-        Listener.l = {
-          Port = 5000;
-          IPv4 = true;
-          IPv6 = true;
-          SSL = true;
-        };
         User.${cfg.defaultNick} = {
           Admin = mkDefault true;
           LoadModule = [ "push" ];
