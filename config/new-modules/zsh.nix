@@ -127,6 +127,16 @@ mkIf config.mine.console.enable {
         }
       ];
       initExtra = ''
+
+        __opt_repeat_last() {
+          [[ -n $BUFFER ]] || zle up-history
+          zle accept-line
+        }
+
+        zle -N repeat_last __opt_repeat_last
+
+        bindkey '^M' repeat_last
+
         source ${prezto}/init.zsh
         source ${pkgs.fzf}/share/fzf/completion.zsh
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
