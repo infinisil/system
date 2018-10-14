@@ -5,6 +5,17 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs = {
+    overlays = [
+      (self: super: {
+        linuxPackages_latest = super.linuxPackages_latest.extend (linuxSelf: linuxSuper: {
+          nvidia_x11 = linuxSelf.nvidia_x11_beta;
+        });
+      })
+    ];
+  };
+  hardware.opengl.driSupport32Bit = true;
+
   mine.sshMounts = lib.mapAttrs (name: value: {
     host = "infinisil@${value}:/home/infinisil";
     identity = "/home/infinisil/.ssh/id_rsa";
