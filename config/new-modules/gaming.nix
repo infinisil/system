@@ -8,6 +8,9 @@ with lib;
 
   config = mkIf config.mine.gaming.enable {
 
+    hardware.steam-hardware.enable = true;
+    boot.blacklistedKernelModules = [ "hid_steam" ];
+
     environment.systemPackages = with pkgs; [
       steam
       minecraft
