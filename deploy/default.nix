@@ -47,9 +47,9 @@ in
   };
 
   emma = { pkgs, ... }: {
-    #deployment.targetHost = "192.168.1.19";
-    deployment.targetHost = "10.149.76.3";
-    deployment.hasFastConnection = false;
+    deployment.targetHost = "192.168.1.19";
+    #deployment.targetHost = "10.149.76.3";
+    deployment.hasFastConnection = true;
     imports = [ ../config/machines/emma ];
     mine.deployer.enable = true;
   };

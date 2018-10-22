@@ -17,33 +17,33 @@
       fsType = "zfs";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/94BD-F45B";
+      fsType = "vfat";
+    };
+
+  fileSystems."/var/lib" =
+    { device = "tank/root/varlib";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "tank/root/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/root" =
+    { device = "tank/root/root";
+      fsType = "zfs";
+    };
+
   fileSystems."/nix" =
     { device = "tank/root/nix";
       fsType = "zfs";
     };
 
-  fileSystems."/var/lib" =
-    { device = "tank/root/data/varlib";
-      fsType = "zfs";
-    };
-
-  fileSystems."/root" =
-    { device = "tank/root/data/root";
-      fsType = "zfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/620E-3D2D";
-      fsType = "vfat";
-    };
-
-  fileSystems."/home" =
-    { device = "tank/root/data/home";
-      fsType = "zfs";
-    };
-
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/708872fa-e913-41f4-b40d-4ca497d83eeb"; }
+    [ { device = "/dev/disk/by-uuid/97dba5c4-d94e-43bf-afac-1d9d38ab94e1"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;

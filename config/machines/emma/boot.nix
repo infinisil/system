@@ -10,6 +10,5 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
   };
 }
