@@ -14,6 +14,7 @@
     };
 
     nixops = {
+      emma = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG4qGdqW5VszdgjjJOFuFXXUhkfokdOPVSxiYst3aJRF NixOps client key for emma";
       laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAMJ1ifrHIL+BLd6Qy6Ec4XU/+f8QJVieGn6O97c6lsi NixOps client key for laptop";
       server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPmdSQcE7aQIRog2HBQWutSwx8vK1D96GKjDRBxNGgTq NixOps client key for server";
       pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILK9vjJFoVdae3Lf7BK96cEQNEra/GikOn0KVwAVc489 NixOps client key for pc";
