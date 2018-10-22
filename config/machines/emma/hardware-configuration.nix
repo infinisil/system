@@ -23,17 +23,17 @@
     };
 
   fileSystems."/var/lib" =
-    { device = "tank/root/varlib";
+    { device = "tank/root/data/varlib";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank/root/home";
+    { device = "tank/root/data/home";
       fsType = "zfs";
     };
 
   fileSystems."/root" =
-    { device = "tank/root/root";
+    { device = "tank/root/data/root";
       fsType = "zfs";
     };
 
