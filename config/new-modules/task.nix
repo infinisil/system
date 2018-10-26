@@ -24,7 +24,7 @@ with lib;
           taskd.key=${dataDir}/keys/private.key
           taskd.ca=${dataDir}/keys/ca.cert
           taskd.server=infinisil.com:53589
-          taskd.credentials=private\/infinisil\/1d355ed7-6310-4ff9-adf6-b6e6046f5a42
+          taskd.credentials=private\/infinisil\/ed52a0a7-73e6-4fc8-9fad-009f6a2d87af
         '';
       };
     })
