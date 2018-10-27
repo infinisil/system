@@ -29,6 +29,7 @@ let
 
   hiebin = pkgs.writeScriptBin "hie" ''
     #!${pkgs.stdenv.shell}
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ pkgs.gmp ]}:$LD_LIBRARY_PATH"
     exec ${pkgs.direnv}/bin/direnv exec . ${hie.hies}/bin/hie-wrapper "$@"
   '';
 
