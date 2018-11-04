@@ -47,8 +47,8 @@ in
   };
 
   emma = { pkgs, ... }: {
-    deployment.targetHost = "localhost";
-    #deployment.targetHost = "192.168.1.19";
+    #deployment.targetHost = "localhost";
+    deployment.targetHost = "192.168.1.19";
     #deployment.targetHost = "10.149.76.3";
     deployment.hasFastConnection = true;
     imports = [ ../config/machines/emma ];
@@ -56,7 +56,8 @@ in
   };
 
   nepnep = { pkgs, ... }: {
-    deployment.targetHost = "10.149.76.2";
+    deployment.targetHost = "localhost";
+    #deployment.targetHost = "10.149.76.2";
     imports = [ ../config/machines/nepnep ];
     mine.deployer.enable = true;
   };
