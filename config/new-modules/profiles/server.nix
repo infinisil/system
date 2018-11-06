@@ -12,6 +12,8 @@ with lib;
 
     services.taskserver.enable = true;
 
+    mine.paste.enable = true;
+
     mine.music = {
       server = {
         enable = true;
