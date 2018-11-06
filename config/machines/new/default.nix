@@ -13,6 +13,7 @@
     enable = true;
     autostart = true;
     enableGateway = true;
+    localDiscovery = false;
   };
 
   boot = {
