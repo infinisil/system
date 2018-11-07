@@ -65,6 +65,7 @@ mkIf config.mine.console.enable {
         scu = "systemctl --user";
         jc = "journalctl";
         jcu = "journalctl --user";
+        pst = "ssh inf pst | pbcopy";
 
         ne = "nix-instantiate --eval";
         ni = "nix-instantiate";

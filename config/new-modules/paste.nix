@@ -30,7 +30,7 @@ let
     mv $tmp "${cfg.dataDir}/$id"
     chmod a+r "${cfg.dataDir}/$id"
 
-    echo https://${domain}/$id
+    echo -n https://${domain}/$id
   '';
 
 in
