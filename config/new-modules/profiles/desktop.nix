@@ -38,6 +38,7 @@ with lib;
     environment.systemPackages = with pkgs; [
       # texlive.combined.scheme-full
       tdesktopPackages.stable
+      libreoffice
       nixops
       neofetch
       youtube-dl
@@ -49,7 +50,7 @@ with lib;
       audacity
       sshfs
       nix-index
-      mine.hashsearch
+      mine.soph
       mine.imgurdl
       blockhash
       mine.Dark
