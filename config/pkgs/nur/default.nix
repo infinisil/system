@@ -1,14 +1,16 @@
-{ pkgs, lib }:
+{ pkgs }:
 {
 
   inherit (import ../default.nix {
-    inherit pkgs lib;
+    inherit pkgs;
+    lib = pkgs.lib;
     passwords = false;
   })
   arcred
   compton-kawase
   eclipse
   imgurdl
+  soph
   ;
 
 }
