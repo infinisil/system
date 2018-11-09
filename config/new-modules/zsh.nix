@@ -65,7 +65,6 @@ mkIf config.mine.console.enable {
         scu = "systemctl --user";
         jc = "journalctl";
         jcu = "journalctl --user";
-        pst = "ssh inf pst | pbcopy";
 
         ne = "nix-instantiate --eval";
         ni = "nix-instantiate";
@@ -132,6 +131,10 @@ mkIf config.mine.console.enable {
         __opt_repeat_last() {
           [[ -n $BUFFER ]] || zle up-history
           zle accept-line
+        }
+
+        pst() {
+          ssh inf pst $1 | xclip -selection clipboard
         }
 
         zle -N repeat_last __opt_repeat_last
