@@ -27,10 +27,12 @@ let
     # bringing the chance of a collision to about 10E-12 for 6000 pastes
     # according to <https://en.wikipedia.org/wiki/Birthday_problem#Probability_table>
 
-    mv $tmp "${cfg.dataDir}/$id"
-    chmod a+r "${cfg.dataDir}/$id"
+    filename="$id''${1:+.}$1"
 
-    echo -n https://${domain}/$id
+    mv $tmp "${cfg.dataDir}/$filename"
+    chmod a+r "${cfg.dataDir}/$filename"
+
+    echo -n "https://${domain}/$filename"
   '';
 
 in
