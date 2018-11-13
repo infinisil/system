@@ -1,4 +1,4 @@
-{ lib, nodes, ... }: {
+{ pkgs, lib, nodes, ... }: {
 
   imports = [
     ../../hardware/mac
@@ -59,6 +59,10 @@
     sshport = 2021;
     subdomain = "mac";
   };
+
+  environment.systemPackages = [
+    pkgs.steam
+  ];
 
   networking = {
     hostName = "emma";
