@@ -9,7 +9,7 @@ with lib;
   config = mkIf config.mine.eth.sem6.enable {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql100;
+      package = pkgs.postgresql_10;
     };
 
     environment.systemPackages = with pkgs; [
