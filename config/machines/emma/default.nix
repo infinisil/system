@@ -5,6 +5,7 @@
     ./boot.nix
     ./hardware-configuration.nix
   ];
+  hardware.opengl.driSupport32Bit = true;
 
   mine.sshMounts = lib.mapAttrs (name: value: {
     host = "infinisil@${value}:/home/infinisil";
