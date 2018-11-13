@@ -1,8 +1,6 @@
 { stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gnome3, gtk-engine-murrine, gnome_themes_standard }:
 
 let
-  # treat versions newer than 3.22 as 3.22
-  gnomeVersion = if stdenv.lib.versionOlder "3.22" gnome3.version then "3.22" else gnome3.version;
   pname = "arc-theme-red";
 
 in stdenv.mkDerivation rec {
@@ -22,7 +20,7 @@ in stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  configureFlags = [ "--disable-unity" "--with-gnome=${gnomeVersion}" ];
+  configureFlags = [ "--disable-unity" "--with-gnome=3.22" ];
 
   meta = with stdenv.lib; {
     description = "A flat theme with transparent elements for GTK 3, GTK 2 and Gnome-Shell";
