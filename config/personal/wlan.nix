@@ -5,11 +5,11 @@
       priority = 60;
     };
 
-    eth-5 = {
+    eduroam-5 = {
       auth = ''
         key_mgmt=WPA-EAP
         eap=TTLS
-        identity="msilvan"
+        identity="msilvan@student-net.ethz.ch"
         password="${config.private.passwords."wlan/eth"}"
         phase2="auth=MSCHAPV2"
       '';
