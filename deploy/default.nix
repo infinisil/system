@@ -42,8 +42,8 @@ in
   };
 
   emma = { pkgs, ... }: {
-    #deployment.targetHost = "localhost";
-    deployment.targetHost = "192.168.1.19";
+    deployment.targetHost = "localhost";
+    #deployment.targetHost = "192.168.1.19";
     #deployment.targetHost = "10.149.76.3";
     deployment.hasFastConnection = true;
     imports = [ ../config/machines/emma ];
