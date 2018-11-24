@@ -39,7 +39,6 @@ with lib;
       # texlive.combined.scheme-full
       tdesktopPackages.stable
       libreoffice
-      nixops
       neofetch
       youtube-dl
       ffmpeg-full

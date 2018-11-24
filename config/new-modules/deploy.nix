@@ -6,6 +6,9 @@ let
 
   cfg = config.mine.deployer;
 
+  nixops = (import ../../external/nixops/release.nix {
+    nixpkgs = pkgs.path;
+  }).build.x86_64-linux;
 
   rebuild = pkgs.writeScriptBin "rb" ''
     #!${pkgs.stdenv.shell}
@@ -36,10 +39,9 @@ let
     msg="$(git log --pretty=format:'%h-%f' -1 --no-merges)"
     label="$(printf "%s-%.35s" "$branch" "$msg")"
 
-    nixops="sudo ${pkgs.nixops}/bin/nixops"
     args="${optionalString (cfg.nixops.state != null) "-s \"${cfg.nixops.state}\""} -d ${cfg.nixops.deployment}"
-    $nixops set-args $args --argstr label "$label"
-    $nixops deploy $args $@
+    sudo nixops set-args $args --argstr label "$label"
+    sudo nixops deploy $args $@
   '';
 
 in
@@ -103,7 +105,7 @@ in
 
       environment.systemPackages = [
         rebuild
-        pkgs.nixops
+        nixops
       ];
 
       nix.nixPath = mkIf (cfg.nixpkgs != null) [
