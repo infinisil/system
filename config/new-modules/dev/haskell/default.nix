@@ -5,17 +5,10 @@ with lib;
 let
 
   hie-nix = pkgs.fetchFromGitHub {
-    owner = "infinisil";
+    owner = "domenkozar";
     repo = "hie-nix";
-    rev = "afbe6a889c177e92a10b2b8dceeeabdcf2f2e4fe";
-    sha256 = "1ar0h12ysh9wnkgnvhz891lvis6x9s8w3shaakfdkamxvji868qa";
-  };
-
-  stack2nixSrc = pkgs.fetchFromGitHub {
-    owner = "input-output-hk";
-    repo = "stack2nix";
-    rev = "9070f9173ae32f0be6f7830c41c8cfb8e780fdbf";
-    sha256 = "1qz7yfd6icl5sddpsij6fqn2dmzxwawm7cb8aw4diqh71drr1p29";
+    rev = "a270d8db4551f988437ac5db779a3cf614c4af68";
+    sha256 = "0hilxgmh5aaxg37cbdwixwnnripvjqxbvi8cjzqrk7rpfafv352q";
   };
 
   snackSrc = pkgs.fetchFromGitHub {
@@ -33,7 +26,6 @@ let
     exec ${pkgs.direnv}/bin/direnv exec . ${hie.hies}/bin/hie-wrapper "$@"
   '';
 
-  myStack2nix = import stack2nixSrc {};
   snack = (import snackSrc).snack-exe;
 
 in
@@ -49,7 +41,6 @@ in
       hiebin
 
       stack
-      myStack2nix
 
       cabal2nix
 
