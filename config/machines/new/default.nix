@@ -9,6 +9,8 @@
 
   mine.profiles.server.enable = true;
 
+  services.nixbot.enable = true;
+
   services.ipfs = {
     enable = true;
     autostart = true;
