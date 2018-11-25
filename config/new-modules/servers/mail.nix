@@ -29,6 +29,8 @@ in
 
   config = mkIf cfg.enable {
 
+    services.rspamd.workers.rspamd_proxy.type = mkForce "rspamd_proxy";
+
     mailserver = {
 
       enable = true;
