@@ -1,10 +1,20 @@
-{ nodes, ... }: {
+{ nodes, ... }:
+
+let
+
+  module = fetchTarball {
+    url = "https://github.com/Infinisil/nixbot/archive/6acf96ebdead1507e31c72d7d8658953fb4ea54a.tar.gz";
+    sha256 = "1scvk3a2vnlid92kys9fqzmn9hc1fjvlkrxpxl28ndhwsbhyiw6s";
+  } + "/module.nix";
+
+in
+{
 
   imports = [
     ../../hardware/do
     ../../../external/private/server.nix
     ./hardware-configuration.nix
-    /home/infinisil/prj/nixbot/module.nix
+    module
   ];
 
   mine.profiles.server.enable = true;
