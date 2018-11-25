@@ -33,7 +33,7 @@ let
     "; Section ${name}\n${data}"
   ) (dag.dagTopoSort config.init).result);
 
-  overrides = super: self: {
+  overrides = self: super: {
     nix-mode = super.nix-mode.overrideAttrs (old: {
       src = builtins.fetchTarball {
         url = "https://github.com/NixOS/nix-mode/archive/5a8b334c75f94dc22ff3c30e3886b1a198118b8a.tar.gz";
@@ -42,7 +42,7 @@ let
     });
   };
 
-  epkgs = (pkgs.emacsPackagesNgGen pkgs.emacs).overrideScope overrides;
+  epkgs = (pkgs.emacsPackagesNgGen pkgs.emacs).overrideScope' overrides;
 
   emacs = epkgs.emacsWithPackages (_: lib.unique config.packages);
 
