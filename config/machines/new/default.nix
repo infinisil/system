@@ -3,8 +3,8 @@
 let
 
   module = fetchTarball {
-    url = "https://github.com/Infinisil/nixbot/archive/249fbbf75db39630831223a9af1d319d68e0f879.tar.gz";
-    sha256 = "07yp80krsd9g3lans0n3bc2r9q72ipwcqa1h0n26wrfdk4yl6df5";
+    url = "https://github.com/Infinisil/nixbot/archive/403dac4f5feaf4b858b4a1687f968b6e55656afe.tar.gz";
+    sha256 = "0ni2cnd89q3f6s62iw7zrf2p4b3ii8gm39rcblcg45d3hi9jphf1";
   } + "/module.nix";
 
 in
