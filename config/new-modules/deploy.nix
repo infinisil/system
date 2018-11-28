@@ -41,6 +41,7 @@ let
 
     args="${optionalString (cfg.nixops.state != null) "-s \"${cfg.nixops.state}\""} -d ${cfg.nixops.deployment}"
     sudo nixops set-args $args --argstr label "$label"
+    sudo nixops set-args $args --argstr host "$HOST"
     sudo nixops deploy $args $@
   '';
 
