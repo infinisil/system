@@ -50,24 +50,19 @@ in
 
   config = mkIf cfg.enable {
 
-    system.activationScripts.pastedir = {
-      text = ''
-        mkdir -p "${cfg.dataDir}"
-        chmod 0777 "${cfg.dataDir}"
-      '';
-      deps = [ "var" ];
-    };
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0777 root root -" ];
 
-    environment.systemPackages = [
-      pastebin
-    ];
+    environment.systemPackages = [ pastebin ];
 
     mine.subdomains = [ subdomain ];
 
-    services.nginx.virtualHosts."${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      root = cfg.dataDir;
+    services.nginx = {
+      enable = true;
+      virtualHosts.${domain} = {
+        forceSSL = true;
+        enableACME = true;
+        root = cfg.dataDir;
+      };
     };
 
   };
