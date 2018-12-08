@@ -14,6 +14,8 @@ with lib;
 
     mine.paste.enable = true;
 
+    mine.publicDir.enable = true;
+
     mine.music = {
       server = {
         enable = true;
