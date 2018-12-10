@@ -16,12 +16,10 @@
       priority = 80;
     };
 
-    Swisscom.priority = 10;
-    "FRITZ!Box 7490".priority = 30;
-    "Coin Street Community Builders " = {
-      psk = "3vents2016";
-      priority = 0;
+    Idyll = {
+      priority = 10;
+      psk = config.private.passwords."internet/Idyll";
     };
-
+    "FRITZ!Box 7490".priority = 30;
   };
 }
