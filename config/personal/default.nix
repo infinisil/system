@@ -33,4 +33,22 @@
     };
   };
 
+  mine.newsboat = {
+    config = ''
+      auto-reload yes
+      browser "firefox %u"
+      bind-key j down
+      bind-key k up
+      bind-key h quit
+      bind-key l open
+      bind-key t set-tag
+      reload-time 10
+    '';
+    urls = [
+      http://kamalmarhubi.com/blog/feed.xml
+      https://www.youtube.com/feeds/videos.xml?user=EthosLab
+      https://www.youtube.com/feeds/videos.xml?user=Pyropuncher
+    ];
+  };
+
 }
