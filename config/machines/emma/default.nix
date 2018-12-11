@@ -20,6 +20,8 @@
     server = nodes.new;
   };
 
+  mine.gaming.enable = true;
+
   services.ipfs.enable = true;
 
   services.znapzend = {

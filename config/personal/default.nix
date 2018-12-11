@@ -4,6 +4,7 @@
     ./keys.nix
     ./znc.nix
     ./wlan.nix
+    ./bins.nix
   ];
 
   # Needed for Swisscom router web interface

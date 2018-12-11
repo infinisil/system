@@ -61,11 +61,6 @@ mkIf config.mine.console.enable {
       in {
         gist = "${pkgs.gist}/bin/gist";
 
-        sc = "sudo systemctl";
-        scu = "systemctl --user";
-        jc = "journalctl";
-        jcu = "journalctl --user";
-
         ne = "nix-instantiate --eval";
         ni = "nix-instantiate";
         ns = "nix-shell";
