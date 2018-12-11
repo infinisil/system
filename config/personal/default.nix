@@ -1,4 +1,4 @@
-{
+{ lib, pkgs, ... }: {
 
   imports = [
     ./keys.nix
@@ -42,12 +42,16 @@
       bind-key h quit
       bind-key l open
       bind-key t set-tag
+      bind-key o open-in-browser-and-mark-read
+      bind-key O open-all-unread-in-browser-and-mark-read
       reload-time 10
+      notify-program "${lib.getBin pkgs.libnotify}/bin/notify-send"
     '';
     urls = [
       http://kamalmarhubi.com/blog/feed.xml
       https://www.youtube.com/feeds/videos.xml?user=EthosLab
       https://www.youtube.com/feeds/videos.xml?user=Pyropuncher
+      http://degoes.net/feed.xml
     ];
   };
 
