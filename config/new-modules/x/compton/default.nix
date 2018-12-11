@@ -9,7 +9,12 @@ let
   package = pkgs.mine.compton-kawase { nvidia = cfg.nvidia; };
 
   mkComptonService = { autoStart, variantName, cfg }: recursiveUpdate {
-    Unit.Description = "Compton X11 compositor - ${variantName}";
+
+    Unit = {
+      Description = "Compton X11 compositor - ${variantName}";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
 
     Service = {
       ExecStart = "${package}/bin/compton --config ${cfg}";
@@ -17,14 +22,8 @@ let
       RestartSec = 3;
     };
 
-    Install.WantedBy = [ "graphical-session.target" ];
-
   } (optionalAttrs autoStart {
-    Unit = {
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-
+    Install.WantedBy = [ "graphical-session.target" ];
   });
 
 in
