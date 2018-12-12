@@ -13,6 +13,11 @@
   }) {
     inf = "infinisil.com";
     nepLocal = "192.168.178.28";
+  } // {
+    betty = {
+      host = "infinisil@10.149.76.2:/betty";
+      identity = "/home/infinisil/.ssh/id_rsa";
+    };
   };
 
   mine.openvpn.client = {
