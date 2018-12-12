@@ -74,7 +74,7 @@ with lib;
       pcmanfm
       arandr
       xorg.xmessage
-      lxappearance
+      lxappearance-gtk3
       #arc-theme
       gtk_engines
       gtk-engine-murrine
