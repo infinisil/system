@@ -54,7 +54,7 @@ with lib;
       mine.soph
       mine.imgurdl
       blockhash
-      # mine.Dark
+      mine.Dark
       xournal
     ];
 
