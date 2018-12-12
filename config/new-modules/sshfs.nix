@@ -4,6 +4,10 @@ with lib;
 
 {
 
+  # IMPORTART
+  # Make sure to sudo ssh into the target host to see if it even has access
+  # There will be weird errors if it doesn't
+
   options.mine.sshMounts = mkOption {
     type = types.attrsOf (types.submodule {
       options = {
