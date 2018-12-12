@@ -12,7 +12,7 @@
     identity = "/home/infinisil/.ssh/id_rsa";
   }) {
     inf = "infinisil.com";
-    emmaLocal = "192.168.1.19";
+    emmaLocal = "192.168.178.53";
   };
 
   mine.profiles.desktop.enable = true;

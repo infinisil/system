@@ -12,7 +12,7 @@
     identity = "/home/infinisil/.ssh/id_rsa";
   }) {
     inf = "infinisil.com";
-    nepLocal = "192.168.1.25";
+    nepLocal = "192.168.178.28";
   };
 
   mine.openvpn.client = {
@@ -33,7 +33,7 @@
       recursive = true;
       destinations.backup = {
         dataset = "main/backup/laptopnew";
-        host = "192.168.1.25";
+        host = "192.168.178.28";
         inherit plan;
       };
     };

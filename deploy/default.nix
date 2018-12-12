@@ -43,7 +43,7 @@ in
 
   emma = { pkgs, ... }: {
     deployment.targetHost = if host == "emma"
-      then "localhost" else "192.168.1.19";
+      then "localhost" else "192.168.178.53";
     #deployment.targetHost = "10.149.76.3";
     deployment.hasFastConnection = true;
     imports = [ ../config/machines/emma ];
