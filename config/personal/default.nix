@@ -41,7 +41,6 @@
       bind-key k up
       bind-key h quit
       bind-key l open
-      bind-key t set-tag
       bind-key o open-in-browser-and-mark-read
       bind-key O open-all-unread-in-browser-and-mark-read
       reload-time 10
