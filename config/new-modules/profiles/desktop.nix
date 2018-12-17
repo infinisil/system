@@ -46,7 +46,7 @@ with lib;
       ffmpeg-full
       stack
       imagemagick7Big
-      mine.deluge
+      deluge
       nix-prefetch-git
       audacity
       sshfs
