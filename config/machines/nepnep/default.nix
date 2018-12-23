@@ -23,8 +23,6 @@
     autostart = true;
   };
 
-  mine.shinas = true;
-
   mine.eth.sem6.enable = true;
 
   mine.dev.rust.enable = true;
