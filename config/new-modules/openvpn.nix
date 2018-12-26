@@ -6,7 +6,6 @@ let
 
   cfg = config.mine.openvpn;
 
-  serverIp = (head cfg.client.server.config.networking.interfaces.eth0.ipv4.addresses).address;
   port = 1194;
 
   shared = ''
@@ -24,14 +23,20 @@ let
     mute 20
   '';
 
-  server = ''
+  server = let
+    client-config = pkgs.runCommand "openvpn-client-config" {} (''
+      mkdir $out
+    '' + concatMapStringsSep "\n" (name: ''
+      echo "ifconfig-push ${cfg.server.client.${name}} ${cfg.server.subnetMask}" > $out/${name}
+    '') (attrNames cfg.server.clients));
+  in ''
     server ${cfg.server.subnet} ${cfg.server.subnetMask}
     port ${toString port}
 
     topology subnet
     client-to-client
     push "redirect-gateway def1 bypass-dhcp"
-    client-config-dir /etc/openvpn/clients
+    client-config-dir ${client-config}
     compress lz4-v2
     push "compress lz4-v2"
 
@@ -50,7 +55,7 @@ let
 
   client = ''
     client
-    remote ${serverIp} ${toString port}
+    remote ${cfg.client.server} ${toString port}
     nobind
 
     resolv-retry infinite
@@ -87,13 +92,19 @@ in
         default = "255.255.255.0";
         description = "Subnet mask to use";
       };
+
+      fixedClients = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        description = "Mapping from names to openvpn ip's that are fixed";
+      };
     };
 
     client = {
       enable = mkEnableOption "openvpn client";
       server = mkOption {
-        type = types.unspecified;
-        description = "server nixops node, needs to be set when client is enabled";
+        type = types.str;
+        description = "server ip";
       };
     };
 
@@ -117,15 +128,6 @@ in
 
       systemd.services.openvpn-server.preStart = "mkdir -p /var/lib/openvpn";
 
-      environment.etc = {
-        "openvpn/clients/ninur".text = ''
-          ifconfig-push 10.149.76.3 ${cfg.server.subnetMask}
-        '';
-        "openvpn/clients/vario".text = ''
-          ifconfig-push 10.149.76.2 ${cfg.server.subnetMask}
-        '';
-      };
-
       services.openvpn.servers.server.config = server;
 
     })
@@ -139,15 +141,6 @@ in
       };
 
       services.openvpn.servers.server.config = client;
-
-      assertions = [{
-        assertion = cfg.client.server.config.mine.openvpn.server.enable;
-        message = ''
-          The server ${cfg.client.server.config.networking.hostName} of the
-          client ${config.networking.hostName} doesn't have the option
-          mine.openvpn.server.enable set to true.
-        '';
-      }];
 
     })
   ];

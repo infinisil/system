@@ -1,4 +1,4 @@
-{ lib, config, nodes, pkgs, ... }: {
+{ lib, config, pkgs, ... }: {
 
   imports = [
     ../../hardware/pc
@@ -10,10 +10,7 @@
   mine.sshMounts = lib.mapAttrs (name: value: {
     host = "infinisil@${value}:/home/infinisil";
     identity = "/home/infinisil/.ssh/id_rsa";
-  }) {
-    inf = "infinisil.com";
-    ninurLocal = "192.168.178.53";
-  };
+  }) config.networking.connections;
 
   mine.profiles.desktop.enable = true;
 
@@ -42,7 +39,7 @@
   mine.deluged.enable = true;
   mine.openvpn.client = {
     enable = true;
-    server = nodes.protos;
+    server = config.networking.connections.protos;
   };
 
   # hardware.opengl.driSupport32Bit = true;

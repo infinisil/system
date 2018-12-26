@@ -1,4 +1,4 @@
-{ options, nodes, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -66,11 +66,6 @@ with lib;
       mine.imgurdl
     ];
 
-    networking.firewall.allowedTCPPorts = [
-      #nodes.pc.config.localserver.sshport
-      #nodes.laptop.config.localserver.sshport
-    ];
-
     networking.firewall.logRefusedConnections = true;
 
     services.openssh = {
@@ -94,24 +89,6 @@ with lib;
         options = "--delete-older-than 7d";
       };
     };
-
-    #services.nginx = {
-    #  virtualHosts."mac.${config.networking.domain}" = {
-    #    forceSSL = true;
-    #    enableACME = true;
-    #    root = "/webroot/mac";
-    #    locations."/".proxyPass = "http://localhost:${toString nodes.laptop.config.localserver.webserverport}";
-    #  };
-    #  virtualHosts."pc.${config.networking.domain}" = {
-    #    forceSSL = true;
-    #    enableACME = true;
-    #    root = "/webroot/pc";
-    #    locations."/".proxyPass = "http://localhost:${toString nodes.pc.config.localserver.webserverport}";
-    #    basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
-    #  };
-    #};
-
-    #mine.subdomains = [ "mac" "pc" ];
 
     home-manager.users.infinisil = {
       # https://github.com/keybase/keybase-issues/issues/1712#issuecomment-141226705

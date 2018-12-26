@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
 
   imports = [
     ./keys.nix
@@ -23,7 +23,10 @@
 
   mine.dns.ipnsHash = "QmcF3xqxFZxDLBJ5fNmr8vZ5p83SoS5zuavYMhizh2L1dp";
 
-  mine.openvpn.server.subnet = "10.149.76.0";
+  mine.openvpn.server = {
+    subnet = "10.149.76.0";
+    fixedClients = builtins.removeAttrs [ "protos" ] config.networking.connectivitySpec.vpn;
+  };
 
   mine.xUserConfig = {
     services.redshift = {

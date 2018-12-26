@@ -1,4 +1,4 @@
-{ config, nodes, ... }:
+{ config, ... }:
 
 let
 
@@ -49,7 +49,7 @@ in
         plan = "1day=>1hour";
         recursive = true;
         destinations.vario = {
-          host = "vario";
+          host = config.networking.connections.vario;
           dataset = "main/backup/servernew";
           plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
@@ -57,7 +57,7 @@ in
       "tank/root/music" = {
         plan = "1hour=>1hour";
         destinations.ninur = {
-          host = "ninur";
+          host = config.networking.connections.ninur;
           dataset = "tank/root/music";
           plan = "1hour=>1hour";
         };
@@ -69,14 +69,14 @@ in
     forceSSL = true;
     enableACME = true;
     root = "/webroot";
-    locations."/".proxyPass = "http://10.149.76.3";
+    locations."/".proxyPass = "http://${config.networking.connections.ninur}";
   };
 
   services.nginx.virtualHosts."vario.${config.networking.domain}" = {
     forceSSL = true;
     enableACME = true;
     root = "/webroot";
-    locations."/".proxyPass = "http://10.149.76.2";
+    locations."/".proxyPass = "http://${config.networking.connections.vario}";
   };
 
   mine.subdomains = [ "vario" "ninur" ];

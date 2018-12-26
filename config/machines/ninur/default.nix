@@ -1,4 +1,4 @@
-{ pkgs, lib, nodes, ... }: {
+{ config, pkgs, lib, ... }: {
 
   imports = [
     ../../hardware/mac
@@ -10,19 +10,16 @@
   mine.sshMounts = lib.mapAttrs (name: value: {
     host = "infinisil@${value}:/home/infinisil";
     identity = "/home/infinisil/.ssh/id_rsa";
-  }) {
-    inf = "infinisil.com";
-    nepLocal = "192.168.178.28";
-  } // {
+  }) config.networking.connections // {
     betty = {
-      host = "infinisil@10.149.76.2:/betty";
+      host = "infinisil@${config.networking.connections.vario}:/betty";
       identity = "/home/infinisil/.ssh/id_rsa";
     };
   };
 
   mine.openvpn.client = {
     enable = true;
-    server = nodes.protos;
+    server = config.networking.connections.protos;
   };
 
   mine.gaming.enable = true;
