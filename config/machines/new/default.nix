@@ -55,7 +55,7 @@ in
           plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
       };
-      "tank/root/data/music" = {
+      "tank/root/music" = {
         plan = "1hour=>1hour";
         destinations.emma = {
           host = "laptop";
