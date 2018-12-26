@@ -61,13 +61,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  mine.rpf.client = {
-    server = nodes.new;
-    webport = 8022;
-    sshport = 2022;
-    subdomain = "pc";
-  };
-
   environment.systemPackages = with pkgs; [
     (writeScriptBin "projector" ''
       #!${stdenv.shell}
@@ -81,11 +74,15 @@
 
   mine.gaming.enable = true;
 
-  services.nginx.virtualHosts.localhost = {
-    basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
-    locations."/betty/" = {
-      root = "/betty";
-      extraConfig = "autoindex on;";
+  services.nginx = {
+    enable = true;
+    virtualHosts.localhost = {
+      basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
+      locations."/".root = "/webroot";
+      locations."/betty/" = {
+        root = "/betty";
+        extraConfig = "autoindex on;";
+      };
     };
   };
 
@@ -95,5 +92,6 @@
     extraHosts = ''
       192.168.1.1 swisscom.mobile
     '';
+    firewall.allowedTCPPorts = [ 80 ];
   };
 }

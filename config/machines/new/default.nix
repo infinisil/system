@@ -1,4 +1,4 @@
-{ nodes, ... }:
+{ config, nodes, ... }:
 
 let
 
@@ -66,14 +66,21 @@ in
     };
   };
 
-
-  mine.rpf.server = {
-    enable = true;
-    clients = with nodes; [
-      emma
-      nepnep
-    ];
+  services.nginx.virtualHosts."mac.${config.networking.domain}" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "/webroot";
+    locations."/".proxyPass = "http://10.149.76.3";
   };
+
+  services.nginx.virtualHosts."pc.${config.networking.domain}" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "/webroot";
+    locations."/".proxyPass = "http://10.149.76.2";
+  };
+
+  mine.subdomains = [ "pc" "mac" ];
 
   networking = {
     hostName = "new";

@@ -61,11 +61,12 @@
     server = "infinisil.com";
   };
 
-  mine.rpf.client = {
-    server = nodes.new;
-    webport = 8021;
-    sshport = 2021;
-    subdomain = "mac";
+  services.nginx = {
+    enable = true;
+    virtualHosts.localhost = {
+      root = "/webroot";
+      listen = [ { port = 80; addr = "0.0.0.0"; } ];
+    };
   };
 
   environment.systemPackages = [
@@ -75,6 +76,6 @@
   networking = {
     hostName = "emma";
     hostId = "34cc680d";
-    firewall.allowedTCPPorts = [ 1500 1501 ];
+    firewall.allowedTCPPorts = [ 80 1500 1501 ];
   };
 }
