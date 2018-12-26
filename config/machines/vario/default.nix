@@ -12,7 +12,7 @@
     identity = "/home/infinisil/.ssh/id_rsa";
   }) {
     inf = "infinisil.com";
-    emmaLocal = "192.168.178.53";
+    ninurLocal = "192.168.178.53";
   };
 
   mine.profiles.desktop.enable = true;
@@ -42,7 +42,7 @@
   mine.deluged.enable = true;
   mine.openvpn.client = {
     enable = true;
-    server = nodes.new;
+    server = nodes.protos;
   };
 
   # hardware.opengl.driSupport32Bit = true;
@@ -87,7 +87,7 @@
   };
 
   networking = {
-    hostName = "paul";
+    hostName = "vario";
     hostId = "56236562";
     extraHosts = ''
       192.168.1.1 swisscom.mobile

@@ -12,7 +12,6 @@ in
 
   imports = [
     ../../hardware/do
-    ../../../external/private/server.nix
     ./hardware-configuration.nix
     module
   ];
@@ -49,16 +48,16 @@ in
       "tank/root/data" = {
         plan = "1day=>1hour";
         recursive = true;
-        destinations.pc = {
-          host = "pc";
+        destinations.vario = {
+          host = "vario";
           dataset = "main/backup/servernew";
           plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
       };
       "tank/root/music" = {
         plan = "1hour=>1hour";
-        destinations.emma = {
-          host = "laptop";
+        destinations.ninur = {
+          host = "ninur";
           dataset = "tank/root/music";
           plan = "1hour=>1hour";
         };
@@ -66,24 +65,24 @@ in
     };
   };
 
-  services.nginx.virtualHosts."mac.${config.networking.domain}" = {
+  services.nginx.virtualHosts."ninur.${config.networking.domain}" = {
     forceSSL = true;
     enableACME = true;
     root = "/webroot";
     locations."/".proxyPass = "http://10.149.76.3";
   };
 
-  services.nginx.virtualHosts."pc.${config.networking.domain}" = {
+  services.nginx.virtualHosts."vario.${config.networking.domain}" = {
     forceSSL = true;
     enableACME = true;
     root = "/webroot";
     locations."/".proxyPass = "http://10.149.76.2";
   };
 
-  mine.subdomains = [ "pc" "mac" ];
+  mine.subdomains = [ "vario" "ninur" ];
 
   networking = {
-    hostName = "new";
+    hostName = "protos";
     hostId = "12345678";
     domain = "infinisil.com";
     defaultGateway = "104.248.128.1";

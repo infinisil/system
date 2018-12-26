@@ -47,7 +47,6 @@ with lib;
       enable = true;
       user = "infinisil";
       mpdHost = "${config.private.passwords.mpd}@${config.networking.domain}";
-      youtubePlaylist = config.private.youtubePlaylist;
     };
 
     mine.mail.enable = true;

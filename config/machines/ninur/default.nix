@@ -22,7 +22,7 @@
 
   mine.openvpn.client = {
     enable = true;
-    server = nodes.new;
+    server = nodes.protos;
   };
 
   mine.gaming.enable = true;
@@ -74,7 +74,7 @@
   ];
 
   networking = {
-    hostName = "emma";
+    hostName = "ninur";
     hostId = "34cc680d";
     firewall.allowedTCPPorts = [ 80 1500 1501 ];
   };

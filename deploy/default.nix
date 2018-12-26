@@ -36,24 +36,33 @@ in
     };
   };
 
-  new = {
+  protos = {
     deployment.targetHost = "104.248.129.84";
-    imports = [ ../config/machines/new ];
+    imports = [
+      ../config/machines/protos
+      ../external/private/machines/protos.nix
+    ];
   };
 
-  emma = { pkgs, ... }: {
+  ninur = { pkgs, ... }: {
     deployment.targetHost = if host == "emma"
-      then "localhost" else "192.168.178.53";
+      then "localhost" else "192.168.178.21";
     #deployment.targetHost = "10.149.76.3";
     deployment.hasFastConnection = true;
-    imports = [ ../config/machines/emma ];
+    imports = [
+      ../config/machines/ninur
+      ../external/private/machines/ninur.nix
+    ];
     mine.deployer.enable = true;
   };
 
-  nepnep = { pkgs, ... }: {
+  vario = { pkgs, ... }: {
     deployment.targetHost = "localhost";
     #deployment.targetHost = "10.149.76.2";
-    imports = [ ../config/machines/nepnep ];
+    imports = [
+      ../config/machines/vario
+      ../external/private/machines/vario.nix
+    ];
     mine.deployer.enable = true;
   };
 }

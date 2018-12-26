@@ -35,11 +35,11 @@ let
     compress lz4-v2
     push "compress lz4-v2"
 
-    ca /root/ca.crt
-    cert /root/server.crt
-    key /root/server.key
-    dh /root/dh.pem
-    tls-auth /root/ta.key 0
+    ca ${config.private.openvpn.ca}
+    cert ${config.private.openvpn.cert}
+    key ${config.private.openvpn.key}
+    dh ${config.private.openvpn.dh}
+    tls-auth ${config.private.openvpn.tls-auth} 0
 
     keepalive 10 120
     status /var/lib/openvpn/status.log
@@ -56,10 +56,10 @@ let
     resolv-retry infinite
     remote-cert-tls server
 
-    ca /root/ca.crt
-    cert /root/client.crt
-    key /root/client.key
-    tls-auth /root/ta.key 1
+    ca ${config.private.openvpn.ca}
+    cert ${config.private.openvpn.cert}
+    key ${config.private.openvpn.key}
+    tls-auth ${config.private.openvpn.tls-auth} 1
 
     ${shared}
   '';
@@ -118,10 +118,10 @@ in
       systemd.services.openvpn-server.preStart = "mkdir -p /var/lib/openvpn";
 
       environment.etc = {
-        "openvpn/clients/emma".text = ''
+        "openvpn/clients/ninur".text = ''
           ifconfig-push 10.149.76.3 ${cfg.server.subnetMask}
         '';
-        "openvpn/clients/nepnep".text = ''
+        "openvpn/clients/vario".text = ''
           ifconfig-push 10.149.76.2 ${cfg.server.subnetMask}
         '';
       };
