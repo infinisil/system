@@ -12,6 +12,8 @@ with lib;
 
   config = mkIf config.mine.console.enable {
 
+    mine.vim.enable = true;
+
     programs.command-not-found.enable = true;
 
     environment.pathsToLink = [ "/share/zsh" ];
@@ -102,52 +104,6 @@ with lib;
       };
 
       programs.command-not-found.enable = true;
-
-      programs.vim = {
-        enable = true;
-        settings = {
-          tabstop = 2;
-          shiftwidth = 2;
-        };
-        plugins = [
-          "YouCompleteMe"
-          "ghc-mod-vim"
-          "gundo"
-          "colors-solarized"
-          "vim-nix"
-          "syntastic"
-          "editorconfig-vim"
-          "vim-pandoc"
-        ];
-        extraConfig = ''
-          filetype on
-          syntax enable
-          filetype plugin indent on
-          nnoremap j gj
-          nnoremap k gk
-          set hidden
-          set termguicolors
-          set showcmd
-          set background=dark
-
-          highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-          match OverLength /\%81v.\+/
-
-          set hlsearch
-          set undofile
-          set undodir=$HOME/.local/share/vim/undo
-          set directory=$HOME/.local/share/vim/swap
-          set backup
-          set backupdir=$HOME/.local/share/vim/backup
-          set backspace=indent,eol,start
-          set clipboard=unnamedplus
-          set relativenumber
-
-          let mapleader = " "
-
-          let g:netrw_home='$HOME/.cache/vim'
-        '';
-      };
 
     };
 
