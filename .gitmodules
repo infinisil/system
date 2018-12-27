@@ -7,6 +7,3 @@
 [submodule "home-manager"]
 	path = external/home-manager
 	url = git@github.com:Infinisil/home-manager
-[submodule "nixops"]
-	path = external/nixops
-	url = https://github.com/NixOS/nixops

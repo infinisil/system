@@ -16,6 +16,6 @@ sudo nixops export -s "$SCRIPTPATH/../../external/private/deployments.nixops" | 
 			uuid: .key, \
 			networkExprs: .value.nixExprs | fromjson, \
 			deploymentName: .value.name, \
-			args: .value.args | fromjson | with_entries(.value |= fromjson) \
+			args: .value.args | fromjson \
 		}" | \
 	tee info.json | jq
