@@ -101,6 +101,7 @@ with lib;
           signByDefault = true;
           gpgPath = "${pkgs.gnupg}/bin/gpg";
         };
+        iniContent.credential.helper = "store";
       };
 
       programs.command-not-found.enable = true;
