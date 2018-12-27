@@ -6,9 +6,11 @@ let
 
   cfg = config.mine.mail;
 
-  module = import (fetchTarball {
-    url = https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/v2.2.0/nixos-mailserver-v2.2.0.tar.gz;
-    sha256 = "0gqzgy50hgb5zmdjiffaqp277a68564vflfpjvk1gv6079zahksc";
+  module = import ((import <nixpkgs> {}).fetchFromGitLab {
+    owner = "simple-nixos-mailserver";
+    repo = "nixos-mailserver";
+    rev = "c2ca4d1bb05a5c3886b433dc10b2c4d55bfa1f29";
+    sha256 = "1l5xwk8rjla3bh1dqdf0j836h61a8piydcjhfm84n8hw7y13ajga";
   });
 
   domain = config.networking.domain;
