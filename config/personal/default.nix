@@ -25,7 +25,9 @@
 
   mine.openvpn.server = {
     subnet = "10.149.76.0";
-    fixedClients = builtins.removeAttrs config.networking.connectivitySpec.vpn [ "protos" ];
+    fixedClients = builtins.removeAttrs config.networking.connectivitySpec.vpn [ "protos" ] // {
+      iphone = "10.149.76.4";
+    };
   };
 
   mine.xUserConfig = {
