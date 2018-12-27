@@ -7,12 +7,7 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "2017-05-12";
 
-  src = fetchFromGitHub {
-    owner  = "mclmza";
-    repo   = pname;
-    rev    = "b216c76f34232f6eb71df585b74de43f9367b3ec";
-    sha256 = "067f3w65fdskhid65xlai85pdww9znzb23akr9xryzs5nb3sp485";
-  };
+  src = (import ../../sources).arc-theme-red;
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 

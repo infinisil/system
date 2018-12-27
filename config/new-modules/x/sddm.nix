@@ -29,12 +29,7 @@ let
   themes = {
     clairvoyance = mkTheme {
       name = "clairvoyance";
-      src = pkgs'.fetchFromGitHub {
-        owner = "Eayu";
-        repo = "sddm-theme-clairvoyance";
-        rev = "fb0210303f67325162a5f132b6a3f709dcd8e181";
-        sha256 = "17hwh0ixnn5d9dbl1gaygbhb1zv4aamqkqf70pcgq1h9124mjshj";
-      };
+      src = (import ../../sources).sddm-theme-clairvoyance;
       config = ''
         [General]
         background=${config.mine.assets.display-manager}
@@ -49,12 +44,7 @@ let
     };
     aerial = mkTheme {
       name = "aerial";
-      src = pkgs'.fetchFromGitHub {
-        owner = "3ximus";
-        repo = "aerial-sddm-theme";
-        rev = "90d9941acaafd25cdaba0f74a1768dd5a866250a";
-        sha256 = "0sxjji189ss4ky7lvs8jc3bnfkl32p04sgbkl7gafwbqqv84f9nb";
-      };
+      src = (import ../../sources).aerial-sddm-theme;
       config = ''
         [General]
         background=background.jpg

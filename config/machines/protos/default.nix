@@ -1,19 +1,11 @@
 { config, ... }:
 
-let
-
-  module = fetchTarball {
-    url = "https://github.com/Infinisil/nixbot/archive/0bc49bc28d9a9aaf2714eb8d619f8ce6ce572974.tar.gz";
-    sha256 = "18mdn0cnimg70zpdd1lqs0s57bskyx6q31km4z1sychhqnvynwlj";
-  } + "/module.nix";
-
-in
 {
 
   imports = [
     ../../hardware/do
     ./hardware-configuration.nix
-    module
+    ((import ../../sources).nixbot + "/module.nix")
   ];
 
   mine.profiles.server.enable = true;
