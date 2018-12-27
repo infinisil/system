@@ -30,11 +30,13 @@ for attr in $attrs; do
 		echo -n "$gitDir has been updated from $(echo "$oldRev" | cut -b1-8) to" \
 			"$(echo "$masterRev" | cut -b1-8), updating $file..  "
 
-		correctHash=$(sed "$file" \
+		tmp=$(mktemp)
+		sed "$file" >"$tmp" \
 			-e "s/rev *= *\".*\"/rev = \"$masterRev\"/" \
-			-e "s/sha256 *= *\".*\"/sha256 = \"$defSha256\"/" \
-			| 2>&1 nix-build - --no-out-link \
-				--arg pkgs "import $DIR/../../external/nixpkgs {}" \
+			-e "s/sha256 *= *\".*\"/sha256 = \"$defSha256\"/"
+
+		correctHash=$(nix-build "$DIR/call.nix" 2>&1 \
+			--arg file "$tmp" --no-out-link \
 			| rg "'([a-z0-9]*)' instead of the expected hash" -or '$1')
 
 		sed -i "$file" \
