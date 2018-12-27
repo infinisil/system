@@ -1,4 +1,4 @@
-{ label, host }:
+{ label, host-ips }:
 
 let
 
@@ -14,55 +14,55 @@ let
     }
   '';
 
+  deployer = { pkgs, ... }: {
+    environment.systemPackages = [ pkgs.nixopsUnstable ];
+
+    environment.shellAliases = {
+      rb = toString ./rb;
+    };
+
+    environment.variables = {
+      NIXOPS_STATE = toString ../external/private/deployments.nixops;
+      NIXOPS_DEPLOYMENT = "infinisil";
+    };
+  };
+
 in
 {
   network.description = "Infinisil's machines";
 
-  defaults = { deploymentName, ... }: {
+  defaults = { name, lib, ... }: {
+    deployment.targetHost = host-ips.${name};
     system.nixos.label = label;
     imports = [ ../config ];
 
     nix.nixPath = [
       "nixos-config=${nixosConfig}"
+      "nixpkgs=${lib.cleanSource (toString ../external/nixpkgs)}"
     ];
-
-    mine.deployer = {
-      enableNixpkgs = true;
-      remote = "git@github.com:Infinisil/system.git";
-      nixops.state = ../external/private/deployments.nixops;
-      nixops.deployment = deploymentName;
-      directory = "/home/infinisil/cfg";
-      nixpkgs = ../external/nixpkgs;
-    };
   };
 
   protos = {
-    deployment.targetHost = "104.248.129.84";
     imports = [
       ../config/machines/protos
       ../external/private/machines/protos.nix
     ];
   };
 
-  ninur = { pkgs, ... }: {
-    deployment.targetHost = if host == "emma"
-      then "localhost" else "192.168.178.21";
-    #deployment.targetHost = "10.149.76.3";
+  ninur = {
     deployment.hasFastConnection = true;
     imports = [
       ../config/machines/ninur
       ../external/private/machines/ninur.nix
+      deployer
     ];
-    mine.deployer.enable = true;
   };
 
-  vario = { pkgs, ... }: {
-    deployment.targetHost = "localhost";
-    #deployment.targetHost = "10.149.76.2";
+  vario = {
     imports = [
       ../config/machines/vario
       ../external/private/machines/vario.nix
+      deployer
     ];
-    mine.deployer.enable = true;
   };
 }

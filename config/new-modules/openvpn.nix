@@ -27,8 +27,8 @@ let
     client-config = pkgs.runCommand "openvpn-client-config" {} (''
       mkdir $out
     '' + concatMapStringsSep "\n" (name: ''
-      echo "ifconfig-push ${cfg.server.client.${name}} ${cfg.server.subnetMask}" > $out/${name}
-    '') (attrNames cfg.server.clients));
+      echo "ifconfig-push ${cfg.server.fixedClients.${name}} ${cfg.server.subnetMask}" > $out/${name}
+    '') (attrNames cfg.server.fixedClients));
   in ''
     server ${cfg.server.subnet} ${cfg.server.subnetMask}
     port ${toString port}

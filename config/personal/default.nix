@@ -25,7 +25,7 @@
 
   mine.openvpn.server = {
     subnet = "10.149.76.0";
-    fixedClients = builtins.removeAttrs [ "protos" ] config.networking.connectivitySpec.vpn;
+    fixedClients = builtins.removeAttrs config.networking.connectivitySpec.vpn [ "protos" ];
   };
 
   mine.xUserConfig = {

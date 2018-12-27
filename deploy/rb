@@ -1,0 +1,32 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash rb.nix
+set -euo pipefail
+
+DEF_BRANCH=master
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+git() { command -p git -C "$DIR/.." "$@"; }
+gitbranch() { git symbolic-ref --short HEAD; }
+
+if [ ! -z "$(git add --all --dry-run)" ]; then
+	if [ "$(gitbranch)" = "$DEF_BRANCH" ]; then
+		echo -n "Enter (new) feature branch name [$DEF_BRANCH]: "
+		read branch
+		if [ ! -z "$branch" ]; then
+			git checkout -B "$branch"
+		fi
+	fi
+	git add --all
+	git commit -v --allow-empty-message
+fi
+
+branch="$(gitbranch | \
+	sed 's/^\.*//' | tr -cs '+-._?=[:alnum:]' -)"
+msg="$(git log --pretty=format:'%h-%f' -1 \
+	--no-merges --grep=".+" --extended-regexp)"
+label="$(printf "%s-%.35s" "$branch" "$msg")"
+
+args="-s $(realpath "$DIR/../external/private/deployments.nixops") -d infinisil"
+sudo nixops set-args $args --argstr label "$label"
+sudo nixops set-args $args --arg host-ips "$("$DIR/preferred-ip")"
+sudo nixops deploy $args $@
