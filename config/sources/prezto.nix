@@ -1,7 +1,7 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "sorin-ionescu";
   repo = "prezto";
-  rev = "300102897a4710e1559e4435c686f794d126d3c3";
-  sha256 = "00f53kx72sbng1k6rdicmz3j04zfgmydaxixm8wp4pq7apffcb34";
+  rev = "a338cba805f63f770e9078925bc5c46129e28bde";
+  sha256 = "07xzw9sli4cdb56zgy36n2f5x13kxyxbyh4ags030b64079br5a0";
   fetchSubmodules = true;
 }

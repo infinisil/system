@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "3ximus";
   repo = "aerial-sddm-theme";
-  rev = "90d9941acaafd25cdaba0f74a1768dd5a866250a";
-  sha256 = "0sxjji189ss4ky7lvs8jc3bnfkl32p04sgbkl7gafwbqqv84f9nb";
+  rev = "a835026ccb382fdd236dcb50187462c15c17c3cf";
+  sha256 = "1givdjq05g085nb50aqyjg2xd90cavcnlna6v1pafq274918f7mw";
 }
