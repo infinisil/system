@@ -32,7 +32,7 @@ in
   network.description = "Infinisil's machines";
 
   defaults = { name, lib, ... }: {
-    deployment.targetHost = host-ips.${name};
+    deployment.targetHost = host-ips.${name} or "${name}.invalid";
     system.nixos.label = label;
     imports = [ ../config ];
 
