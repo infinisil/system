@@ -11,7 +11,8 @@ with lib;
   config = {
     environment.systemPackages = [ config.mine.firefox ];
     nixpkgs.config.firefox.enableBrowserpass = true;
-    mine.firefox = pkgs.firefox-beta-bin;
+    # Note: extensions don't work with -bin versions of firefox
+    mine.firefox = pkgs.firefox;
   };
 
 }
