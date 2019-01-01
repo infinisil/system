@@ -56,6 +56,8 @@ with lib;
       blockhash
       mine.Dark
       xournal
+      unrar
+      syncplay
     ];
 
     services.usbmuxd.enable = true;

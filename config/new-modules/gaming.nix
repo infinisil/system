@@ -18,6 +18,7 @@ with lib;
       steam
       minecraft
       mine.erisia-updater
+      teamspeak_client
       #(wineStaging.override {
       #  wineBuild = "wineWow";
       #  gstreamerSupport = false;
