@@ -17,6 +17,7 @@ with lib;
     environment.systemPackages = with pkgs; [
       steam
       minecraft
+      mine.erisia-updater
       #(wineStaging.override {
       #  wineBuild = "wineWow";
       #  gstreamerSupport = false;
