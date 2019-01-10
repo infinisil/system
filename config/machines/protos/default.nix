@@ -10,7 +10,20 @@
 
   mine.profiles.server.enable = true;
 
-  services.nixbot.enable = true;
+  users.users.infinisil.extraGroups = [ "nixbot" ];
+  users.users.nginx.extraGroups = [ "nixbot" ];
+
+  services.nixbot = {
+    enable = true;
+    config.karmaBlacklist = [
+      "c"
+    ];
+  };
+
+  services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+  };
 
   services.ipfs = {
     enable = true;
@@ -71,7 +84,7 @@
     locations."/".proxyPass = "http://${config.networking.connections.vario}";
   };
 
-  mine.subdomains = [ "vario" "ninur" ];
+  mine.subdomains = [ "vario" "ninur" "nixbot" ];
 
   networking = {
     hostName = "protos";
