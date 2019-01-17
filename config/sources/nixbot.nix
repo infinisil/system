@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "Infinisil";
   repo = "nixbot";
-  rev = "1fb7a72d46513a6417956293460340bfeebc8473";
-  sha256 = "0756j21p7zvc8ibsjdam8141lg7gf3clgvk81pgzdiz41gyg710v";
+  rev = "23559dd2a3a8710329bcdad8226fbd2f82abd832";
+  sha256 = "10j57acsrwfx60fhc8zk64i8a8igpxjlsy3zd65r6sdrp80q8ggk";
 }
