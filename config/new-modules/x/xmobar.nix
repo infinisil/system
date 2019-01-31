@@ -91,6 +91,13 @@ in {
 
         chargeInteger=$(printf "%.0f\n" "$charge")
 
+
+        if [ $chargeInteger -le 0 ]; then
+          chargeInteger=0
+        elif [ $chargeInteger -ge 100 ]; then
+          chargeInteger=100
+        fi
+
         if [ $chargeInteger -le 12 ]; then
           symbol=
         elif [ $chargeInteger -le 37 ]; then
