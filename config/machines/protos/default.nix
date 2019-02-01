@@ -103,6 +103,6 @@
       }];
     };
 
-    firewall.allowedTCPPorts = [ 12345 ];
+    firewall.allowedTCPPorts = [ 12345 1500 1501 ];
   };
 }
