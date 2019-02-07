@@ -5,6 +5,8 @@ set -euo pipefail
 DEF_BRANCH=master
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+export NIX_PATH="nixpkgs=$DIR/../external/nixpkgs"
+
 git() { command -p git -C "$DIR/.." "$@"; }
 gitbranch() { git symbolic-ref --short HEAD; }
 
