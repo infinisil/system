@@ -7,7 +7,10 @@
     ./bins.nix
   ];
 
-  mine.keylayout.layoutFile = ./keymap.xkb;
+  mine.keylayout = {
+    layoutFile = ./keymap.xkb;
+    xcapeConfig."#94" = "Escape";
+  };
 
   networking.extraHosts = ''
     192.168.178.1 fritz.box
