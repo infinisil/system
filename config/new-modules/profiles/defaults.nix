@@ -50,6 +50,8 @@ with lib;
     ];
   };
 
+  home-manager.useUserPackages = true;
+
   security.sudo.wheelNeedsPassword = false;
 
   boot.cleanTmpDir = true;
