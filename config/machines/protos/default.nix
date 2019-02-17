@@ -66,6 +66,11 @@
           dataset = "tank/root/music";
           plan = "1hour=>1hour";
         };
+        destinations.vario = {
+          host = config.networking.connections.vario;
+          dataset = "main/music";
+          plan = "1hour=>1hour";
+        };
       };
     };
   };
