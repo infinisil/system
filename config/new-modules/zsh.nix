@@ -123,7 +123,7 @@ mkIf config.mine.console.enable {
         }
 
         pst() {
-          ssh inf pst $1 | xclip -selection clipboard
+          ssh protos pst $1 | xclip -selection clipboard
         }
 
         zle -N repeat_last __opt_repeat_last
