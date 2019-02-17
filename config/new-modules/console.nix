@@ -12,11 +12,9 @@ with lib;
 
   config = mkIf config.mine.console.enable {
 
-    mine.vim.enable = true;
-
-    programs.command-not-found.enable = true;
-
     environment.pathsToLink = [ "/share/zsh" ];
+
+    mine.vim.enable = true;
 
     programs.zsh = {
       enable = true;
@@ -25,7 +23,6 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       direnv
-      nix-zsh-completions
       gitFull
       tmux
       lsof
@@ -33,7 +30,6 @@ with lib;
       dnsutils
       gnupg
       taskwarrior
-      tldr
       mtr
       iftop
       atool
@@ -49,31 +45,22 @@ with lib;
       nmap
       traceroute
       nix-top
+      fd
+      gitAndTools.hub
+      fzf
+      sqliteInteractive
+      gnumake
+      exa
+      asciinema
+      ncdu
+      whois
+      exa
+      aspellDicts.en
     ];
 
     users.defaultUserShell = pkgs.zsh;
 
     mine.userConfig = {
-
-      home.packages = with pkgs; [
-        ranger
-        gnupg
-        fd
-        tig
-        gitAndTools.hub
-        fzf
-        sqliteInteractive
-        gnumake
-        exa
-        asciinema
-        cmatrix
-        ncdu
-        whois
-        exa
-        aspellDicts.en
-        expect
-        ansifilter
-      ];
 
       home.file.".sqliterc".text = ''
         .headers on
@@ -82,9 +69,6 @@ with lib;
       '';
 
       home.sessionVariables = rec {
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_CACHE_HOME = "$HOME/.cache";
         WEECHAT_HOME = "$HOME/.config/weechat";
         LESSHISTFILE = "-";
       };
@@ -94,9 +78,7 @@ with lib;
         package = pkgs.gitFull;
         userName = "Silvan Mosberger";
         userEmail = "infinisil@icloud.com";
-        aliases = {
-          lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-        };
+        aliases.lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         signing = {
           key = "5B2CFBD8E6AD7FC113D675A89424360B4B85C9E7";
           signByDefault = true;
@@ -104,8 +86,6 @@ with lib;
         };
         iniContent.credential.helper = "store";
       };
-
-      programs.command-not-found.enable = true;
 
     };
 
