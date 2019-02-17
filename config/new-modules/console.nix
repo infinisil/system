@@ -48,6 +48,7 @@ with lib;
       tokei
       nmap
       traceroute
+      nix-top
     ];
 
     users.defaultUserShell = pkgs.zsh;
