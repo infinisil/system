@@ -5,8 +5,6 @@ set -euo pipefail
 DEF_BRANCH=master
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-export NIX_PATH="nixpkgs=$DIR/../external/nixpkgs"
-
 git() { command -p git -C "$DIR/.." "$@"; }
 gitbranch() { git symbolic-ref --short HEAD; }
 
@@ -31,4 +29,4 @@ label="$(printf "%s-%.35s" "$branch" "$msg")"
 args="-s $(realpath "$DIR/../external/private/deployments.nixops") -d infinisil"
 sudo nixops set-args $args --argstr label "$label"
 sudo nixops set-args $args --arg host-ips "$("$DIR/preferred-ip")"
-sudo nixops deploy $args $@
+sudo nixops deploy $args -I nixpkgs=$DIR/../external/nixpkgs $@
