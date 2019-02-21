@@ -13,6 +13,13 @@
   users.users.infinisil.extraGroups = [ "nixbot" ];
   users.users.nginx.extraGroups = [ "nixbot" ];
 
+  services.murmur' = {
+    enable = true;
+    openFirewall = true;
+    config.registerName = "Infinisil's Server";
+    acmeDomain = "infinisil.com";
+  };
+
   services.nixbot = {
     enable = true;
     config.karmaBlacklist = [
