@@ -14,6 +14,8 @@ with lib;
       KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0666"
     '';
 
+    nixpkgs.config.pulseaudio = true;
+
     environment.systemPackages = with pkgs; [
       steam
       minecraft
@@ -23,6 +25,7 @@ with lib;
       #  wineBuild = "wineWow";
       #  gstreamerSupport = false;
       #})
+      mumble_git
     ];
 
   };
