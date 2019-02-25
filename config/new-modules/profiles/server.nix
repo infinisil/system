@@ -8,7 +8,7 @@ with lib;
 
   config = mkIf config.mine.profiles.server.enable {
 
-    #mine.radicale.enable = true;
+    mine.radicale.enable = true;
 
     services.taskserver.enable = true;
 
