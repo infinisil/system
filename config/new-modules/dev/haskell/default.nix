@@ -4,14 +4,6 @@ with lib;
 
 let
 
-  hie = import (import ../../../sources).hie-nix {};
-
-  hiebin = pkgs.writeScriptBin "hie" ''
-    #!${pkgs.stdenv.shell}
-    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ pkgs.gmp ]}:$LD_LIBRARY_PATH"
-    exec ${pkgs.direnv}/bin/direnv exec . ${hie.hies}/bin/hie-wrapper "$@"
-  '';
-
   snack = (import (import ../../../sources).snack).snack-exe;
 
 in
@@ -23,9 +15,6 @@ in
   config = mkIf config.mine.dev.haskell.enable {
 
     environment.systemPackages = with pkgs; [
-      hie.hies
-      hiebin
-
       stack
 
       cabal2nix

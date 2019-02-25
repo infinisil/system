@@ -1,6 +1,19 @@
-{ config, lib, epkgs, dag, ... }:
+{ pkgs, config, lib, epkgs, dag, ... }:
+
 
 with lib;
+
+let
+
+  hie = import (import ../../sources).hie-nix {};
+
+  hiebin = pkgs.writeScriptBin "hie" ''
+    #!${pkgs.stdenv.shell}
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ pkgs.gmp ]}:$LD_LIBRARY_PATH"
+    exec ${pkgs.direnv}/bin/direnv exec . ${hie.hies}/bin/hie-wrapper "$@"
+  '';
+
+in
 
 {
 
@@ -13,6 +26,7 @@ with lib;
   config = mkIf config.haskell {
     packages = with epkgs; [
       company
+      company-lsp
       flycheck
       lsp-mode
       lsp-ui
@@ -20,27 +34,24 @@ with lib;
       haskell-mode
       company-quickhelp
       hasky-extensions
-      structured-haskell-mode
     ];
 
     init.hs = dag.entryAfter [ "pkgs" ] ''
-      (require 'lsp-ui)
+      (setq lsp-haskell-process-path-hie "${hiebin}/bin/hie")
+      (require 'lsp)
       (require 'lsp-haskell)
+      (add-hook 'haskell-mode-hook #'lsp)
+
       (add-hook 'haskell-mode-hook (lambda () (haskell-indentation-mode nil)))
-      (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-      (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
-      (add-hook 'haskell-mode-hook 'flycheck-mode)
-      ;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+
       (defun hasky-keys ()
         "Hasky extension key binds"
         (require 'hasky-extensions)
         (local-set-key (kbd "C-c C-y") #'hasky-extensions)
         )
       (add-hook 'haskell-mode-hook 'hasky-keys)
-      ;(require 'company-lsp)
-      ;(push 'company-lsp company-backends)
-      (global-company-mode)
-      (company-quickhelp-mode)
+      ;(global-company-mode)
+      ;(company-quickhelp-mode)
     '';
   };
 }
