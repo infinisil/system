@@ -37,7 +37,7 @@ for attr in $attrs; do
 
 		correctHash=$(nix-build "$DIR/call.nix" 2>&1 \
 			--arg file "$tmp" --no-out-link \
-			| rg "'([a-z0-9]*)' instead of the expected hash" -or '$1')
+			| rg "got:.*sha256:([a-z0-9]*)" -or '$1')
 
 		sed -i "$file" \
 			-e "s/rev *= *\".*\"/rev = \"$masterRev\"/" \
