@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "domenkozar";
   repo = "hie-nix";
-  rev = "a7ef4c4ceef1dbf46aabff68a4b9bd86d41d0886";
-  sha256 = "1hx449l001jc6ijn9zxx30zr1xr2nnrv7qmhpsqwj8wp6s4zyxw8";
+  rev = "6794005f909600679d0b7894d0e7140985920775";
+  sha256 = "0pc90ns0xcsa6b630d8kkq5zg8yzszbgd7qmnylkqpa0l58zvnpn";
 }
