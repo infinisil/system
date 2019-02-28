@@ -14,6 +14,15 @@
 
   mine.profiles.desktop.enable = true;
 
+  services.xserver.xrandrHeads = [
+    {
+      output = "HDMI-0";
+      monitorConfig = ''
+        Option "Enable" "false"
+      '';
+    }
+  ];
+
   mine.compton.highend = true;
   services.ipfs = {
     enable = true;
