@@ -36,9 +36,10 @@ in
 
       (defun hie-wrapper (argv)
         (append
-          (append (list "nix-shell" "--command")
+          (append (list "nix-shell" "--pure" "--command")
                   (list (mapconcat 'identity argv " ")))
-          (list (lsp-haskell--get-root))))
+          ; FIXME: Doesn't work with only a default.nix
+          (list (concat (lsp-haskell--get-root) "/shell.nix"))))
 
       (defun hasky-keys ()
         "Hasky extension key binds"
