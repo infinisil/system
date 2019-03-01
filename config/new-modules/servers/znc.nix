@@ -54,6 +54,10 @@ in
 
   config = mkIf cfg.enable {
 
+    users.users = genAttrs config.mine.mainUsers (name: {
+      extraGroups = [ "znc" ];
+    });
+
     security.acme.certs.${config.networking.domain}.postRun = ''
       cp full.pem "${config.services.znc.dataDir}/znc.pem"
     '';
