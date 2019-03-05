@@ -4,6 +4,8 @@ with lib;
 
 {
 
+  imports = [ "${(import ../../sources).futureInternetProjects}/project1/module.nix" ];
+
   options.mine.profiles.desktop = {
     enable = mkEnableOption "desktop config";
   };
