@@ -22,9 +22,12 @@
 
   services.nixbot = {
     enable = true;
-    config.karmaBlacklist = [
-      "c"
-    ];
+    config = {
+      nixPath' = [ "nixbotlib=/var/lib/nixbot/lib" ];
+      karmaBlacklist = [
+        "c"
+      ];
+    };
   };
 
   services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
