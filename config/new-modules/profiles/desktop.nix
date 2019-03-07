@@ -4,13 +4,15 @@ with lib;
 
 {
 
-  imports = [ "${(import ../../sources).futureInternetProjects}/project1/module.nix" ];
+  imports = [ "${(import ../../sources).futureInternetProjects}/module.nix" ];
 
   options.mine.profiles.desktop = {
     enable = mkEnableOption "desktop config";
   };
 
   config = mkIf config.mine.profiles.desktop.enable {
+
+    eth.futureInternet.enable = true;
 
     mine.emacs.enable = true;
 
