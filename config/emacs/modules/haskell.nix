@@ -54,6 +54,7 @@ in
       (setq lsp-prefer-flymake nil)
       (setq lsp-ui-doc-max-height 10)
       (setq lsp-ui-doc-max-width 80)
+      (setq lsp-ui-sideline-ignore-duplicate t)
 
       (add-hook 'haskell-mode-hook #'lsp)
       (add-hook 'haskell-mode-hook (lambda () (haskell-indentation-mode nil)))
