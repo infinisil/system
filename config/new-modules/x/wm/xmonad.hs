@@ -1,4 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE LambdaCase       #-}
 import qualified Data.Map                            as M
 import           Data.Maybe
 import           Graphics.X11.Types
@@ -6,6 +7,7 @@ import           System.Environment                  (getEnv)
 import qualified Text.Fuzzy                          as Fuzz
 import           Text.Read                           (readMaybe)
 import           XMonad
+import           XMonad.Actions.DeManage
 import           XMonad.Actions.Navigation2D
 import           XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.EwmhDesktops           as EWMH
@@ -33,6 +35,10 @@ import           XMonad.Util.EZConfig
 import           XMonad.Layout.IndependentScreens    (countScreens,
                                                       onCurrentScreen,
                                                       withScreens, workspaces')
+
+import           Control.Monad                       (when)
+import           Data.Semigroup
+import           XMonad.Actions.CopyWindow
 
 layoutSpacing =
   mods $ mkToggle (single FULL) emptyBSP
@@ -131,6 +137,7 @@ myKeymap c n =
   , ("M4-r", sendMessage Rotate)
   , ("M4-b b", sendMessage Balance)
   , ("M4-b e", sendMessage Equalize)
+  , ("M4-d", withFocused demanage)
   ] ++ [
   ("M4-" ++ shift ++ key, windows $ (if n == 1 then id else onCurrentScreen) f i) |
     (i, key) <- zip (if n == 1 then XMonad.workspaces c else workspaces' c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
@@ -148,18 +155,37 @@ main = do
     then xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
     else xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layout
 
-myConfig n layout = def
+copyWindowToAll :: (Eq a, Eq i, Eq s) => a -> W.StackSet i l a s sd -> W.StackSet i l a s sd
+copyWindowToAll w s = foldr (copyWindow w . W.tag) s (W.workspaces s)
+
+copyShivacam :: Event -> X All
+copyShivacam MapRequestEvent { ev_window = w } = runQuery title w >>= \case
+  "shivacam" -> withDisplay $ \dpy -> do
+    withWindowAttributes dpy w $ \wa -> do
+      managed <- isClient w
+      when (not (wa_override_redirect wa) && not managed) $ manage w
+
+    windows $ copyWindowToAll w
+    return $ All False
+  _ -> return $ All True
+copyShivacam _ = return $ All True
+
+
+myConfig :: ScreenId -> l Window -> XConfig l
+myConfig n l = def
     { terminal = "@terminal@"
     , modMask = mod4Mask
     , manageHook =
+      (title =? "shivacam" --> doFloat) <+>
       (title =? "Dunst" --> insertPosition Above Older) <+>
       (isFullscreen --> doFullFloat) <+>
       manageHook def
-    , layoutHook = layout
+    , layoutHook = l
     , workspaces = (if n == 1 then id else withScreens n) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     , handleEventHook =
-      handleEventHook def <+>
-      EWMH.fullscreenEventHook
+      copyShivacam <+>
+      EWMH.fullscreenEventHook <+>
+      EWMH.ewmhDesktopsEventHook
     , logHook = dynamicLogString xmobarPP
       { ppTitle = xmobarColor "green" "" . shorten 30
       } >>= xmonadPropLog
