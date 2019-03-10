@@ -31,7 +31,12 @@ let
   # TODO: Handle dag cycle error gracefully
   initFile = pkgs.writeText "init.el" (concatMapStringsSep "\n\n" ({ name, data }:
     "; Section ${name}\n${data}"
-  ) (dag.dagTopoSort config.init).result);
+    ) ([ {
+      name = "pkgs";
+      data = ''
+        (package-initialize)
+      '';
+    }] ++ (dag.dagTopoSort config.init).result));
 
   overrides = self: super: {
     nix-mode = super.nix-mode.overrideAttrs (old: {
@@ -101,10 +106,6 @@ in
     };
 
     inherit initFile emacs exec;
-
-    init.pkgs = dag.entryAnywhere ''
-      (package-initialize)
-    '';
 
   };
 }

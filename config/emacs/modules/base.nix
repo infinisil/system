@@ -26,7 +26,7 @@ with lib;
     ];
 
     init = {
-      theme = dag.entryAfter [ "pkgs" ] ''
+      theme = ''
         (load-theme 'gruvbox t)
       '';
 

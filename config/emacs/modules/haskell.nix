@@ -30,7 +30,7 @@ in
       hasky-extensions
     ];
 
-    init.hs = dag.entryAfter [ "pkgs" ] ''
+    init.hs = ''
       (require 'lsp)
       (require 'lsp-haskell)
 

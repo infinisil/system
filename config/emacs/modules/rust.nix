@@ -17,7 +17,7 @@ with lib;
       cargo
     ];
 
-    init.rust = dag.entryAfter [ "pkgs" ] ''
+    init.rust = ''
       (add-hook 'rust-mode-hook 'cargo-minor-mode)
 
       (with-eval-after-load 'lsp-mode

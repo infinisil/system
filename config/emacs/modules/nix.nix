@@ -45,12 +45,11 @@ in
     ]);
 
     init = {
-      xml = dag.entryAfter [ "pkgs" ] ''
+      xml = ''
         (setq flycheck-xml-xmlstarlet-executable "${pkgs.xmlstarlet}/bin/xml")
       '';
 
-      nixflycheck = dag.entryAfter [ "pkgs" ] ''
-
+      nixflycheck = ''
         (require 'flycheck)
         (add-to-list 'company-backends 'company-nixos-options)
       '';
