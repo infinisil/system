@@ -34,17 +34,20 @@ rec {
 
   connections = {
     ninur = {
+      ninur = "localhost";
       protos = public.protos;
       vario = vpn.vario;
       vario-e = local.ninur.vario.ethernet;
     };
     vario = {
+      vario = "localhost";
       protos = public.protos;
       ninur = vpn.ninur;
       ninur-w = local.vario.ninur.wireless;
       ninur-e = local.vario.ninur.ethernet;
     };
     protos = {
+      protos = "localhost";
       vario = vpn.vario;
       ninur = vpn.ninur;
     };
