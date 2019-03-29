@@ -22,7 +22,10 @@ for attr in $attrs; do
 	gitDir=$(nix-instantiate --eval --strict --json \
 		"$DIR/default.nix" -A "$attr.meta.homepage" | jq . -r)
 
-	masterRev=$(git ls-remote "$gitDir" HEAD | cut -f1)
+	branch=$(nix-instantiate --eval --strict --json \
+		-E "(import $DIR/default.nix).$attr.meta.branch or \"\"" | jq . -r)
+
+	masterRev=$(git ls-remote "$gitDir" "${branch:-HEAD}" | cut -f1)
 
 	if [ "$oldRev" = "$masterRev" ]; then
 		echo "$gitDir is up to date"
