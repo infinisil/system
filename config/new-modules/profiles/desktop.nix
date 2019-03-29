@@ -62,6 +62,10 @@ with lib;
       xournal
       unrar
       syncplay
+      (
+        let src = (import ../../sources).lorri;
+        in import src { inherit src; }
+      )
     ];
 
     services.usbmuxd.enable = true;
