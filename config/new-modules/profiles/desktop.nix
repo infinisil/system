@@ -66,6 +66,7 @@ with lib;
         let src = (import ../../sources).lorri;
         in import src { inherit src; }
       )
+      cachix
     ];
 
     services.usbmuxd.enable = true;
