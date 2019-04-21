@@ -65,4 +65,10 @@ in
       deployer
     ];
   };
+
+  orakel = {
+    imports = [
+      ../config/machines/orakel
+    ];
+  };
 }

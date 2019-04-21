@@ -4,10 +4,12 @@ rec {
     "protos"
     "vario"
     "ninur"
+    "orakel"
   ];
 
   public = {
     protos = "104.248.129.84";
+    orakel = "51.15.187.150";
   };
 
   vpn = {
@@ -38,6 +40,7 @@ rec {
       protos = public.protos;
       vario = vpn.vario;
       vario-e = local.ninur.vario.ethernet;
+      orakel = public.orakel;
     };
     vario = {
       vario = "localhost";
@@ -45,11 +48,17 @@ rec {
       ninur = vpn.ninur;
       ninur-w = local.vario.ninur.wireless;
       ninur-e = local.vario.ninur.ethernet;
+      orakel = public.orakel;
     };
     protos = {
       protos = "localhost";
       vario = vpn.vario;
       ninur = vpn.ninur;
+      orakel = public.orakel;
+    };
+    orakel = {
+      orakel = "localhost";
+      protos = public.protos;
     };
   };
 
