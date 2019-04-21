@@ -20,6 +20,10 @@ with lib;
 
     mine.userConfig = {
       services.flameshot.enable = true;
+      services.gpg-agent = {
+        enable = true;
+        enableSshSupport = true;
+      };
     };
 
     mine.drawing.enable = true;

@@ -12,8 +12,6 @@ with lib;
 
   config = mkIf config.mine.sshd.enable {
 
-    programs.ssh.startAgent = true;
-
     services.openssh = {
       enable = true;
       forwardX11 = true;
