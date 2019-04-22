@@ -82,7 +82,7 @@ in
               echo Checking for new videos
               ${pkgs.youtube-dl}/bin/youtube-dl ${args}
               echo Sleeping for 1 minute
-              sleep 60
+              sleep 600
             done
           '';
         in youtube-script;

@@ -66,7 +66,7 @@ with lib;
       mine.imgurdl
     ];
 
-    networking.firewall.logRefusedConnections = true;
+    networking.firewall.logRefusedConnections = false;
 
     services.openssh = {
       enable = true;
