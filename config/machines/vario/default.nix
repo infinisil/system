@@ -41,8 +41,6 @@
     autostart = true;
   };
 
-  mine.eth.sem6.enable = true;
-
   mine.dev.rust.enable = true;
 
   mine.server-sync = {

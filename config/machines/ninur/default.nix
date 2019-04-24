@@ -97,8 +97,6 @@
 
   mine.profiles.desktop.enable = true;
 
-  mine.eth.sem6.enable = true;
-
   mine.dev.rust.enable = true;
 
   hardware.opengl.enable = true;

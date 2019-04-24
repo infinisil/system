@@ -27,8 +27,6 @@ with lib;
       };
     };
 
-    mine.eth.mlServer = true;
-
     mine.web = {
       enable = true;
       root = "/webroot/www";
