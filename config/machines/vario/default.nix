@@ -1,9 +1,19 @@
 { lib, config, pkgs, ... }: {
 
   imports = [
-    ../../hardware/pc
     ./hardware-configuration.nix
   ];
+
+
+  mine.hardware = {
+    swap = true;
+    cpuCount = 8;
+    audio = true;
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  mine.compton.nvidia = true;
 
   hardware.opengl.driSupport32Bit = true;
 

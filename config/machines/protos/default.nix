@@ -3,10 +3,14 @@
 {
 
   imports = [
-    ../../hardware/do
     ./hardware-configuration.nix
     ((import ../../sources).nixbot + "/module.nix")
   ];
+
+  mine.hardware = {
+    cpuCount = 1;
+    swap = true;
+  };
 
   mine.profiles.server.enable = true;
 
