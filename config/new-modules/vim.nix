@@ -18,6 +18,14 @@ in
       mkdir -p $HOME/.local/share/vim/{undo,swap,backup}
     '';
 
+    nixpkgs.overlays = [(self: super: {
+      ycmd = super.ycmd.override {
+        gocode = null;
+        godef = null;
+        rustracerd = null;
+      };
+    })];
+
     programs.vim = {
       enable = true;
       settings = {
