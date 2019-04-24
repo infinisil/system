@@ -23,9 +23,6 @@ with lib;
   };
 
   nix = {
-    #package = pkgs.nixUnstable;
-    useSandbox = true;
-    buildCores = 0;
     autoOptimiseStore = true;
     trustedUsers = [ "root" "@wheel" ];
     daemonNiceLevel = 1;
