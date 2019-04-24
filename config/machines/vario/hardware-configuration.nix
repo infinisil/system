@@ -32,6 +32,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/home/infinisil/music" =
+    { device = "main/music";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/bee530de-fa34-4720-b047-121be58dff56"; }
     ];
