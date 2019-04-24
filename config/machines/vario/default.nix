@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
   ];
 
+  mine.saveSpace = true;
 
   mine.hardware = {
     swap = true;

@@ -23,7 +23,6 @@ with lib;
   };
 
   nix = {
-    autoOptimiseStore = true;
     trustedUsers = [ "root" "@wheel" ];
     daemonNiceLevel = 1;
 

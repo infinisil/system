@@ -7,6 +7,8 @@
     ((import ../../sources).nixbot + "/module.nix")
   ];
 
+  mine.saveSpace = true;
+
   mine.hardware = {
     cpuCount = 1;
     swap = true;

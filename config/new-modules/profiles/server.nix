@@ -52,13 +52,6 @@ with lib;
     boot.loader.timeout = 60;
     boot.loader.grub.splashImage = null;
 
-    # minimalization, taken from <nixpkgs/nixos/modules/profiles>
-    sound.enable = false;
-    boot.kernelParams = [ "panic=1" "boot.panic_on_fail" ];
-    systemd.enableEmergencyMode = false;
-    fonts.fontconfig.enable = false;
-    i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
-
     environment.systemPackages = with pkgs; [
       youtube-dl
       mine.imgurdl
@@ -78,15 +71,6 @@ with lib;
     };
 
     services.vnstat.enable = true;
-
-    nix = {
-      autoOptimiseStore = true;
-      gc = {
-        automatic = true;
-        dates = "daily";
-        options = "--delete-older-than 7d";
-      };
-    };
 
     home-manager.users.infinisil = {
       # https://github.com/keybase/keybase-issues/issues/1712#issuecomment-141226705
