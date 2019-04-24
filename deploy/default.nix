@@ -36,9 +36,11 @@ in
     system.nixos.label = label;
     imports = [ ../config ];
 
+    environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
+
     nix.nixPath = [
       "nixos-config=${nixosConfig}"
-      "nixpkgs=${lib.cleanSource (toString ../external/nixpkgs)}"
+      "nixpkgs=/etc/nixpkgs"
     ];
   };
 
