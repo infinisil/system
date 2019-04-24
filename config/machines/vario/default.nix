@@ -97,9 +97,6 @@
   networking = {
     hostName = "vario";
     hostId = "56236562";
-    extraHosts = ''
-      192.168.1.1 swisscom.mobile
-    '';
     firewall.allowedTCPPorts = [ 80 ];
   };
 }
