@@ -27,4 +27,6 @@ in
   config.environment.systemPackages =
     mkIf (config.mine.binalias != {}) [ result ];
 
+  # TODO: Add shell aliases too, then autocomplete can work
+
 }

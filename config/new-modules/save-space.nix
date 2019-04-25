@@ -8,7 +8,9 @@
       autoOptimiseStore = true;
       gc = {
         automatic = true;
+        # TODO: Increase interval to e.g. every 10 minutes?
         dates = "daily";
+        # TODO: Add -v so I can see progress when it deletes links
         options = "--delete-older-than 7d";
       };
     };

@@ -1,5 +1,7 @@
 { lib, fetchFromGitHub }:
 
+# TODO: Clean up this mess
+
 { nvidia ? false }:
 
 let
