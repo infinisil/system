@@ -5,7 +5,13 @@ with lib;
 
 let
 
-  hie = import (import ../../sources).hie-nix {};
+  all-hies = import (import ../../sources).all-hies {};
+
+  hie = all-hies.selection {
+    selector = p: {
+      inherit (p) ghc844;
+    };
+  };
 
 in
 
@@ -46,7 +52,7 @@ in
         (require 'hasky-extensions)
         (local-set-key (kbd "C-c C-y") #'hasky-extensions))
 
-      (setq lsp-haskell-process-path-hie "${hie.hies}/bin/hie-wrapper")
+      (setq lsp-haskell-process-path-hie "${hie}/bin/hie-wrapper")
       (setq lsp-haskell-process-args-hie (quote ("--vomit" "-d" "-l" "/tmp/hie.log")))
       (setq lsp-haskell-process-wrapper-function 'hie-wrapper)
 
