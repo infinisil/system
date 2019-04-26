@@ -64,11 +64,6 @@
     };
   };
 
-  shivacam = {
-    cam.enable = true;
-    viewer.host = "ninur";
-  };
-
   mine.openvpn.client = {
     enable = true;
     server = config.networking.connections.protos;

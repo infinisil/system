@@ -25,8 +25,6 @@
 
   mine.profiles.desktop.enable = true;
 
-  shivacam.viewer.host = "ninur-w";
-
   services.xserver.xrandrHeads = [
     {
       output = "HDMI-0";

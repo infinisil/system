@@ -160,7 +160,7 @@ copyWindowToAll w s = foldr (copyWindow w . W.tag) s (W.workspaces s)
 
 copyShivacam :: Event -> X All
 copyShivacam MapRequestEvent { ev_window = w } = runQuery title w >>= \case
-  "shivacam" -> withDisplay $ \dpy -> do
+  "copyall" -> withDisplay $ \dpy -> do
     withWindowAttributes dpy w $ \wa -> do
       managed <- isClient w
       when (not (wa_override_redirect wa) && not managed) $ manage w
@@ -176,7 +176,7 @@ myConfig n l = def
     { terminal = "@terminal@"
     , modMask = mod4Mask
     , manageHook =
-      (title =? "shivacam" --> doFloat) <+>
+      (title =? "copyall" --> doFloat) <+>
       (title =? "Dunst" --> insertPosition Above Older) <+>
       (isFullscreen --> doFullFloat) <+>
       manageHook def
