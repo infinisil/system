@@ -28,7 +28,6 @@
 
   services.nixbot = {
     enable = true;
-    pinned = false;
     config = {
       nixPath' = [ "nixbotlib=/var/lib/nixbot/lib" ];
       karmaBlacklist = [
