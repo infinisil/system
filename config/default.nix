@@ -9,6 +9,7 @@
     ./pkgs/module.nix
     ../external/home-manager/nixos
     ../external/private
+    ./cachix.nix
   ];
 
 }

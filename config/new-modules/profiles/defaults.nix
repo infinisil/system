@@ -25,17 +25,6 @@ with lib;
   nix = {
     trustedUsers = [ "root" "@wheel" ];
     daemonNiceLevel = 1;
-
-    binaryCaches = options.nix.binaryCaches.default ++ [
-      "https://r-ryantm.cachix.org"
-      "https://cachix.cachix.org"
-      "https://hie-nix.cachix.org"
-    ];
-    binaryCachePublicKeys = [
-      "r-ryantm.cachix.org-1:gkUbLkouDAyvBdpBX0JOdIiD2/DP1ldF3Z3Y6Gqcc4c="
-      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
-      "hie-nix.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="
-    ];
   };
 
   nixpkgs = {

@@ -19,6 +19,7 @@ let
 
     environment.shellAliases = {
       rb = toString ./rb;
+      cachix-use = "cachix use -n -d ${toString ../config}";
     };
 
     environment.variables = {
