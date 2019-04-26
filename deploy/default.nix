@@ -29,7 +29,10 @@ let
 
 in
 {
-  network.description = "Infinisil's machines";
+  network = {
+    description = "Infinisil's machines";
+    enableRollback = true;
+  };
 
   defaults = { name, lib, ... }: {
     deployment.targetHost = host-ips.${name} or "${name}.invalid";
