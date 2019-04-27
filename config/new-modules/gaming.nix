@@ -19,7 +19,6 @@ with lib;
     environment.systemPackages = with pkgs; [
       steam
       minecraft
-      mine.erisia-updater
       teamspeak_client
       #(wineStaging.override {
       #  wineBuild = "wineWow";
