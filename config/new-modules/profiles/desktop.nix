@@ -26,8 +26,6 @@ with lib;
       };
     };
 
-    mine.drawing.enable = true;
-
     mine.taskclient.enable = true;
 
     mine.x.enable = true;
@@ -46,9 +44,6 @@ with lib;
     '';
 
     environment.systemPackages = with pkgs; [
-      # texlive.combined.scheme-full
-      tdesktopPackages.stable
-      libreoffice
       neofetch
       youtube-dl
       ffmpeg-full
@@ -56,16 +51,12 @@ with lib;
       imagemagick7Big
       deluge
       nix-prefetch-git
-      audacity
       sshfs
       nix-index
       mine.soph
       mine.imgurdl
-      blockhash
       mine.Dark
-      xournal
       unrar
-      syncplay
       (
         let src = (import ../../sources).lorri;
         in import src { inherit src; }
