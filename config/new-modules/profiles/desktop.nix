@@ -12,6 +12,8 @@ with lib;
 
   config = mkIf config.mine.profiles.desktop.enable {
 
+    mine.hueadm.enable = true;
+
     eth.futureInternet.enable = true;
 
     mine.emacs.enable = true;
