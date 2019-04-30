@@ -14,15 +14,17 @@ with lib;
 
     packages = with epkgs; [
       better-defaults
-      neotree
+      projectile
+      #neotree
       gruvbox-theme
       which-key
       editorconfig
       flycheck
       company
-      magit
+      #magit
       smooth-scrolling
-      helm
+      #helm
+      direnv
     ];
 
     init = {
@@ -31,12 +33,16 @@ with lib;
       '';
 
       base = dag.entryAfter [ "theme" ] ''
+
+        (setq inhibit-startup-screen t)
         (require 'better-defaults)
+
+        (require 'direnv)
 
         (editorconfig-mode 1)
 
         (setq company-minimum-prefix-length 1)
-        (setq company-idle-delay 0.3)
+        (setq company-idle-delay 0.1)
         (global-company-mode)
 
         (require 'recentf)

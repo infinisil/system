@@ -6,7 +6,7 @@ with lib;
 
   options.idris = mkOption {
     type = types.bool;
-    default = true;
+    default = false;
     description = "idris config stuff";
   };
 
@@ -14,8 +14,5 @@ with lib;
     packages = with epkgs; [
       idris-mode
     ];
-
-
-
   };
 }

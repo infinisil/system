@@ -50,7 +50,7 @@ let
 
   exec = pkgs.writeScriptBin "myemacs" ''
     #!${pkgs.stdenv.shell}
-    exec ${emacs}/bin/emacs -q -l ${initFile}
+    exec ${emacs}/bin/emacs -q -l ${initFile} "$@"
   '';
 
 in

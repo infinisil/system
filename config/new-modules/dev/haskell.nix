@@ -2,12 +2,6 @@
 
 with lib;
 
-let
-
-  snack = (import (import ../../../sources).snack).snack-exe;
-
-in
-
 {
 
   options.mine.dev.haskell.enable = mkEnableOption "Haskell dev config";
@@ -16,15 +10,12 @@ in
 
     environment.systemPackages = with pkgs; [
       stack
-
       cabal2nix
 
       haskellPackages.pointfree
       haskellPackages.stylish-haskell
       haskellPackages.hlint
       haskellPackages.structured-haskell-mode
-
-      snack
     ];
 
     mine.emacs.config.haskell = true;
