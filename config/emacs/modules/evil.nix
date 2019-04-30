@@ -22,7 +22,8 @@ with lib;
     init = {
 
       evil = dag.entryAfter [ "base" ] ''
-        (setq evil-want-integration nil)
+        (setq evil-want-integration t)
+        (setq evil-want-keybinding nil)
         (evil-collection-init)
         (setq evil-collection-setup-minibuffer t)
         (evil-mode 1)

@@ -1,5 +1,7 @@
 { pkgs, config, lib, epkgs, dag, ... }:
 
+# TODO: Add projects option to figure out what GHC versions we need
+
 
 with lib;
 
@@ -19,33 +21,21 @@ in
 
   options.haskell = mkOption {
     type = types.bool;
-    default = true;
+    default = false;
     description = "Haskell emacs stuff";
   };
 
   config = mkIf config.haskell {
+    lsp = true;
+
     packages = with epkgs; [
-      company
-      company-lsp
-      flycheck
-      lsp-mode
-      lsp-ui
       lsp-haskell
       haskell-mode
-      company-quickhelp
       hasky-extensions
     ];
 
     init.hs = ''
-      (require 'lsp)
       (require 'lsp-haskell)
-
-      (defun hie-wrapper (argv)
-        (append
-          (append (list "nix-shell" "--pure" "--command")
-                  (list (mapconcat 'identity argv " ")))
-          ; FIXME: Doesn't work with only a default.nix
-          (list (concat (lsp-haskell--get-root) "/shell.nix"))))
 
       (defun hasky-keys ()
         "Hasky extension key binds"
@@ -54,17 +44,12 @@ in
 
       (setq lsp-haskell-process-path-hie "${hie}/bin/hie-wrapper")
       (setq lsp-haskell-process-args-hie (quote ("--vomit" "-d" "-l" "/tmp/hie.log")))
-      (setq lsp-haskell-process-wrapper-function 'hie-wrapper)
+      (setq haskell-stylish-on-save t)
 
-      (setq lsp-auto-guess-root t)
-      (setq lsp-prefer-flymake nil)
-      (setq lsp-ui-doc-max-height 10)
-      (setq lsp-ui-doc-max-width 80)
-      (setq lsp-ui-sideline-ignore-duplicate t)
-
-      (add-hook 'haskell-mode-hook #'lsp)
       (add-hook 'haskell-mode-hook (lambda () (haskell-indentation-mode nil)))
       (add-hook 'haskell-mode-hook 'hasky-keys)
+      (add-hook 'haskell-mode-hook 'lsp)
+      (add-hook 'haskell-mode-hook 'direnv-update-environment)
     '';
   };
 }
