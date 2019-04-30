@@ -1,4 +1,4 @@
-{ config, ... }:
+{ lib, config, ... }:
 
 {
 
@@ -14,6 +14,8 @@
       User.infinisil = {
         AltNick = "infinisi1";
         RealName = "Silvan Mosberger";
+        Network.rizon = lib.mkForce null;
+        Network.twitch = lib.mkForce null;
         Network.freenode.Chan = {
           "#haskell" = { };
           "#nixos" = { };
@@ -21,27 +23,19 @@
           "#bottest" = { };
           "#nixos-chat" = { };
           "#idris" = { };
-          "##classical" = { };
           "#nix-lang" = { };
-          "##apoptosis" = { Detached = true; };
           "#nixcon" = { Detached = true; };
-          "##linux" = { Detached = true; };
-          "#anime" = { Detached = true; };
-          "#nixos-borg" = { Detached = true; };
+          "#nixos-borg" = { };
           "#nixos-dev" = { Detached = true; };
-          "#nixos-wiki" = { Detached = true; };
-          "#nixos-nur" = { Detached = true; };
-          "#zfsonlinux" = { Disabled = true; };
+          "#nixos-security" = { };
+          "#minecraft" = { };
+          "#home-manager" = { };
+          "#haskell-ide-engine" = { };
+          "#pijul" = { Detached = true; };
         };
         Network.mozilla.Chan = {
-        };
-        Network.twitch.Chan = {
-          "#aimbotcalvin" = { Detached = true; };
-          "#baggers___" = { Detached = true; };
-          "#emongg" = { Detached = true; };
-          "#ster" = { Detached = true; };
-          "#timthetatman" = { Detached = true; };
-          "#xqcow" = { Detached = true; };
+          "#rust" = { };
+          "#rust-beginners" = { };
         };
       };
     };
