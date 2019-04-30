@@ -18,10 +18,10 @@
     hostName = "orakel";
     hostId = "cb8bdc78";
     defaultGateway = "51.15.187.1";
-    interfaces.eth0 = {
-      ipAddress = "51.15.187.150";
+    interfaces.eth0.ipv4.addresses = [{
+      address = "51.15.187.150";
       prefixLength = 20;
-    };
+    }];
   };
 
   mine.hardware.cpuCount = 2;
