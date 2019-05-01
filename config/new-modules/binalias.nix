@@ -4,6 +4,7 @@ with lib;
 
 let
 
+  # TODO: Only use a single derivation
   packages = mapAttrs (name: text:
     pkgs.writeShellScriptBin name (text + " \"$@\"")
   ) config.mine.binalias;

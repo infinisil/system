@@ -16,8 +16,6 @@ with lib;
 
     mine.compton.enable = true;
 
-    services.physlock.enable = true;
-
     services.logind.extraConfig = ''
       HandlePowerKey=suspend
     '';
