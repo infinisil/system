@@ -28,6 +28,7 @@
 
   services.nixbot = {
     enable = true;
+    channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];
     config = {
       nixPath' = [ "nixbotlib=/var/lib/nixbot/lib" ];
       karmaBlacklist = [
