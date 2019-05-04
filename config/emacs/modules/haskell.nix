@@ -11,7 +11,7 @@ let
 
   hie = all-hies.selection {
     selector = p: {
-      inherit (p) ghc844;
+      inherit (p) ghc844 ghc864;
     };
   };
 
