@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
     ];
 
+  mine.deluged.enable = true;
+
   boot.loader.grub.enable = true;
   boot.loader.grub.splashImage = null;
 
