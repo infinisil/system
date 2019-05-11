@@ -30,11 +30,23 @@
     enable = true;
     channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];
     config = {
-      nixPath' = [ "nixbotlib=/var/lib/nixbot/lib" ];
-      karmaBlacklist = [
-        "c"
-      ];
+      users = {
+        commands.enable = true;
+        nixrepl.enable = true;
+        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
+      };
+      channels.nixos-unregistered.unreg.enable = true;
+      channelDefaults = {
+        pr.enable = true;
+        commands.enable = true;
+        nixrepl.enable = true;
+        leaked.enable = true;
+        karma.enable = true;
+        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
+        karma.blacklist = [ "c" ];
+      };
     };
+
   };
 
   services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
