@@ -79,7 +79,7 @@ in
             type ${if isMaster then "master" else "slave"};
             file ${pkgs.runCommand zone {
               nativeBuildInputs = [ pkgs.bind ];
-              records = getRecords value.records;
+              records = getRecords zone value.records;
               passAsFile = [ "records" ];
             } ''
               named-compilezone -o "$out" "${zone}" "$recordsPath"
