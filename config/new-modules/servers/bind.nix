@@ -4,6 +4,8 @@ with lib;
 
 let
 
+  cfg = config.mine.dns;
+
   domain = config.networking.domain;
   ip = (head config.networking.interfaces.eth0.ipv4.addresses).address;
   ip6 = (head config.networking.interfaces.eth0.ipv6.addresses).address;
