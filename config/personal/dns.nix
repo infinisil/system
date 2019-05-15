@@ -31,8 +31,8 @@
       infinisil.com. IN NS ns1.infinisil.com.
       infinisil.com. IN NS ns2.infinisil.com.
 
-      ns1 IN A 104.248.129.84
-      ns2 IN A 104.248.129.84
+      ns1 IN A ${config.networking.connectivitySpec.public.protos}
+      ns2 IN A ${config.networking.connectivitySpec.public.orakel}
 
       @ IN A 104.248.129.84
       @ IN AAAA 2a03:b0c0:3:e0::96:6001

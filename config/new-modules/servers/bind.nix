@@ -80,7 +80,7 @@ in
               type master;
               allow-transfer {
                 ${concatMapStrings (slave: "${config.networking.connectivitySpec.public.${slave} or
-                  (throw "DNS Slave ${slave} doesn't have a public ip address defined in connectivitySpec")};\n")
+                  (throw "DNS Slave ${slave} doesn't have a public IP address defined in connectivitySpec")};\n")
                 value.slaves}
               };
             '' else ''
