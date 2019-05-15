@@ -7,6 +7,7 @@
       $TTL 600
       $ORIGIN infinisil.com.
 
+
       @ IN SOA ns1.infinisil.com. hostmaster.infinisil.com. (
         ${serial}
         3H
