@@ -8,52 +8,13 @@ let
   ip = (head config.networking.interfaces.eth0.ipv4.addresses).address;
   ip6 = (head config.networking.interfaces.eth0.ipv6.addresses).address;
 
-
-  timeType = types.str;
-
-  records = {
-
-    a = {
-      ip = mkOption {
-        type = ipv4Type;
-      };
-    };
-
-    cname = {
-
-    };
-
-  };
-
-
-  recordType = types.submodule ({ config, ... }: {
-    options = {
-
-      name = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "Name, if null, inherit from previous record";
-      };
-
-      ttl = mkOption {
-        type = types.nullOr timeType;
-        default = null;
-        description = "TTL, when null uses globally defined TTL of the zone file";
-      };
-
-      recordType = mkOption {
-        type = types.str;
-        description = "a or b";
-      };
-
-      recordData = mkOption {
-        type = types.str;
-        description = "data section";
-      };
-    };
-  });
-
-  recordsType = types.listOf recordType;
+  getRecords = zone: records: let
+    serial = import (pkgs.runCommand "serial-${zone}" {
+      records = records "0";
+    } ''
+      echo "\"$(( $(date +%s) / 60 ))\"" > $out
+    '');
+  in records serial;
 
 in
 
@@ -63,27 +24,22 @@ in
 
     enable = mkEnableOption "bind dns server";
 
-    allowedNetworks = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = "Which networks are allowed to use this dns server";
-    };
+    zones = mkOption {
+      type = types.attrsOf (types.submodule {
+        options = {
+          master = mkOption {
+            type = types.str;
+          };
 
-    ipnsHash = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = "IPNS/IPFS hash to use for IPFS DNS lookups";
-    };
+          slaves = mkOption {
+            type = types.listOf types.str;
+          };
 
-    records = mkOption {
-      type = recordsType;
-      default = [];
-      description = "records";
-    };
-
-    dkimKey = mkOption {
-      type = types.str;
-      description = "DKIM key";
+          records = mkOption {
+            type = types.unspecified; # function from serial number -> record lines, including SOA
+          };
+        };
+      });
     };
 
   };
@@ -96,56 +52,40 @@ in
       allowedUDPPorts = [ 53 ];
     };
 
-    environment.systemPackages = with pkgs; [
-      bind
-    ];
+    environment.systemPackages = [ pkgs.bind ];
 
     services.bind = {
       enable = true;
       cacheNetworks = config.mine.dns.allowedNetworks;
-      zones = [{
-        name = domain;
-        master = true;
-        file = builtins.toFile domain ''
-          $TTL 600
-          $ORIGIN ${domain}.
+      configFile = pkgs.writeText "named.conf" ''
+        include "/etc/bind/rndc.key";
+        controls {
+          inet 127.0.0.1 allow {localhost;} keys {"rndc-key";};
+        };
 
-          @ IN SOA ns1.${domain}. hostmaster.${domain}. (
-            4
-            3H
-            15
-            1w
-            3h
-          )
+        options {
+          directory "/run/named";
+          pid-file "/run/named/named.pid";
+        };
 
-          ${domain}. IN MX 10 mail.${domain}.
-
-          ${domain}. IN TXT "v=spf1 ip4:${ip} -all"
-          _dmarc IN TXT "v=DMARC1; p=none; rua=mailto:dmarc_agg@${domain}"
-
-          mail._domainkey.${domain}. IN TXT "v=DKIM1; p=${config.mine.dns.dkimKey}"
-
-          ${optionalString (config.mine.dns.ipnsHash != null) ''
-            @ IN TXT "dnslink=/ipns/${config.mine.dns.ipnsHash}"
-          ''}
-
-          mail.infinisil.com. IN A ${ip}
-
-          ${domain}. IN NS ns1.${domain}.
-          ${domain}. IN NS ns2.${domain}.
-
-          ns1 IN A ${ip}
-          ns2 IN A ${ip}
-
-          @ IN A ${ip}
-          @ IN AAAA ${ip6}
-
-          ${concatMapStringsSep "\n" (sub:
-            "${sub} IN CNAME ${domain}."
-          ) config.mine.subdomains}
-
-        '';
-      }];
+        ${concatMapStringsSep "\n\n" (zone:
+        let
+          value = cfg.zones.${zone};
+          isMaster = config.networking.hostName == value.master;
+          isSlave = elem config.networking.hostName value.slaves;
+        in optional (isMaster || isSlave) ''
+          zone "${zone}" {
+            type ${if isMaster then "master" else "slave"};
+            file ${pkgs.runCommand zone {
+              nativeBuildInputs = [ pkgs.bind ];
+              records = getRecords value.records;
+              passAsFile = [ "records" ];
+            } ''
+              named-compilezone -o "$out" "${zone}" "$recordsPath"
+            ''};
+          }
+        '') (attrNames cfg.zones)}
+      '';
     };
 
   };
