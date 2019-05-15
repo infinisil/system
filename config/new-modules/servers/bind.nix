@@ -80,14 +80,14 @@ in
               type master;
               allow-transfer {
                 ${concatMapStrings (slave: "${config.networking.connectivitySpec.public.${slave} or
-                  throw "DNS Slave ${slave} doesn't have a public ip address defined in connectivitySpec"};\n")
+                  (throw "DNS Slave ${slave} doesn't have a public ip address defined in connectivitySpec")};\n")
                 value.slaves}
               };
             '' else ''
               type slave;
               masters {
                 ${config.networking.connectivitySpec.public.${value.master} or
-                  throw "DNS master ${value.master} doesn't have a public IP address defined in connectivitySpec"};
+                  (throw "DNS master ${value.master} doesn't have a public IP address defined in connectivitySpec")};
               };
             ''}
             file "${pkgs.runCommand zone {
