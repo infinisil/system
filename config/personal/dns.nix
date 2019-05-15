@@ -1,4 +1,4 @@
-{
+{ config }: {
 
   mine.dns.zones."infinisil.com" = {
     master = "protos";
