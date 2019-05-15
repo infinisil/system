@@ -74,7 +74,7 @@ in
           value = cfg.zones.${zone};
           isMaster = config.networking.hostName == value.master;
           isSlave = elem config.networking.hostName value.slaves;
-        in optional (isMaster || isSlave) ''
+        in optionalString (isMaster || isSlave) ''
           zone "${zone}" {
             type ${if isMaster then "master" else "slave"};
             file ${pkgs.runCommand zone {
