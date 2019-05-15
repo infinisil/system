@@ -76,7 +76,20 @@ in
           isSlave = elem config.networking.hostName value.slaves;
         in optionalString (isMaster || isSlave) ''
           zone "${zone}" {
-            type ${if isMaster then "master" else "slave"};
+            ${if isMaster then ''
+              type master;
+              allow-transfer {
+                ${concatMapStrings (slave: "${config.networking.connectivitySpec.public.${slave} or
+                  throw "DNS Slave ${slave} doesn't have a public ip address defined in connectivitySpec"};\n")
+                value.slaves}
+              };
+            '' else ''
+              type slave;
+              masters {
+                ${config.networking.connectivitySpec.public.${value.master} or
+                  throw "DNS master ${value.master} doesn't have a public IP address defined in connectivitySpec"};
+              };
+            ''}
             file "${pkgs.runCommand zone {
               nativeBuildInputs = [ pkgs.bind ];
               records = getRecords zone value.records;
