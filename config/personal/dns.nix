@@ -8,7 +8,7 @@
       $ORIGIN infinisil.com.
 
       @ IN SOA ns1.infinisil.com. hostmaster.infinisil.com. (
-        4
+        ${serial}
         3H
         15
         1w

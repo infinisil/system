@@ -77,13 +77,13 @@ in
         in optionalString (isMaster || isSlave) ''
           zone "${zone}" {
             type ${if isMaster then "master" else "slave"};
-            file ${pkgs.runCommand zone {
+            file "${pkgs.runCommand zone {
               nativeBuildInputs = [ pkgs.bind ];
               records = getRecords zone value.records;
               passAsFile = [ "records" ];
             } ''
               named-compilezone -o "$out" "${zone}" "$recordsPath"
-            ''};
+            ''}";
           }
         '') (attrNames cfg.zones)}
       '';
