@@ -56,7 +56,6 @@ in
 
     services.bind = {
       enable = true;
-      cacheNetworks = config.mine.dns.allowedNetworks;
       configFile = pkgs.writeText "named.conf" ''
         include "/etc/bind/rndc.key";
         controls {
