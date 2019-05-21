@@ -26,7 +26,7 @@
           "#nix-lang" = { };
           "#nixcon" = { Detached = true; };
           "#nixos-borg" = { };
-          "#nixos-dev" = { Detached = true; };
+          "#nixos-dev" = { };
           "#nixos-security" = { };
           "#minecraft" = { };
           "#home-manager" = { };
