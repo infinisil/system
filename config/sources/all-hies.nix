@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "infinisil";
   repo = "all-hies";
-  rev = "1b027f4e48e4bfd9fa920f57d824d0009e4218c4";
-  sha256 = "0ygiav3iqyazaxil2arlp06cdd41j98zxkm9lbpssqp5zcacmpl5";
+  rev = "81e51c7b1acfabab8b2b75c31ad684e20df6f67f";
+  sha256 = "1cdxxfnji52rv88981shjcmnm3792rlp75hrs9jdva1nzxf6ys1p";
 }
