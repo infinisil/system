@@ -42,6 +42,15 @@ let
     nix-mode = super.nix-mode.overrideAttrs (old: {
       src = (import ../sources).nix-mode;
     });
+    lsp-ui = super.lsp-ui.overrideAttrs (old: {
+      src = (import ../sources).lsp-ui;
+    });
+    lsp-mode = super.lsp-mode.overrideAttrs (old: {
+      src = (import ../sources).lsp-mode;
+    });
+    lsp-haskell = super.lsp-haskell.overrideAttrs (old: {
+      src = (import ../sources).lsp-haskell;
+    });
   };
 
   epkgs = (pkgs.emacsPackagesNgGen pkgs.emacs).overrideScope' overrides;
