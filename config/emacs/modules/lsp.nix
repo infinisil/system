@@ -17,6 +17,8 @@ with lib;
       lsp-ui
       company-lsp
       flycheck
+      yasnippet
+      markdown-mode
     ];
 
     init.lsp = ''
