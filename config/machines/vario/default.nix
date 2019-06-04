@@ -57,6 +57,30 @@
     zetup.main.plan = "1hour=>5min,1day=>1hour,1week=>1day,1month=>1week";
   };
   mine.deluged.enable = true;
+  services.deluge = {
+    declarative = true;
+    config = {
+      move_completed_path = "/betty/Torrent";
+      queue_new_to_top = true;
+      max_active_limit = -1;
+      max_active_downloading = -1;
+      max_active_seeding = -1;
+      allow_remote = true;
+      max_half_open_connections = -1;
+      download_location = "/var/lib/deluge/part";
+      max_upload_speed = 500.0;
+      max_connections_per_second = -1;
+      dont_count_slow_torrents = true;
+      torrentfiles_location = "/var/lib/deluge/torrent";
+      enabled_plugins = [ "YaRSS2" ];
+      max_connections_global = 500;
+      listen_ports = [ 6881 6891 ];
+      max_upload_speed_per_torrent = 250.0;
+      copy_torrent_file = true;
+      move_completed = true;
+    };
+  };
+
   mine.openvpn.client = {
     enable = true;
     server = config.networking.connections.protos;
