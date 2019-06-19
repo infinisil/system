@@ -64,7 +64,6 @@
   boot = {
     loader.grub.device = "/dev/vda";
     zfs.devNodes = "/dev";
-    zfs.enableUnstable = true;
     kernelParams = [ "net.ifnames=0" ];
   };
 

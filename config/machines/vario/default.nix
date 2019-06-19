@@ -90,7 +90,6 @@
   hardware.pulseaudio.support32Bit = true;
 
   boot = {
-    zfs.enableUnstable = true;
     loader = {
       grub = {
         enable = true;
