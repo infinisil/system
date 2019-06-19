@@ -6,6 +6,8 @@
     ./lidWakeDisable.nix
   ];
 
+  mine.enableUser = true;
+
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
   '';

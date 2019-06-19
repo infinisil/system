@@ -7,6 +7,8 @@
     ((import ../../sources).nixbot + "/module.nix")
   ];
 
+  mine.enableUser = true;
+
   mine.saveSpace = true;
 
   mine.hardware = {

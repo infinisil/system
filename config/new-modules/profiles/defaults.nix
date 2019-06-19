@@ -3,9 +3,10 @@
 with lib;
 
 {
+
   time.timeZone = mkDefault "Europe/Zurich";
 
-  mine.mainUsers = [ "infinisil" "root" ];
+  mine.mainUsers = [ "root" ];
 
   networking.nameservers = mkDefault [
     "1.1.1.1"
@@ -22,18 +23,9 @@ with lib;
     ];
   };
 
-  nix = {
-    trustedUsers = [ "root" "@wheel" ];
-    daemonNiceLevel = 1;
-  };
+  nix.trustedUsers = [ "root" "@wheel" ];
 
-  nixpkgs = {
-    config.allowUnfree = true;
-
-    overlays = [
-      (import ../../../external/home-manager/overlay.nix)
-    ];
-  };
+  nixpkgs.config.allowUnfree = true;
 
   home-manager.useUserPackages = true;
 

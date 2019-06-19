@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
     ];
 
+  mine.enableUser = true;
+
   mine.deluged.enable = true;
 
   boot.loader.grub.enable = true;

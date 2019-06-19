@@ -5,6 +5,7 @@
     ./znc.nix
     ./wlan.nix
     ./bins.nix
+    ./user.nix
   ];
 
   mine.keylayout = {

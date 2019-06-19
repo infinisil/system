@@ -4,6 +4,8 @@
     ./hardware-configuration.nix
   ];
 
+  mine.enableUser = true;
+
   mine.saveSpace = true;
 
   mine.hueadm.controls = true;
