@@ -8,7 +8,10 @@
     ./user.nix
   ];
 
+  time.timeZone = "Europe/Zurich";
+
   mine.keylayout = {
+    enable = true;
     layoutFile = ./keymap.xkb;
     xcapeConfig."#94" = "Escape";
   };
