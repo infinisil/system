@@ -38,7 +38,11 @@ in
   defaults = { name, lib, ... }: {
     deployment.targetHost = host-ips.${name} or "${name}.invalid";
     system.nixos.label = label;
-    imports = [ ../config ];
+    imports = [
+      ../config
+      ../external/private
+      ../external/home-manager/nixos
+    ];
 
     environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
 

@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  dag = import ../lib/dag.nix { inherit lib; };
+  dag = import ../../external/home-manager/modules/lib/dag.nix { inherit lib; };
 
 in
 
@@ -14,7 +14,7 @@ in
 
   config.mine.userConfig = mkIf config.mine.vim.enable {
 
-    home.activation.vimDirs = dag.entryAfter [ "linkGeneration" ] ''
+    home.activation.vimDirs = dag.dagEntryAfter [ "linkGeneration" ] ''
       mkdir -p $HOME/.local/share/vim/{undo,swap,backup}
     '';
 

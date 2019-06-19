@@ -1,5 +1,5 @@
 { pkgs }:
-{ lib, config, dag, ... }:
+{ lib, config, ... }:
 
 with lib;
 
@@ -26,7 +26,7 @@ let
     };
   };
 
-  dag = import ../lib/dag.nix { inherit lib; };
+  dag = import ../../external/home-manager/modules/lib/dag.nix { inherit lib; };
 
   # TODO: Handle dag cycle error gracefully
   initFile = pkgs.writeText "init.el" (concatMapStringsSep "\n\n" ({ name, data }:
@@ -84,7 +84,7 @@ in
     };
 
     init = mkOption {
-      type = with types; attrsOf (coercedTo str dag.entryAnywhere initEntry);
+      type = with types; attrsOf (coercedTo str dag.dagEntryAnywhere initEntry);
       default = dag.empty;
       description = "Init entries";
     };

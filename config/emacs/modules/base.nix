@@ -32,7 +32,7 @@ with lib;
         (load-theme 'gruvbox t)
       '';
 
-      base = dag.entryAfter [ "theme" ] ''
+      base = dag.dagEntryAfter [ "theme" ] ''
 
         (setq inhibit-startup-screen t)
         (require 'better-defaults)
