@@ -72,8 +72,6 @@ with lib;
 
     boot.supportedFilesystems = [ "exfat" "ntfs" ];
 
-    boot.plymouth.enable = true;
-
     boot.loader.grub.splashImage = config.mine.assets.grub;
 
   };

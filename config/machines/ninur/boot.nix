@@ -1,8 +1,7 @@
 { pkgs, ... }: {
   boot = {
-    zfs = {
-      devNodes = "/dev";
-    };
+    zfs.requestEncryptionCredentials = true;
+    zfs.devNodes = "/dev";
 
     loader.grub = {
       enable = true;
