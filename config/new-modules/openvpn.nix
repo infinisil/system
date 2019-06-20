@@ -35,7 +35,6 @@ let
 
     topology subnet
     client-to-client
-    push "redirect-gateway def1 bypass-dhcp"
     client-config-dir ${client-config}
     compress lz4-v2
     push "compress lz4-v2"
@@ -57,6 +56,8 @@ let
     client
     remote ${cfg.client.server} ${toString port}
     nobind
+
+    ${optionalString cfg.client.gateway "redirect-gateway def1 bypass-dhcp"}
 
     resolv-retry infinite
     remote-cert-tls server
@@ -106,6 +107,7 @@ in
         type = types.str;
         description = "server ip";
       };
+      gateway = mkEnableOption "to change the default gateway to go through the VPN server";
     };
 
   };

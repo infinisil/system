@@ -8,6 +8,11 @@
 
   mine.enableUser = true;
 
+  mine.openvpn.client = {
+    enable = true;
+    server = config.networking.connections.protos;
+  };
+
   mine.deluged.enable = true;
 
   boot.loader.grub.enable = true;

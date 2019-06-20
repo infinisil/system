@@ -79,6 +79,7 @@ in
   orakel = {
     imports = [
       ../config/machines/orakel
+      ../external/private/machines/orakel.nix
     ];
   };
 }

@@ -16,6 +16,7 @@ rec {
     protos = "10.149.76.1";
     vario = "10.149.76.2";
     ninur = "10.149.76.3";
+    orakel = "10.149.76.5";
   };
 
   local = {
@@ -59,6 +60,8 @@ rec {
     orakel = {
       orakel = "localhost";
       protos = public.protos;
+      ninur = vpn.ninur;
+      vario = vpn.vario;
     };
   };
 

@@ -86,6 +86,7 @@
   mine.openvpn.client = {
     enable = true;
     server = config.networking.connections.protos;
+    gateway = true;
   };
 
   # hardware.opengl.driSupport32Bit = true;

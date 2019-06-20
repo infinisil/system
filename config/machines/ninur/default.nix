@@ -69,6 +69,7 @@
   mine.openvpn.client = {
     enable = true;
     server = config.networking.connections.protos;
+    gateway = true;
   };
 
   mine.gaming.enable = true;
