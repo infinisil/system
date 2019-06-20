@@ -37,7 +37,7 @@ with lib;
 
     mine.music.client = {
       enable = true;
-      server = nodes.protos;
+      server = nodes.orakel;
     };
 
     nix.extraOptions = ''

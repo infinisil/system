@@ -16,17 +16,6 @@ with lib;
 
     mine.publicDir.enable = true;
 
-    mine.music = {
-      server = {
-        enable = true;
-        local = false;
-        musicDir = "/home/infinisil/music";
-        user = "infinisil";
-        group = "users";
-        password = config.private.passwords.mpd;
-      };
-    };
-
     mine.web = {
       enable = true;
       root = "/webroot/www";

@@ -13,6 +13,17 @@
     server = config.networking.connections.protos;
   };
 
+  mine.music = {
+    server = {
+      enable = true;
+      local = false;
+      musicDir = "/home/infinisil/music";
+      user = "infinisil";
+      group = "users";
+      password = config.private.passwords.mpd;
+    };
+  };
+
   mine.deluged.enable = true;
 
   boot.loader.grub.enable = true;
@@ -31,6 +42,27 @@
       address = "51.15.187.150";
       prefixLength = 20;
     }];
+  };
+
+  services.znapzend = {
+    enable = true;
+    autoCreation = true;
+    pure = true;
+    zetup = {
+      "tank/root/music" = {
+        plan = "1hour=>1hour";
+        destinations.ninur = {
+          host = config.networking.connections.ninur;
+          dataset = "tank/root/music";
+          plan = "1hour=>1hour";
+        };
+        destinations.vario = {
+          host = config.networking.connections.vario;
+          dataset = "main/music";
+          plan = "1hour=>1hour";
+        };
+      };
+    };
   };
 
   mine.hardware.cpuCount = 2;

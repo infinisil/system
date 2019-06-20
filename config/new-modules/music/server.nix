@@ -303,7 +303,7 @@ in
 
     }
     (mkIf (!cfg.local) {
-      networking.firewall.allowedTCPPorts = [ cfg.port cfg.mp3Port cfg.opusPort ];
+      networking.firewall.allowedTCPPorts = [ 80 443 cfg.port cfg.mp3Port cfg.opusPort ];
 
       services.mpd = {
         extraConfig = ''
@@ -333,9 +333,8 @@ in
         '';
       };
 
-      mine.subdomains = [ "tune" ];
-
-      services.nginx.virtualHosts."tune.${config.networking.domain}" = {
+      services.nginx.enable = true;
+      services.nginx.virtualHosts."tune.infinisil.com" = {
         root = "/webroot";
         enableACME = true;
         forceSSL = true;

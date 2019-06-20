@@ -27,6 +27,11 @@
       fsType = "ext4";
     };
 
+  fileSystems."/home/infinisil/music" =
+    { device = "tank/root/music";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/a716a4a0-dcae-4283-8b06-d75cb3b3a248"; }
     ];

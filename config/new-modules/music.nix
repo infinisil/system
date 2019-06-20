@@ -15,8 +15,6 @@ let
 
   serverPort = serverConfig.mine.music.server.port;
 
-  serverDomain = serverConfig.networking.domain;
-
 in
 
 {
@@ -72,7 +70,7 @@ in
           };
 
           Service = {
-            ExecStart = "${pkgs.mpv}/bin/mpv https://tune.${serverDomain}/opus --quiet";
+            ExecStart = "${pkgs.mpv}/bin/mpv https://tune.infinisil.com/opus --quiet";
             Restart = "on-success";
             SuccessExitStatus = 4;
             RestartPreventExitStatus = 4;
