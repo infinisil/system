@@ -42,12 +42,7 @@ in
 
       loginAccounts = {
         "${mkMail "contact"}" = {
-          aliases = map mkMail [
-            "admin"
-            "info"
-            "postmaster"
-          ];
-          catchAll = [ domain ];
+          aliases = [ (mkMail "") ];
         };
       };
 
