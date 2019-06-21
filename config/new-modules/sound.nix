@@ -18,6 +18,7 @@ with lib;
       (mkIf config.hardware.bluetooth.enable blueman)
       pavucontrol
       cli-visualizer
+      pulseeffects
     ];
 
     mine.userConfig = {
@@ -32,6 +33,22 @@ with lib;
       extraConfig = ''
         load-module module-switch-on-connect
       '';
+    };
+
+    mine.userConfig.systemd.user.services.pulseeffects = {
+      Unit = {
+        After = [ "graphical-session-pre.target" ];
+        Requires = [ "pulseaudio.service" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.pulseeffects}/bin/pulseeffects --gapplication-service";
+        # https://github.com/wwmm/pulseeffects/issues/533
+        Environment = "PATH=${pkgs.pulseaudio}/bin";
+      };
+
+      Install.WantedBy = [ "graphical-session.target" ];
     };
 
   };
