@@ -147,8 +147,8 @@ mkIf config.mine.console.enable {
         alias t="exa -laTh"
 
         function mktest() {
-          mkdir -p "$HOME/Test/$1"
-          cd "$HOME/Test/$1"
+          mkdir -p "$HOME/test/$1"
+          cd "$HOME/test/$1"
         }
 
         function nsrc() {
