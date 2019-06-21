@@ -24,6 +24,12 @@
     };
   };
 
+  mine.youtubeDl = {
+    enable = true;
+    user = "infinisil";
+    mpdHost = "${config.private.passwords.mpd}@localhost";
+  };
+
   mine.deluged.enable = true;
 
   boot.loader.grub.enable = true;

@@ -30,12 +30,6 @@ with lib;
 
     mine.znc.enable = true;
 
-    mine.youtubeDl = {
-      enable = true;
-      user = "infinisil";
-      mpdHost = "${config.private.passwords.mpd}@${config.networking.domain}";
-    };
-
     mine.mail.enable = true;
 
     boot.loader.timeout = 60;
