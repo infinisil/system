@@ -36,7 +36,7 @@ let
         , Run XMonadLog
         , Run Memory [] 10
         , Run DynNetwork
-          [ "-t" , "<tx><rx> Kbps | "
+          [ "-t" , "<tx><rx> KB/s | "
           , "-L" , "10000"
           , "-H" , "500000"
           , "-l" , "green"
