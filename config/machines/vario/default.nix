@@ -46,13 +46,6 @@
 
   mine.dev.rust.enable = true;
 
-  mine.server-sync = {
-    enable = true;
-    dataDir = "server/data";
-    uploadDir = "server/upload";
-    server = "infinisil.com";
-  };
-
   services.znapzend = {
     enable = true;
     pure = true;

@@ -47,6 +47,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/home/infinisil/media" =
+    { device = "tank/media";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/97dba5c4-d94e-43bf-afac-1d9d38ab94e1"; }
     ];

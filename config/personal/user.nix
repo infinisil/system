@@ -5,6 +5,7 @@
   config = lib.mkIf config.mine.enableUser {
 
     users.extraUsers.infinisil = {
+      uid = 1000;
       description = "Silvan Mosberger";
       isNormalUser = true;
       extraGroups = [

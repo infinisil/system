@@ -89,6 +89,17 @@
           plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
       };
+      "tank/root/media" = {
+        plan = "1day=>1hour,1week=>1day";
+        destinations.ninur = {
+          host = config.networking.connections.ninur;
+          dataset = "tank/media";
+        };
+        destinations.vario = {
+          host = config.networking.connections.vario;
+          dataset = "main/media";
+        };
+      };
     };
   };
 

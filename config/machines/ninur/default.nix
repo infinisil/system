@@ -99,13 +99,6 @@
 
   hardware.opengl.enable = true;
 
-  mine.server-sync = {
-    enable = true;
-    dataDir = "server/data";
-    uploadDir = "server/upload";
-    server = "infinisil.com";
-  };
-
   services.nginx = {
     enable = true;
     virtualHosts.localhost = {
