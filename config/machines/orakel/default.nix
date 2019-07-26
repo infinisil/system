@@ -10,6 +10,8 @@
 
   mine.openvpn.server.enable = true;
 
+  mine.transmission.enable = true;
+
   mine.music = {
     server = {
       enable = true;

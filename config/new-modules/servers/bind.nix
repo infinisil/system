@@ -145,6 +145,7 @@ in
           ) config.mine.subdomains}
 
           tune.infinisil.com. IN A 51.15.187.150
+          torrent.infinisil.com. IN A 51.15.187.150
         '';
       }];
     };
