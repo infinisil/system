@@ -22,8 +22,6 @@ with lib;
       keys.enable = true;
     };
 
-    mine.openvpn.server.enable = true;
-
     mine.gitHost.enable = true;
 
     mine.dns.enable = true;

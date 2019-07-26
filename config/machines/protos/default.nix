@@ -9,6 +9,11 @@
 
   mine.enableUser = true;
 
+  mine.openvpn.client = {
+    enable = true;
+    server = config.networking.connections.orakel;
+  };
+
   mine.saveSpace = true;
 
   mine.hardware = {

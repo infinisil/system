@@ -68,7 +68,7 @@
 
   mine.openvpn.client = {
     enable = true;
-    server = config.networking.connections.protos;
+    server = config.networking.connections.orakel;
     gateway = true;
   };
 

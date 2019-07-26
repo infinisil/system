@@ -8,10 +8,7 @@
 
   mine.enableUser = true;
 
-  mine.openvpn.client = {
-    enable = true;
-    server = config.networking.connections.protos;
-  };
+  mine.openvpn.server.enable = true;
 
   mine.music = {
     server = {
