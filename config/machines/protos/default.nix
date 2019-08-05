@@ -5,6 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ((import ../../sources).nixbot + "/module.nix")
+    ./mac-access.nix
   ];
 
   mine.enableUser = true;
