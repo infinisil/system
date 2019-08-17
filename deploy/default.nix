@@ -28,6 +28,8 @@ let
     };
   };
 
+  nurNoPkgs = import (import ../config/sources).nur {};
+
 in
 {
   network = {
@@ -41,7 +43,7 @@ in
     imports = [
       ../config
       ../external/private
-      ../external/home-manager/nixos
+      nurNoPkgs.repos.rycee.modules.home-manager
     ];
 
     environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
