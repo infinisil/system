@@ -8,7 +8,13 @@
 
   mine.enableUser = true;
 
-  mine.openvpn.server.enable = true;
+  services.openvpn.servers.orakel.mine = {
+    type = "server";
+    server.subnet = "10.99.1.0/24";
+    server.staticClientIps = {
+      orakel-vario = "10.99.1.2";
+    };
+  };
 
   mine.transmission.enable = true;
 

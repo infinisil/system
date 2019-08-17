@@ -32,13 +32,6 @@
 
   mine.dns.ipnsHash = "QmcF3xqxFZxDLBJ5fNmr8vZ5p83SoS5zuavYMhizh2L1dp";
 
-  mine.openvpn.server = {
-    subnet = "10.149.76.0";
-    fixedClients = builtins.removeAttrs config.networking.connectivitySpec.vpn [ "protos" ] // {
-      iphone = "10.149.76.4";
-    };
-  };
-
   mine.xUserConfig = {
     services.redshift = {
       latitude = "47.4";

@@ -76,10 +76,21 @@
     };
   };
 
-  mine.openvpn.client = {
-    enable = true;
-    server = config.networking.connections.orakel;
-    gateway = true;
+  services.openvpn.servers.protos = {
+    autoStart = false;
+    mine.type = "client";
+    mine.client = {
+      serverIp = config.networking.connections.protos;
+      makeDefaultGateway = true;
+    };
+  };
+
+  services.openvpn.servers.orakel = {
+    mine.type = "client";
+    mine.client = {
+      serverIp = config.networking.connections.orakel;
+      makeDefaultGateway = true;
+    };
   };
 
   # hardware.opengl.driSupport32Bit = true;

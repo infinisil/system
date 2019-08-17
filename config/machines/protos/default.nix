@@ -10,9 +10,12 @@
 
   mine.enableUser = true;
 
-  mine.openvpn.client = {
-    enable = true;
-    server = config.networking.connections.orakel;
+  services.openvpn.servers.protos.mine = {
+    type = "server";
+    server.subnet = "10.99.0.0/24";
+    server.staticClientIps = {
+      protos-vario = "10.99.0.2";
+    };
   };
 
   mine.saveSpace = true;
