@@ -5,7 +5,7 @@ set -euo pipefail
 DEF_BRANCH=master
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-git() { command -p git -C "$DIR/.." "$@"; }
+git() { command git -C "$DIR/.." "$@"; }
 gitbranch() { git symbolic-ref --short HEAD; }
 
 if [ ! -z "$(git add --all --dry-run)" ]; then
