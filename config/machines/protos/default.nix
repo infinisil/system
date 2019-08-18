@@ -143,6 +143,14 @@
         address = "2a03:b0c0:3:e0::96:6001";
         prefixLength = 64;
       }];
+      macAddress = "1e:e0:69:14:d9:8a";
+    };
+    interfaces.eth1 = {
+      ipv4.addresses = [{
+        address = "10.135.242.207";
+        prefixLength = 16;
+      }];
+      macAddress = "4e:8d:6a:e4:c4:e9";
     };
 
     firewall.allowedTCPPorts = [ 12345 1500 1501 ];
