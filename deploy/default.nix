@@ -61,6 +61,12 @@ in
     ];
   };
 
+  protos2 = {
+    imports = [
+      ../config/machines/protos2
+    ];
+  };
+
   ninur = {
     deployment.hasFastConnection = true;
     imports = [

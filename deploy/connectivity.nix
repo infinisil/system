@@ -5,10 +5,12 @@ rec {
     "vario"
     "ninur"
     "orakel"
+    "protos2"
   ];
 
   public = {
     protos = "104.248.129.84";
+    protos2 = "206.81.23.189";
     orakel = "51.15.187.150";
   };
 
@@ -62,6 +64,9 @@ rec {
       protos = public.protos;
       ninur = vpn.ninur;
       vario = vpn.vario;
+    };
+    protos2 = {
+      protos2 = "localhost";
     };
   };
 
