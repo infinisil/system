@@ -80,7 +80,7 @@
     autoStart = false;
     mine.type = "client";
     mine.client = {
-      serverIp = config.networking.connections.protos;
+      serverIp = config.networking.connections.protos2;
       makeDefaultGateway = true;
     };
   };

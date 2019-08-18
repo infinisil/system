@@ -8,6 +8,14 @@
 
   mine.mail.enable = true;
 
+  services.openvpn.servers.protos.mine = {
+    type = "server";
+    server.subnet = "10.99.0.0/24";
+    server.staticClientIps = {
+      protos-vario = "10.99.0.2";
+    };
+  };
+
   services.nixbot = {
     enable = true;
     channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];

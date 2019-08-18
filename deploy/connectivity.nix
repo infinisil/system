@@ -48,6 +48,7 @@ rec {
     vario = {
       vario = "localhost";
       protos = public.protos;
+      protos2 = public.protos2;
       ninur = vpn.ninur;
       ninur-w = local.vario.ninur.wireless;
       ninur-e = local.vario.ninur.ethernet;
