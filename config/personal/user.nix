@@ -8,6 +8,7 @@
       uid = 1000;
       description = "Silvan Mosberger";
       isNormalUser = true;
+      createHome = true;
       extraGroups = [
         "wheel"
         "systemd-journal"
