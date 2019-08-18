@@ -6,6 +6,8 @@
     ((import ../../sources).nixbot + "/module.nix")
   ];
 
+  mine.mail.enable = true;
+
   services.nixbot = {
     enable = true;
     channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];

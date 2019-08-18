@@ -28,8 +28,6 @@ with lib;
 
     mine.znc.enable = true;
 
-    mine.mail.enable = true;
-
     boot.loader.timeout = 60;
     boot.loader.grub.splashImage = null;
 

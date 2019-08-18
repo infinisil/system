@@ -120,7 +120,7 @@ in
 
           ${domain}. IN MX 10 mail.${domain}.
 
-          ${domain}. IN TXT "v=spf1 ip4:${ip} -all"
+          ${domain}. IN TXT "v=spf1 ip4:206.81.23.189 -all"
           _dmarc IN TXT "v=DMARC1; p=quarantine; rua=mailto:dmarc_rua@${domain}; ruf=mailto:dmarc_ruf@${domain}"
 
           mail._domainkey.${domain}. IN TXT "v=DKIM1; p=${config.mine.dns.dkimKey}"
@@ -129,7 +129,6 @@ in
             @ IN TXT "dnslink=/ipns/${config.mine.dns.ipnsHash}"
           ''}
 
-          mail.infinisil.com. IN A ${ip}
 
           ${domain}. IN NS ns1.${domain}.
           ${domain}. IN NS ns2.${domain}.
@@ -147,6 +146,7 @@ in
           tune.infinisil.com. IN A 51.15.187.150
           torrent.infinisil.com. IN A 51.15.187.150
           nixbot.infinisil.com. IN A 206.81.23.189
+          mail.infinisil.com. IN A 206.81.23.189
         '';
       }];
     };
