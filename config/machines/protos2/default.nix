@@ -7,12 +7,46 @@
   ];
 
   mine.mail.enable = true;
+  mine.saveSpace = true;
+  mine.radicale.enable = true;
+  mine.paste.enable = true;
+  mine.publicDir.enable = true;
+  mine.gitHost.enable = true;
+  mine.znc.enable = true;
+
+  mine.dns.enable = true;
+
+  mine.profiles.server.enable = true;
+
+  services.taskserver.enable = true;
+  mine.web = {
+    enable = true;
+    root = "/webroot/www";
+    keys.enable = true;
+  };
 
   services.openvpn.servers.protos.mine = {
     type = "server";
     server.subnet = "10.99.0.0/24";
     server.staticClientIps = {
       protos-vario = "10.99.0.2";
+    };
+  };
+
+  services.znapzend = {
+    enable = true;
+    autoCreation = true;
+    pure = true;
+    zetup = {
+      "tank/root/data" = {
+        plan = "1day=>1hour";
+        recursive = true;
+        destinations.vario = {
+          host = config.networking.connections.vario;
+          dataset = "main/backup/protos";
+          plan = "1day=>1hour,1week=>1day,1month=>1week";
+        };
+      };
     };
   };
 

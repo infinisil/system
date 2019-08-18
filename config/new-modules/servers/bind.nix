@@ -130,11 +130,11 @@ in
           ''}
 
 
-          ${domain}. IN NS ns1.${domain}.
-          ${domain}. IN NS ns2.${domain}.
+          ${domain}. IN NS ns3.${domain}.
+          ${domain}. IN NS ns4.${domain}.
 
-          ns1 IN A ${ip}
-          ns2 IN A ${ip}
+          ns3 IN A ${ip}
+          ns4 IN A ${ip}
 
           @ IN A ${ip}
           @ IN AAAA ${ip6}

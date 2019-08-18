@@ -8,26 +8,6 @@ with lib;
 
   config = mkIf config.mine.profiles.server.enable {
 
-    mine.radicale.enable = true;
-
-    services.taskserver.enable = true;
-
-    mine.paste.enable = true;
-
-    mine.publicDir.enable = true;
-
-    mine.web = {
-      enable = true;
-      root = "/webroot/www";
-      keys.enable = true;
-    };
-
-    mine.gitHost.enable = true;
-
-    mine.dns.enable = true;
-
-    mine.znc.enable = true;
-
     boot.loader.timeout = 60;
     boot.loader.grub.splashImage = null;
 

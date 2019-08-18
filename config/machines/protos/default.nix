@@ -18,20 +18,6 @@
 
   mine.profiles.server.enable = true;
 
-  services.murmur' = {
-    enable = true;
-    openFirewall = true;
-    config.registerName = "Infinisil's Server";
-    acmeDomain = "infinisil.com";
-  };
-
-  services.ipfs = {
-    enable = true;
-    autostart = true;
-    enableGateway = true;
-    localDiscovery = false;
-  };
-
   boot = {
     loader.grub.device = "/dev/vda";
     zfs.devNodes = "/dev";
@@ -71,22 +57,6 @@
       };
     };
   };
-
-  services.nginx.virtualHosts."ninur.${config.networking.domain}" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "/webroot";
-    locations."/".proxyPass = "http://${config.networking.connections.ninur}";
-  };
-
-  services.nginx.virtualHosts."vario.${config.networking.domain}" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "/webroot";
-    locations."/".proxyPass = "http://${config.networking.connections.vario}";
-  };
-
-  mine.subdomains = [ "vario" "ninur" ];
 
   networking = {
     hostName = "protos";

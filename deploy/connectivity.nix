@@ -68,6 +68,7 @@ rec {
     };
     protos2 = {
       protos2 = "localhost";
+      vario = vpn.vario;
     };
   };
 
