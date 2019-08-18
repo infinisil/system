@@ -64,6 +64,7 @@ in
   protos2 = {
     imports = [
       ../config/machines/protos2
+      ../external/private/machines/protos2.nix
     ];
   };
 

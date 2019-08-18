@@ -146,6 +146,7 @@ in
 
           tune.infinisil.com. IN A 51.15.187.150
           torrent.infinisil.com. IN A 51.15.187.150
+          nixbot.infinisil.com. IN A 206.81.23.189
         '';
       }];
     };

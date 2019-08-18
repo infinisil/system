@@ -3,7 +3,39 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ((import ../../sources).nixbot + "/module.nix")
   ];
+
+  services.nixbot = {
+    enable = true;
+    channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];
+    config = {
+      users = {
+        commands.enable = true;
+        nixrepl.enable = true;
+        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
+      };
+      channels.nixos-unregistered.unreg.enable = true;
+      channelDefaults = {
+        pr.enable = true;
+        commands.enable = true;
+        nixrepl.enable = true;
+        leaked.enable = true;
+        karma.enable = true;
+        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
+        karma.blacklist = [ "c" ];
+      };
+    };
+
+  };
+
+  services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+  };
+
+  users.users.infinisil.extraGroups = [ "nixbot" ];
+  users.users.nginx.extraGroups = [ "nixbot" ];
 
   mine.enableUser = true;
 
@@ -21,6 +53,7 @@
   services.openssh.enable = true;
 
   networking = {
+    domain = "infinisil.com";
     hostName = "protos2";
     hostId = "6ad3ae1f";
     defaultGateway = "206.81.16.1";

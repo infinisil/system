@@ -4,7 +4,6 @@
 
   imports = [
     ./hardware-configuration.nix
-    ((import ../../sources).nixbot + "/module.nix")
     ./mac-access.nix
   ];
 
@@ -27,42 +26,11 @@
 
   mine.profiles.server.enable = true;
 
-  users.users.infinisil.extraGroups = [ "nixbot" ];
-  users.users.nginx.extraGroups = [ "nixbot" ];
-
   services.murmur' = {
     enable = true;
     openFirewall = true;
     config.registerName = "Infinisil's Server";
     acmeDomain = "infinisil.com";
-  };
-
-  services.nixbot = {
-    enable = true;
-    channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];
-    config = {
-      users = {
-        commands.enable = true;
-        nixrepl.enable = true;
-        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
-      };
-      channels.nixos-unregistered.unreg.enable = true;
-      channelDefaults = {
-        pr.enable = true;
-        commands.enable = true;
-        nixrepl.enable = true;
-        leaked.enable = true;
-        karma.enable = true;
-        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
-        karma.blacklist = [ "c" ];
-      };
-    };
-
-  };
-
-  services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
-    enableACME = true;
-    forceSSL = true;
   };
 
   services.ipfs = {
@@ -126,7 +94,7 @@
     locations."/".proxyPass = "http://${config.networking.connections.vario}";
   };
 
-  mine.subdomains = [ "vario" "ninur" "nixbot" ];
+  mine.subdomains = [ "vario" "ninur" ];
 
   networking = {
     hostName = "protos";
