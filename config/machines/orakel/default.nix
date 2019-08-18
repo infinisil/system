@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   imports =
@@ -11,9 +11,9 @@
   services.openvpn.servers.orakel.mine = {
     type = "server";
     server.subnet = "10.99.1.0/24";
-    server.staticClientIps = {
-      orakel-vario = "10.99.1.2";
-    };
+    server.staticClientIps =
+      let clients = builtins.removeAttrs config.networking.connectivitySpec.vpn.orakel ["orakel"];
+      in lib.mapAttrs' (client: lib.nameValuePair "orakel-${client}") clients;
   };
 
   mine.transmission.enable = true;
@@ -62,11 +62,11 @@
     zetup = {
       "tank/root/music" = {
         plan = "1hour=>1hour";
-        destinations.ninur = {
-          host = config.networking.connections.ninur;
-          dataset = "tank/root/music";
-          plan = "1hour=>1hour";
-        };
+        #destinations.ninur = {
+        #  host = config.networking.connections.ninur;
+        #  dataset = "tank/root/music";
+        #  plan = "1hour=>1hour";
+        #};
         destinations.vario = {
           host = config.networking.connections.vario;
           dataset = "main/music";

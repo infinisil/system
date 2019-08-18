@@ -9,6 +9,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_blk" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -17,18 +18,13 @@
       fsType = "zfs";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/EF1D-21D7";
+      fsType = "vfat";
+    };
+
   fileSystems."/nix" =
     { device = "tank/root/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/81abd72a-2821-43b2-ac49-934775fb9aaf";
-      fsType = "ext4";
-    };
-
-  fileSystems."/home" =
-    { device = "tank/root/data/home";
       fsType = "zfs";
     };
 
@@ -37,13 +33,13 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home/infinisil/media" =
-    { device = "tank/root/media";
+  fileSystems."/home" =
+    { device = "tank/root/data/home";
       fsType = "zfs";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/397c2076-a3ba-4acd-893f-adc27b18434d"; }
+    [ { device = "/dev/disk/by-uuid/3dd5e6c5-a581-4422-b5cb-453b98f7926c"; }
     ];
 
   nix.maxJobs = lib.mkDefault 1;

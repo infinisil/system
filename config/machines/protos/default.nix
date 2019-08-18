@@ -1,34 +1,46 @@
-{ config, ... }:
+{ lib, config, pkgs, ... }:
 
 {
-
   imports = [
     ./hardware-configuration.nix
-    ./mac-access.nix
+    ((import ../../sources).nixbot + "/module.nix")
   ];
 
-  mine.enableUser = true;
-
+  mine.mail.enable = true;
   mine.saveSpace = true;
+  mine.radicale.enable = true;
+  mine.paste.enable = true;
+  mine.publicDir.enable = true;
+  mine.gitHost.enable = true;
+  mine.znc.enable = true;
 
-  mine.hardware = {
-    cpuCount = 1;
-    swap = true;
-  };
+  mine.dns.enable = true;
 
   mine.profiles.server.enable = true;
 
-  boot = {
-    loader.grub.device = "/dev/vda";
-    zfs.devNodes = "/dev";
-    kernelParams = [ "net.ifnames=0" ];
+  services.taskserver.enable = true;
+  mine.web = {
+    enable = true;
+    root = "/webroot/www";
+    keys.enable = true;
   };
 
-  services.openssh.enable = true;
-
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7zf2O8yBXxh2tX9v/3ZztXtYeV4W9vTY2iSrm92HSErjz5KcIY/AAKaqbWXHZgsZk2pehBqNbQMOwn0WWdLvil2+Ah97cvl7d9b9XdCkfOPhNB6FKcTzPmMp5Rivi/IodVMhT2xO9S1zO0Y2Q7dsYgk5leKyiD10pkcw23p6MPMKhKV2DPgY6BiszrTEVmtyOHpGkji9rE1iB9MyOINY9eC4etmnNINXMlwttV0GjbJI9WXXEQN2mRaPPp1PBWaPOgoP3ufKi9MR1hEhAantyrfBm2SeqjUvXG5JN1RyooohIWIHWXNJlYFldFPsCD/C1HnE5ylJeLBbZEw0TPb6x infinisil@NixOS"
-  ];
+  services.openvpn.servers.protos = {
+    mine.type = "server";
+    mine.server = {
+      subnet = "10.99.0.0/24";
+      staticClientIps =
+        let clients = builtins.removeAttrs config.networking.connectivitySpec.vpn.protos ["protos"];
+        in lib.mapAttrs' (client: lib.nameValuePair "protos-${client}") clients;
+    };
+  };
+  services.openvpn.servers.orakel = {
+    mine.type = "client";
+    mine.client = {
+      serverIp = config.networking.connections.orakel;
+      makeDefaultGateway = false;
+    };
+  };
 
   services.znapzend = {
     enable = true;
@@ -40,49 +52,88 @@
         recursive = true;
         destinations.vario = {
           host = config.networking.connections.vario;
-          dataset = "main/backup/servernew";
+          dataset = "main/backup/protos";
           plan = "1day=>1hour,1week=>1day,1month=>1week";
         };
       };
-      "tank/root/media" = {
-        plan = "1day=>1hour,1week=>1day";
-        destinations.ninur = {
-          host = config.networking.connections.ninur;
-          dataset = "tank/media";
-        };
-        destinations.vario = {
-          host = config.networking.connections.vario;
-          dataset = "main/media";
-        };
-      };
     };
   };
 
+  services.nixbot = {
+    enable = true;
+    channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];
+    config = {
+      users = {
+        commands.enable = true;
+        nixrepl.enable = true;
+        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
+      };
+      channels.nixos-unregistered.unreg.enable = true;
+      channelDefaults = {
+        pr.enable = true;
+        commands.enable = true;
+        nixrepl.enable = true;
+        leaked.enable = true;
+        karma.enable = true;
+        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
+        karma.blacklist = [ "c" ];
+      };
+    };
+
+  };
+
+  services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+  };
+
+  users.users.infinisil.extraGroups = [ "nixbot" ];
+  users.users.nginx.extraGroups = [ "nixbot" ];
+
+  mine.enableUser = true;
+
+  mine.hardware = {
+    cpuCount = 1;
+    swap = true;
+  };
+
+  boot = {
+    loader.grub.device = "/dev/vda";
+    zfs.devNodes = "/dev";
+    kernelParams = [ "net.ifnames=0" ];
+  };
+
+  services.openssh.enable = true;
+
   networking = {
-    hostName = "protos";
-    hostId = "12345678";
     domain = "infinisil.com";
-    defaultGateway = "104.248.128.1";
-    defaultGateway6 = "2a03:b0c0:3:e0::1";
+    hostName = "protos";
+    hostId = "6ad3ae1f";
+    defaultGateway = "206.81.16.1";
+    defaultGateway6 = "2a03:b0c0:3:d0::1";
+    nameservers = [ "1.1.1.1" ];
     interfaces.eth0 = {
       ipv4.addresses = [{
-        address = "104.248.129.84";
+        address = "206.81.23.189";
         prefixLength = 20;
       }];
       ipv6.addresses = [{
-        address = "2a03:b0c0:3:e0::96:6001";
+        address = "2a03:b0c0:3:d0::5f7f:5001";
         prefixLength = 64;
       }];
-      macAddress = "1e:e0:69:14:d9:8a";
+      macAddress = "ba:d5:84:08:05:c1";
     };
     interfaces.eth1 = {
       ipv4.addresses = [{
-        address = "10.135.242.207";
+        address = "10.135.238.247";
         prefixLength = 16;
       }];
-      macAddress = "4e:8d:6a:e4:c4:e9";
+      macAddress = "4e:5c:97:f6:7e:bc";
     };
-
-    firewall.allowedTCPPorts = [ 12345 1500 1501 ];
   };
+
+  users.users.root.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrsQzCzdxcl1O3eE+QNSZGvyehnMJOFLdFX7xIhz/lM infinisil@vario" ];
+
+  system.stateVersion = "19.03";
+
 }

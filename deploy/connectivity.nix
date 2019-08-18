@@ -5,20 +5,23 @@ rec {
     "vario"
     "ninur"
     "orakel"
-    "protos2"
   ];
 
   public = {
-    protos = "104.248.129.84";
-    protos2 = "206.81.23.189";
+    protos = "206.81.23.189";
     orakel = "51.15.187.150";
   };
 
   vpn = {
-    protos = "10.149.76.1";
-    vario = "10.149.76.2";
-    ninur = "10.149.76.3";
-    orakel = "10.149.76.5";
+    protos = {
+      protos = "10.99.0.1";
+      vario = "10.99.0.2";
+    };
+    orakel = {
+      orakel = "10.99.1.1";
+      vario = "10.99.1.2";
+      protos = "10.99.1.3";
+    };
   };
 
   local = {
@@ -33,7 +36,10 @@ rec {
       (optional (local ? ${from}.${to}.ethernet) local.${from}.${to}.ethernet) ++
       (optional (local ? ${from}.${to}.wireless) local.${from}.${to}.wireless) ++
       (optional (public ? ${to}) public.${to}) ++
-      (optional (vpn ? ${to}) vpn.${to})
+      concatLists (mapAttrsToList (vpnServer: clients:
+        optional (clients ? ${from} && clients ? ${to})
+          clients.${to}
+      ) vpn)
     )
   );
 
@@ -41,34 +47,26 @@ rec {
     ninur = {
       ninur = "localhost";
       protos = public.protos;
-      vario = vpn.vario;
+      vario = vpn.orakel.vario;
       vario-e = local.ninur.vario.ethernet;
       orakel = public.orakel;
     };
     vario = {
       vario = "localhost";
       protos = public.protos;
-      protos2 = public.protos2;
-      ninur = vpn.ninur;
       ninur-w = local.vario.ninur.wireless;
       ninur-e = local.vario.ninur.ethernet;
-      orakel = public.orakel;
-    };
-    protos = {
-      protos = "localhost";
-      vario = vpn.vario;
-      ninur = vpn.ninur;
       orakel = public.orakel;
     };
     orakel = {
       orakel = "localhost";
       protos = public.protos;
-      ninur = vpn.ninur;
-      vario = vpn.vario;
+      vario = vpn.orakel.vario;
     };
-    protos2 = {
-      protos2 = "localhost";
-      vario = vpn.vario;
+    protos = {
+      protos = "localhost";
+      vario = vpn.orakel.vario;
+      orakel = public.orakel;
     };
   };
 
