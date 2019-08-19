@@ -69,6 +69,10 @@
         nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
       };
       channels.nixos-unregistered.unreg.enable = true;
+      channels.home-manager.pr = {
+        defaultRepo = "home-manager";
+        defaultOwners.home-manager = "rycee";
+      };
       channelDefaults = {
         pr.enable = true;
         commands.enable = true;
