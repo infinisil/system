@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ((import ../../sources).nixbot + "/module.nix")
+    /home/infinisil/prj/nixbot/module.nix
   ];
 
   mine.mail.enable = true;
