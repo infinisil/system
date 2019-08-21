@@ -27,7 +27,7 @@ rec {
   local = {
     ninur.vario.ethernet = "192.168.178.28";
     vario.ninur.wireless = "192.168.178.21";
-    vario.ninur.ethernet = "192.168.178.53";
+    vario.ninur.ethernet = "192.168.178.52";
   };
 
   preferred = genAttrs hosts (from:

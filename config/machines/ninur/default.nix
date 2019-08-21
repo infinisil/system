@@ -66,10 +66,9 @@
     };
   };
 
-  mine.openvpn.client = {
-    enable = true;
-    server = config.networking.connections.orakel;
-    gateway = true;
+  services.openvpn.servers.orakel = {
+    mine.type = "client";
+    mine.client.serverIp = config.networking.connections.orakel;
   };
 
   mine.gaming.enable = true;
