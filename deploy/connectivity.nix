@@ -21,13 +21,14 @@ rec {
       orakel = "10.99.1.1";
       vario = "10.99.1.2";
       protos = "10.99.1.3";
+      ninur = "10.99.1.4";
     };
   };
 
   local = {
-    ninur.vario.ethernet = "192.168.178.28";
-    vario.ninur.wireless = "192.168.178.21";
-    vario.ninur.ethernet = "192.168.178.52";
+    vario.ninur.ethernet = "192.168.178.51";
+    vario.ninur.wireless = "192.168.178.52";
+    ninur.vario.ethernet = "192.168.178.53";
   };
 
   preferred = genAttrs hosts (from:
