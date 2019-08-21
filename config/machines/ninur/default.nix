@@ -84,7 +84,7 @@
       recursive = true;
       destinations.backup = {
         dataset = "main/backup/laptopnew";
-        host = "192.168.178.28";
+        host = config.networking.connectivitySpec.local.ninur.vario.ethernet;
         inherit plan;
       };
     };
