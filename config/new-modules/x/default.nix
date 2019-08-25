@@ -10,6 +10,8 @@ with lib;
 
     programs.dconf.enable = true;
 
+    mine.matrix.enable = true;
+
     mine.dunst.enable = true;
 
     mine.live-wallpaper.enable = true;
