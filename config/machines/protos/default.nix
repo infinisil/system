@@ -46,15 +46,13 @@
     enable = true;
     autoCreation = true;
     pure = true;
-    zetup = {
-      "tank/root/data" = {
-        plan = "1day=>1hour";
-        recursive = true;
-        destinations.vario = {
-          host = config.networking.connections.vario;
-          dataset = "main/backup/protos";
-          plan = "1day=>1hour,1week=>1day,1month=>1week";
-        };
+    zetup."tank/root/data" = {
+      plan = "1d=>1h,1w=>1d";
+      recursive = true;
+      destinations.vario = {
+        host = config.networking.connections.vario;
+        dataset = "main/backup/protos";
+        plan = "1d=>1h,1w=>1d,1m=>1w";
       };
     };
   };

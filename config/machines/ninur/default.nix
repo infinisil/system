@@ -80,12 +80,12 @@
     autoCreation = true;
     pure = true;
     zetup."tank/root/data" = rec {
-      plan = "15min=>5min,1h=>15min,1d=>1h,1w=>1d,1m=>1w";
+      plan = "1h=>5min,1d=>1h,1w=>1d";
       recursive = true;
       destinations.backup = {
-        dataset = "main/backup/laptopnew";
         host = config.networking.connectivitySpec.local.ninur.vario.ethernet;
-        inherit plan;
+        dataset = "main/backup/ninur";
+        plan = "1d=>1h,1m=>1d,1y=>1m";
       };
     };
   };

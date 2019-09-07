@@ -61,7 +61,7 @@
     pure = true;
     zetup = {
       "tank/root/music" = {
-        plan = "1hour=>1hour";
+        plan = "1d=>1h";
         #destinations.ninur = {
         #  host = config.networking.connections.ninur;
         #  dataset = "tank/root/music";
@@ -69,8 +69,8 @@
         #};
         destinations.vario = {
           host = config.networking.connections.vario;
-          dataset = "main/music";
-          plan = "1hour=>1hour";
+          dataset = "tank/root/music";
+          plan = "1d=>1h";
         };
       };
     };

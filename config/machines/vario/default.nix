@@ -49,7 +49,16 @@
   services.znapzend = {
     enable = true;
     pure = true;
-    zetup.main.plan = "1hour=>5min,1day=>1hour,1week=>1day,1month=>1week";
+    autoCreation = true;
+    zetup."tank/root/data" = {
+      plan = "1h=>5min,1d=>1h,1w=>1d";
+      recursive = true;
+      destinations.backup = {
+        host = config.networking.connections.orakel;
+        dataset = "tank/backup/vario";
+        plan = "1w=>1d,1m=>1w,6m=>1m";
+      };
+    };
   };
   mine.deluged.enable = true;
   services.deluge = {

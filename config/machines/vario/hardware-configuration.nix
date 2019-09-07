@@ -39,7 +39,7 @@
     };
 
   fileSystems."/home/infinisil/music" =
-    { device = "main/music";
+    { device = "tank/root/music";
       fsType = "zfs";
     };
 
@@ -49,7 +49,7 @@
     };
 
   fileSystems."/home/infinisil/media" =
-    { device = "main/media";
+    { device = "tank/root/data/media";
       fsType = "zfs";
     };
 
