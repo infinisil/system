@@ -18,6 +18,8 @@
 
   mine.transmission.enable = true;
 
+  mine.profiles.server.enable = true;
+
   mine.music = {
     server = {
       enable = true;

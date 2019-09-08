@@ -11,11 +11,6 @@ with lib;
     boot.loader.timeout = 60;
     boot.loader.grub.splashImage = null;
 
-    environment.systemPackages = with pkgs; [
-      youtube-dl
-      mine.imgurdl
-    ];
-
     networking.firewall.logRefusedConnections = false;
 
     services.openssh = {
