@@ -111,15 +111,11 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
+  mine.binalias.projector = "xrandr --output HDMI-0 --mode 1920x1080 --output DP-4 --off";
+  mine.binalias.monitor = "xrandr --output HDMI-0 --off --output DP-4 --mode 2560x1440";
+
   environment.systemPackages = with pkgs; [
-    (writeScriptBin "projector" ''
-      #!${stdenv.shell}
-      xrandr --output HDMI-0 --mode 1920x1080 --output DP-4 --off
-    '')
-    (writeScriptBin "monitor" ''
-      xrandr --output HDMI-0 --off --output DP-4 --mode 2560x1440
-    '')
-    discord
+    guvcview
   ];
 
   mine.gaming.enable = true;

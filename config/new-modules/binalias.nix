@@ -1,23 +1,21 @@
 { pkgs, config, lib, ... }:
 
-with lib;
-
 let
 
   # TODO: Only use a single derivation
-  packages = mapAttrs (name: text:
+  packages = lib.mapAttrs (name: text:
     pkgs.writeShellScriptBin name (text + " \"$@\"")
   ) config.mine.binalias;
   result = pkgs.symlinkJoin {
     name = "binalias";
-    paths = attrValues packages;
+    paths = lib.attrValues packages;
   };
 
 in
 
 {
-  options.mine.binalias = mkOption {
-    type = types.attrsOf types.str;
+  options.mine.binalias = lib.mkOption {
+    type = lib.types.attrsOf lib.types.str;
     default = {};
     description = ''
       Simple map from binary name to the command they should execute. Like bash
@@ -25,9 +23,8 @@ in
     '';
   };
 
-  config.environment.systemPackages =
-    mkIf (config.mine.binalias != {}) [ result ];
-
-  # TODO: Add shell aliases too, then autocomplete can work
-
+  config = {
+    environment.systemPackages = lib.mkIf (config.mine.binalias != {}) [ result ];
+    environment.shellAliases = config.mine.binalias;
+  };
 }
