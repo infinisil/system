@@ -24,6 +24,10 @@
       };
     };
 
+    users.users = lib.genAttrs config.mine.mainUsers (name: {
+      extraGroups = [ "transmission" ];
+    });
+
   };
 
 }
