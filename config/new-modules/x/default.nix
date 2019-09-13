@@ -58,7 +58,6 @@ with lib;
         noto-fonts-emoji
         noto-fonts
         wqy_zenhei
-        input-fonts
       ];
     };
 
