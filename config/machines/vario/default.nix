@@ -50,7 +50,7 @@
     enable = true;
     pure = true;
     autoCreation = true;
-    zetup."tank/root/data" = {
+    zetup."main/root/data" = {
       plan = "1h=>5min,1d=>1h,1w=>1d";
       recursive = true;
       destinations.backup = {
@@ -111,8 +111,8 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  mine.binalias.projector = "xrandr --output HDMI-0 --mode 1920x1080 --output DP-4 --off";
-  mine.binalias.monitor = "xrandr --output HDMI-0 --off --output DP-4 --mode 2560x1440";
+  mine.binalias.projector = "xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off";
+  mine.binalias.monitor = "xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440";
 
   environment.systemPackages = with pkgs; [
     guvcview

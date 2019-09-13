@@ -14,34 +14,34 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tank/root";
+    { device = "main/root";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/67E2-A344";
+    { device = "/dev/disk/by-uuid/6490-C4A6";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "tank/root/nix";
+    { device = "main/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank/root/data/home";
+    { device = "main/root/data/home";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "tank/root/data/varlib";
+    { device = "main/root/data/varlib";
       fsType = "zfs";
     };
 
-  fileSystems."/home/infinisil/music" =
-    { device = "tank/root/music";
-      fsType = "zfs";
-    };
+  #fileSystems."/home/infinisil/music" =
+  #  { device = "tank/root/music";
+  #    fsType = "zfs";
+  #  };
 
   fileSystems."/betty" =
     { device = "main/betty";
@@ -49,13 +49,13 @@
     };
 
   fileSystems."/home/infinisil/media" =
-    { device = "tank/root/data/media";
+    { device = "main/root/data/media";
       fsType = "zfs";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/2e6c36d3-d42c-4e4c-99a3-e67707c20562"; }
-    ];
+  #swapDevices =
+  #  [ { device = "/dev/disk/by-uuid/2e6c36d3-d42c-4e4c-99a3-e67707c20562"; }
+  #  ];
 
   nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

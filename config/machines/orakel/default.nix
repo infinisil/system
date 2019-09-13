@@ -71,7 +71,7 @@
         #};
         destinations.vario = {
           host = config.networking.connections.vario;
-          dataset = "tank/root/music";
+          dataset = "main/root/music";
           plan = "1d=>1h";
         };
       };
