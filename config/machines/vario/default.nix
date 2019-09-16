@@ -51,7 +51,7 @@
     pure = true;
     autoCreation = true;
     zetup."main/root/data" = {
-      plan = "1h=>5min,1d=>1h,1w=>1d";
+      plan = "1d=>1h,1w=>1d";
       recursive = true;
       destinations.backup = {
         host = config.networking.connections.orakel;
