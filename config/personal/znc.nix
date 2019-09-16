@@ -32,6 +32,7 @@
           "#home-manager" = { };
           "#haskell-ide-engine" = { };
           "#pijul" = { Detached = true; };
+          "#proglangdesign" = { };
         };
         Network.mozilla.Chan = {
           "#rust" = { };
