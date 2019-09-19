@@ -7,6 +7,7 @@
     ./personal
     ./pkgs/module.nix
     ./cachix.nix
+    ./machines/exposed.nix
   ];
 
 }

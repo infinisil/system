@@ -20,7 +20,7 @@
     192.168.178.1 fritz.box
   '';
 
-  mine.dns.dkimKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDqEBkfzMeMpXcHmMnasi5sE98SGIphwuWMHFmtXAtqGKsr8gjOQ5rZLTRhqOZR2CZc6xY2iCBtQ6nxFOHfJ/UW5tNanvi2nuo4jhrq9+ZNupdsKwxDpBNm7W9HVO2a0FP6dGa9bme0Zc4wqf9Socialr02YuZqRKwU3kBQtfRg4wIDAQAB";
+  mine.dns.dkimKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDEdE2Wpenn1dVXmnRc/5eZu6uuxF+08ndXaG9QWhm9hBue1nvDOtayKyoJKG6NEfNQpGfSdtZ+MfXd8znBTz7SBbtZ4o/PVqjiF2zUVZcZ80YjGCxzKpI1PV6/Q5x6qkj7cEMX/X8pOnqBs05I4/bZ3xNUnj+Zm9OOK84iIoXipQIDAQAB";
 
   mine.dns.allowedNetworks = [
     "127.0.0.0/24"

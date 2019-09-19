@@ -8,13 +8,13 @@
 
   mine.enableUser = true;
 
-  services.openvpn.servers.orakel.mine = {
-    type = "server";
-    server.subnet = "10.99.1.0/24";
-    server.staticClientIps =
-      let clients = builtins.removeAttrs config.networking.connectivitySpec.vpn.orakel ["orakel"];
-      in lib.mapAttrs' (client: lib.nameValuePair "orakel-${client}") clients;
-  };
+  #services.openvpn.servers.orakel.mine = {
+  #  type = "server";
+  #  server.subnet = "10.99.1.0/24";
+  #  server.staticClientIps =
+  #    let clients = builtins.removeAttrs config.networking.connectivitySpec.vpn.orakel ["orakel"];
+  #    in lib.mapAttrs' (client: lib.nameValuePair "orakel-${client}") clients;
+  #};
 
   mine.transmission.enable = true;
 
