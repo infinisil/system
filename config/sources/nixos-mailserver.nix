@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitLab {
   owner = "simple-nixos-mailserver";
   repo = "nixos-mailserver";
-  rev = "c2ca4d1bb05a5c3886b433dc10b2c4d55bfa1f29";
-  sha256 = "1l5xwk8rjla3bh1dqdf0j836h61a8piydcjhfm84n8hw7y13ajga";
+  rev = "ab33e87cea1e3b980b5da258ef6d75d93a39e05e";
+  sha256 = "0m5c2xrbj3cx8fi1rd33gpk6ia6m7shdkrfh08zcr63drqarbxir";
 }
