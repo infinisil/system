@@ -89,7 +89,7 @@ in {
           Group = group;
           # The normal `murmur` version is so old that it doesn't support
           # reloading of SSL settings
-          ExecStart = "${pkgs.murmur_git}/bin/murmurd -ini ${configFile} -fg";
+          ExecStart = "${pkgs.murmur}/bin/murmurd -ini ${configFile} -fg";
           # For reloading SSL settings
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
         };

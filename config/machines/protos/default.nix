@@ -18,6 +18,13 @@
 
   mine.profiles.server.enable = true;
 
+  services.murmur' = {
+    enable = true;
+    openFirewall = true;
+    config.registerName = "Infinisil's Server";
+    acmeDomain = "infinisil.com";
+  };
+
   services.taskserver.enable = true;
   mine.web = {
     enable = true;

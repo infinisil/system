@@ -24,7 +24,7 @@ with lib;
       #  wineBuild = "wineWow";
       #  gstreamerSupport = false;
       #})
-      mumble_git
+      mumble
     ];
 
   };
