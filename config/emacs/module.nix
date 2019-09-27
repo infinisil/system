@@ -26,7 +26,7 @@ let
     };
   };
 
-  dag = import ../../external/home-manager/modules/lib/dag.nix { inherit lib; };
+  dag = (import (import ../sources).nur { inherit pkgs; }).repos.rycee.lib.dag;
 
   # TODO: Handle dag cycle error gracefully
   initFile = pkgs.writeText "init.el" (concatMapStringsSep "\n\n" ({ name, data }:
@@ -36,7 +36,7 @@ let
       data = ''
         (package-initialize)
       '';
-    }] ++ (dag.dagTopoSort config.init).result));
+    }] ++ (dag.topoSort config.init).result));
 
   overrides = self: super: {
     nix-mode = super.nix-mode.overrideAttrs (old: {
@@ -84,7 +84,7 @@ in
     };
 
     init = mkOption {
-      type = with types; attrsOf (coercedTo str dag.dagEntryAnywhere initEntry);
+      type = with types; attrsOf (coercedTo str dag.entryAnywhere initEntry);
       default = dag.empty;
       description = "Init entries";
     };

@@ -21,7 +21,7 @@ with lib;
 
     init = {
 
-      evil = dag.dagEntryAfter [ "base" ] ''
+      evil = dag.entryAfter [ "base" ] ''
         (setq evil-want-integration t)
         (setq evil-want-keybinding nil)
         (evil-collection-init)
@@ -36,7 +36,7 @@ with lib;
         (setq evil-leader/in-all-states t)
       '';
 
-      keys = dag.dagEntryAfter [ "evil" ] ''
+      keys = dag.entryAfter [ "evil" ] ''
         (which-key-add-key-based-replacements "SPC b" "buffer")
         (evil-leader/set-key "b k" 'kill-buffer)
         (evil-leader/set-key "b s" 'buffer-menu)
