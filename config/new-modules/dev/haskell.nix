@@ -9,13 +9,9 @@ with lib;
   config = mkIf config.mine.dev.haskell.enable {
 
     environment.systemPackages = with pkgs; [
-      stack
-      cabal2nix
-
       haskellPackages.pointfree
       haskellPackages.stylish-haskell
       haskellPackages.hlint
-      haskellPackages.structured-haskell-mode
     ];
 
     mine.emacs.config.haskell = true;

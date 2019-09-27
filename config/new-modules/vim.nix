@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 with lib;
 
@@ -32,15 +32,15 @@ in
         tabstop = 2;
         shiftwidth = 2;
       };
-      plugins = [
-        "YouCompleteMe"
-        "ghc-mod-vim"
-        "gundo"
-        "colors-solarized"
-        "vim-nix"
-        "syntastic"
-        "editorconfig-vim"
-        "vim-pandoc"
+      plugins = with pkgs.vimPlugins; [
+        YouCompleteMe
+        ghc-mod-vim
+        gundo
+        colors-solarized
+        vim-nix
+        syntastic
+        editorconfig-vim
+        vim-pandoc
       ];
       extraConfig = ''
         filetype on

@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "Infinisil";
   repo = "soph";
-  rev = "74cd5c230405ac3d2880973e76f7b738a0726956";
-  sha256 = "0cclpvvcsw7a2rs6qdhl5pxnxqwq4n3xlnrp9zskr0bdbd9x2cnb";
+  rev = "722294ea6058542556539a53b2e02a4f9e988cd2";
+  sha256 = "1hk7a02fcpp5iqj76kmmv8prc8srpx47b52qsbqn1hn9c41h467x";
 }

@@ -106,7 +106,7 @@ in {
 
       sslPath = "${dataDir}/full.pem";
       updateCert = ''
-        cp ${config.security.acme.directory}/${cfg.acmeDomain}/full.pem ${sslPath}
+        cp /var/lib/acme/${cfg.acmeDomain}/full.pem ${sslPath}
         chmod g+r ${sslPath}
         chgrp ${group} ${sslPath}
       ''; in {
