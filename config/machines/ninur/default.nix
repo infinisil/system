@@ -11,6 +11,7 @@
   services.xserver.deviceSection = ''
     Option "TearFree" "true"
   '';
+  mine.compton.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
 

@@ -16,7 +16,6 @@ with lib;
 
     mine.live-wallpaper.enable = true;
 
-    mine.compton.enable = true;
 
     services.logind.extraConfig = ''
       HandlePowerKey=suspend

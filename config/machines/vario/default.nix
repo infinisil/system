@@ -18,8 +18,6 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  mine.compton.nvidia = true;
-
   hardware.opengl.driSupport32Bit = true;
 
   mine.sshMounts = lib.mapAttrs (name: value: {
@@ -38,7 +36,6 @@
     }
   ];
 
-  mine.compton.highend = true;
   services.ipfs = {
     enable = true;
     autostart = true;
