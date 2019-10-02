@@ -18,6 +18,8 @@
 
   mine.profiles.server.enable = true;
 
+  services.do-agent.enable = true;
+
   services.murmur' = {
     enable = true;
     openFirewall = true;
