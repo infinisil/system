@@ -10,6 +10,12 @@
 
   time.timeZone = "Europe/Zurich";
 
+  mine.userConfig = {
+    programs.gpg.enable = true;
+    programs.gpg.settings.encrypt-to = "0x3EAC5A9F2DC4D47E";
+    programs.gpg.settings.default-key = "0xE8F1E9EAD284E17D";
+  };
+
   mine.keylayout = {
     enable = true;
     layoutFile = ./keymap.xkb;

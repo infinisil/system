@@ -80,7 +80,7 @@ with lib;
         userEmail = "infinisil@icloud.com";
         aliases.lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         signing = {
-          key = "5B2CFBD8E6AD7FC113D675A89424360B4B85C9E7";
+          key = "0xE8F1E9EAD284E17D";
           signByDefault = true;
           gpgPath = "${pkgs.gnupg}/bin/gpg";
         };
