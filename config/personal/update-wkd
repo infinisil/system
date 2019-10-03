@@ -1,0 +1,13 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p gnupg
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+set -xu
+
+install -m 0711 -d "$DIR/wkd"
+
+DOMAIN="$1"
+
+# From https://wiki.gnupg.org/WKDHosting#Publishing
+gpg --list-options show-only-fpr-mbox -k "@$DOMAIN" \
+	| gpg-wks-server -v -C "$DIR/wkd" --install-key

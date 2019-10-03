@@ -10,6 +10,8 @@
 
   time.timeZone = "Europe/Zurich";
 
+  mine.webKeyDirectory.directory = ./wkd;
+
   mine.userConfig = {
     programs.gpg.enable = true;
     programs.gpg.settings.encrypt-to = "0x3EAC5A9F2DC4D47E";

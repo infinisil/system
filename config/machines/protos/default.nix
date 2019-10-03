@@ -18,6 +18,8 @@
 
   mine.profiles.server.enable = true;
 
+  mine.webKeyDirectory.enable = true;
+
   services.do-agent.enable = true;
 
   services.murmur' = {
