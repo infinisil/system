@@ -70,7 +70,7 @@
 
   services.nixbot = {
     enable = true;
-    channels = [ "nixos-unstable" "nixos-19.03" "nixos-18.09" ];
+    channels = [ "nixos-unstable" "nixos-19.09" "nixos-19.03" ];
     config = {
       users = {
         commands.enable = true;
