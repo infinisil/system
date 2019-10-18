@@ -113,6 +113,7 @@
 
   environment.systemPackages = with pkgs; [
     guvcview
+    slack-dark
   ];
 
   mine.gaming.enable = true;
