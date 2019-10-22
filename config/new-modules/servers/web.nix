@@ -25,7 +25,7 @@ in
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-    mine.subdomains = [ "www" ];
+    mine.subdomains = [ "www" "private" ];
 
     services.nginx = {
       enable = true;
@@ -39,6 +39,12 @@ in
         forceSSL = true;
         enableACME = true;
         root = cfg.root;
+      };
+      virtualHosts."private.${domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        basicAuth.infinisil = config.private.passwords."infinisil@private.infinisil.com";
+        root = "/privatewebroot";
       };
     };
 
