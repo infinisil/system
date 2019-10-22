@@ -1,0 +1,9 @@
+* How I configured passforios
+
+- Set up basicAuth private.infinisil.com to transfer keys and stuff to phone. Password needs to be symbol-less
+- Put ascii-encrypted gpg pub and priv key on private.infinisil.com and import with iphone, enter password
+- Generate a compatible ssh key (see https://github.com/mssun/passforios/issues/218) with ~ssh-keygen -t rsa -b 4096 -m PEM -f ~/cfg/external/private/id_phone -C phone~ with a password
+- Put key on private.infinisil.com, import with phone
+- Enter git repository url ~ssh://git@infinisil.com/home/git/passwords~ and clone, enter ssh password
+
+Todo: Use the new gpg key, generate a subkey for the phone
