@@ -47,7 +47,7 @@
     enable = true;
     pure = true;
     autoCreation = true;
-    zetup."main/root/data" = {
+    zetup."tank/root/data" = {
       plan = "1d=>1h,1w=>1d";
       recursive = true;
       destinations.backup = {

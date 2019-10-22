@@ -14,27 +14,27 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "main/root";
+    { device = "tank/root";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/6490-C4A6";
+    { device = "/dev/disk/by-uuid/1333-7E5C";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "main/root/nix";
+    { device = "tank/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "main/root/data/home";
+    { device = "tank/root/data/home";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "main/root/data/varlib";
+    { device = "tank/root/data/varlib";
       fsType = "zfs";
     };
 
@@ -49,13 +49,13 @@
     };
 
   fileSystems."/home/infinisil/media" =
-    { device = "main/root/data/media";
+    { device = "tank/root/data/media";
       fsType = "zfs";
     };
 
-  #swapDevices =
-  #  [ { device = "/dev/disk/by-uuid/2e6c36d3-d42c-4e4c-99a3-e67707c20562"; }
-  #  ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/6a18286a-8e58-4edf-bf3b-3ab8ebb29211"; }
+    ];
 
   nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
