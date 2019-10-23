@@ -76,7 +76,7 @@ in {
         ${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/BAT0/current_now)/1000000"
       '';
       batt = ''
-        PATH="${lib.makeBinPath [ acpi gawk bc coreutils ]}:$PATH"
+        PATH="${lib.makeBinPath (with pkgs; [ acpi gawk bc coreutils ])}:$PATH"
 
         battstat=$(acpi -b | cut -d' ' -f3 | tr -d ',')
 
@@ -129,7 +129,7 @@ in {
         printf "<fc=#%02x%02x00>%s%% %s</fc> (%s)\n" "$red" "$green" "$charge" "$symbol" "$postfix"
       '';
       playing = ''
-        status="$(systemctl --user is-active music)"
+        status="$(${config.systemd.package}/bin/systemctl --user is-active music)"
         if [ $status = active ]; then
           echo 
         else
