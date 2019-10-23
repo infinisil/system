@@ -76,7 +76,7 @@ in {
         ${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/BAT0/current_now)/1000000"
       '';
       batt = ''
-        PATH="${pkgs.acpi}/bin:${pkgs.gawk}/bin:${pkgs.bc}/bin:$PATH"
+        PATH="${lib.makeBinPath [ acpi gawk bc coreutils ]}:$PATH"
 
         battstat=$(acpi -b | cut -d' ' -f3 | tr -d ',')
 
