@@ -64,11 +64,11 @@
     zetup = {
       "tank/root/music" = {
         plan = "1d=>1h";
-        #destinations.ninur = {
-        #  host = config.networking.connections.ninur;
-        #  dataset = "tank/root/music";
-        #  plan = "1hour=>1hour";
-        #};
+        destinations.ninur = {
+          host = config.networking.connections.ninur;
+          dataset = "tank/root/music";
+          plan = "1d=>1h";
+        };
         destinations.vario = {
           host = config.networking.connections.vario;
           dataset = "tank/root/music";

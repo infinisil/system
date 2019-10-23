@@ -63,6 +63,7 @@ rec {
       orakel = "localhost";
       protos = public.protos;
       vario = vpn.orakel.vario;
+      ninur = vpn.orakel.ninur;
     };
     protos = {
       protos = "localhost";
