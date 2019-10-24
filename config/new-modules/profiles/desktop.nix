@@ -12,6 +12,9 @@ with lib;
 
   config = mkIf config.mine.profiles.desktop.enable {
 
+    services.printing.enable = true;
+    programs.system-config-printer.enable = true;
+
     mine.hueadm.enable = true;
 
     eth.futureInternet.enable = true;
