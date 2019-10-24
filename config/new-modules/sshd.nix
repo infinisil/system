@@ -22,10 +22,6 @@ with lib;
 
     networking.firewall.allowedTCPPorts = [ 22 ];
 
-    users.users = mkMerge (map (user: {
-      ${user}.openssh.authorizedKeys.keys = config.mine.allsshkeys;
-    }) config.mine.mainUsers);
-
   };
 
 

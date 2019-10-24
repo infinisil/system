@@ -14,7 +14,6 @@ with lib;
       home = "/home/git";
       group = "git";
       description = "Git repository user";
-      openssh.authorizedKeys.keys = config.mine.allsshkeys;
     };
 
     users.groups.git.gid = null;

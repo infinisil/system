@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }: {
 
   imports = [
-    ./keys.nix
     ./znc.nix
     ./wlan.nix
     ./bins.nix
     ./user.nix
+    ./ssh-access.nix
   ];
 
   time.timeZone = "Europe/Zurich";

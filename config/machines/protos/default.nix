@@ -146,8 +146,6 @@
     firewall.allowedTCPPorts = [ 2362 ];
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIrsQzCzdxcl1O3eE+QNSZGvyehnMJOFLdFX7xIhz/lM infinisil@vario" ];
-
   system.stateVersion = "19.03";
 
 }

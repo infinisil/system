@@ -15,13 +15,22 @@ let
     preferLocalBuild = true;
   } (valToPath "$out" value);
 
+  cfg = config.mine.web.keys;
+
 in
 
 {
 
-  options.mine.web.keys.enable = lib.mkEnableOption "Online SSH keys";
+  options.mine.web.keys = {
+    enable = lib.mkEnableOption "Online SSH keys";
+    set = lib.mkOption {
+      type = lib.types.attrs;
+      default = {};
+      description = "What attrs to put into the directory";
+    };
+  };
 
-  config = lib.mkIf config.mine.web.keys.enable {
+  config = lib.mkIf cfg.enable {
     mine.subdomains = [ "keys" ];
 
     services.nginx = {
@@ -33,7 +42,7 @@ in
         locations."/" = {
           root = attrToDerivation {
             name = "keys";
-            value = config.mine.sshkeys;
+            value = cfg.set;
           };
           extraConfig = "autoindex on;";
         };
