@@ -100,6 +100,14 @@
     forceSSL = true;
   };
 
+  mine.subdomains = [ "pc" ];
+
+  services.nginx.virtualHosts."pc.infinisil.com" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://10.99.1.2:80";
+  };
+
   users.users.infinisil.extraGroups = [ "nixbot" ];
   users.users.nginx.extraGroups = [ "nixbot" ];
 
