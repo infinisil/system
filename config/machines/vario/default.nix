@@ -121,7 +121,7 @@
   services.nginx = {
     enable = true;
     virtualHosts.localhost = {
-      basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
+      #basicAuth.infinisil = config.private.passwords."pc.infinisil.com";
       locations."/".root = "/webroot";
       locations."/betty/" = {
         root = "/betty";

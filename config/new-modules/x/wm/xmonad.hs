@@ -137,7 +137,6 @@ myKeymap c n =
   , ("M4-r", sendMessage Rotate)
   , ("M4-b b", sendMessage Balance)
   , ("M4-b e", sendMessage Equalize)
-  , ("M4-d", withFocused demanage)
   ] ++ [
   ("M4-" ++ shift ++ key, windows $ (if n == 1 then id else onCurrentScreen) f i) |
     (i, key) <- zip (if n == 1 then XMonad.workspaces c else workspaces' c) (map (:[]) "&[{}(=*)+") , (f, shift) <- [(W.greedyView, ""), (W.shift, "S-")]]
