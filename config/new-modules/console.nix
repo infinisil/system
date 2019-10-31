@@ -21,6 +21,11 @@ with lib;
       enableCompletion = false;
     };
 
+    environment.variables = {
+      BC_ENV_ARGS = "-lq";
+      BC_LINE_LENGTH = "0";
+    };
+
     environment.systemPackages = with pkgs; [
       direnv
       gitFull
