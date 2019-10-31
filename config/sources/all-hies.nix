@@ -1,10 +1,10 @@
 { pkgs }: let src = pkgs.fetchFromGitHub {
   owner = "infinisil";
   repo = "all-hies";
-  rev = "971421b6c4f8fbd9f05154581489ea7eebe10de5";
-  sha256 = "1zl3zrswic7d3z1hmpjc76zp569bb655jrlkamlgxxr53n0j6n47";
+  rev = "ce338eea908f189b280cdbfe67b78b0cac7d8b59";
+  sha256 = "19spg5xnb1gdnxal4vp402dknfhbva5jj5yq34qyzvksyn16c3dp";
 }; in src // {
-  #meta = src.meta // {
-  #  branch = "0.12.0.0";
-  #};
+  meta = src.meta // {
+    branch = "0.13.0.0";
+  };
 }
