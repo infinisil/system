@@ -46,7 +46,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    steam
+    #steam
     efibootmgr
     acpi
     lm_sensors
@@ -72,9 +72,9 @@
     mine.client.serverIp = config.networking.connections.orakel;
   };
 
-  mine.gaming.enable = true;
+  #mine.gaming.enable = true;
 
-  services.ipfs.enable = true;
+  #services.ipfs.enable = true;
 
   services.znapzend = {
     enable = true;
@@ -95,7 +95,7 @@
 
   mine.profiles.desktop.enable = true;
 
-  mine.dev.rust.enable = true;
+  #mine.dev.rust.enable = true;
 
   hardware.opengl.enable = true;
 
