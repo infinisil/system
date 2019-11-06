@@ -69,11 +69,11 @@
         #  dataset = "tank/music";
         #  plan = "1h=>5min,1d=>1h";
         #};
-        #destinations.vario = {
-        #  host = config.networking.connections.vario;
-        #  dataset = "tank/root/music";
-        #  plan = "1d=>1h";
-        #};
+        destinations.vario = {
+          host = config.networking.connections.vario;
+          dataset = "tank2/root/music";
+          plan = "1d=>1h";
+        };
       };
     };
   };

@@ -3,7 +3,7 @@ let
   # TODO: Make a module
   spec = with hosts; {
     vario = {
-      hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIED/k0nHAb8GvP/JKNfskm1ldbXuWLz8QX8wvClBVLL3";
+      hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKST1SmdSyr88e6sha4avm7/3LRDr8ZgIl6Sn7ARenZM";
       users.infinisil.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjY4cuUk4IWgBgnEJSULkIHO+njUmIFP+WSWy7IobBs infinisil@vario";
       users.infinisil.needsAccessTo = [
         ninur.infinisil
@@ -11,7 +11,7 @@ let
         protos.git
         orakel.infinisil
       ];
-      users.root.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOEk6nkTely/xqo/QTqzOeLRvS3QTxn/CLNCwiGFm9rs root@vario";
+      users.root.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgAYXd/tYlniYlz2TlfRUmZ+sxkRe8g7YGgPp7fADG+ root@vario";
       users.root.needsAccessTo = [
         orakel.root
       ];

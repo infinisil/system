@@ -8,40 +8,40 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "usbhid" "uas" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tank/root";
+    { device = "tank2/root";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1333-7E5C";
+    { device = "/dev/disk/by-uuid/0E52-3718";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "tank/root/nix";
+    { device = "tank2/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank/root/data/home";
+    { device = "tank2/root/data/home";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "tank/root/data/varlib";
+    { device = "tank2/root/data/varlib";
       fsType = "zfs";
     };
 
-  #fileSystems."/home/infinisil/music" =
-  #  { device = "tank/root/music";
-  #    fsType = "zfs";
-  #  };
+  fileSystems."/home/infinisil/music" =
+    { device = "tank2/root/music";
+      fsType = "zfs";
+    };
 
   fileSystems."/betty" =
     { device = "main/betty";
@@ -49,12 +49,12 @@
     };
 
   fileSystems."/home/infinisil/media" =
-    { device = "tank/root/data/media";
+    { device = "tank2/root/data/media";
       fsType = "zfs";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/6a18286a-8e58-4edf-bf3b-3ab8ebb29211"; }
+    [ { device = "/dev/disk/by-uuid/25b8d3ca-fd22-4099-9c31-2d24f3ccc6e6"; }
     ];
 
   nix.maxJobs = lib.mkDefault 8;

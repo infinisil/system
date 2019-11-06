@@ -36,18 +36,18 @@
     }
   ];
 
-  services.ipfs = {
-    enable = true;
-    autostart = true;
-  };
+  #services.ipfs = {
+  #  enable = true;
+  #  autostart = true;
+  #};
 
-  mine.dev.rust.enable = true;
+  #mine.dev.rust.enable = true;
 
   services.znapzend = {
     enable = true;
     pure = true;
     autoCreation = true;
-    zetup."tank/root/data" = {
+    zetup."tank2/root/data" = {
       plan = "1d=>1h,1w=>1d";
       recursive = true;
       destinations.backup = {
@@ -116,7 +116,7 @@
     slack-dark
   ];
 
-  mine.gaming.enable = true;
+  #mine.gaming.enable = true;
 
   services.nginx = {
     enable = true;

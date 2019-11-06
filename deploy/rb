@@ -27,6 +27,7 @@ msg="$(git log --pretty=format:'%h-%f' -1 \
 label="$(printf "%s-%.35s" "$branch" "$msg")"
 
 args="-s $(realpath "$DIR/../external/private/deployments.nixops") -d infinisil"
+sudo nixops modify "$DIR" $args
 sudo nixops set-args $args --argstr label "$label"
 sudo nixops set-args $args --arg host-ips "$("$DIR/preferred-ip")"
 sudo nixops deploy $args -I nixpkgs=$DIR/../external/nixpkgs $@
