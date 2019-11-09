@@ -63,23 +63,12 @@ with lib;
     environment.systemPackages = with pkgs; [
       feh
       libnotify
-      gnome3.gnome-font-viewer
-      gnome3.gnome_terminal
-      guake
       xclip
       evince
-      vlc
-      pcmanfm
       arandr
-      xorg.xmessage
       lxappearance-gtk3
-      #arc-theme
       gtk_engines
       gtk-engine-murrine
-      #shotcut #video editor
-      xbindkeys
-      xwinwrap
-      xbindkeys-config
       dmenu
       xlibs.xev
       thunderbird
