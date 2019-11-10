@@ -18,6 +18,8 @@
         Network.twitch = lib.mkForce null;
         Network.freenode.Chan = {
           "#haskell" = { };
+          "#haskell-ide-engine" = { };
+          "#haskell.nix" = { };
           "#nixos" = { };
           "##nixos-anime" = { };
           "#bottest" = { };
@@ -30,13 +32,18 @@
           "#nixos-security" = { };
           "#minecraft" = { };
           "#home-manager" = { };
-          "#haskell-ide-engine" = { };
           "#pijul" = { Detached = true; };
           "#proglangdesign" = { };
+          "#nixos-officehours" = { };
+          "#nixos-officesupplies" = { };
+          "#purism" = { };
+          "#untrustix" = { };
+          "#spectrum" = { };
+          "#xmonad" = { };
         };
         Network.mozilla.Chan = {
-          "#rust" = { };
-          "#rust-beginners" = { };
+          "#rust" = { Disabled = true; };
+          "#rust-beginners" = { Disabled = true; };
         };
       };
     };
