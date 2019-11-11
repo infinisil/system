@@ -66,6 +66,7 @@
       https://www.youtube.com/feeds/videos.xml?user=Pyropuncher
       http://degoes.net/feed.xml
       https://cli.fan/posts/index.xml
+      https://chrispenner.ca/atom.xml
     ];
   };
 
