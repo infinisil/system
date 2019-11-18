@@ -248,7 +248,11 @@ in
 
 
       systemd.services = {
-        mpd.after = [ "home-infinisil-music.mount" ];
+        mpd = {
+          after = [ "home-infinisil-music.mount" ];
+          # TODO: Upstream
+          serviceConfig.Restart = "on-failure";
+        };
 
         info = mkMpdService {
           name = "info";
