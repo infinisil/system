@@ -26,6 +26,11 @@ in
 
   config = mkIf cfg.enable {
 
+    assertions = [{
+      assertion = pkgs.python3.pkgs.pyspf.version != "2.0.13";
+      message = "pyspf version 2.0.13 shouldn't be used, see https://github.com/NixOS/nixpkgs/pull/73427";
+    }];
+
     services.rspamd.workers.rspamd_proxy.type = mkForce "rspamd_proxy";
 
     mailserver = {
