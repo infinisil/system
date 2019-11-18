@@ -103,7 +103,7 @@ mkIf config.mine.console.enable {
         gstl = "git stash list";
         gstp = "git stash pop";
         glum = "git pull upstream master";
-        gwch = "git whatchanged -p --abbrev-commit --pretty=medium";
+        gwch = "git log --patch --no-merges";
 
         nix-shell = "nix-shell --command zsh";
       };
