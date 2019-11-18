@@ -11,5 +11,6 @@ let
       pkgs.lib.mapAttrs (arg: expr: import (builtins.toFile arg expr)) value
       else value
   ) info;
-  eval = import "${pkgs.nixopsUnstable}/share/nix/nixops/eval-machine-info.nix" info';
-in eval
+in scopedImport {
+  __nixPath = [ { prefix = "nixpkgs"; path = ../../external/nixpkgs; } ] ++ builtins.nixPath;
+} "${pkgs.nixopsUnstable}/share/nix/nixops/eval-machine-info.nix" info'
