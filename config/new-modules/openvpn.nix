@@ -169,7 +169,7 @@ let
         persist-tun
 
         user nobody
-        group nobody
+        group nogroup
 
         verb 3
         mute 20
