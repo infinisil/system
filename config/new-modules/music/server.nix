@@ -197,7 +197,7 @@ in
               ".decentMixes" = "^nope:1 rating:6.. length:10:00..";
               ".goodMixes" = "^nope:1 rating:8.. length:10:00..";
               ".greatMixes" = "^nope:1 rating:9.. length:10:00..";
-              ".now" = "now:1";
+              ".now" = "now:1 ^rating:0..5 added:-6m..";
               ".SafariSound" = "Safari Sound";
               ".Orchestral" = "orchestral:1";
               artist = {
