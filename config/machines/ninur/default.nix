@@ -50,6 +50,7 @@
     efibootmgr
     acpi
     lm_sensors
+    slack
   ];
 
   services.mbpfan.enable = true;
