@@ -21,12 +21,14 @@ with lib;
 
     #mine.newsboat.enable = true;
 
+    programs.gnupg.agent.enable = true;
+
     mine.userConfig = {
       services.flameshot.enable = true;
-      services.gpg-agent = {
-        enable = true;
-        enableSshSupport = true;
-      };
+      #services.gpg-agent = {
+      #  enable = true;
+      #  enableSshSupport = true;
+      #};
     };
 
     mine.taskclient.enable = true;
