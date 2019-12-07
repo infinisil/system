@@ -102,6 +102,7 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
+        gfxmodeEfi = "2560x1440";
       };
       efi.canTouchEfiVariables = true;
     };
