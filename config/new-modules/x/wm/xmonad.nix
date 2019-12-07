@@ -25,8 +25,6 @@ in
 
     mine.terminal.enable = true;
 
-    mine.sddm.enable = true;
-
     scripts = let
       pactl = "${pkgs.pulseaudioLight}/bin/pactl";
       mpc = "MPD_HOST=${config.mine.mpdHost} ${pkgs.mpc_cli}/bin/mpc";

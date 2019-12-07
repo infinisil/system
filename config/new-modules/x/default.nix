@@ -27,12 +27,9 @@ with lib;
       exportConfiguration = true;
 
       displayManager = {
-        sddm = {
+        lightdm = {
           enable = true;
-          autoLogin = {
-            enable = false;
-            user = "infinisil";
-          };
+          background = toString config.mine.assets.display-manager;
         };
 
         sessionCommands = ''
