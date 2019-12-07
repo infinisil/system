@@ -29,7 +29,7 @@ with lib;
       displayManager = {
         lightdm = {
           enable = true;
-          background = toString config.mine.assets.display-manager;
+          background = toString config.mine.assets.blurred;
         };
 
         sessionCommands = ''

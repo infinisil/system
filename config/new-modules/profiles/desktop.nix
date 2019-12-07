@@ -75,7 +75,7 @@ with lib;
 
     boot.supportedFilesystems = [ "exfat" "ntfs" ];
 
-    boot.loader.grub.splashImage = config.mine.assets.grub;
+    boot.loader.grub.splashImage = config.mine.assets.blurred;
 
   };
 
