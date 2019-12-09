@@ -21,15 +21,14 @@ with lib;
 
     #mine.newsboat.enable = true;
 
-    programs.gnupg.agent.enable = true;
-    programs.gnupg.agent.pinentryFlavor = "gnome3";
-
     mine.userConfig = {
       services.flameshot.enable = true;
-      #services.gpg-agent = {
-      #  enable = true;
-      #  enableSshSupport = true;
-      #};
+      services.gpg-agent = {
+        enable = true;
+        extraConfig = ''
+          pinentry-program ${pkgs.pinentry.qt}/bin/pinentry
+        '';
+      };
     };
 
     mine.taskclient.enable = true;
