@@ -22,6 +22,7 @@ with lib;
     #mine.newsboat.enable = true;
 
     programs.gnupg.agent.enable = true;
+    programs.gnupg.agent.pinentryFlavor = "gnome3";
 
     mine.userConfig = {
       services.flameshot.enable = true;

@@ -18,7 +18,7 @@
   # Seems to cause a bunch of problems
   # boot.kernelParams = [ "acpi_osi=" ];
   boot.extraModprobeConfig = ''
-    options hid_apple fnmode=2
+    options hid_apple fnmode=1
   '';
 
   services.tlp.enable = true;
@@ -55,27 +55,10 @@
 
   services.mbpfan.enable = true;
 
-
-  hardware.opengl.driSupport32Bit = true;
-
-  mine.sshMounts = lib.mapAttrs (name: value: {
-    host = "infinisil@${value}:/home/infinisil";
-    identity = "/home/infinisil/.ssh/id_rsa";
-  }) config.networking.connections // {
-    betty = {
-      host = "infinisil@${config.networking.connections.vario}:/betty";
-      identity = "/home/infinisil/.ssh/id_rsa";
-    };
-  };
-
   services.openvpn.servers.orakel = {
     mine.type = "client";
     mine.client.serverIp = config.networking.connections.orakel;
   };
-
-  #mine.gaming.enable = true;
-
-  #services.ipfs.enable = true;
 
   services.znapzend = {
     enable = true;
@@ -96,21 +79,8 @@
 
   mine.profiles.desktop.enable = true;
 
-  #mine.dev.rust.enable = true;
-
-  hardware.opengl.enable = true;
-
-  services.nginx = {
-    enable = true;
-    virtualHosts.localhost = {
-      root = "/webroot";
-      listen = [ { port = 80; addr = "0.0.0.0"; } ];
-    };
-  };
-
   networking = {
     hostName = "ninur";
     hostId = "34cc680d";
-    firewall.allowedTCPPorts = [ 80 1500 1501 ];
   };
 }
