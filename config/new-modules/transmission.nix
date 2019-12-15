@@ -10,6 +10,12 @@
         incomplete-dir-enabled = true;
         # script-torrent-done-enabled: Boolean (default = false) Run a script at torrent completion.
         # script-torrent-done-filename =
+        rpc-authentication-required = true;
+        rpc-password = config.private.passwords."infinisil@torrent.infinisil.com";
+        rpc-username = "infinisil";
+        rpc-whitelist-enabled = false;
+        rpc-host-whitelist-enabled = false;
+
       };
     };
 
@@ -23,6 +29,8 @@
         locations."/".proxyPass = "http://localhost:${toString config.services.transmission.port}";
       };
     };
+
+    networking.firewall.allowedTCPPorts = [ config.services.transmission.port ];
 
     users.users = lib.genAttrs config.mine.mainUsers (name: {
       extraGroups = [ "transmission" ];
