@@ -7,7 +7,7 @@ let
   cfg = config.mine.music;
 
   serverConfig = if (config.mine.music.client.server == null)
-    then config else config.mine.music.client.server.config;
+    then config else config.mine.music.client.server;
 
   serverPassword = serverConfig.mine.music.server.password;
 

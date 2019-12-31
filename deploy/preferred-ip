@@ -12,6 +12,9 @@ echo "Determining preferred ips for hosts.." >&2
 echo "{"
 
 for host in $hosts; do
+	if [[ $# -ne 0 ]] && ! [[ "$*" =~ "$host" ]]; then
+		continue
+	fi
 
 	candidates=$(nix-instantiate --eval --strict --json \
 		"$DIR/connectivity.nix" -A "preferred.$(hostname).$host" \

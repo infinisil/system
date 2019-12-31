@@ -26,8 +26,18 @@ msg="$(git log --pretty=format:'%h-%f' -1 \
 	--no-merges --grep=".+" --extended-regexp)"
 label="$(printf "%s-%.35s" "$branch" "$msg")"
 
-args="-s $(realpath "$DIR/../external/private/deployments.nixops") -d infinisil"
-sudo nixops modify "$DIR" $args
-sudo nixops set-args $args --argstr label "$label"
-sudo nixops set-args $args --arg host-ips "$("$DIR/preferred-ip")"
-sudo nixops deploy $args -I nixpkgs=$DIR/../external/nixpkgs $@
+nodes="[ "
+for node in "$@"; do
+  nodes+="\"$node\" "
+done
+nodes+="]"
+
+preferredips=$("$DIR/preferred-ip" "$@")
+
+echo "Building all nodes..."
+$(nix-build --no-out-link "$DIR" \
+  --argstr label "$label" \
+	--arg host-ips "$preferredips" \
+	--arg nodes "$nodes"
+	)
+echo "Finished deploying"

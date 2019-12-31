@@ -10,6 +10,10 @@ let
         protos.infinisil
         protos.git
         orakel.infinisil
+        protos.root
+        orakel.root
+        vario.root
+        ninur.root
       ];
       users.root.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgAYXd/tYlniYlz2TlfRUmZ+sxkRe8g7YGgPp7fADG+ root@vario";
       users.root.needsAccessTo = [

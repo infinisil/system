@@ -1,5 +1,3 @@
-{ label, host-ips }:
-
 let
 
   nixosConfig = builtins.toFile "configuration.nix" ''
@@ -9,79 +7,81 @@ let
 
       assertions = [{
         assertion = false;
-        message = "Not gonna do that for you, this is a nixops managed machine";
+        message = "Not gonna do that for you";
       }];
     }
   '';
 
   deployer = { pkgs, ... }: {
-    environment.systemPackages = [ pkgs.nixopsUnstable ];
-
     environment.shellAliases = {
       rb = toString ./rb;
       cachix-use = "cachix use -n -d ${toString ../config}";
-    };
-
-    environment.variables = {
-      NIXOPS_STATE = toString ../external/private/deployments.nixops;
-      NIXOPS_DEPLOYMENT = "infinisil";
     };
   };
 
   nurNoPkgs = import (import ../config/sources).nur {};
 
 in
-{
-  network = {
-    description = "Infinisil's machines";
-    enableRollback = true;
-  };
+
+{ host-ips ? {}
+, label ? ""
+, nodes ? []
+}: import (import ../config/sources).nixoses {
 
   defaults = { name, lib, ... }: {
-    deployment.targetHost = host-ips.${name} or "${name}.invalid";
-    system.nixos.label = label;
-    imports = [
-      ../config
-      ../external/private
-      nurNoPkgs.repos.rycee.modules.home-manager
-    ];
+    enabled = if nodes == [] then true else lib.elem name nodes;
+    host = if host-ips ? ${name} then "root@${host-ips.${name}}" else null;
 
-    environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
+    nixpkgs = ../external/nixpkgs;
 
-    nix.nixPath = [
-      "nixos-config=${nixosConfig}"
-      "nixpkgs=/etc/nixpkgs"
-    ];
+    configuration = {
+      imports = [
+        ../config
+        ../external/private
+        nurNoPkgs.repos.rycee.modules.home-manager
+      ];
+
+      system.nixos.label = label;
+
+      environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
+
+      nix.nixPath = [
+        "nixos-config=${nixosConfig}"
+        "nixpkgs=/etc/nixpkgs"
+      ];
+    };
   };
 
-  protos = {
-    imports = [
-      ../config/machines/protos
-      ../external/private/machines/protos.nix
-    ];
+  nodes.protos = {
+    configuration = {
+      imports = [
+        ../config/machines/protos
+        ../external/private/machines/protos.nix
+      ];
+    };
   };
 
-  ninur = {
-    deployment.hasFastConnection = true;
-    imports = [
-      ../config/machines/ninur
-      ../external/private/machines/ninur.nix
-      deployer
-    ];
-  };
-
-  vario = {
-    imports = [
+  nodes.vario = {
+    configuration.imports = [
       ../config/machines/vario
       ../external/private/machines/vario.nix
       deployer
     ];
   };
 
-  orakel = {
-    imports = [
+  nodes.ninur = {
+    configuration.imports = [
+      ../config/machines/ninur
+      ../external/private/machines/ninur.nix
+      deployer
+    ];
+  };
+
+  nodes.orakel = {
+    configuration.imports = [
       ../config/machines/orakel
       ../external/private/machines/orakel.nix
     ];
   };
+
 }
