@@ -1,7 +1,7 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "infinisil";
   repo = "nixoses";
-  rev = "640fa9727e6741a31e2ca23b28e8c95809f52198";
-  sha256 = "0xdpzwmqxynpwwqc96549j3q3pmh64h1ibrxmhlwd7qxd8fqxbmn";
+  rev = "9bdb477b4d0bc8a220a0b3e8eeb262f8aac1dcee";
+  sha256 = "1l2yraah9r2yhlzpz11ncf8jdk884raiz37lhd4123yl82r40ald";
   fetchSubmodules = true;
 }
