@@ -58,30 +58,40 @@ in
         ../config/machines/protos
         ../external/private/machines/protos.nix
       ];
+      system.stateVersion = "19.03";
     };
   };
 
   nodes.vario = {
-    configuration.imports = [
-      ../config/machines/vario
-      ../external/private/machines/vario.nix
-      deployer
-    ];
+    configuration = {
+      imports = [
+        ../config/machines/vario
+        ../external/private/machines/vario.nix
+        deployer
+      ];
+      system.stateVersion = "19.03";
+    };
   };
 
   nodes.ninur = {
-    configuration.imports = [
-      ../config/machines/ninur
-      ../external/private/machines/ninur.nix
-      deployer
-    ];
+    configuration = {
+      imports = [
+        ../config/machines/ninur
+        ../external/private/machines/ninur.nix
+        deployer
+      ];
+      system.stateVersion = "19.03";
+    };
   };
 
   nodes.orakel = {
-    configuration.imports = [
-      ../config/machines/orakel
-      ../external/private/machines/orakel.nix
-    ];
+    configuration = {
+      imports = [
+        ../config/machines/orakel
+        ../external/private/machines/orakel.nix
+      ];
+      system.stateVersion = "19.03";
+    };
   };
 
 }
