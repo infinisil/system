@@ -8,8 +8,6 @@
 
   mine.saveSpace = true;
 
-  mine.hueadm.controls = true;
-
   mine.hardware = {
     swap = true;
     cpuCount = 8;
