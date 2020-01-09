@@ -31,6 +31,7 @@ in
   defaults = { name, lib, ... }: {
     enabled = if nodes == [] then true else lib.elem name nodes;
     host = if host-ips ? ${name} then "root@${host-ips.${name}}" else null;
+    hasFastConnection = host-ips ? ${name} && (lib.hasPrefix "192.168." host-ips.${name} || host-ips.${name} == "localhost");
 
     nixpkgs = ../external/nixpkgs;
 
