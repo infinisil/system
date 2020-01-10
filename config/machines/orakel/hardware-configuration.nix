@@ -32,6 +32,16 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/torrent" =
+    { device = "tank/root/torrent";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/lib/torrent/current" =
+    { device = "tank/root/torrent/current";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/a716a4a0-dcae-4283-8b06-d75cb3b3a248"; }
     ];

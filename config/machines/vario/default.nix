@@ -14,6 +14,9 @@
     audio = true;
   };
 
+  users.users.infinisil.extraGroups = [ "transmission" ];
+  users.groups.transmission.gid = 70;
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.opengl.driSupport32Bit = true;

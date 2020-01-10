@@ -62,6 +62,14 @@
     autoCreation = true;
     pure = true;
     zetup = {
+      "tank/root/torrent/current" = {
+        plan = "1d=>1h";
+        destinations.vario = {
+          host = config.networking.connections.vario;
+          dataset = "tank2/root/torrent";
+          plan = "1d=>1h";
+        };
+      };
       "tank/root/music" = {
         plan = "1d=>1h";
         #destinations.ninur = {

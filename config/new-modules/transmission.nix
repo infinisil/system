@@ -6,8 +6,9 @@
 
     services.transmission = {
       enable = true;
+      home = "/var/lib/torrent";
       settings = {
-        incomplete-dir-enabled = true;
+        download-dir = "/var/lib/torrent/current";
         # script-torrent-done-enabled: Boolean (default = false) Run a script at torrent completion.
         # script-torrent-done-filename =
         rpc-authentication-required = true;

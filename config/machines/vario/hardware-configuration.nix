@@ -53,6 +53,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/home/infinisil/torrent" =
+    { device = "tank2/root/torrent";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/25b8d3ca-fd22-4099-9c31-2d24f3ccc6e6"; }
     ];

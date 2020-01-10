@@ -1,1 +1,5 @@
-Use NIX_CONF to solve bootstrap problem
+- Use NIX_CONF to solve bootstrap problem
+- Convert preferred-ips thing to nixoses module
+- Convert secrets to nixoses module
+- Only set label (and cause machine rebuilds) for affected machines
+- Convert openvpn module to nixoses module
