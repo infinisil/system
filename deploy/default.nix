@@ -28,6 +28,9 @@ in
 , nodes ? []
 }: import (import ../config/sources).nixoses {
 
+  successTimeout = 120;
+  switchTimeout = 240;
+
   defaults = { name, lib, ... }: {
     enabled = if nodes == [] then true else lib.elem name nodes;
     host = if host-ips ? ${name} then "root@${host-ips.${name}}" else null;
