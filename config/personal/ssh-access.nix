@@ -21,7 +21,10 @@ let
       ];
     };
     ninur = {
+      # linux
       hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICGE7lnVt1USFzRPkkMYsKN4sppGNDXy5CBx8Jc+2/ke";
+      # macos
+      #hostKey = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF8xJWJ5CNOgMv5MDyU6cAyF0GqhOqOBaN28o49Y6jzsH2ZHP2bUfOfxtmiItS3LcsZiPJ2idYuNkpOq0yU9Z7E=";
       users.infinisil.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKudNIAd73BVC0G7mwL44UVysauUO+HemljoTTzbhnx infinisil@ninur";
       users.infinisil.needsAccessTo = [
         vario.infinisil
