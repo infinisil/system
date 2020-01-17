@@ -4,6 +4,8 @@
     ./hardware-configuration.nix
   ];
 
+  virtualisation.docker.enable = true;
+
   mine.enableUser = true;
 
   mine.saveSpace = true;
