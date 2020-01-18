@@ -114,6 +114,7 @@
 
   mine.binalias.projector = "xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off";
   mine.binalias.monitor = "xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440";
+  mine.binalias.rate = "mpc sendmessage rate";
 
   environment.systemPackages = with pkgs; [
     guvcview
