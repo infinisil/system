@@ -28,10 +28,13 @@ in
 , nodes ? []
 }: import (import ../config/sources).nixoses {
 
+  imports = [
+    ../external/private
+  ];
 
   defaults = { name, lib, ... }: {
     enabled = if nodes == [] then true else lib.elem name nodes;
-    host = if host-ips ? ${name} then "root@${host-ips.${name}}" else null;
+    host = if host-ips ? ${name} then "root@${host-ips.${name}}" else "${name}.invalid";
     hasFastConnection = host-ips ? ${name} && (lib.hasPrefix "192.168." host-ips.${name} || host-ips.${name} == "localhost");
 
     nixpkgs = ../external/nixpkgs;
@@ -42,7 +45,7 @@ in
     configuration = {
       imports = [
         ../config
-        ../external/private
+        ../external/private/default-old.nix
         nurNoPkgs.repos.rycee.modules.home-manager
       ];
 
@@ -61,7 +64,6 @@ in
     configuration = {
       imports = [
         ../config/machines/protos
-        ../external/private/machines/protos.nix
       ];
       system.stateVersion = "19.03";
     };
@@ -71,7 +73,6 @@ in
     configuration = {
       imports = [
         ../config/machines/vario
-        ../external/private/machines/vario.nix
         deployer
       ];
       system.stateVersion = "19.03";
@@ -82,7 +83,6 @@ in
     configuration = {
       imports = [
         ../config/machines/ninur
-        ../external/private/machines/ninur.nix
         deployer
       ];
       system.stateVersion = "19.03";
@@ -93,7 +93,6 @@ in
     configuration = {
       imports = [
         ../config/machines/orakel
-        ../external/private/machines/orakel.nix
       ];
       system.stateVersion = "19.03";
     };
