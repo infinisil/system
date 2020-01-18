@@ -28,8 +28,6 @@ in
 , nodes ? []
 }: import (import ../config/sources).nixoses {
 
-  successTimeout = 120;
-  switchTimeout = 240;
 
   defaults = { name, lib, ... }: {
     enabled = if nodes == [] then true else lib.elem name nodes;
@@ -37,6 +35,9 @@ in
     hasFastConnection = host-ips ? ${name} && (lib.hasPrefix "192.168." host-ips.${name} || host-ips.${name} == "localhost");
 
     nixpkgs = ../external/nixpkgs;
+
+    successTimeout = 120;
+    switchTimeout = 240;
 
     configuration = {
       imports = [
