@@ -1,6 +1,8 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash rb.nix
+#!/usr/bin/env -S nix run -k DISPLAY -k HOME -k EDITOR -i -f ../external/nixpkgs vim git bash nix jq busybox -c bash
+#
 set -euo pipefail
+
+export PATH="/run/wrappers/bin:$PATH"
 
 DEF_BRANCH=master
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -31,6 +33,8 @@ for node in "$@"; do
   nodes+="\"$node\" "
 done
 nodes+="]"
+
+export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
 
 preferredips=$("$DIR/preferred-ip" "$@")
 
