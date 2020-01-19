@@ -79,7 +79,8 @@ in
     };
   };
 
-  nodes.ninur = {
+  nodes.ninur = { lib, ... }: {
+    enabled = lib.mkForce false;
     configuration = {
       imports = [
         ../config/machines/ninur
