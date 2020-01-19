@@ -99,10 +99,10 @@ in {
 
   programs.ssh.knownHosts =
     let allHosts = lib.unique (map (x: x.host) (lib.concatMap (x: x.needsAccessTo) (lib.attrValues finalSpec.${config.networking.hostName}.users)));
-    in lib.filter (x: x.publicKey != null) (map (host: {
+    in lib.filterAttrs (host: x: x.publicKey != null) (lib.genAttrs allHosts (host: {
       hostNames = config.networking.connectivitySpec.preferred.${config.networking.hostName}.${host};
       publicKey = finalSpec.${host}.hostKey or null;
-    }) allHosts);
+    }));
 
     mine.web.keys.set = lib.mapAttrs (host: hostAttrs: hostAttrs // {
       users = lib.mapAttrs (user: attrs: attrs.key) (lib.filterAttrs (user: attrs: attrs ? key) (hostAttrs.users));

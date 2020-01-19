@@ -70,7 +70,7 @@ in
   config = mkIf cfg.enable {
 
     # When in the DigitalOcean web console: `setxkbmap -layout us` (on local machine) and type in correct programmer dvorak
-    i18n.consoleUseXkbConfig = true;
+    console.useXkbConfig = true;
 
     environment.systemPackages = mkIf config.services.xserver.enable [ loadLayout ];
 
