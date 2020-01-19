@@ -1,5 +1,6 @@
-#!/usr/bin/env -S nix run -k DISPLAY -k HOME -k EDITOR -i -f ../external/nixpkgs vim git bash nix jq busybox -c bash
-#
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash --pure --keep EDITOR --keep DISPLAY shell.nix
+
 set -euo pipefail
 
 export PATH="/run/wrappers/bin:$PATH"
