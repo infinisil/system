@@ -100,6 +100,7 @@ in
           library = "${cfg.musicDir}/beets/beets.db";
           format_item = "$id: $artist - $album - $title - $rating";
           sort_item = "added- artist+ album+ disc+ track+";
+          acoustid.apikey = "ex5RgecjNm";
 
           import = {
             move = true;
@@ -122,6 +123,7 @@ in
             "convert"
             "play"
             "types"
+            "chroma"
           ];
 
           hook.hooks = [
