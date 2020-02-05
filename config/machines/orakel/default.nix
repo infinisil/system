@@ -8,6 +8,21 @@
 
   mine.enableUser = true;
 
+  networking.firewall.allowedUDPPorts = [ 51820 ];
+
+  networking.wireguard.interfaces.wg0 = {
+    ips = [ "10.99.2.1/24" ];
+    listenPort = 51820;
+
+    peers = [
+      {
+        publicKey = lib.fileContents ../../../external/private/wireguard-keys/client-public;
+        allowedIPs = [ "10.99.2.2/32" ];
+      }
+    ];
+  };
+
+
   services.openvpn.servers.orakel.mine = {
     type = "server";
     server.subnet = "10.99.1.0/24";
