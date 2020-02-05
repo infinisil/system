@@ -56,6 +56,7 @@
 
   boot.loader.grub.enable = true;
   boot.loader.grub.splashImage = null;
+  boot.loader.grub.configurationLimit = 5;
 
   boot.kernelParams = [ "net.ifnames=0" ];
 
