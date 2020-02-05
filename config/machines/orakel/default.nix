@@ -62,6 +62,7 @@
 
   services.znapzend = {
     enable = true;
+    features.compressed = true;
     autoCreation = true;
     pure = true;
     zetup = {
