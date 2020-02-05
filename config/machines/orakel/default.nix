@@ -85,7 +85,7 @@
       "tank/root/torrent/current" = {
         plan = "1d=>1h";
         destinations.vario = {
-          host = config.networking.connections.vario;
+          host = "10.99.2.2";
           dataset = "tank2/root/torrent";
           plan = "1d=>1h";
         };
@@ -98,7 +98,7 @@
         #  plan = "1h=>5min,1d=>1h";
         #};
         destinations.vario = {
-          host = config.networking.connections.vario;
+          host = "10.99.2.2";
           dataset = "tank2/root/music";
           plan = "1d=>1h";
         };
