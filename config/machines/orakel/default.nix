@@ -57,6 +57,9 @@
     }];
   };
 
+  services.iperf3.enable = true;
+  services.iperf3.openFirewall = true;
+
   services.znapzend = {
     enable = true;
     autoCreation = true;
