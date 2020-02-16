@@ -133,6 +133,7 @@
   environment.systemPackages = with pkgs; [
     guvcview
     slack-dark
+    mumble
   ];
 
   #mine.gaming.enable = true;
