@@ -134,6 +134,7 @@
     guvcview
     slack-dark
     mumble
+    (import (import ../../sources).crate2nix {})
   ];
 
   #mine.gaming.enable = true;
