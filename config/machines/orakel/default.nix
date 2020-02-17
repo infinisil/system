@@ -83,11 +83,11 @@
     pure = true;
     zetup = {
       "tank/root/torrent/current" = {
-        plan = "1d=>1h";
+        plan = "2h=>1h";
         destinations.vario = {
           host = "10.99.2.2";
           dataset = "tank2/root/torrent";
-          plan = "1d=>1h";
+          plan = "2h=>1h";
         };
       };
       "tank/root/music" = {
