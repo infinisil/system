@@ -39,8 +39,11 @@ export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
 
 preferredips=$("$DIR/preferred-ip" "$@")
 
+confdir=$(mktemp -d)
+ln -s $(nix-build -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source) "$confdir/nix.conf"
+
 echo "Building all nodes..."
-$(nix-build --no-out-link "$DIR" \
+$(sudo NIX_CONF_DIR="$confdir" nix-build --no-out-link "$DIR" \
   --argstr label "$label" \
 	--arg host-ips "$preferredips" \
 	--arg nodes "$nodes"
