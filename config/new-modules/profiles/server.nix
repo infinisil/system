@@ -24,6 +24,9 @@ with lib;
       ];
     };
 
+    # https://github.com/NixOS/nixpkgs/pull/80952
+    services.nginx.sslCiphers = "EECDH+AESGCM:EDH+AESGCM:" + options.services.nginx.sslCiphers.default;
+
     services.vnstat.enable = true;
 
     home-manager.users.infinisil = {
