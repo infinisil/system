@@ -103,7 +103,7 @@
     forceSSL = true;
   };
 
-  mine.subdomains = [ "pc" ];
+  mine.subdomains = [ "pc" "nixbot" ];
 
   services.nginx.virtualHosts."pc.infinisil.com" = {
     enableACME = true;

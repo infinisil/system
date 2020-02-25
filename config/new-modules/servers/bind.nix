@@ -118,23 +118,20 @@ in
             3h
           )
 
+          @ IN NS ns3.${domain}.
+          @ IN NS ns4.${domain}.
+          @ CAA 128 issue "letsencrypt.org"
+
           ${domain}. IN MX 10 mail.${domain}.
-
-          ${domain}. IN TXT "v=spf1 ip4:206.81.23.189 -all"
+          mail IN A ${ip}
+          mail IN AAAA ${ip6}
+          @ IN TXT "v=spf1 ip4:${ip} -all"
           _dmarc IN TXT "v=DMARC1; p=quarantine; rua=mailto:dmarc_rua@${domain}; ruf=mailto:dmarc_ruf@${domain}"
-
-          mail._domainkey.${domain}. IN TXT "v=DKIM1; p=${config.mine.dns.dkimKey}"
+          mail._domainkey IN TXT "v=DKIM1; p=${config.mine.dns.dkimKey}"
 
           ${optionalString (config.mine.dns.ipnsHash != null) ''
             @ IN TXT "dnslink=/ipns/${config.mine.dns.ipnsHash}"
           ''}
-
-
-          ${domain}. IN NS ns3.${domain}.
-          ${domain}. IN NS ns4.${domain}.
-
-          ns3 IN A ${ip}
-          ns4 IN A ${ip}
 
           @ IN A ${ip}
           @ IN AAAA ${ip6}
@@ -143,10 +140,11 @@ in
             "${sub} IN CNAME ${domain}."
           ) config.mine.subdomains}
 
-          tune.infinisil.com. IN A 51.15.187.150
-          torrent.infinisil.com. IN A 51.15.187.150
-          nixbot.infinisil.com. IN A 206.81.23.189
-          mail.infinisil.com. IN A 206.81.23.189
+          ns3 IN A ${ip}
+          ns4 IN A ${ip}
+
+          tune IN A 51.15.187.150
+          torrent IN A 51.15.187.150
         '';
       }];
     };
