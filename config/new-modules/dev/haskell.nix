@@ -10,7 +10,7 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       haskellPackages.pointfree
-      haskellPackages.stylish-haskell
+      #haskellPackages.stylish-haskell
       haskellPackages.hlint
     ];
 
