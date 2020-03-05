@@ -133,11 +133,10 @@
   environment.systemPackages = with pkgs; [
     guvcview
     slack-dark
-    mumble
     (import (import ../../sources).crate2nix {})
   ];
 
-  #mine.gaming.enable = true;
+  mine.gaming.enable = true;
 
   services.nginx = {
     enable = true;

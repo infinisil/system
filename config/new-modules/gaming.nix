@@ -17,13 +17,7 @@ with lib;
     nixpkgs.config.pulseaudio = true;
 
     environment.systemPackages = with pkgs; [
-      steam
       minecraft
-      teamspeak_client
-      #(wineStaging.override {
-      #  wineBuild = "wineWow";
-      #  gstreamerSupport = false;
-      #})
       mumble
     ];
 
