@@ -6,6 +6,8 @@
     ((import ../../sources).nixbot + "/module.nix")
   ];
 
+  services.on-demand-minecraft.enable = true;
+
   mine.mail.enable = true;
   mine.saveSpace = true;
   mine.radicale.enable = true;
