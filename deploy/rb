@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash --pure --keep EDITOR --keep DISPLAY shell.nix
+#!nix-shell -i bash shell.nix
 
 set -euo pipefail
 
@@ -40,7 +40,7 @@ export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
 preferredips=$("$DIR/preferred-ip" "$@")
 
 confdir=$(mktemp -d)
-ln -s $(nix-build -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source) "$confdir/nix.conf"
+ln -s $(nix-build --no-out-link "$DIR" -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source) "$confdir/nix.conf"
 
 echo "Building all nodes..."
 $(sudo NIX_CONF_DIR="$confdir" nix-build --no-out-link "$DIR" \
