@@ -28,14 +28,17 @@
         root = "/webroot";
         basicAuth.infinisil = config.private.passwords."infinisil@torrent.infinisil.com";
         locations."/".proxyPass = "http://localhost:${toString config.services.transmission.port}";
+        locations."/current/" = {
+          root = "/var/lib/torrent";
+          extraConfig = "autoindex on;";
+        };
       };
     };
 
     networking.firewall.allowedTCPPorts = [ config.services.transmission.port ];
 
-    users.users = lib.genAttrs config.mine.mainUsers (name: {
-      extraGroups = [ "transmission" ];
-    });
+    users.users.infinisil.extraGroups = [ "transmission" ];
+    users.users.nginx.extraGroups = [ "transmission" ];
 
   };
 
