@@ -26,7 +26,7 @@ in
 { host-ips ? {}
 , label ? ""
 , nodes ? []
-}: import (import ../config/sources).nixoses {
+}: import /home/infinisil/prj/nixoses {
 
   imports = [
     ../external/private
