@@ -194,22 +194,26 @@ in {
 
         set -x
 
-        id=$(curl -X POST \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $(cat ${config.secrets.doauth.file})" \
-            -d '{ "name":"minecraft",
-                  "region":"fra1",
-                  "size":"c-2",
-                  "private_networking":true,
-                  "image":'$activeImage',
-                  "ssh_keys":[25879389],
-                  "volumes":"8b787688-52d2-11ea-9e33-0a58ac14d123"
-                }' \
-            "https://api.digitalocean.com/v2/droplets" \
-          | jq '.droplet.id' -r)
+        if ! info=$(${apiRequest {
+          method = "POST";
+          endpoint = "droplets";
+          data = {
+            name = "minecraft";
+            region = cfg.region;
+            size = "c-2";
+            private_networking = true;
+            image = "'$activeImage'";
+            ssh_keys = [ 25879389 ];
+            volumes = "8b787688-52d2-11ea-9e33-0a58ac14d123";
+          };
+        }}); then
+          echo "Failed to create new droplet: $info"
+          exit 1
+        fi
+        id=$(echo "$info" | jq -r '.droplet.id')
         echo "$id" > "$RUNTIME_DIRECTORY/id"
 
-        while info=$(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $(cat ${config.secrets.doauth.file})" "https://api.digitalocean.com/v2/droplets/$id") && [ $(jq ".droplet.status" -r <<< "$info") = new ]; do
+        while info=$(${apiRequest { method = "GET"; endpoint = "droplets/'$id'"; }}) && [ $(jq ".droplet.status" -r <<< "$info") = new ]; do
           echo "Still not active"
           sleep 10
         done
