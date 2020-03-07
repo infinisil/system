@@ -23,7 +23,7 @@
     path = [ pkgs.iproute pkgs.curl ];
     script = ''
       count=0
-      while [ $count -lt 15 ]; do
+      while [ $count -lt 5 ]; do
         sleep 60
         if [ -z "$(ss -tOH 'sport = 25565')" ]; then
           count=$(( count + 1 ))
