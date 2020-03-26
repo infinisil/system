@@ -35,7 +35,7 @@ with lib;
 
     mine.x.enable = true;
     mine.wm.enable = true;
-    mine.dev.idris.enable = true;
+    #mine.dev.idris.enable = true;
     mine.dev.haskell.enable = true;
 
     mine.music.client = {

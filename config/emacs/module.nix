@@ -73,7 +73,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.emacs25;
+      default = pkgs.emacs;
       description = "Emacs package to use";
     };
 

@@ -2,6 +2,13 @@
 
 with lib;
 
+let
+  all-hies = import (import ../../sources).all-hies {};
+
+  hie = all-hies.combined {
+    inherit (all-hies.versions) ghc864 ghc865;
+  };
+in
 {
 
   options.mine.dev.haskell.enable = mkEnableOption "Haskell dev config";
@@ -12,9 +19,8 @@ with lib;
       haskellPackages.pointfree
       #haskellPackages.stylish-haskell
       haskellPackages.hlint
+      hie
     ];
-
-    mine.emacs.config.haskell = true;
 
     mine.userConfig = {
       home.file.".ghci".text = ''

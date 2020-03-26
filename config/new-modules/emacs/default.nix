@@ -24,9 +24,11 @@ in
 
     mine.userConfig = {
 
-      home.file.".emacs.d/init.el".source = cfg.config.initFile;
+      #home.file.".emacs.d/init.el".source = cfg.config.initFile;
 
-      home.packages = [ cfg.config.emacs ];
+      home.packages = [
+        cfg.config.emacs
+      ];
 
       systemd.user.services.emacs = {
         Unit = {
@@ -38,8 +40,7 @@ in
         Install.WantedBy = [ "default.target" ];
 
         Service = {
-          Type = "forking";
-          ExecStart = "${cfg.config.emacs}/bin/emacs --daemon";
+          ExecStart = "${cfg.config.emacs}/bin/emacs --fg-daemon";
           ExecStop = "${cfg.config.emacs}/bin/emacsclient --eval (kill-emacs)";
           Restart = "always";
         };
