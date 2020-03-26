@@ -7,6 +7,12 @@
   virtualisation.digitalOceanImage.compressionMethod = "bzip2";
   virtualisation.digitalOceanImage.channelNixpkgs = null;
 
+  i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
+
+  documentation.enable = lib.mkDefault false;
+
+  documentation.nixos.enable = lib.mkDefault false;
+
   environment.systemPackages = [
     pkgs.vim
     pkgs.htop
