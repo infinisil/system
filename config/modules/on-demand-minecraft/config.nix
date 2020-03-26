@@ -13,6 +13,8 @@
 
   documentation.nixos.enable = lib.mkDefault false;
 
+  system.nixos.revision = "unknown";
+
   environment.systemPackages = [
     pkgs.vim
     pkgs.htop
