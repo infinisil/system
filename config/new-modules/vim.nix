@@ -33,7 +33,7 @@ in
         shiftwidth = 2;
       };
       plugins = with pkgs.vimPlugins; [
-        YouCompleteMe
+        #YouCompleteMe
         ghc-mod-vim
         gundo
         colors-solarized
