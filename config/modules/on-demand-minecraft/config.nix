@@ -5,6 +5,7 @@
   ];
 
   virtualisation.digitalOceanImage.compressionMethod = "bzip2";
+  virtualisation.digitalOceanImage.channelNixpkgs = null;
 
   environment.systemPackages = [
     pkgs.vim
