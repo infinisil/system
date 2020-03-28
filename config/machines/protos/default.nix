@@ -24,7 +24,7 @@
 
   services.do-agent.enable = true;
 
-  services.murmur' = {
+  services.murmur = {
     enable = true;
     openFirewall = true;
     config.registerName = "Infinisil's Server";

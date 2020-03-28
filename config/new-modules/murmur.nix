@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  cfg = config.services.murmur';
+  cfg = config.services.murmur;
 
   iniValueTypes = with types; either str (either int bool);
 
@@ -19,7 +19,9 @@ let
 
 in {
 
-  options.services.murmur' = {
+  disabledModules = [ "services/networking/murmur.nix" ];
+
+  options.services.murmur = {
 
     enable = mkEnableOption "Murmur Mumble server";
 
@@ -67,7 +69,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
 
-      services.murmur'.config.database = "${dataDir}/murmur.sqlite";
+      services.murmur.config.database = "${dataDir}/murmur.sqlite";
 
       users.users.murmur.group = group;
       users.groups.murmur = {};
@@ -111,7 +113,7 @@ in {
         chgrp ${group} ${sslPath}
       ''; in {
 
-        services.murmur'.config.sslKey = sslPath;
+        services.murmur.config.sslKey = sslPath;
 
         # Above tmpfiles rules would set the owner to ${group}, use root instead
         systemd.tmpfiles.rules = [
