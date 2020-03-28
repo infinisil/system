@@ -75,7 +75,7 @@
         channel=##nixos-anime
 
         trap exit INT TERM
-        trap 'ps -s $$ -o pid= | xargs -r -n1 kill' EXIT
+        trap '${pkgs.procps}/bin/ps -s $$ -o pid= | xargs -r -n1 kill' EXIT
 
         cat <<EOF
         USER bot x x :Silvan Mosberger
