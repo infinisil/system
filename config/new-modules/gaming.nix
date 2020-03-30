@@ -17,6 +17,7 @@ with lib;
     nixpkgs.config.pulseaudio = true;
 
     environment.systemPackages = with pkgs; [
+      steam
       minecraft
       mumble
     ];
