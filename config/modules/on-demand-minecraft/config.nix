@@ -7,6 +7,10 @@
   virtualisation.digitalOceanImage.compressionMethod = "bzip2";
   virtualisation.digitalOceanImage.channelNixpkgs = null;
 
+  nixpkgs.overlays = [(self: super: {
+    zfs = super.zfs.override { enablePython = false; };
+  })];
+
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
 
   documentation.enable = lib.mkDefault false;
@@ -15,10 +19,13 @@
 
   system.nixos.revision = "unknown";
 
-  environment.systemPackages = [
-    pkgs.vim
-    pkgs.htop
-  ];
+  xdg.mime.enable = false;
+
+  security.polkit.enable = false;
+
+  services.udisks2.enable = false;
+
+  services.zfs.zed.settings.ZED_EMAIL_PROG = "mail";
 
   networking.hostId = "8e4b0e65";
 
