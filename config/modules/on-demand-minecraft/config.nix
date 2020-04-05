@@ -92,7 +92,7 @@
         EOF
 
         {
-          delay=5
+          delay=3
           nickmap=$(mktemp -d)
 
           tail -f socket | \
@@ -101,7 +101,7 @@
 
               if [ ! -d "$nickmap/$nick" ]; then
                 mkdir "$nickmap/$nick"
-                echo l > "$nickmap/$nick/status"
+                echo left > "$nickmap/$nick/status"
               fi
 
               update=$(date +%s.%N)
