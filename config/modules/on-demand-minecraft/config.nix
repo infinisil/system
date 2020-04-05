@@ -92,10 +92,31 @@
         EOF
 
         {
+          delay=5
+          nickmap=$(mktemp -d)
+
           tail -f socket | \
-            ${pkgs.gawk}/bin/gawk 'match($0, /\[.*?\] \[.*?]: (.*?) (joined|left) the game/, a) { print a[1], a[2], "the game"; fflush() }' | \
-            while read line; do
-              echo -e "PRIVMSG $channel :$line"
+            ${pkgs.gawk}/bin/gawk 'match($0, /\[.*?\] \[.*?]: (.*?) (joined|left) the game/, a) { print a[1], a[2]; fflush() }' | \
+            while read nick status; do
+
+              if [ ! -d "$nickmap/$nick" ]; then
+                mkdir "$nickmap/$nick"
+                echo l > "$nickmap/$nick/status"
+              fi
+
+              update=$(date +%s.%N)
+              echo "$update" > "$nickmap/$nick/update"
+
+              {
+                sleep $((delay * 60))
+                lastupdate=$(cat "$nickmap/$nick/update")
+                laststatus=$(cat "$nickmap/$nick/status")
+                if [ "$lastupdate" = "$update" ] && [ "$laststatus" != "$status" ]; then
+                  echo -e "PRIVMSG $channel :$nick $status the game ($delay minutes ago)"
+                  echo "$status" > "$nickmap/$nick/status"
+                fi
+              } &
+
             done
         } &
 
