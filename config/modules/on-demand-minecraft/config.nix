@@ -76,15 +76,6 @@
       "-Xmx3G"
       "-XX:+UseConcMarkSweepGC"
       "-XX:+UseParNewGC"
-      "-XX:+CMSParallelRemarkEnabled"
-      "-XX:+AggressiveOpts"
-
-      "-verbose:gc"
-      "-Xloggc:/var/lib/minecraft/gclog"
-      "-XX:+PrintGCDateStamps"
-      "-XX:+UseGCLogFileRotation"
-      "-XX:NumberOfGCLogFiles=5"
-      "-XX:GCLogFileSize=10M"
     ];
   };
 
