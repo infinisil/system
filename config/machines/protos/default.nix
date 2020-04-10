@@ -155,8 +155,22 @@
       macAddress = "4e:5c:97:f6:7e:bc";
     };
     firewall.allowedTCPPorts = [ 2362 ];
+    firewall.allowedUDPPorts = [ 51820 ];
   };
 
   system.stateVersion = "19.03";
+
+  networking.wireguard.interfaces.wg1 = {
+    ips = [ "10.99.3.1/24" ];
+    privateKeyFile = "/root/wireguard-keys/private";
+    listenPort = 51820;
+
+    peers = [
+      {
+        publicKey = "F80/4J53cs1pwuLSGwKMtjLMzWYeQPy+QmUue+AJ2Co=";
+        allowedIPs = [ "10.99.3.2/32" ];
+      }
+    ];
+  };
 
 }

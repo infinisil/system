@@ -18,6 +18,20 @@
     ];
   };
 
+  networking.wireguard.interfaces.wg1 = {
+    ips = [ "10.99.3.2/24" ];
+    privateKeyFile = "/root/wireguard-keys/private";
+
+    peers = [
+      {
+        publicKey = "N+kEAyKQBMbdyY+yRAEVOb1AbWFYveUIDDZ+ni5h4yI=";
+        allowedIPs = [ "10.99.3.0/24" ];
+        endpoint = "206.81.23.189:51820";
+        persistentKeepalive = 25;
+      }
+    ];
+  };
+
   virtualisation.docker.enable = true;
 
   mine.enableUser = true;
