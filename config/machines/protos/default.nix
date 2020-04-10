@@ -63,7 +63,7 @@
       plan = "1d=>1h,1w=>1d";
       recursive = true;
       destinations.vario = {
-        host = config.networking.connections.vario;
+        host = "10.99.3.2";
         dataset = "main/backup/protos";
         plan = "1d=>1h,1w=>1d,1m=>1w";
       };
