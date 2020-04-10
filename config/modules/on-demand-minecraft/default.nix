@@ -161,80 +161,22 @@ in {
       };
     };
 
-    systemd.sockets.on-demand-minecraft = {
-      wantedBy = [ "sockets.target" ];
-      socketConfig.ListenStream = port;
-    };
-
-    systemd.services.on-demand-minecraft-monitor = {
-      path = [ pkgs.iproute pkgs.curl ];
-      serviceConfig.RuntimeDirectory = "on-demand-minecraft";
-      script = ''
-        id=$(cat "$RUNTIME_DIRECTORY/id")
-        while curl -f -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $(cat ${config.secrets.doauth.file})" "https://api.digitalocean.com/v2/droplets/$id"; do
-          echo "Still active"
-          sleep 60
-        done
-      '';
-    };
-
     networking.firewall.allowedTCPPorts = [ port ];
 
     systemd.services.on-demand-minecraft = {
-      bindsTo = [ "on-demand-minecraft-monitor.service" ];
-      requiredBy = [ "on-demand-minecraft-monitor.service" ];
-      before = [ "on-demand-minecraft-monitor.service" ];
-      path = [ pkgs.jq pkgs.curl pkgs.nmap "/run/wrappers" ];
-      preStart = ''
-        activeImagePath=$STATE_DIRECTORY/active-image
-        while [ ! -f "$activeImagePath" ]; do
-          sleep 1
-        done
-        activeImage=$(cat "$activeImagePath")
-
-        set -x
-
-        if ! info=$(${apiRequest {
-          method = "POST";
-          endpoint = "droplets";
-          data = {
-            name = "minecraft";
-            region = cfg.region;
-            size = "c-2";
-            private_networking = true;
-            image = "'$activeImage'";
-            ssh_keys = [ 25879389 ];
-            volumes = "8b787688-52d2-11ea-9e33-0a58ac14d123";
-          };
-        }}); then
-          echo "Failed to create new droplet: $info"
-          exit 1
-        fi
-        id=$(echo "$info" | jq -r '.droplet.id')
-        echo "$id" > "$RUNTIME_DIRECTORY/id"
-
-        while info=$(${apiRequest { method = "GET"; endpoint = "droplets/'$id'"; }}) && [ $(jq ".droplet.status" -r <<< "$info") = new ]; do
-          echo "Still not active"
-          sleep 10
-        done
-        echo "$info"
-        ip=$(jq '.droplet.networks.v4[] | select(.type == "private") | .ip_address' -r <<< "$info")
-        echo "$ip" > "$RUNTIME_DIRECTORY/host"
-
-        while ! ping "$ip" -c 1 -w 1; do
-          sleep 1
-        done
-
-        while ! ncat "$ip" ${toString port} -c ""; do
-          sleep 1
-        done
+      wantedBy = [ "multi-user.target" ];
+      path = [ pkgs.jq ];
+      script = let
+        odm = import (import ../../sources).on-demand-minecraft;
+      in ''
+        touch whitelist
+        jq '{ whitelist : $whitelist , digitalOceanToken : $token }' --argjson whitelist "$(cat whitelist)" --arg token "$(cat ${config.secrets.doauth.file})" -n > config.json
+        ${odm}/bin/on-demand-minecraft config.json
       '';
-      script = ''
-        exec ${config.systemd.package.out}/lib/systemd/systemd-socket-proxyd "$(cat "$RUNTIME_DIRECTORY/host")":${toString port}
-      '';
-      serviceConfig.RuntimeDirectory = "on-demand-minecraft";
-      serviceConfig.StateDirectory = "on-demand-minecraft";
-      serviceConfig.TimeoutStartSec = 10 * 60;
+      serviceConfig = {
+        StateDirectory = "on-demand-minecraft";
+        WorkingDirectory = "/var/lib/on-demand-minecraft";
+      };
     };
   };
 
