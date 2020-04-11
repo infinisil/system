@@ -91,9 +91,9 @@
         trap '${pkgs.procps}/bin/ps -s $$ -o pid= | xargs -r -n1 kill' EXIT
 
         cat <<EOF
-        USER bot x x :Silvan Mosberger
-        NICK anixbot
-        PRIVMSG NickServ :IDENTIFY ${lib.fileContents ../../../external/private/anixbotpw}
+        USER nix x x :Silvan Mosberger
+        NICK nix
+        PRIVMSG NickServ :IDENTIFY ${lib.fileContents ../../../external/private/nixpw}
         JOIN $channel
         EOF
 
