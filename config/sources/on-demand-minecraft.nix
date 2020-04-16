@@ -1,6 +1,6 @@
 { pkgs }: pkgs.fetchFromGitHub {
   owner = "infinisil";
   repo = "on-demand-minecraft";
-  rev = "b510afd4a0539e64d70e4d91c515abe068e0c3c2";
-  sha256 = "1hp0n2415d99hndwfd29alzh9r2l4xl77fbskg913mc96jbbbc02";
+  rev = "afdf4d1236f2d1a1fd942a2892a308c6768999d1";
+  sha256 = "0648lkca6crmgvdb276najmxm7s7vggki94ar3wybv7ydkx7ivfn";
 }

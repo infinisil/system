@@ -168,9 +168,15 @@ in {
       path = [ pkgs.jq ];
       script = let
         odm = import (import ../../sources).on-demand-minecraft;
+        doConfig = pkgs.writeText "config.json" (builtins.toJSON {
+          region = cfg.region;
+          size = "s-2vcpu-4gb";
+          sshKey = "25879389";
+          volume = "8b787688-52d2-11ea-9e33-0a58ac14d123";
+        });
       in ''
         touch whitelist
-        jq '{ whitelist : $whitelist , digitalOceanToken : $token }' --argjson whitelist "$(cat whitelist)" --arg token "$(cat ${config.secrets.doauth.file})" -n > config.json
+        jq '{ whitelist : $whitelist , digitalOcean : $config | (.token |= $token) }' --argjson whitelist "$(cat whitelist)" --argjson config "$(cat ${doConfig})" --arg token "$(cat ${config.secrets.doauth.file})" -n > config.json
         ${odm}/bin/on-demand-minecraft config.json
       '';
       serviceConfig = {

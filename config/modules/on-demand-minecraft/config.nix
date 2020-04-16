@@ -63,20 +63,8 @@
 
   services.minecraft-server = {
     enable = true;
-    package = pkgs.minecraft-server.overrideAttrs (old: {
-      src = pkgs.fetchurl {
-        url = "https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar";
-        sha256 = "12kynrpxgcdg8x12wcvwkxka0fxgm5siqg8qq0nnmv0443f8dkw0";
-      };
-    });
     eula = true;
     openFirewall = true;
-    jvmOpts = lib.concatStringsSep " " [
-      "-Xms3G"
-      "-Xmx3G"
-      "-XX:+UseConcMarkSweepGC"
-      "-XX:+UseParNewGC"
-    ];
   };
 
   systemd.services.minecraft-server.serviceConfig.ExecStart = lib.mkForce [
@@ -133,10 +121,42 @@
           echo -e "$command $args" >&2
         done
       ''} &
-      ${config.services.minecraft-server.package}/bin/minecraft-server ${config.services.minecraft-server.jvmOpts} | while read line; do
-        echo -e "$line"
-        echo -e "$line" > socket
-      done
+
+      cat > fabric-server-launcher.properties <<EOF
+      serverJar=${pkgs.fetchurl {
+        url = "https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar";
+        sha256 = "12kynrpxgcdg8x12wcvwkxka0fxgm5siqg8qq0nnmv0443f8dkw0";
+      }}
+      EOF
+
+      ${pkgs.jre_headless}/bin/java \
+        -Xms2560M \
+        -Xmx2560M \
+        -XX:+UseG1GC \
+        -XX:+ParallelRefProcEnabled \
+        -XX:MaxGCPauseMillis=200 \
+        -XX:+UnlockExperimentalVMOptions \
+        -XX:+DisableExplicitGC \
+        -XX:-OmitStackTraceInFastThrow \
+        -XX:+AlwaysPreTouch  \
+        -XX:G1NewSizePercent=30 \
+        -XX:G1MaxNewSizePercent=40 \
+        -XX:G1HeapRegionSize=8M \
+        -XX:G1ReservePercent=20 \
+        -XX:G1HeapWastePercent=5 \
+        -XX:G1MixedGCCountTarget=8 \
+        -XX:InitiatingHeapOccupancyPercent=15 \
+        -XX:G1MixedGCLiveThresholdPercent=90 \
+        -XX:G1RSetUpdatingPauseTimePercent=5 \
+        -XX:SurvivorRatio=32 \
+        -XX:MaxTenuringThreshold=1 \
+        -Dusing.aikars.flags=true \
+        -Daikars.new.flags=true \
+        -jar fabric-server-launch.jar \
+        | while read line; do
+          echo -e "$line"
+          echo -e "$line" > socket
+        done
     '')
   ];
 
