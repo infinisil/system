@@ -64,6 +64,15 @@ in {
       '';
     };
 
+    superuserPasswordFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      example = "/run/keys/murmurPassword";
+      description = ''
+        File containing the password for the SuperUser name.
+      '';
+    };
+
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -83,14 +92,17 @@ in {
         description = "Murmur Mumble server";
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
+        preStart = if cfg.superuserPasswordFile != null then ''
+          cat ${cfg.superuserPasswordFile} | ${pkgs.murmur}/bin/murmurd -ini ${configFile} -readsupw || true
+        '' else ''
+          ${pkgs.murmur}/bin/murmurd -ini ${configFile} -disablesu || true
+        '';
 
         serviceConfig = {
           StateDirectory = baseNameOf dataDir;
           WorkingDirectory = dataDir;
           User = user;
           Group = group;
-          # The normal `murmur` version is so old that it doesn't support
-          # reloading of SSL settings
           ExecStart = "${pkgs.murmur}/bin/murmurd -ini ${configFile} -fg";
           # For reloading SSL settings
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
