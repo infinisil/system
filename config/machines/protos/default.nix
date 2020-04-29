@@ -84,6 +84,9 @@
         defaultRepo = "home-manager";
         defaultOwners.home-manager = "rycee";
       };
+      channels.nixos-borg.pr = {
+        defaultRepo = "ofborg";
+      };
       channelDefaults = {
         quit.enable = true;
         pr.enable = true;
