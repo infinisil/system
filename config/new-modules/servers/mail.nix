@@ -61,6 +61,41 @@ in
       enableManageSieve = true;
 
     };
+
+    services.dovecot2 = {
+      mailboxes = [
+        {
+          name = "Patreon";
+          auto = "subscribe";
+        }
+        {
+          name = "Builds";
+          auto = "subscribe";
+        }
+        {
+          name = "Services";
+          auto = "subscribe";
+        }
+      ];
+    };
+
+    services.dovecot2.sieveScripts.after2 = builtins.toFile "after2.sieve" ''
+      require ["fileinto", "imap4flags"];
+      if address :is :all "to" "contact@infinisil.com" {
+        keep;
+      } elsif address :is :domain "from" "patreon.com" {
+        fileinto "Patreon";
+      } elsif address :is :domain "from" "notifications.heroku.com" {
+        fileinto "Builds";
+        setflag "\\Seen";
+      } elsif address :is :all "from" "builds@circleci.com" {
+        fileinto "Builds";
+        setflag "\\Seen";
+      } else {
+        fileinto "Services";
+      }
+    '';
   };
+
 
 }
