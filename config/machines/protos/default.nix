@@ -88,7 +88,6 @@
         defaultRepo = "ofborg";
       };
       channelDefaults = {
-        quit.enable = true;
         pr.enable = true;
         commands.enable = true;
         nixrepl.enable = true;
