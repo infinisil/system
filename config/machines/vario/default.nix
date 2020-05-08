@@ -4,6 +4,8 @@
     ./hardware-configuration.nix
   ];
 
+  services.lorri.enable = true;
+
 
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.99.2.2/24" ];
