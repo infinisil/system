@@ -46,7 +46,13 @@ with lib;
       enableFontDir = true;
       enableGhostscriptFonts = true;
       fonts = with pkgs; [
-        nerdfonts
+        (nerdfonts.override {
+          fonts = [
+            "Iosevka"
+            "FiraMono"
+            "FantasqueSansMono"
+          ];
+        })
         hanazono
         ipafont
         mplus-outline-fonts
