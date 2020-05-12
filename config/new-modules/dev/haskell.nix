@@ -16,7 +16,7 @@ in
   config = mkIf config.mine.dev.haskell.enable {
 
     environment.systemPackages = with pkgs; [
-      haskellPackages.pointfree
+      #haskellPackages.pointfree
       #haskellPackages.stylish-haskell
       haskellPackages.hlint
       hie
