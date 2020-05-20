@@ -90,7 +90,7 @@ with lib;
           gpgPath = "${pkgs.gnupg}/bin/gpg";
         };
         iniContent.credential.helper = "store";
-        iniContent."url \"git@github.com:\"".insteadOf = "https://github.com/";
+        iniContent."url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
       };
 
     };
