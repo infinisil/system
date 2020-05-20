@@ -5,8 +5,10 @@ with lib;
 let
   all-hies = import (import ../../sources).all-hies {};
 
-  hie = all-hies.combined {
-    inherit (all-hies.versions) ghc864 ghc865 ghc882;
+  hie = all-hies.selection {
+    selector = p: {
+      inherit (p) ghc865 ghc883;
+    };
   };
 in
 {
