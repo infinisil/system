@@ -6,6 +6,7 @@ let
       hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKST1SmdSyr88e6sha4avm7/3LRDr8ZgIl6Sn7ARenZM";
       users.infinisil.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjY4cuUk4IWgBgnEJSULkIHO+njUmIFP+WSWy7IobBs infinisil@vario";
       users.infinisil.needsAccessTo = [
+        vario.infinisil
         ninur.infinisil
         protos.infinisil
         protos.git
