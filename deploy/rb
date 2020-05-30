@@ -44,7 +44,7 @@ nixconf=$(nix-build --no-out-link "$DIR" -A config.nodes."$(hostname)".configura
 ln -s "$nixconf" "$confdir/nix.conf"
 
 echo "Building all nodes..."
-result=$(sudo NIX_CONF_DIR="$confdir" nix-build --show-trace --no-out-link "$DIR" \
+result=$(NIX_CONF_DIR="$confdir" nix-build --show-trace --no-out-link "$DIR" \
   --argstr label "$label" \
 	--arg host-ips "$preferredips" \
 	--arg nodes "$nodes"
