@@ -30,7 +30,7 @@ with lib;
           font = "Helvetica Neue LT Std,HelveticaNeueLT Std Lt Cn:style=47 Light Condensed,Regular";
           line_height = 0;
           markup = "full";
-          format = "<b>%s</b>\n%b";
+          format = "<b>%s</b>\\n%b";
           alignment = "center";
           show_age_threshold = 60;
           word_wrap = true;
