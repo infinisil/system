@@ -52,8 +52,6 @@
     mpdHost = "${config.private.passwords.mpd}@localhost";
   };
 
-  mine.deluged.enable = true;
-
   boot.loader.grub.enable = true;
   boot.loader.grub.splashImage = null;
   boot.loader.grub.configurationLimit = 5;
