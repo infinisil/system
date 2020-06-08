@@ -54,7 +54,6 @@ with lib;
       ffmpeg-full
       stack
       imagemagick7Big
-      deluge
       nix-prefetch-git
       sshfs
       nix-index
