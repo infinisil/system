@@ -14,7 +14,7 @@
     peers = [
       {
         publicKey = lib.fileContents ../../../external/private/wireguard-keys/server-public;
-        allowedIPs = [ "10.99.2.0/24" ];
+        allowedIPs = [ "0.0.0.0/0" ];
         endpoint = "51.15.187.150:51820";
         persistentKeepalive = 25;
       }
