@@ -7,8 +7,9 @@
   services.lorri.enable = true;
 
 
-  networking.wireguard.interfaces.wg0 = {
-    ips = [ "10.99.2.2/24" ];
+  networking.wg-quick.interfaces.wg0 = {
+    address = [ "10.99.2.2/24" ];
+    dns = [ "1.1.1.1" ];
 
     peers = [
       {
