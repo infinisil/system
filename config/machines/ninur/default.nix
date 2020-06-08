@@ -55,11 +55,6 @@
 
   services.mbpfan.enable = true;
 
-  services.openvpn.servers.orakel = {
-    mine.type = "client";
-    mine.client.serverIp = config.networking.connections.orakel;
-  };
-
   services.znapzend = {
     enable = true;
     autoCreation = true;

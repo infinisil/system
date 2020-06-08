@@ -38,23 +38,6 @@
     keys.enable = true;
   };
 
-  services.openvpn.servers.protos = {
-    mine.type = "server";
-    mine.server = {
-      subnet = "10.99.0.0/24";
-      staticClientIps =
-        let clients = builtins.removeAttrs config.networking.connectivitySpec.vpn.protos ["protos"];
-        in lib.mapAttrs' (client: lib.nameValuePair "protos-${client}") clients;
-    };
-  };
-  services.openvpn.servers.orakel = {
-    mine.type = "client";
-    mine.client = {
-      serverIp = config.networking.connections.orakel;
-      makeDefaultGateway = false;
-    };
-  };
-
   services.znapzend = {
     enable = true;
     autoCreation = true;

@@ -115,17 +115,6 @@
     };
   };
 
-  services.openvpn.servers.protos = {
-    autoStart = false;
-    mine.type = "client";
-    mine.client.serverIp = config.networking.connections.protos;
-  };
-
-  services.openvpn.servers.orakel = {
-    mine.type = "client";
-    mine.client.serverIp = config.networking.connections.orakel;
-  };
-
   # hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
