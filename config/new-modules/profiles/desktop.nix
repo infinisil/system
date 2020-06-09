@@ -61,10 +61,6 @@ with lib;
       mine.imgurdl
       mine.Dark
       unrar
-      (
-        let src = (import ../../sources).lorri;
-        in import src { inherit src; }
-      )
       cachix
     ];
 
