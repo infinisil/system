@@ -2,15 +2,6 @@
 
 with lib;
 
-let
-  all-hies = import (import ../../sources).all-hies {};
-
-  hie = all-hies.selection {
-    selector = p: {
-      inherit (p) ghc865 ghc883;
-    };
-  };
-in
 {
 
   options.mine.dev.haskell.enable = mkEnableOption "Haskell dev config";
@@ -21,7 +12,6 @@ in
       #haskellPackages.pointfree
       #haskellPackages.stylish-haskell
       haskellPackages.hlint
-      hie
     ];
 
     mine.userConfig = {
