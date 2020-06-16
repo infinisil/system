@@ -16,6 +16,8 @@
         rpc-username = "infinisil";
         rpc-whitelist-enabled = false;
         rpc-host-whitelist-enabled = false;
+        download-queue-size = 20;
+        seed-queue-size = 20;
 
       };
     };
