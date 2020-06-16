@@ -17,7 +17,7 @@ let
         echo 'Sending a ${method} request to ${endpoint}${lib.optionalString (data != null) " with data ${builtins.toJSON data}"}' >&2
         curl -sS -X ${method} \
           -H "Content-Type: application/json" \
-          -H "Authorization: Bearer $(cat ${config.secrets.doauth.file})" \
+          -H "Authorization: Bearer $(cat ${config.secrets.files.doauth.file})" \
           ${lib.optionalString (data != null) "-d '${builtins.toJSON data}'"} \
           'https://api.digitalocean.com/v2/${endpoint}'
       }
@@ -176,7 +176,7 @@ in {
         });
       in ''
         touch whitelist
-        jq '{ whitelist : $whitelist , digitalOcean : $config | (.token |= $token) }' --argjson whitelist "$(cat whitelist)" --argjson config "$(cat ${doConfig})" --arg token "$(cat ${config.secrets.doauth.file})" -n > config.json
+        jq '{ whitelist : $whitelist , digitalOcean : $config | (.token |= $token) }' --argjson whitelist "$(cat whitelist)" --argjson config "$(cat ${doConfig})" --arg token "$(cat ${config.secrets.files.doauth.file})" -n > config.json
         ${odm}/bin/on-demand-minecraft config.json
       '';
       serviceConfig = {
