@@ -86,11 +86,11 @@ in
       } elsif address :is :domain "from" "patreon.com" {
         fileinto "Patreon";
       } elsif address :is :domain "from" "notifications.heroku.com" {
-        fileinto "Builds";
-        setflag "\\Seen";
+        fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "from" "builds@circleci.com" {
-        fileinto "Builds";
-        setflag "\\Seen";
+        fileinto :flags "\\Seen" "Builds";
+      } elsif address :is :all "cc" "ci_activity@noreply.github.com" {
+        fileinto :flags "\\Seen" "Builds";
       } else {
         fileinto "Services";
       }
