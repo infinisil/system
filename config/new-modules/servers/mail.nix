@@ -76,6 +76,10 @@ in
           name = "Services";
           auto = "subscribe";
         }
+        {
+          name = "DMARC";
+          auto = "subscribe";
+        }
       ];
     };
 
@@ -91,6 +95,8 @@ in
         fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "cc" "ci_activity@noreply.github.com" {
         fileinto :flags "\\Seen" "Builds";
+      } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
+        fileinto :flags "\\Seen" "DMARC";
       } else {
         fileinto "Services";
       }
