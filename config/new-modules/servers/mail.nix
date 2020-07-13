@@ -97,6 +97,9 @@ in
         fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
         fileinto :flags "\\Seen" "DMARC";
+      } elsif not address :is :domain "to" "infinisil.com" {
+        fileinto "Junk";
+        stop;
       } else {
         fileinto "Services";
       }
