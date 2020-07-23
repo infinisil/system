@@ -140,6 +140,8 @@
     guvcview
     slack-dark
     (import (import ../../sources).crate2nix {})
+    skype
+    zoom-us
   ];
 
   mine.gaming.enable = true;
