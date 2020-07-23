@@ -85,7 +85,7 @@ in
 
     services.dovecot2.sieveScripts.after2 = builtins.toFile "after2.sieve" ''
       require ["fileinto", "imap4flags"];
-      if address :is :all "to" "contact@infinisil.com" {
+      if address :is :all ["to","cc"] "contact@infinisil.com" {
         keep;
       } elsif address :is :domain "from" "patreon.com" {
         fileinto "Patreon";
@@ -97,7 +97,7 @@ in
         fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
         fileinto :flags "\\Seen" "DMARC";
-      } elsif not address :is :domain "to" "infinisil.com" {
+      } elsif not address :is :domain ["to", "cc"] "infinisil.com" {
         fileinto "Junk";
         stop;
       } else {
