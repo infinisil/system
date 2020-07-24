@@ -80,6 +80,10 @@ in
           name = "DMARC";
           auto = "subscribe";
         }
+        {
+          name = "GitHub";
+          auto = "subscribe";
+        }
       ];
     };
 
@@ -97,6 +101,8 @@ in
         fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
         fileinto :flags "\\Seen" "DMARC";
+      } elsif address :is :all "from" "notifications@github.com" {
+        fileinto "GitHub";
       } elsif not address :is :domain ["to", "cc"] "infinisil.com" {
         fileinto "Junk";
         stop;
