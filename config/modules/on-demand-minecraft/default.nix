@@ -170,9 +170,11 @@ in {
         odm = import (import ../../sources).on-demand-minecraft;
         doConfig = pkgs.writeText "config.json" (builtins.toJSON {
           region = cfg.region;
-          size = "s-2vcpu-4gb";
+          size = "g-2vcpu-8gb";
           sshKey = "25879389";
-          volume = "8b787688-52d2-11ea-9e33-0a58ac14d123";
+          # World for friends
+          #volume = "8b787688-52d2-11ea-9e33-0a58ac14d123";
+          volume = "3a00c480-d504-11ea-9c34-0a58ac14d166";
         });
       in ''
         touch whitelist

@@ -30,7 +30,7 @@
   networking.hostId = "8e4b0e65";
 
   fileSystems."/var/lib/minecraft" = {
-    device = "minecraft";
+    device = "minecraft2";
     fsType = "zfs";
   };
 
@@ -51,7 +51,7 @@
       echo "Initiating self-destruct"
 
       systemctl stop minecraft-server
-      /run/booted-system/sw/bin/zpool export minecraft
+      /run/booted-system/sw/bin/zpool export minecraft2
       id=$(curl http://169.254.169.254/metadata/v1/id)
       curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer ${lib.fileContents ../../../external/private/doauth}" "https://api.digitalocean.com/v2/droplets/$id"
     '';
@@ -65,100 +65,17 @@
     enable = true;
     eula = true;
     openFirewall = true;
+    package = pkgs.minecraft-server.overrideAttrs (old: {
+      src = pkgs.fetchurl {
+        url = "https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar";
+        sha256 = "0nwkdig6yw4cnm2ld78z4j4xzhbm1rwv55vfxz0gzhsbf93xb0i7";
+      };
+    });
+    jvmOpts = lib.concatStringsSep " " [
+      "-Xms7G"
+      "-Xmx7G"
+    ];
   };
-
-  systemd.services.minecraft-server.serviceConfig.ExecStart = lib.mkForce [
-    (pkgs.writeShellScript "minecraft-start" ''
-      if [ ! -p socket ]; then
-        mkfifo socket
-      fi
-      ${pkgs.nmap}/bin/ncat --ssl chat.freenode.net 6697 -e ${pkgs.writeShellScript "script" ''
-        channel=##nixos-anime
-
-        trap exit INT TERM
-        trap '${pkgs.procps}/bin/ps -s $$ -o pid= | xargs -r -n1 kill' EXIT
-
-        cat <<EOF
-        USER nix x x :Silvan Mosberger
-        NICK nix
-        PRIVMSG NickServ :IDENTIFY ${lib.fileContents ../../../external/private/nixpw}
-        JOIN $channel
-        EOF
-
-        {
-          delay=3
-          nickmap=$(mktemp -d)
-
-          tail -f socket | \
-            ${pkgs.gawk}/bin/gawk 'match($0, /\[.*?\] \[.*?]: (.*?) (joined|left) the game/, a) { print a[1], a[2]; fflush() }' | \
-            while read nick status; do
-
-              if [ ! -d "$nickmap/$nick" ]; then
-                mkdir "$nickmap/$nick"
-                echo left > "$nickmap/$nick/status"
-              fi
-
-              update=$(date +%s.%N)
-              echo "$update" > "$nickmap/$nick/update"
-
-              {
-                sleep $((delay * 60))
-                lastupdate=$(cat "$nickmap/$nick/update")
-                laststatus=$(cat "$nickmap/$nick/status")
-                if [ "$lastupdate" = "$update" ] && [ "$laststatus" != "$status" ]; then
-                  echo -e "PRIVMSG $channel :$nick $status the game ($delay minutes ago)"
-                  echo "$status" > "$nickmap/$nick/status"
-                fi
-              } &
-
-            done
-        } &
-
-        while read command args; do
-          if [ "$command" = "PING" ]; then
-            echo "PONG x"
-          fi
-          echo -e "$command $args" >&2
-        done
-      ''} &
-
-      cat > fabric-server-launcher.properties <<EOF
-      serverJar=${pkgs.fetchurl {
-        url = "https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar";
-        sha256 = "12kynrpxgcdg8x12wcvwkxka0fxgm5siqg8qq0nnmv0443f8dkw0";
-      }}
-      EOF
-
-      ${pkgs.jre_headless}/bin/java \
-        -Xms2560M \
-        -Xmx2560M \
-        -XX:+UseG1GC \
-        -XX:+ParallelRefProcEnabled \
-        -XX:MaxGCPauseMillis=200 \
-        -XX:+UnlockExperimentalVMOptions \
-        -XX:+DisableExplicitGC \
-        -XX:-OmitStackTraceInFastThrow \
-        -XX:+AlwaysPreTouch  \
-        -XX:G1NewSizePercent=30 \
-        -XX:G1MaxNewSizePercent=40 \
-        -XX:G1HeapRegionSize=8M \
-        -XX:G1ReservePercent=20 \
-        -XX:G1HeapWastePercent=5 \
-        -XX:G1MixedGCCountTarget=8 \
-        -XX:InitiatingHeapOccupancyPercent=15 \
-        -XX:G1MixedGCLiveThresholdPercent=90 \
-        -XX:G1RSetUpdatingPauseTimePercent=5 \
-        -XX:SurvivorRatio=32 \
-        -XX:MaxTenuringThreshold=1 \
-        -Dusing.aikars.flags=true \
-        -Daikars.new.flags=true \
-        -jar fabric-server-launch.jar \
-        | while read line; do
-          echo -e "$line"
-          echo -e "$line" > socket
-        done
-    '')
-  ];
 
   services.openssh.enable = true;
 
