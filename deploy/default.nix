@@ -30,10 +30,11 @@ in
 
   imports = [
     ../external/private
+    ../config/multimods
   ];
 
   defaults = { name, lib, ... }: {
-    enabled = if nodes == [] then true else lib.elem name nodes;
+    enabled = (if nodes == [] then true else lib.elem name nodes) && host-ips ? ${name};
     host = if host-ips ? ${name} then host-ips.${name} else "${name}.invalid";
     hasFastConnection = host-ips ? ${name} && (lib.hasPrefix "192.168." host-ips.${name} || host-ips.${name} == "localhost");
 
