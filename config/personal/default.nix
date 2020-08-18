@@ -2,7 +2,6 @@
 
   imports = [
     ./znc.nix
-    ./wlan.nix
     ./bins.nix
     ./user.nix
   ];

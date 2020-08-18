@@ -3,7 +3,6 @@ rec {
   hosts = [
     "protos"
     "vario"
-    "ninur"
     "orakel"
   ];
 

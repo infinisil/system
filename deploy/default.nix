@@ -26,7 +26,7 @@ in
 { host-ips ? {}
 , label ? ""
 , nodes ? []
-}: import /home/infinisil/prj/nixus {
+}: import /home/infinisil/prj/nixus {} {
 
   imports = [
     ../external/private

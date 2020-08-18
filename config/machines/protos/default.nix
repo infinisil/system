@@ -115,6 +115,7 @@
   services.openssh.enable = true;
 
   networking = {
+    useDHCP = false;
     domain = "infinisil.com";
     hostName = "protos";
     hostId = "6ad3ae1f";

@@ -4,9 +4,6 @@
     ./hardware-configuration.nix
   ];
 
-  services.lorri.enable = true;
-
-
   networking.wg-quick.interfaces.wg0 = {
     address = [ "10.99.2.2/24" ];
     dns = [ "1.1.1.1" ];
@@ -139,8 +136,6 @@
   environment.systemPackages = with pkgs; [
     guvcview
     slack-dark
-    (import (import ../../sources).crate2nix {})
-    skype
     zoom-us
   ];
 
