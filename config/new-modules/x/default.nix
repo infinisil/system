@@ -18,7 +18,7 @@ with lib;
 
 
     services.logind.extraConfig = ''
-      HandlePowerKey=suspend
+      HandlePowerKey=poweroff
     '';
 
     services.xserver = {
