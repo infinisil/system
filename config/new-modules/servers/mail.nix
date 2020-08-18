@@ -62,29 +62,12 @@ in
 
     };
 
-    services.dovecot2 = {
-      mailboxes = [
-        {
-          name = "Patreon";
-          auto = "subscribe";
-        }
-        {
-          name = "Builds";
-          auto = "subscribe";
-        }
-        {
-          name = "Services";
-          auto = "subscribe";
-        }
-        {
-          name = "DMARC";
-          auto = "subscribe";
-        }
-        {
-          name = "GitHub";
-          auto = "subscribe";
-        }
-      ];
+    services.dovecot2.mailboxes = {
+      Patreon.auto = "subscribe";
+      Builds.auto = "subscribe";
+      Services.auto = "subscribe";
+      DMARC.auto = "subscribe";
+      GitHub.auto = "subscribe";
     };
 
     services.dovecot2.sieveScripts.after2 = builtins.toFile "after2.sieve" ''

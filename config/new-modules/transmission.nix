@@ -29,7 +29,7 @@
         forceSSL = true;
         root = "/webroot";
         basicAuth.infinisil = config.private.passwords."infinisil@torrent.infinisil.com";
-        locations."/".proxyPass = "http://localhost:${toString config.services.transmission.port}";
+        locations."/".proxyPass = "http://localhost:${toString config.services.transmission.settings.rpc-port}";
         locations."/current/" = {
           root = "/var/lib/torrent";
           extraConfig = "autoindex on;";
@@ -37,7 +37,7 @@
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ config.services.transmission.port ];
+    networking.firewall.allowedTCPPorts = [ config.services.transmission.settings.rpc-port ];
 
     users.users.infinisil.extraGroups = [ "transmission" ];
     users.users.nginx.extraGroups = [ "transmission" ];

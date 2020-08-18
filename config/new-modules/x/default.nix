@@ -69,7 +69,7 @@ with lib;
       xclip
       evince
       arandr
-      lxappearance-gtk3
+      lxappearance
       gtk_engines
       gtk-engine-murrine
       dmenu

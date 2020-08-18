@@ -17,7 +17,6 @@ with lib;
       mine.say
       (mkIf config.hardware.bluetooth.enable blueman)
       pavucontrol
-      cli-visualizer
       pulseeffects
     ];
 
