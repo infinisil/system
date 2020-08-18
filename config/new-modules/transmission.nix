@@ -4,6 +4,8 @@
 
   config = lib.mkIf config.mine.transmission.enable {
 
+    systemd.services.transmission.serviceConfig.BindPaths = [ "/var/lib/torrent/archive" ];
+
     services.transmission = {
       enable = true;
       home = "/var/lib/torrent";
