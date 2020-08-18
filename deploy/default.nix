@@ -40,7 +40,6 @@ in
 
     nixpkgs = ../external/nixpkgs;
 
-    successTimeout = 120;
     switchTimeout = 240;
 
     configuration = {
@@ -68,10 +67,12 @@ in
       ];
       system.stateVersion = "19.03";
     };
+
+    ignoreFailingSystemdUnits = true;
   };
 
   nodes.vario = {
-    configuration = {
+    configuration = { lib, ... }: {
       imports = [
         ../config/machines/vario
         deployer
@@ -92,6 +93,7 @@ in
   };
 
   nodes.orakel = {
+    successTimeout = 120;
     configuration = {
       imports = [
         ../config/machines/orakel
