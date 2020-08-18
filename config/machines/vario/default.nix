@@ -4,6 +4,11 @@
     ./hardware-configuration.nix
   ];
 
+  systemd.services.zfs-import-main.before = lib.mkForce [ "betty.mount" ];
+  systemd.targets.zfs-import.after = lib.mkForce [];
+  fileSystems."/betty".options = [ "nofail" ];
+  systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
+
   networking.wg-quick.interfaces.wg0 = {
     address = [ "10.99.2.2/24" ];
     dns = [ "1.1.1.1" ];
@@ -157,5 +162,11 @@
     hostName = "vario";
     hostId = "56236562";
     firewall.allowedTCPPorts = [ 80 ];
+    useDHCP = false;
+    defaultGateway.address = "192.168.178.1";
+    interfaces.eno1.ipv4.addresses = [ {
+      address = "192.168.178.53";
+      prefixLength = 24;
+    }];
   };
 }
