@@ -9,34 +9,6 @@
   fileSystems."/betty".options = [ "nofail" ];
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
 
-  networking.wg-quick.interfaces.wg0 = {
-    address = [ "10.99.2.2/24" ];
-    dns = [ "1.1.1.1" ];
-
-    peers = [
-      {
-        publicKey = lib.fileContents ../../../external/private/wireguard-keys/server-public;
-        allowedIPs = [ "0.0.0.0/0" ];
-        endpoint = "51.15.187.150:51820";
-        persistentKeepalive = 25;
-      }
-    ];
-  };
-
-  networking.wireguard.interfaces.wg1 = {
-    ips = [ "10.99.3.2/24" ];
-    privateKeyFile = "/root/wireguard-keys/private";
-
-    peers = [
-      {
-        publicKey = "N+kEAyKQBMbdyY+yRAEVOb1AbWFYveUIDDZ+ni5h4yI=";
-        allowedIPs = [ "10.99.3.0/24" ];
-        endpoint = "206.81.23.189:51820";
-        persistentKeepalive = 25;
-      }
-    ];
-  };
-
   virtualisation.docker.enable = true;
 
   mine.enableUser = true;
