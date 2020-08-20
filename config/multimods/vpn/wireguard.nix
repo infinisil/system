@@ -52,6 +52,9 @@ in {
 
         networking.firewall.allowedUDPPorts = [ net.server.port ];
 
+        # Needed for both networking between clients and for client -> internet
+        boot.kernel.sysctl."net.ipv4.conf.${interface}.forwarding" = true;
+
         networking.wg-quick.interfaces.${interface} = {
           address = [ "${net.server.subnetIp}/${toString parsedSubnet.cidr}" ];
           listenPort = net.server.port;
@@ -66,7 +69,11 @@ in {
 
       (lib.mkIf net.server.internetGateway {
 
-        boot.kernel.sysctl."net.ipv4.conf.${interface}.forwarding" = true;
+        networking.nat = {
+          enable = true;
+          externalInterface = net.server.internetGatewayInterface;
+          internalInterfaces = [ interface ];
+        };
 
         networking.wg-quick.interfaces.${interface} = {
           postUp = ''
