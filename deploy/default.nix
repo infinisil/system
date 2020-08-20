@@ -26,7 +26,11 @@ in
 { host-ips ? {}
 , label ? ""
 , nodes ? []
-}: import /home/infinisil/prj/nixus {} {
+}: import /home/infinisil/prj/nixus {
+  libOverlay = self: super: {
+    ip = import ./lib/ip.nix self;
+  };
+} {
 
   imports = [
     ../external/private

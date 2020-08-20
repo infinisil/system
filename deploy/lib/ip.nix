@@ -40,5 +40,6 @@ lib: rec {
         + "which will get masked to ${prettyIp baseIp}, which should be used instead");
     in warn {
       inherit baseIp cidr mask range check;
+      subnet = "${prettyIp baseIp}/${toString cidr}";
     };
 }
