@@ -9,7 +9,7 @@
   fileSystems."/betty".options = [ "nofail" ];
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
 
-  virtualisation.docker.enable = true;
+
 
   mine.enableUser = true;
 
@@ -19,6 +19,11 @@
     swap = true;
     cpuCount = 8;
     audio = true;
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "zfs";
   };
 
   users.users.infinisil.extraGroups = [ "transmission" ];

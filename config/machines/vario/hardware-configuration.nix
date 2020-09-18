@@ -38,6 +38,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/docker" =
+    { device = "tank2/root/docker";
+      fsType = "zfs";
+    };
+
   fileSystems."/home/infinisil/music" =
     { device = "tank2/root/music";
       fsType = "zfs";
