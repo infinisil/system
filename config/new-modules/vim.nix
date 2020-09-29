@@ -65,6 +65,7 @@ in
         set backspace=indent,eol,start
         set clipboard=unnamedplus
         set relativenumber
+        set expandtab
 
         let mapleader = " "
 
