@@ -4,6 +4,8 @@ with lib;
 
 mkIf config.mine.console.enable {
 
+  programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+
   mine.userConfig = {
 
     home.packages = with pkgs; [
@@ -85,7 +87,11 @@ mkIf config.mine.console.enable {
           src = "${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/pass";
         }
       ];
+
       initExtra = ''
+
+        source ${./p10k.zsh}
+        typeset -g POWERLEVEL9K_CONFIG_FILE=${toString ./p10k.zsh}
 
         pst() {
           ssh protos pst $1 | xclip -selection clipboard
