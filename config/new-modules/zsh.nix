@@ -2,34 +2,6 @@
 
 with lib;
 
-let
-
-  prezto = pkgs.stdenv.mkDerivation {
-    name = "prezto";
-    src = (import ../sources).prezto;
-
-    buildInputs = [ pkgs.zsh ];
-
-    buildPhase = ''
-      for f in $(find modules -type f -name '*.zsh'); do
-        substituteInPlace "$f" --replace \
-          'cache_file="''${0:h}/cache.zsh"' \
-          "cache_file=\"\$HOME/.cache/prezto/$(basename $(dirname $f)).zsh\""
-      done
-
-      for f in $(find . -type f -name '*.zsh'); do
-        zsh -c "zcompile $f"
-      done
-    '';
-
-    installPhase = ''
-      cp -r . $out
-    '';
-  };
-
-in
-
-
 mkIf config.mine.console.enable {
 
   mine.userConfig = {
@@ -119,7 +91,6 @@ mkIf config.mine.console.enable {
           ssh protos pst $1 | xclip -selection clipboard
         }
 
-        source ${prezto}/init.zsh
         source ${pkgs.fzf}/share/fzf/completion.zsh
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
         eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
@@ -146,8 +117,6 @@ mkIf config.mine.console.enable {
             "refs/pull/$1/head:pr/$1" && \
             ${pkgs.git}/bin/git checkout "pr/$1";
         }
-
-        mkdir -p $HOME/.cache/prezto
 
         bindkey '^ ' autosuggest-execute
 
@@ -225,29 +194,5 @@ mkIf config.mine.console.enable {
       '';
     };
 
-    home.file.".config/zsh/.zlogin".source = "${prezto}/runcoms/zlogin";
-
-    home.file.".config/zsh/.zpreztorc".text = ''
-      zstyle ':prezto:*:*' color 'yes'
-      zstyle ':prezto:load' pmodule \
-        'environment' \
-        'terminal' \
-        'editor' \
-        'history' \
-        'directory' \
-        'spectrum' \
-        'utility' \
-        'completion' \
-        'fasd' \
-        'syntax-highlighting' \
-        'history-substring-search' \
-        'autosuggestions' \
-        'prompt' \
-        'git'
-
-      zstyle ':prezto:module:editor' key-bindings 'vi'
-      zstyle ':prezto:module:prompt' theme 'sorin'
-      zstyle ':prezto:module:utility' safe-ops 'no'.
-    '';
   };
 }
