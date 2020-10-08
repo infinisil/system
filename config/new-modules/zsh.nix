@@ -115,18 +115,9 @@ mkIf config.mine.console.enable {
       ];
       initExtra = ''
 
-        __opt_repeat_last() {
-          [[ -n $BUFFER ]] || zle up-history
-          zle accept-line
-        }
-
         pst() {
           ssh protos pst $1 | xclip -selection clipboard
         }
-
-        zle -N repeat_last __opt_repeat_last
-
-        bindkey '^M' repeat_last
 
         source ${prezto}/init.zsh
         source ${pkgs.fzf}/share/fzf/completion.zsh
@@ -149,17 +140,6 @@ mkIf config.mine.console.enable {
           cd "$HOME/test/$1"
         }
 
-        function nsrc() {
-          set -euo pipefail
-          if [ -z "$1" ]; then
-            echo Give a nixpkgs attribute to check the source of
-            return 1
-          fi
-          cd /tmp && mkdir -p "$1" && cd "$1"
-          nix-shell "''${2:-<nixpkgs>}" -Q -A "$1" --command unpackPhase
-          cd *
-        }
-
         function pr() {
           ${pkgs.git}/bin/git fetch -fu \
             ''${2:-$(${pkgs.git}/bin/git remote | grep "^upstream" || echo origin)} \
@@ -172,52 +152,6 @@ mkIf config.mine.console.enable {
         bindkey '^ ' autosuggest-execute
 
         unsetopt correct_all
-        __cd() {
-          local sel
-
-          sel="$(fasd -Rdl | xargs -I{} realpath --relative-base=$PWD -s "{}" | fzf \
-            -0 +s +m \
-            --height 50% \
-            --reverse --border \
-            --margin=1 --inline-info \
-            --color=16 \
-            --print-query \
-            --preview="${pkgs.tree}/bin/tree -C {}/ | head -100" \
-            | tail -1)"
-
-          if [ -z "$sel" ]; then
-            zle redisplay
-            return 1
-          fi
-
-          BUFFER="$(printf "cd %q" "$sel")"
-          zle redisplay
-          zle accept-line
-        }
-
-        __vim() {
-          local sel
-
-          sel="$(fasd -Rfl | xargs -I{} realpath --relative-base=$PWD -s "{}" | fzf \
-            -m +s -0 \
-            --height 50% \
-            --reverse --border \
-            --margin=1 --inline-info \
-            --color=16 \
-            --print-query \
-            --preview="${pkgs.highlight}/bin/highlight -O ansi --force {}" \
-            | tail -1)"
-
-          if [ -z "$sel" ]; then
-            zle redisplay
-            return 1
-          fi
-
-          BUFFER="$(printf "vim %q" "$sel")"
-          #zle redisplay
-          zle accept-line
-        }
-
         __cda() {
           local sel
 
@@ -279,15 +213,11 @@ mkIf config.mine.console.enable {
           nix-prefetch-url --print-path --unpack "$url" | tail -1
         }
 
-        zle -N __cd
-        zle -N __vim
         zle -N __cda
         zle -N __vima
 
         chpwd() l;
 
-        bindkey '^G' __vim
-        bindkey '^H' __cd
         bindkey '^A^G' __vima
         bindkey '^A^H' __cda
 
