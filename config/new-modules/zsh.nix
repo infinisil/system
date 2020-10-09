@@ -15,6 +15,7 @@ mkIf config.mine.console.enable {
       colordiff
       pythonPackages.pygments
       zsh-completions
+      bat
     ];
 
     home.sessionVariables.EDITOR = "vim";
@@ -92,6 +93,11 @@ mkIf config.mine.console.enable {
 
         source ${./p10k.zsh}
         typeset -g POWERLEVEL9K_CONFIG_FILE=${toString ./p10k.zsh}
+
+        export BAT_CONFIG_PATH=${pkgs.writeText "bat.config" ''
+          --theme="Monokai Extended"
+        ''}
+        alias cat=bat
 
         pst() {
           ssh protos pst $1 | xclip -selection clipboard
