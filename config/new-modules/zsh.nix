@@ -98,6 +98,7 @@ mkIf config.mine.console.enable {
           --theme="Monokai Extended"
         ''}
         alias cat=bat
+        alias icat="kitty +kitten icat"
 
         pst() {
           ssh protos pst $1 | xclip -selection clipboard
