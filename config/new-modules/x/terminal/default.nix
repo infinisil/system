@@ -23,22 +23,12 @@ in
 
   config = mkIf cfg.enable {
 
-    mine.terminal.binary = "${pkgs.alacritty}/bin/alacritty";
+    mine.terminal.binary = "${pkgs.kitty}/bin/kitty";
 
-    environment.systemPackages = [
-      pkgs.alacritty
-      pkgs.tmux
-    ];
+    environment.systemPackages = [ pkgs.kitty ];
 
     mine.xUserConfig = {
-
-      xdg.configFile."alacritty/alacritty.yml".source = ./alacritty.yml;
-
-      home.file.".tmux.conf".text = ''
-        set -g default-terminal "xterm-256color"
-        set -g destroy-unattached "on"
-      '';
-
+      xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
     };
 
   };
