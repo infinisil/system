@@ -30,7 +30,7 @@ with lib;
       enable = true;
       package = pkgs.pulseaudioFull;
       extraConfig = ''
-        load-module module-switch-on-connect
+        unload-module module-switch-on-port-available
       '';
     };
 
