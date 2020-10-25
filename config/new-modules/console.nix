@@ -16,17 +16,13 @@ with lib;
 
     mine.vim.enable = true;
 
-    programs.zsh = {
-      enable = true;
-      enableCompletion = false;
-    };
-
     environment.variables = {
       BC_ENV_ARGS = "-lq";
       BC_LINE_LENGTH = "0";
     };
 
     environment.systemPackages = with pkgs; [
+      most
       direnv
       gitFull
       tmux
@@ -61,6 +57,7 @@ with lib;
       whois
       exa
       aspellDicts.en
+      bat
     ];
 
     users.defaultUserShell = pkgs.zsh;
