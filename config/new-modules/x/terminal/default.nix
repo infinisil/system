@@ -21,16 +21,27 @@ in
 
   };
 
-  config = mkIf cfg.enable {
+  config = mkMerge [
+    (mkIf cfg.enable {
 
-    mine.terminal.binary = "${pkgs.kitty}/bin/kitty";
+      mine.terminal.binary = "${pkgs.kitty}/bin/kitty";
 
-    environment.systemPackages = [ pkgs.kitty ];
+      environment.systemPackages = [ pkgs.kitty ];
 
-    mine.xUserConfig = {
-      xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
-    };
+      mine.xUserConfig = {
+        xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
+      };
 
-  };
+    })
+    (mkIf config.mine.profiles.server.enable {
+      environment.systemPackages = [
+        (pkgs.kitty.overrideAttrs (old: {
+          meta = old.meta // {
+            outputsToInstall = [ "terminfo" ];
+          };
+        }))
+      ];
+    })
+  ];
 
 }
