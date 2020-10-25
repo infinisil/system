@@ -51,7 +51,7 @@ with lib;
       traceroute
       nix-top
       fd
-      gitAndTools.hub
+      gitAndTools.gh
       fzf
       sqliteInteractive
       gnumake

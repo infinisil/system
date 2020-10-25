@@ -112,7 +112,6 @@ mkIf config.mine.console.enable {
         source ${pkgs.fzf}/share/fzf/completion.zsh
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
         eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
-
         source ${pkgs.mpc_cli}/share/doc/mpc/contrib/mpc-completion.bash
 
         export HISTFILE=$HOME/.config/zsh/.zsh_history
