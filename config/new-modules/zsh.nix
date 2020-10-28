@@ -86,7 +86,7 @@ mkIf config.mine.console.enable {
       zle -N __vima
 
       chpwd() {
-        l
+        eval l
       }
 
       export LESS_TERMCAP_mb=$'\E[01;31m'      # Begins blinking.
