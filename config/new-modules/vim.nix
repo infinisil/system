@@ -18,6 +18,8 @@ in
       mkdir -p $HOME/.local/share/vim/{undo,swap,backup}
     '';
 
+    home.sessionVariables.EDITOR = "vim";
+
     nixpkgs.overlays = [(self: super: {
       ycmd = super.ycmd.override {
         gocode = null;
