@@ -1,4 +1,27 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, ... }:
+let
+  pot = pkgs.writeShellScriptBin "pot" ''
+    i=0
+    current=
+    declare -a sinks
+
+    while IFS=$'\t' read -r id name type format state; do
+      if [[ "$type" != module-alsa-card.c ]]; then
+        continue
+      fi
+      if [[ "$state" == RUNNING ]]; then
+        current="$i"
+      fi
+      sinks+=("$id")
+      i=$(( i + 1 ))
+    done < <(pactl list short sinks)
+
+    count=''${#sinks[@]}
+    toActivate=$(( (current + 1) % count ))
+
+    pactl set-default-sink "''${sinks[$toActivate]}"
+  '';
+in {
 
   imports = [
     ./hardware-configuration.nix
@@ -118,6 +141,7 @@
     guvcview
     slack-dark
     zoom-us
+    pot
   ];
 
   mine.gaming.enable = true;
