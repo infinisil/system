@@ -21,6 +21,21 @@ let
 
     pactl set-default-sink "''${sinks[$toActivate]}"
   '';
+
+  yt = pkgs.writeShellScriptBin "yt" ''
+    url=$1
+
+    formats=$(youtube-dl -F "$url" 2>/dev/null | rg 'format code.*extension.*resolution.*note' -A 100000 | tail -n +2)
+
+    audioid=$(echo "$formats" | rg "audio only" | cut -d' ' -f1 | sort | tail -1)
+
+    videoid=$(echo "$formats" | rg "video only" | fzf --tac | cut -d' ' -f1)
+
+    echo $audioid
+    echo $videoid
+
+    mpv "$url" --ytdl-format="$videoid+$audioid"
+  '';
 in {
 
   imports = [
@@ -137,11 +152,14 @@ in {
   mine.binalias.monitor = "xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440";
   mine.binalias.rate = "mpc sendmessage rating";
 
+  programs.zsh.shellAliases.yt = "noglob yt";
+
   environment.systemPackages = with pkgs; [
     guvcview
     slack-dark
     zoom-us
     pot
+    yt
   ];
 
   mine.gaming.enable = true;
