@@ -36,6 +36,15 @@ let
 
     mpv "$url" --ytdl-format="$videoid+$audioid"
   '';
+
+  projector = pkgs.writeShellScriptBin "projector" ''
+    xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off
+    pactl set-default-sink alsa_output.usb-Kingston_HyperX_7.1_Audio_00000000-00.analog-stereo
+  '';
+  monitor = pkgs.writeShellScriptBin "monitor" ''
+    xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440
+    pactl set-default-sink alsa_output.pci-0000_00_1b.0.analog-stereo
+  '';
 in {
 
   imports = [
@@ -148,8 +157,6 @@ in {
     };
   };
 
-  mine.binalias.projector = "xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off";
-  mine.binalias.monitor = "xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440";
   mine.binalias.rate = "mpc sendmessage rating";
 
   programs.zsh.shellAliases.yt = "noglob yt";
@@ -160,6 +167,8 @@ in {
     zoom-us
     pot
     yt
+    projector
+    monitor
   ];
 
   mine.gaming.enable = true;
