@@ -20,7 +20,10 @@ with lib;
         enableACME = true;
         forceSSL = true;
         root = "/var/lib/public";
-        locations."/".extraConfig = "autoindex on;";
+        locations."/".extraConfig = ''
+          autoindex on;
+          charset UTF-8;
+        '';
       };
     };
   };
