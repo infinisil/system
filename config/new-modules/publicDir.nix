@@ -12,8 +12,6 @@ with lib;
 
     systemd.tmpfiles.rules = [ "d /var/lib/public 0777 root root -" ];
 
-    mine.subdomains = [ "public" ];
-
     services.nginx = {
       enable = true;
       virtualHosts."public.${config.networking.domain}" = {

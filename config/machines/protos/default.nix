@@ -16,8 +16,6 @@
   mine.gitHost.enable = true;
   mine.znc.enable = true;
 
-  mine.dns.enable = true;
-
   mine.profiles.server.enable = true;
 
   mine.webKeyDirectory.enable = true;
@@ -87,8 +85,6 @@
     enableACME = true;
     forceSSL = true;
   };
-
-  mine.subdomains = [ "pc" "nixbot" ];
 
   services.nginx.virtualHosts."pc.infinisil.com" = {
     enableACME = true;

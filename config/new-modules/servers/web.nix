@@ -25,8 +25,6 @@ in
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-    mine.subdomains = [ "www" "private" ];
-
     services.nginx = {
       enable = true;
       recommendedGzipSettings = true;

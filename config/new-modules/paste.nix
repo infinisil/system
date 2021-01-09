@@ -54,8 +54,6 @@ in
 
     environment.systemPackages = [ pastebin ];
 
-    mine.subdomains = [ subdomain ];
-
     services.nginx = {
       enable = true;
       virtualHosts.${domain} = {

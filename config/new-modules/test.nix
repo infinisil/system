@@ -21,8 +21,6 @@ in
   config = mkMerge [
     (mkIf cfg.subdomain {
 
-      mine.subdomains = [ "test" ];
-
       services.nginx.virtualHosts."test.${config.networking.domain}" = {
         forceSSL = true;
         enableACME = true;

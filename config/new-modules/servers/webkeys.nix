@@ -31,7 +31,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    mine.subdomains = [ "keys" ];
 
     services.nginx = {
       enable = true;

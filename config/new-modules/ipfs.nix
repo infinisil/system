@@ -37,8 +37,6 @@ in
     (mkIf (! cfg.autostart) {
     })
     (mkIf (cfg.enable && cfg.enableGateway) {
-      mine.subdomains = [ "ipfs" ];
-
       services.nginx = {
         enable = true;
         recommendedProxySettings = mkForce false;
