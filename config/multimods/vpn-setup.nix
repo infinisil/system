@@ -5,7 +5,6 @@
     subnet = "10.99.2.0/24";
     server = {
       node = "orakel";
-      publicIp = "51.15.187.150";
       subnetIp = "10.99.2.1";
       internetGateway = true;
       internetGatewayInterface = "eth0";
@@ -30,7 +29,6 @@
     subnet = "10.99.3.0/24";
     server = {
       node = "protos";
-      publicIp = "206.81.23.189";
       subnetIp = "10.99.3.1";
       wireguard.publicKey = "N+kEAyKQBMbdyY+yRAEVOb1AbWFYveUIDDZ+ni5h4yI=";
       wireguard.privateKeyFile = "/root/wireguard-keys/private";

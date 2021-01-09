@@ -69,6 +69,8 @@ in
       imports = [
         ../config/machines/protos
       ];
+      networking.public.ipv4 = "206.81.23.189";
+      networking.public.ipv6 = "2a03:b0c0:3:d0::5f7f:5001";
       system.stateVersion = "19.03";
     };
 
@@ -102,6 +104,8 @@ in
       imports = [
         ../config/machines/orakel
       ];
+      networking.public.ipv4 = "51.15.187.150";
+      networking.public.ipv6 = "fe80::208:a2ff:fe0c:2ab4";
       system.stateVersion = "19.03";
     };
   };
