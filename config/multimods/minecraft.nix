@@ -30,8 +30,18 @@
   networking.hostId = "8e4b0e65";
 
   fileSystems."/var/lib/minecraft" = {
-    device = "minecraft2";
+    device = "minecraft";
     fsType = "zfs";
+  };
+
+  systemd.services.destruct = {
+    path = [ pkgs.curl ];
+    script = ''
+      systemctl stop minecraft-server
+      /run/booted-system/sw/bin/zpool export minecraft
+      id=$(curl http://169.254.169.254/metadata/v1/id)
+      curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer ${lib.fileContents ../../external/private/doauth}" "https://api.digitalocean.com/v2/droplets/$id"
+    '';
   };
 
   systemd.services.self-destruct = {
@@ -49,11 +59,7 @@
         fi
       done
       echo "Initiating self-destruct"
-
-      systemctl stop minecraft-server
-      /run/booted-system/sw/bin/zpool export minecraft2
-      id=$(curl http://169.254.169.254/metadata/v1/id)
-      curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer ${lib.fileContents ../../../external/private/doauth}" "https://api.digitalocean.com/v2/droplets/$id"
+      systemctl start destruct
     '';
   };
 
@@ -67,8 +73,8 @@
     openFirewall = true;
     package = pkgs.minecraft-server.overrideAttrs (old: {
       src = pkgs.fetchurl {
-        url = "https://launcher.mojang.com/v1/objects/f02f4473dbf152c23d7d484952121db0b36698cb/server.jar";
-        sha1 = "f02f4473dbf152c23d7d484952121db0b36698cb";
+        url = "https://launcher.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar";
+        sha1 = "35139deedbd5182953cf1caa23835da59ca3d7cd";
       };
     });
     jvmOpts = lib.concatStringsSep " " [
