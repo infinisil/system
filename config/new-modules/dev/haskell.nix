@@ -11,7 +11,8 @@ with lib;
     environment.systemPackages = with pkgs; [
       #haskellPackages.pointfree
       #haskellPackages.stylish-haskell
-      haskellPackages.hlint
+      #haskellPackages.hlint
+      #haskell.packages.ghc865.haskell-language-server
     ];
 
     mine.userConfig = {

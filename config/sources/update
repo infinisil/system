@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "This script is currently broken due to Nix changing the error output hash format"
+exit 1
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 defSha256=0000000000000000000000000000000000000000000000000000
 

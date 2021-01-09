@@ -51,12 +51,21 @@ in {
     ./hardware-configuration.nix
   ];
 
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes ca-references
+    '';
+  };
+
+  services.vault.enable = true;
+
   systemd.services.zfs-import-main.before = lib.mkForce [ "betty.mount" ];
   systemd.targets.zfs-import.after = lib.mkForce [];
   fileSystems."/betty".options = [ "nofail" ];
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
 
-
+  services.lorri.enable = true;
 
   mine.enableUser = true;
 
@@ -73,11 +82,12 @@ in {
     storageDriver = "zfs";
   };
 
-  users.users.infinisil.extraGroups = [ "transmission" ];
+  users.users.infinisil.extraGroups = [ "docker" "transmission" ];
   users.groups.transmission.gid = 70;
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
   mine.sshMounts = lib.mapAttrs (name: value: {
@@ -117,7 +127,7 @@ in {
       };
     };
   };
-  mine.deluged.enable = true;
+  #mine.deluged.enable = true;
   services.deluge = {
     declarative = true;
     config = {

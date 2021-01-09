@@ -26,6 +26,7 @@ in
 { host-ips ? {}
 , label ? ""
 , nodes ? []
+, ignoreFailingSystemdUnits ? true
 }: import /home/infinisil/prj/nixus {
   libOverlay = self: super: {
     ip = import ./lib/ip.nix self;
@@ -62,6 +63,8 @@ in
         "nixpkgs=/etc/nixpkgs"
       ];
     };
+
+    inherit ignoreFailingSystemdUnits;
   };
 
   nodes.protos = {
@@ -73,8 +76,6 @@ in
       networking.public.ipv6 = "2a03:b0c0:3:d0::5f7f:5001";
       system.stateVersion = "19.03";
     };
-
-    ignoreFailingSystemdUnits = true;
   };
 
   nodes.vario = {

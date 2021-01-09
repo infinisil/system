@@ -40,7 +40,7 @@ export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
 preferredips=$("$DIR/preferred-ip" "$@")
 
 confdir=$(mktemp -d)
-nixconf=$(nix-build --no-out-link "$DIR" -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source)
+nixconf=$(nix-build --no-out-link "$DIR" -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source --show-trace)
 ln -s "$nixconf" "$confdir/nix.conf"
 
 echo "Building all nodes..."

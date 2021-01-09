@@ -4,7 +4,8 @@ let
   cfg = config.mine.hueadm;
   inherit (lib) types;
 
-  command = "${pkgs.hueadm}/bin/hueadm"
+  # Using latest nodePackages so we don't pull in python 2
+  command = "${pkgs.nodePackages_latest.hueadm}/bin/hueadm"
     + lib.optionalString (cfg.host != null) " -H${cfg.host}"
     + lib.optionalString (cfg.user != null) " -U${cfg.user}";
 
