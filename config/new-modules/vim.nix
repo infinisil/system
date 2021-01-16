@@ -63,6 +63,7 @@ in
           set background=dark
 
           set mouse=a
+          set list listchars=tab:▸▸,trail:·
 
           colorscheme gruvbox
 
@@ -77,6 +78,8 @@ in
           set backspace=indent,eol,start
           set clipboard=unnamedplus
           set number
+          set colorcolumn=80
+
           set expandtab
 
           let mapleader = " "
