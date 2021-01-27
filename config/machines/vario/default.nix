@@ -179,6 +179,7 @@ in {
     yt
     projector
     monitor
+    syncplay
   ];
 
   mine.gaming.enable = true;

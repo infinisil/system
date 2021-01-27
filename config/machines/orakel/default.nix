@@ -6,6 +6,29 @@
       ./hardware-configuration.nix
     ];
 
+  secrets.files.syncplay.file = ../../../external/private/secrets/syncplay;
+  secrets.files.syncplay.user = "syncplay";
+
+  services.syncplay = {
+    enable = true;
+    certDir =
+      let base = config.security.acme.certs."torrent.infinisil.com".directory;
+      in pkgs.runCommandNoCC "syncplay-certs" {} ''
+        mkdir $out
+        ln -s ${base}/cert.pem $out/cert.pem
+        ln -s ${base}/key.pem $out/privkey.pem
+        ln -s ${base}/chain.pem $out/chain.pem
+      '';
+    salt = "WQCMMEFEPA";
+    passwordFile = config.secrets.files.syncplay.file;
+    user = "syncplay";
+    group = config.security.acme.certs."torrent.infinisil.com".group;
+  };
+
+  users.users.syncplay = {
+    isSystemUser = true;
+  };
+
   mine.enableUser = true;
 
   mine.transmission.enable = true;
@@ -46,6 +69,7 @@
       address = "51.15.187.150";
       prefixLength = 20;
     }];
+    firewall.allowedTCPPorts = [ config.services.syncplay.port ];
   };
 
   services.iperf3.enable = true;
