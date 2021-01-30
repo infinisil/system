@@ -32,10 +32,16 @@
         root = "/webroot";
         basicAuth.infinisil = config.private.passwords."infinisil@torrent.infinisil.com";
         locations."/".proxyPass = "http://localhost:${toString config.services.transmission.settings.rpc-port}";
-        locations."/current/" = {
-          root = "/var/lib/torrent";
-          extraConfig = "autoindex on;";
-        };
+      };
+      virtualHosts."media.infinisil.com" = {
+        enableACME = true;
+        forceSSL = true;
+        basicAuth.infinisil = config.private.passwords."infinisil@media.infinisil.com";
+        root = "/var/lib/torrent";
+        extraConfig = ''
+          autoindex on;
+          charset UTF-8;
+        '';
       };
     };
 
