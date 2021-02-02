@@ -56,6 +56,14 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
     '';
+
+    buildMachines = [{
+      hostName = "192.168.178.51";
+      maxJobs = 4;
+      sshKey = "/home/infinisil/.ssh/id_ed25519";
+      sshUser = "silvan";
+      system = "x86_64-darwin";
+    }];
   };
 
   services.vault.enable = true;
