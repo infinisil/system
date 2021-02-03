@@ -60,6 +60,9 @@ in
         forceSSL = true;
         enableACME = true;
         root = cfg.dataDir;
+        extraConfig = ''
+          charset UTF-8;
+        '';
       };
     };
 
