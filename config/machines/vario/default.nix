@@ -52,9 +52,17 @@ in {
   ];
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixFlakes.overrideAttrs (old: {
+      patches = old.patches or [] ++ [
+        (pkgs.fetchpatch {
+          url = "https://github.com/NixOS/nix/commit/525b38eee8fac48eb2a82fb78fa0a933a9eee2a4.patch";
+          sha256 = "sha256-58MAq5zyCIGRd2P6p0ydpfpxZDULKanVpzMsNYKz6IM=";
+        })
+      ];
+    });
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
+      allowed-uris = https://github.com/
     '';
 
     buildMachines = [{
