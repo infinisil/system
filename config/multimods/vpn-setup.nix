@@ -6,8 +6,6 @@
     server = {
       node = "orakel";
       subnetIp = "10.99.2.1";
-      internetGateway = true;
-      internetGatewayInterface = "eth0";
       wireguard.publicKey = "t90gKxoMhKb1AscC1Ty8kfxPJQPzZ4tiaj0fn6NwLG4=";
       wireguard.privateKeyFile = "/root/wireguard-keys/private";
     };
@@ -20,7 +18,6 @@
       subnetIp = "10.99.2.3";
       wireguard.publicKey = "N+kEAyKQBMbdyY+yRAEVOb1AbWFYveUIDDZ+ni5h4yI=";
       wireguard.privateKeyFile = "/root/wireguard-keys/private";
-      internetGateway = false;
     };
   };
 
