@@ -53,6 +53,8 @@
     enable = true;
     channels = [ "nixos-unstable" "nixos-20.03" "nixos-19.09" "nixos-19.03" ];
     config = {
+      host = "events.nix.gsc.io";
+      port = 5671;
       users = {
         commands.enable = true;
         nixrepl.enable = true;
