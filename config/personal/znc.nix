@@ -17,19 +17,17 @@
         Network.rizon = lib.mkForce null;
         Network.twitch = lib.mkForce null;
         Network.freenode.Chan = {
-          "#haskell-ide-engine" = { };
           "#haskell.nix" = { };
+          "#haskell" = { };
           "#nixos" = { };
           "##nixos-anime" = { };
           "#bottest" = { };
           "#nixos-chat" = { };
+          "#nixos-gaming" = { };
+          "#nixus" = { };
           "#nix-lang" = { };
-          "#nixos-borg" = { };
           "#nixos-dev" = { };
-          "#nixos-security" = { };
-          "#minecraft" = { };
           "#home-manager" = { };
-          "#nixos-officehours" = { };
         };
       };
     };
