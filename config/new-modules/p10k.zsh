@@ -1124,7 +1124,7 @@
   #   shell:  version is set by STACK_YAML
   #   local:  version is set by stack.yaml up the directory tree
   #   global: version is set by the implicit global project (~/.stack/global-project/stack.yaml)
-  typeset -g POWERLEVEL9K_HASKELL_STACK_SOURCES=(shell local)
+  typeset -g POWERLEVEL9K_HASKELL_STACK_SOURCES=()
   # If set to false, hide haskell version if it's the same as in the implicit global project.
   typeset -g POWERLEVEL9K_HASKELL_STACK_ALWAYS_SHOW=true
   # Custom icon.
