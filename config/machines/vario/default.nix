@@ -74,6 +74,12 @@ in {
     }];
   };
 
+  environment.autoUpdate.packages.youtube-dl = {
+    attrPath = [ "youtube-dl" ];
+    url = "channel:nixpkgs-unstable";
+    period = "hourly";
+  };
+
   services.vault.enable = true;
 
   systemd.services.zfs-import-main.before = lib.mkForce [ "betty.mount" ];

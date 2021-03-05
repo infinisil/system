@@ -48,7 +48,6 @@ with lib;
 
     environment.systemPackages = with pkgs; [
       neofetch
-      youtube-dl
       ffmpeg-full
       stack
       imagemagick7Big

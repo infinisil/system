@@ -90,7 +90,7 @@ with lib;
       xsession.enable = true;
 
       home.packages = with pkgs; [
-        mpv
+        (mpv.override { youtubeSupport = false; })
         mine.pics
         thunderbird
         helvetica-neue-lt-std
