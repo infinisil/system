@@ -49,7 +49,6 @@ with lib;
     environment.systemPackages = with pkgs; [
       neofetch
       ffmpeg-full
-      stack
       imagemagick7Big
       nix-prefetch-git
       sshfs
