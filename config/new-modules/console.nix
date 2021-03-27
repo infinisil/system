@@ -83,7 +83,7 @@ with lib;
         aliases.lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         signing = {
           key = "0xE8F1E9EAD284E17D";
-          signByDefault = true;
+          #signByDefault = true;
           gpgPath = "${pkgs.gnupg}/bin/gpg";
         };
         iniContent.credential.helper = "store";
