@@ -6,6 +6,30 @@
     ((import ../../sources).nixbot + "/module.nix")
   ];
 
+
+  secrets.files.syncplay.file = ../../../external/private/secrets/syncplay;
+  secrets.files.syncplay.user = "syncplay";
+
+  services.syncplay = {
+    enable = true;
+    certDir =
+      let base = config.security.acme.certs."infinisil.com".directory;
+      in pkgs.runCommandNoCC "syncplay-certs" {} ''
+        mkdir $out
+        ln -s ${base}/cert.pem $out/cert.pem
+        ln -s ${base}/key.pem $out/privkey.pem
+        ln -s ${base}/chain.pem $out/chain.pem
+      '';
+    salt = "WQCMMEFEPA";
+    passwordFile = config.secrets.files.syncplay.file;
+    user = "syncplay";
+    group = config.security.acme.certs."infinisil.com".group;
+  };
+
+  users.users.syncplay = {
+    isSystemUser = true;
+  };
+
   mine.mail.enable = true;
   mine.saveSpace = true;
   mine.radicale.enable = true;
@@ -136,7 +160,7 @@
       }];
       macAddress = "4e:5c:97:f6:7e:bc";
     };
-    firewall.allowedTCPPorts = [ 2362 ];
+    firewall.allowedTCPPorts = [ 2362 config.services.syncplay.port ];
     firewall.allowedUDPPorts = [ 51820 ];
   };
 
