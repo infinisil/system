@@ -38,4 +38,24 @@
 
   nodes.protos.configuration.systemd.services.on-demand-minecraft-creative.serviceConfig.SupplementaryGroups = "do-api";
 
+  services.on-demand-minecraft.instances.qbp = {
+    node = "protos";
+    domain = "qbp.infinisil.com";
+    imageConfiguration = ./minecraft.nix;
+    settings = {
+      port = 25567;
+      whitelist.infinisil = "01e2780a-1334-4891-95dd-506e58dcebb9";
+      digitalOcean = {
+        region = "fra1";
+        size = "g-2vcpu-8gb";
+        sshKey = "25879389";
+        volume = "79264106-a503-11eb-a32c-0a58ac14d077";
+        # TODO: This is nasty, make it better
+        tokenFile = config.nodes.protos.configuration.secrets.files.doauth.file;
+      };
+    };
+  };
+
+  nodes.protos.configuration.systemd.services.on-demand-minecraft-qbp.serviceConfig.SupplementaryGroups = "do-api";
+
 }
