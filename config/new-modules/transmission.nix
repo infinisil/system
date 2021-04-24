@@ -20,7 +20,7 @@
         rpc-host-whitelist-enabled = false;
         download-queue-size = 20;
         seed-queue-size = 20;
-
+        incomplete-dir-enabled = false;
       };
     };
 
