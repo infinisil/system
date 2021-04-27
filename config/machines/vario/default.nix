@@ -2,14 +2,15 @@
 let
   pot = pkgs.writeShellScriptBin "pot" ''
     i=0
+    currentName=$(pacmd dump | sed -n 's/set-default-sink \(.*\)/\1/p')
     current=
     declare -a sinks
 
     while IFS=$'\t' read -r id name type format state; do
-      if [[ "$type" != module-alsa-card.c ]]; then
+      if [[ "$type" == module-null-sink.c ]]; then
         continue
       fi
-      if [[ "$state" == RUNNING ]]; then
+      if [[ "$name" == "$currentName" ]]; then
         current="$i"
       fi
       sinks+=("$id")
