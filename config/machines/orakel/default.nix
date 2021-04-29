@@ -6,6 +6,13 @@
       ./hardware-configuration.nix
     ];
 
+  services.murmur = {
+    enable = true;
+    openFirewall = true;
+    config.registerName = "Infinisil's Other Server";
+    acmeDomain = "torrent.infinisil.com";
+  };
+
   secrets.files.syncplay.file = ../../../external/private/secrets/syncplay;
   secrets.files.syncplay.user = "syncplay";
 
