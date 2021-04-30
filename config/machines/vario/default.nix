@@ -113,6 +113,8 @@ in {
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
+  hardware.bluetooth.enable = true;
+
   mine.sshMounts = lib.mapAttrs (name: value: {
     host = "infinisil@${value}:/home/infinisil";
     identity = "/home/infinisil/.ssh/id_rsa";
