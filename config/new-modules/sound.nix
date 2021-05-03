@@ -17,7 +17,7 @@ with lib;
       mine.say
       (mkIf config.hardware.bluetooth.enable blueman)
       pavucontrol
-      pulseeffects
+      pulseeffects-legacy
     ];
 
     mine.userConfig = {
@@ -42,7 +42,7 @@ with lib;
       };
 
       Service = {
-        ExecStart = "${pkgs.pulseeffects}/bin/pulseeffects --gapplication-service";
+        ExecStart = "${pkgs.pulseeffects-legacy}/bin/pulseeffects --gapplication-service";
         # https://github.com/wwmm/pulseeffects/issues/533
         Environment = "PATH=${pkgs.pulseaudio}/bin";
       };

@@ -27,39 +27,39 @@ in
 {
 
   packages = with epkgs; [
-    use-package
-    dashboard
-    doom-themes
-    highlight-numbers
-    evil
-    evil-collection
-    evil-commentary
-    evil-magit
-    magit
-    company
-    ido-vertical-mode
-    epkgs."ido-completing-read+"
-    flx-ido
-    flycheck
-    json-mode
-    diminish
-    which-key
-    flycheck-posframe
-    direnv
-    editorconfig
+    #use-package
+    #dashboard
+    #doom-themes
+    #highlight-numbers
+    #evil
+    #evil-collection
+    #evil-commentary
+    #evil-magit
+    #magit
+    #company
+    #ido-vertical-mode
+    #epkgs."ido-completing-read+"
+    #flx-ido
+    #flycheck
+    #json-mode
+    #diminish
+    #which-key
+    #flycheck-posframe
+    #direnv
+    #editorconfig
 
-    haskell-mode
-    lsp-haskell
-    lsp-mode
-    hasky-extensions
-    lsp-mode
-    lsp-ui
+    #haskell-mode
+    #lsp-haskell
+    #lsp-mode
+    #hasky-extensions
+    #lsp-mode
+    #lsp-ui
 
-    yasnippet
-    company-posframe
-    #better-defaults
-    projectile
-    all-the-icons
+    #yasnippet
+    #company-posframe
+    ##better-defaults
+    #projectile
+    #all-the-icons
     ##neotree
     #gruvbox-theme
     #which-key

@@ -53,14 +53,7 @@ in {
   ];
 
   nix = {
-    package = pkgs.nixFlakes.overrideAttrs (old: {
-      patches = old.patches or [] ++ [
-        (pkgs.fetchpatch {
-          url = "https://github.com/NixOS/nix/commit/525b38eee8fac48eb2a82fb78fa0a933a9eee2a4.patch";
-          sha256 = "sha256-58MAq5zyCIGRd2P6p0ydpfpxZDULKanVpzMsNYKz6IM=";
-        })
-      ];
-    });
+    package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
       allowed-uris = https://github.com/
@@ -190,6 +183,8 @@ in {
       };
       efi.canTouchEfiVariables = true;
     };
+    # https://discourse.nixos.org/t/browsers-unbearably-slow-after-update/9414/31
+    kernelParams = [ "intel_pstate=active" ];
   };
 
   mine.binalias.rate = "mpc sendmessage rating";
