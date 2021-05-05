@@ -6,7 +6,6 @@
     ./machines/connectivity.nix
     ./personal
     ./pkgs/module.nix
-    ./cachix.nix
     ./modules
   ];
 
