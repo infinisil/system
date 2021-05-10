@@ -8,7 +8,8 @@ with lib;
 
   config = mkIf config.mine.gaming.enable {
 
-    hardware.steam-hardware.enable = true;
+    programs.steam.enable = true;
+
     boot.blacklistedKernelModules = [ "hid_steam" ];
     services.udev.extraRules = ''
       KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0666"
@@ -17,7 +18,6 @@ with lib;
     nixpkgs.config.pulseaudio = true;
 
     environment.systemPackages = with pkgs; [
-      steam
       minecraft
       mumble
     ];
