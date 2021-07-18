@@ -22,7 +22,8 @@
   services.on-demand-minecraft.instances.ss = {
     node = "protos";
     domain = "ss.infinisil.com";
-    imageConfiguration = ./minecraft.nix;
+    imageConfiguration = ./minecraft-1.16.5.nix;
+    version = "1.16.5";
     settings = {
       port = 25568;
       whitelist.infinisil = "01e2780a-1334-4891-95dd-506e58dcebb9";

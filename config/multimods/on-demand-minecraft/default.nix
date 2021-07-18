@@ -6,6 +6,23 @@ let
 
   package = import (import ../../sources).on-demand-minecraft;
 
+
+
+  versions = {
+    "1.16.5" = nixus.pkgs.fetchFromGitHub {
+      owner = "infinisil";
+      repo = "on-demand-minecraft";
+      rev = "8a7af38594e55d0b87813ece5354508aae6ec668";
+      sha256 = "sha256-f74h+dVCtd48Gkwz5rt+8aDcRiuBn/HO/JCsudV/H94=";
+    };
+    "1.17" = nixus.pkgs.fetchFromGitHub {
+      owner = "infinisil";
+      repo = "on-demand-minecraft";
+      rev = "d7cfb1b4166ac5cd9395e2cc11e498596bf6d986";
+      sha256 = "sha256-W7tLuwXjQU6Aeyzxmqads/dDh9ZiUzeC5h/C/chHRcI=";
+    };
+  };
+
   format = nixus.pkgs.formats.json {};
 
   dnsRecords = lib.concatMap (cfg:
@@ -53,7 +70,7 @@ let
           DynamicUser = true;
           WorkingDirectory = "/var/lib/on-demand-minecraft-${name}";
           StateDirectory = "on-demand-minecraft-${name}";
-          ExecStart = "${package}/bin/on-demand-minecraft ${format.generate "on-demand-minecraft-${name}-settings.json" cfg.settings}";
+          ExecStart = "${import versions.${cfg.version}}/bin/on-demand-minecraft ${format.generate "on-demand-minecraft-${name}-settings.json" cfg.settings}";
         };
       }) instances;
     };
@@ -69,6 +86,11 @@ in {
         # Can get the public ip from nodes.*.configuration.networking.public.ipv{4,6}
         options.node = lib.mkOption {
           type = types.str;
+        };
+
+        options.version = lib.mkOption {
+          type = types.str;
+          default = "1.17";
         };
 
         # Like minecraft.infinisil.com
