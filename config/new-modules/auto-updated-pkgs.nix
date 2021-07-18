@@ -42,7 +42,8 @@ in {
       script = ''
         set -x
         out=$(nix-build --tarball-ttl 0 --no-out-link ${lib.escapeShellArg value.url} \
-          -A ${lib.escapeShellArg (lib.concatMapStringsSep "." lib.strings.escapeNixString value.attrPath)})
+          -A ${lib.escapeShellArg (lib.concatMapStringsSep "." lib.strings.escapeNixString value.attrPath)} \
+          --arg config '{ allowUnfree = true; }')
         mkdir -p packages
         flock -s lock ln -sfT "$out" packages/${lib.escapeShellArg name}
         flock -x lock nix-env -p profile -ir packages/*
@@ -50,6 +51,7 @@ in {
       '';
       path = [ config.nix.package pkgs.utillinux ];
       environment.HOME = "%T/home";
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
         User = "auto-update";
