@@ -184,6 +184,7 @@ in {
       };
       efi.canTouchEfiVariables = true;
     };
+    kernelPackages = pkgs.linuxPackages_5_12;
     # https://discourse.nixos.org/t/browsers-unbearably-slow-after-update/9414/31
     kernelParams = [ "intel_pstate=active" ];
   };

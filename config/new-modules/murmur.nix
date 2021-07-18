@@ -80,7 +80,10 @@ in {
 
       services.murmur.config.database = "${dataDir}/murmur.sqlite";
 
-      users.users.murmur.group = group;
+      users.users.murmur = {
+        isSystemUser = true;
+        group = group;
+      };
       users.groups.murmur = {};
 
       systemd.tmpfiles.rules = [

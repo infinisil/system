@@ -62,8 +62,6 @@ with lib;
 
     services.usbmuxd.enable = true;
 
-    services.dbus.socketActivated = true;
-
     boot.supportedFilesystems = [ "exfat" "ntfs" ];
 
     boot.loader.grub.splashImage = config.mine.assets.blurred;

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gnome3, gtk-engine-murrine, gnome_themes_standard }:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, gnome3, gtk-engine-murrine, gnome_themes_standard }:
 
 let
   pname = "arc-theme-red";
@@ -17,7 +17,7 @@ in stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-unity" "--with-gnome=3.22" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A flat theme with transparent elements for GTK 3, GTK 2 and Gnome-Shell";
     homepage    = https://github.com/mclmza/arc-theme-red;
     license     = licenses.gpl3;

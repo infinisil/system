@@ -167,7 +167,7 @@ in
           };
 
           replaygain = {
-            backend = "bs1770gain";
+            backend = "ffmpeg";
             overwrite = true;
           };
 

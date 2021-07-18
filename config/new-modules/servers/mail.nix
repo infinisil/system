@@ -33,6 +33,10 @@ in
 
     services.rspamd.workers.rspamd_proxy.type = mkForce "rspamd_proxy";
 
+    users.users.virtualMail = lib.mkForce {
+      isSystemUser = true;
+    };
+
     mailserver = {
 
       enable = true;

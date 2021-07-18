@@ -30,6 +30,8 @@
     isSystemUser = true;
   };
 
+  users.users.nixbot.isSystemUser = true;
+
   mine.mail.enable = true;
   mine.saveSpace = true;
   mine.radicale.enable = true;
