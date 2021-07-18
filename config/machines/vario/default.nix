@@ -62,23 +62,13 @@ in {
           filesystems."tank2/root/data<" = true;
           snapshotting = {
             type = "periodic";
-            interval = "1m";
+            interval = "5m";
             prefix = "local_";
           };
           pruning.keep = [
             {
               type = "regex";
-              regex = "^repl.*";
-            }
-            {
-              type = "grid";
-              regex = "^local.*";
-              # Keep all snapshots in the last hour
-              # In the hour before that, keep one every 5 minutes
-              # In the hour before that, keep one every 15 minutes
-              # The day before that, keep one every hour
-              # In the 10 days before that, keep one every day
-              grid = "60x1m(keep=all) | 12x5m | 4x15m | 24x1h | 10x1d";
+              regex = ".*";
             }
           ];
         }
@@ -99,18 +89,19 @@ in {
           pruning = {
             keep_sender = [
               {
-                type = "regex";
-                regex = "^local.*";
+                type = "grid";
+                regex = ".*";
+                # Keep all snapshots in the last hour
+                # In the hour before that, keep one every 15 minutes
+                # The day before that, keep one every hour
+                # In the 10 days before that, keep one every day
+                grid = "12x5m(keep=all) | 4x15m | 24x1h | 10x1d";
               }
             ];
             keep_receiver = [
               {
-                type = "regex";
-                regex = "^local.*";
-              }
-              {
                 type = "grid";
-                regex = "^repl.*";
+                regex = ".*";
                 grid = "1x1d(keep=all) | 7x1d | 5x7d | 12x31d";
               }
             ];
