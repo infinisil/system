@@ -36,7 +36,7 @@ let
         , Run XMonadLog
         , Run Memory [] 10
         , Run DynNetwork
-          [ "-t" , "<tx><rx> KB/s | "
+          [ "-t" , "Up: <tx> KB/s, Down: <rx> KB/s | "
           , "-L" , "10000"
           , "-H" , "500000"
           , "-l" , "green"
@@ -57,11 +57,86 @@ let
         , Run Com "${config.scripts.power}" [] "power" 10
         , Run Com "${config.scripts.batt}" [] "bt" 50
         , Run Com "${config.scripts.playing}" [] "playing" 10
+        , Run Com "${pkgs.writeShellScript "xmobar-volume" ''
+          export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package pkgs.gnused pkgs.gawk ]}
+          currentName=$(pacmd dump | sed -n 's/set-default-sink \(.*\)/\1/p')
+
+          while IFS=$'\t' read -r number name descr volume mute; do
+            if [[ "$name" == "$currentName" ]]; then
+              odescr=''${descr%% *}
+              ovolume=$volume
+              omuted=$mute
+              break
+            fi
+          done < <(pactl list sinks | awk -F '\t' '
+            match($0, "Sink #(.*)", a) {
+              number=a[1]
+            }
+            match($0, "\tDescription: (.*)", a) {
+              descr=a[1]
+            }
+            match($0, "\tDriver: (.*)", a) {
+              driver=a[1]
+            }
+            match($0, "\tName: (.*)", a) {
+              name=a[1]
+            }
+            match($0, "\tMute: (.*)", a) {
+              mute=a[1]
+            }
+            match($0, "\tVolume:.* ([0-9]+)%.* ([0-9]+)%", a) {
+              if (driver != "module-null-sink.c") {
+                print number "\t" name "\t" descr "\t" ((a[1] + a[2]) / 2) "\t" mute
+              }
+            }
+          ')
+
+          currentInput=$(pacmd dump | sed -n 's/set-default-source \(.*\)/\1/p')
+
+          while IFS=$'\t' read -r name mute; do
+            if [[ "$name" == "$currentInput" ]]; then
+              imuted=$mute
+              break
+            fi
+          done < <(pactl list sources | awk -F '\t' '
+            match($0, "Source #(.*)", a) {
+              number=a[1]
+            }
+            match($0, "\tDriver: (.*)", a) {
+              driver=a[1]
+            }
+            match($0, "\tName: (.*)", a) {
+              name=a[1]
+            }
+            match($0, "\tMute: (.*)", a) {
+              if (driver != "module-null-sink.c") {
+                print name "\t" a[1]
+              }
+            }
+          ')
+
+          if [[ "$omuted" == "$imuted" ]]; then
+            if [[ "$omuted" == yes ]]; then
+              muteString=" [muted]"
+            else
+              muteString=""
+            fi
+          else
+            if [[ "$omuted" == yes ]]; then
+              muteString=" [only output muted]"
+            else
+              muteString=" [only input muted]"
+            fi
+          fi
+
+          echo "$odescr | Vol: $ovolume%$muteString"
+
+        ''}" [] "volume" 2
         , Run PipeReader "<test>:/home/infinisil/Test/xmobar/pipe" "testpipe"
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% } %info%  %playing% { ${optionalString config.mine.hardware.battery "%power%A  | "}%memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% }{ %info%   %playing%  | ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {

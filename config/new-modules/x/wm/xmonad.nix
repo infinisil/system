@@ -79,7 +79,44 @@ in
         fi
         emacsclient -c -n
       '';
-      toggleMute = "${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
+      toggleMute = ''
+        export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package pkgs.gnused pkgs.gawk ]}
+        currentName=$(pacmd dump | sed -n 's/set-default-sink \(.*\)/\1/p')
+
+        while IFS=$'\t' read -r number name descr volume mute; do
+          if [[ "$name" == "$currentName" ]]; then
+            if [[ "$mute" == "yes" ]]; then
+              pactl set-source-mute @DEFAULT_SOURCE@ 0
+              pactl set-sink-mute @DEFAULT_SINK@ 0
+            else
+              pactl set-source-mute @DEFAULT_SOURCE@ 1
+              pactl set-sink-mute @DEFAULT_SINK@ 1
+            fi
+            exit 0
+          fi
+        done < <(pactl list sinks | awk -F '\t' '
+          match($0, "Sink #(.*)", a) {
+            number=a[1]
+          }
+          match($0, "\tDescription: (.*)", a) {
+            descr=a[1]
+          }
+          match($0, "\tDriver: (.*)", a) {
+            driver=a[1]
+          }
+          match($0, "\tName: (.*)", a) {
+            name=a[1]
+          }
+          match($0, "\tMute: (.*)", a) {
+            mute=a[1]
+          }
+          match($0, "\tVolume:.* ([0-9]+)%.* ([0-9]+)%", a) {
+            if (driver != "module-null-sink.c") {
+              print number "\t" name "\t" descr "\t" ((a[1] + a[2]) / 2) "\t" mute
+            }
+          }
+        ')
+      '';
       playpause = toggleService true "music";
       firefox = "${config.mine.firefox}/bin/firefox";
       terminal = config.mine.terminal.binary;
