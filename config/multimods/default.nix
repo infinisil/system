@@ -7,4 +7,6 @@
     ./vpn-setup.nix
     ./dns-records.nix
   ];
+
+  defaults.configuration.nixpkgs.overlays = import ../overlays;
 }

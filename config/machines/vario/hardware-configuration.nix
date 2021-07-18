@@ -41,31 +41,37 @@
   fileSystems."/var/lib/docker" =
     { device = "tank2/root/docker";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
 
   fileSystems."/home/infinisil/music" =
-    { device = "tank2/root/music";
+    { device = "main/backup/orakel/tank/root/music";
       fsType = "zfs";
+      options = [ "nofail" "ro" ];
     };
 
   fileSystems."/betty" =
     { device = "main/betty";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
 
   fileSystems."/home/infinisil/media" =
     { device = "tank2/root/data/media";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
 
   fileSystems."/home/infinisil/torrent" =
-    { device = "tank2/root/torrent";
+    { device = "main/current-torrents/tank/root/torrent/current";
       fsType = "zfs";
+      options = [ "nofail" "ro" ];
     };
 
-  fileSystems."/home/noback" =
+  fileSystems."/home/infinisil/noback" =
     { device = "tank2/root/noback";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
 
   swapDevices =

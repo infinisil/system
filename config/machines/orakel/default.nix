@@ -6,6 +6,63 @@
       ./hardware-configuration.nix
     ];
 
+  services.zrepl = {
+    enable = true;
+    settings = {
+      jobs = [
+        {
+          type = "sink";
+          name = "backups";
+          root_fs = "tank/backup";
+          serve = {
+            type = "tcp";
+            listen = ":8888";
+            clients = {
+              "10.99.2.2" = "vario";
+            };
+          };
+        }
+        {
+          type = "source";
+          name = "current-torrents";
+          serve = {
+            type = "tcp";
+            listen = ":8889";
+            clients = {
+              "10.99.2.2" = "vario";
+            };
+          };
+          filesystems."tank/root/torrent/current" = true;
+          snapshotting = {
+            type = "periodic";
+            interval = "1h";
+            prefix = "zrepl_";
+          };
+          send.raw = true;
+        }
+        {
+          type = "source";
+          name = "data";
+          serve = {
+            type = "tcp";
+            listen = ":8890";
+            clients = {
+              "10.99.2.2" = "vario";
+            };
+          };
+          filesystems."tank/root" = true;
+          filesystems."tank/root/music" = true;
+          snapshotting = {
+            type = "periodic";
+            interval = "1h";
+            prefix = "zrepl_";
+          };
+          send.raw = true;
+        }
+      ];
+    };
+  };
+
   services.murmur = {
     enable = true;
     openFirewall = true;
@@ -81,36 +138,6 @@
 
   services.iperf3.enable = true;
   services.iperf3.openFirewall = true;
-
-  services.znapzend = {
-    enable = true;
-    features.compressed = true;
-    autoCreation = true;
-    pure = true;
-    zetup = {
-      "tank/root/torrent/current" = {
-        plan = "2h=>1h";
-        destinations.vario = {
-          host = "10.99.2.2";
-          dataset = "tank2/root/torrent";
-          plan = "2h=>1h";
-        };
-      };
-      "tank/root/music" = {
-        plan = "1d=>1h";
-        #destinations.ninur = {
-        #  host = config.networking.connections.ninur;
-        #  dataset = "tank/music";
-        #  plan = "1h=>5min,1d=>1h";
-        #};
-        destinations.vario = {
-          host = "10.99.2.2";
-          dataset = "tank2/root/music";
-          plan = "1d=>1h";
-        };
-      };
-    };
-  };
 
   mine.hardware.cpuCount = 2;
   mine.hardware.swap = true;

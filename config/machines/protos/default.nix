@@ -7,6 +7,33 @@
   ];
 
 
+  services.zrepl = {
+    enable = true;
+    settings = {
+      jobs = [
+        {
+          type = "source";
+          name = "data";
+          serve = {
+            type = "tcp";
+            listen = ":8888";
+            clients = {
+              "10.99.3.2" = "vario";
+            };
+          };
+          filesystems."tank/root/data<" = true;
+          snapshotting = {
+            type = "periodic";
+            interval = "1h";
+            prefix = "zrepl_";
+          };
+          send.raw = true;
+        }
+      ];
+    };
+  };
+
+
   secrets.files.syncplay.file = ../../../external/private/secrets/syncplay;
   secrets.files.syncplay.user = "syncplay";
 
@@ -58,21 +85,6 @@
     enable = true;
     root = "/webroot/www";
     keys.enable = true;
-  };
-
-  services.znapzend = {
-    enable = true;
-    autoCreation = true;
-    pure = true;
-    zetup."tank/root/data" = {
-      plan = "1d=>1h,1w=>1d";
-      recursive = true;
-      destinations.vario = {
-        host = "10.99.3.2";
-        dataset = "main/backup/protos";
-        plan = "1d=>1h,1w=>1d,1m=>1w";
-      };
-    };
   };
 
   services.nixbot = {

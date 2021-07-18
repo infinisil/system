@@ -52,6 +52,152 @@ in {
     ./hardware-configuration.nix
   ];
 
+  services.zrepl = {
+    enable = true;
+    settings = {
+      jobs = [
+        {
+          type = "snap";
+          name = "data-snaps";
+          filesystems."tank2/root/data<" = true;
+          snapshotting = {
+            type = "periodic";
+            interval = "1m";
+            prefix = "local_";
+          };
+          pruning.keep = [
+            {
+              type = "regex";
+              regex = "^repl.*";
+            }
+            {
+              type = "grid";
+              regex = "^local.*";
+              # Keep all snapshots in the last hour
+              # In the hour before that, keep one every 5 minutes
+              # In the hour before that, keep one every 15 minutes
+              # The day before that, keep one every hour
+              # In the 10 days before that, keep one every day
+              grid = "60x1m(keep=all) | 12x5m | 4x15m | 24x1h | 10x1d";
+            }
+          ];
+        }
+        {
+          type = "push";
+          name = "data-push";
+          filesystems."tank2/root/data<" = true;
+          snapshotting = {
+            type = "periodic";
+            interval = "1h";
+            prefix = "repl_";
+          };
+          connect = {
+            type = "tcp";
+            address = "10.99.2.1:8888";
+          };
+          send.raw = true;
+          pruning = {
+            keep_sender = [
+              {
+                type = "regex";
+                regex = "^local.*";
+              }
+            ];
+            keep_receiver = [
+              {
+                type = "regex";
+                regex = "^local.*";
+              }
+              {
+                type = "grid";
+                regex = "^repl.*";
+                grid = "1x1d(keep=all) | 7x1d | 5x7d | 12x31d";
+              }
+            ];
+          };
+        }
+        {
+          type = "pull";
+          name = "current-torrents";
+          connect = {
+            type = "tcp";
+            address = "10.99.2.1:8889";
+          };
+          root_fs = "main/current-torrents";
+          interval = "1h";
+          pruning = {
+            keep_sender = [
+              {
+                type = "last_n";
+                regex = ".*";
+                count = 1;
+              }
+            ];
+            keep_receiver = [
+              {
+                type = "last_n";
+                regex = ".*";
+                count = 1;
+              }
+            ];
+          };
+        }
+        {
+          type = "pull";
+          name = "orakel-backup";
+          connect = {
+            type = "tcp";
+            address = "10.99.2.1:8890";
+          };
+          root_fs = "main/backup/orakel";
+          interval = "1h";
+          pruning = {
+            keep_sender = [
+              {
+                type = "grid";
+                regex = ".*";
+                grid = "1x1d(keep=all) | 7x1d";
+              }
+            ];
+            keep_receiver = [
+              {
+                type = "grid";
+                regex = ".*";
+                grid = "1x1d(keep=all)";
+              }
+            ];
+          };
+        }
+        {
+          type = "pull";
+          name = "protos-backup";
+          connect = {
+            type = "tcp";
+            address = "10.99.3.1:8888";
+          };
+          root_fs = "main/backup/protos";
+          interval = "1h";
+          pruning = {
+            keep_sender = [
+              {
+                type = "grid";
+                regex = ".*";
+                grid = "1x1d(keep=all)";
+              }
+            ];
+            keep_receiver = [
+              {
+                type = "grid";
+                regex = ".*";
+                grid = "1x1d(keep=all) | 10x1d | 10x7d | 6x30d";
+              }
+            ];
+          };
+        }
+      ];
+    };
+  };
+
   # Only really for env vars
   i18n.inputMethod = {
     enabled = "fcitx5";
@@ -89,9 +235,13 @@ in {
 
   services.vault.enable = true;
 
-  systemd.services.zfs-import-main.before = lib.mkForce [ "betty.mount" ];
+  # Remove fs-before.target
+  systemd.services.zfs-import-main.before = lib.mkForce [
+    "betty.mount"
+    "home-infinisil-music.mount"
+    "home-infinisil-torrent.mount"
+  ];
   systemd.targets.zfs-import.after = lib.mkForce [];
-  fileSystems."/betty".options = [ "nofail" ];
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
 
   services.lorri.enable = true;
@@ -145,20 +295,6 @@ in {
 
   #mine.dev.rust.enable = true;
 
-  services.znapzend = {
-    enable = true;
-    pure = true;
-    autoCreation = true;
-    zetup."tank2/root/data" = {
-      plan = "1d=>1h,1w=>1d";
-      recursive = true;
-      destinations.backup = {
-        host = config.networking.connections.orakel;
-        dataset = "tank/backup/vario";
-        plan = "1w=>1d,1m=>1w,6m=>1m";
-      };
-    };
-  };
   #mine.deluged.enable = true;
   services.deluge = {
     declarative = true;
