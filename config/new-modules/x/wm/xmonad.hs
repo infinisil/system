@@ -79,7 +79,6 @@ myKeymap c n =
   , ("M4-c", spawn "kitty")
   , ("M4-i", spawn "@irc@")
   , ("M4-p", passPrompt ppconfig)
-  --, ("M4-e", spawn "@emacs@")
   , ("M4-t", withFocused $ windows . W.sink)
   , ("M4-m", sendMessage $ Toggle FULL)
   --, ("<Break> x", xmonadPrompt def)

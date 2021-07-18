@@ -8,8 +8,6 @@ with lib;
 
   config = mkIf config.mine.dev.rust.enable {
 
-    mine.emacs.config.rust = true;
-
     nixpkgs.overlays = [
       (import "${(import ../../sources).nixpkgs-mozilla}/rust-overlay.nix")
     ];

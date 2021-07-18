@@ -8,10 +8,6 @@ A general idea in this directory is to not set options directly, but rather defi
 
 This folder recursively maps every file within it to either the path directly (to be imported in the nix store) or it will get called with callPackage if it's a Nix file. The result of this will get put in the `mine.assets` option.
 
-** Emacs
-
-Contains a useful submodule for composing an emacs configuration with the NixOS module system, see its readme for further info.
-
 ** Hardware
 
 Hardware related settings for my machines. Also contains some not-hardware related stuff I should put at the right place. This should probably be more in the style of [[https://github.com/NixOS/nixos-hardware][nixos-hardware]] eventually.

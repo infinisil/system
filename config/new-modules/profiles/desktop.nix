@@ -15,8 +15,6 @@ with lib;
 
     mine.hueadm.enable = true;
 
-    mine.emacs.enable = true;
-
     mine.newsboat.enable = true;
 
     mine.userConfig = {

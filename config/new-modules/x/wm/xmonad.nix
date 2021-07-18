@@ -73,12 +73,6 @@ in
       toggleLive = toggleService true "live-wallpaper";
       next = "${mpc} next";
       prev = "${mpc} prev";
-      emacs = ''
-        if ! [ $(systemctl --user is-active emacs) = active ]; then
-          systemctl --user start emacs
-        fi
-        emacsclient -c -n
-      '';
       toggleMute = ''
         export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package pkgs.gnused pkgs.gawk ]}
         currentName=$(pacmd dump | sed -n 's/set-default-sink \(.*\)/\1/p')
