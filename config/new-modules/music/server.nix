@@ -191,6 +191,7 @@ in
             playlist_dir = "${cfg.musicDir}/playlists";
             relative_to = "${cfg.musicDir}/data";
             playlists = createPlaylists {
+              ".enka" = "enka:1 ^rating:0..5";
               ".okay" = "^nope:1 ^rating:0..5";
               ".unrated" = "^rating:0..10 ^nope:1";
               ".decentSongs" = "^nope:1 rating:6.. length:..10:00";
