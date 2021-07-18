@@ -376,10 +376,12 @@ in {
     hostId = "56236562";
     firewall.allowedTCPPorts = [ 80 ];
     useDHCP = false;
-    defaultGateway.address = "192.168.178.1";
-    interfaces.eno1.ipv4.addresses = [ {
-      address = "192.168.178.53";
-      prefixLength = 24;
-    }];
+    interfaces.eno1.useDHCP = true;
+    interfaces.enp0s20u7c4i2.useDHCP = true;
+    # Prefer tethering
+    dhcpcd.extraConfig = ''
+      interface enp0s20u7c4i2
+      metric 100
+    '';
   };
 }
