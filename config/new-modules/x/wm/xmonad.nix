@@ -4,11 +4,14 @@ with lib;
 
 let
 
-  weechat = pkgs.weechat.override { configure = { availablePlugins, ... }: {
-    plugins = builtins.attrValues (availablePlugins // {
-      python = availablePlugins.python.withPackages (ps: with ps; [ twitter ]);
-    });
-  };};
+  weechat = pkgs.weechat.override {
+    configure = { availablePlugins, ... }: with pkgs.weechatScripts; {
+      plugins = lib.attrValues (availablePlugins // {
+        python = availablePlugins.python.withPackages (_: [ weechat-matrix ]);
+      });
+      scripts = [ weechat-matrix ];
+    };
+  };
 
 in
 
