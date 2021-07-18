@@ -34,14 +34,6 @@ in
       enable = true;
       vimAlias = true;
       withNodeJs = true;
-      package = (import (fetchTarball https://github.com/edolstra/flake-compat/archive/master.tar.gz) {
-        src = pkgs.fetchFromGitHub {
-          owner = "neovim";
-          repo = "neovim";
-          rev = "bb33727922ca4549bb3b9b7aaaac1b535154b669";
-          sha256 = "sha256-7tHs3NjM4PQ+9kL2GhjyxlIouoxzB1iZQopj9ZCfxHc=";
-        } + "/contrib";
-      }).defaultNix.default;
       plugins = with pkgs.vimPlugins; [
         undotree
         vim-nix
