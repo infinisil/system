@@ -89,6 +89,7 @@ with lib;
         iniContent.credential.helper = "store";
         iniContent."url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
         iniContent.pull.ff = "only";
+        iniContent.commit.verbose = true;
       };
 
     };
