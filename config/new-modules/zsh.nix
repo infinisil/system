@@ -19,6 +19,7 @@ mkIf config.mine.console.enable {
 
       export BAT_CONFIG_PATH=${pkgs.writeText "bat.config" ''
         --theme="Monokai Extended"
+        --plain
       ''}
 
       pst() {
