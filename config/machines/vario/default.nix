@@ -215,6 +215,7 @@ in {
     projector
     monitor
     syncplay
+    anki-bin
   ];
 
   mine.gaming.enable = true;
