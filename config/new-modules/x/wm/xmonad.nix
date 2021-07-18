@@ -119,8 +119,7 @@ in
       '';
       playpause = toggleService true "music";
       firefox = "${config.mine.firefox}/bin/firefox";
-      terminal = config.mine.terminal.binary;
-      irc = "exec ${config.mine.terminal.binary} -e ${weechat}/bin/weechat";
+      irc = "exec kitty -e weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
       run = "${pkgs.rofi}/bin/rofi -show run -theme gruvbox-dark";
 

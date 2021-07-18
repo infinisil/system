@@ -14,19 +14,14 @@ in
 
     enable = mkEnableOption "My terminal";
 
-    binary = mkOption {
-      type = types.path;
-      description = "Path to terminal binary";
-    };
-
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
 
-      mine.terminal.binary = "${pkgs.kitty}/bin/kitty";
-
-      environment.systemPackages = [ pkgs.kitty ];
+      environment.systemPackages = [
+        pkgs.kitty
+      ];
 
       mine.xUserConfig = {
         xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;

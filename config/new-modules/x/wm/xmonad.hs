@@ -76,7 +76,7 @@ myKeymap c n =
   [ ("M4-f", spawn "@firefox@")
   , ("M4-w", kill)
   , ("M4-<Space>", spawn "@run@")
-  , ("M4-c", spawn "@terminal@")
+  , ("M4-c", spawn "kitty")
   , ("M4-i", spawn "@irc@")
   , ("M4-p", passPrompt ppconfig)
   --, ("M4-e", spawn "@emacs@")
@@ -187,7 +187,7 @@ copyShivacam _ = return $ All True
 
 myConfig :: ScreenId -> l Window -> XConfig l
 myConfig n l = def
-    { terminal = "@terminal@"
+    { terminal = "kitty"
     , modMask = mod4Mask
     , manageHook =
       (title =? "copyall" --> doFloat) <+>
