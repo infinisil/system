@@ -88,9 +88,9 @@ in
         playlistDirectory = "${cfg.musicDir}/playlists";
         network.port = cfg.port;
         network.listenAddress = "0.0.0.0";
-        extraConfig = ''
-          replaygain "track"
-        '';
+        #extraConfig = ''
+        #  replaygain "track"
+        #'';
       };
 
       mine.userConfig = {
