@@ -88,17 +88,6 @@ in
     };
   };
 
-  nodes.ninur = { lib, ... }: {
-    enabled = lib.mkForce false;
-    configuration = {
-      imports = [
-        ../config/machines/ninur
-        deployer
-      ];
-      system.stateVersion = "19.03";
-    };
-  };
-
   nodes.orakel = {
     successTimeout = 120;
     configuration = {
