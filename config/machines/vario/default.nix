@@ -203,9 +203,7 @@ in {
   environment.variables.GLFW_IM_MODULE = "ibus";
 
   nix = {
-    package = pkgs.nixFlakes;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
       allowed-uris = https://github.com/
     '';
 

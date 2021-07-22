@@ -23,8 +23,7 @@ let
 
 in
 
-{ host-ips ? {}
-, label ? ""
+{ label ? ""
 , nodes ? []
 , ignoreFailingSystemdUnits ? true
 }: import /home/infinisil/prj/nixus {
@@ -39,9 +38,7 @@ in
   ];
 
   defaults = { name, lib, ... }: {
-    enabled = (if nodes == [] then true else lib.elem name nodes) && host-ips ? ${name};
-    host = if host-ips ? ${name} then host-ips.${name} else "${name}.invalid";
-    hasFastConnection = host-ips ? ${name} && (lib.hasPrefix "192.168." host-ips.${name} || host-ips.${name} == "localhost");
+    enabled = if nodes == [] then true else lib.elem name nodes;
 
     nixpkgs = ../external/nixpkgs;
 
@@ -68,6 +65,7 @@ in
   };
 
   nodes.protos = {
+    host = "206.81.23.189";
     configuration = {
       imports = [
         ../config/machines/protos
@@ -79,6 +77,7 @@ in
   };
 
   nodes.vario = {
+    host = "localhost";
     configuration = { lib, ... }: {
       imports = [
         ../config/machines/vario
@@ -89,6 +88,7 @@ in
   };
 
   nodes.orakel = {
+    host = "51.15.187.150";
     successTimeout = 120;
     configuration = {
       imports = [

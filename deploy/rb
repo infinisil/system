@@ -1,26 +1,20 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash shell.nix
+#!/usr/bin/env bash
 
 set -euo pipefail
 
-export PATH="/run/wrappers/bin:$PATH"
-
-DEF_BRANCH=master
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' exit
+
+export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
 
 git() { command git -C "$DIR/.." "$@"; }
 gitbranch() { git symbolic-ref --short HEAD; }
 
-if [ ! -z "$(git add --all --dry-run)" ]; then
-	if [ "$(gitbranch)" = "$DEF_BRANCH" ]; then
-		echo -n "Enter (new) feature branch name [$DEF_BRANCH]: "
-		read branch
-		if [ ! -z "$branch" ]; then
-			git checkout -B "$branch"
-		fi
-	fi
+if [[ ! -z "$(git add --all --dry-run)" ]]; then
 	git add --all
-	git commit -v --allow-empty-message
+  git commit -v --allow-empty-message
 fi
 
 branch="$(gitbranch | \
@@ -35,19 +29,20 @@ for node in "$@"; do
 done
 nodes+="]"
 
-export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
+echo "Building nix.conf..."
+mkdir "$tmp/confdir"
+nix-build "$DIR" --show-trace --out-link "$tmp/confdir/nix.conf" >/dev/null \
+  -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source
+export NIX_CONF_DIR="$tmp/confdir"
 
-preferredips=$("$DIR/preferred-ip" "$@")
+echo "Evaluating..."
+nix-instantiate "$DIR" --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
+  --argstr label "$label" --arg nodes "$nodes"
 
-confdir=$(mktemp -d)
-nixconf=$(nix-build --no-out-link "$DIR" -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source --show-trace)
-ln -s "$nixconf" "$confdir/nix.conf"
+echo "Building..."
+nix-build "$tmp"/drv --out-link "$tmp/result" >/dev/null
 
-echo "Building all nodes..."
-result=$(NIX_CONF_DIR="$confdir" nix-build --show-trace --no-out-link "$DIR" \
-  --argstr label "$label" \
-	--arg host-ips "$preferredips" \
-	--arg nodes "$nodes"
-	)
-"$result"
+echo "Deploying..."
+"$tmp/result"
+
 echo "Finished deploying"
