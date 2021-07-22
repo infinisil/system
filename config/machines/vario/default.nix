@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ nodes, lib, config, pkgs, ... }:
 let
   pot = pkgs.writeShellScriptBin "pot" ''
     i=0
@@ -51,6 +51,15 @@ in {
   imports = [
     ./hardware-configuration.nix
   ];
+
+  mine.userConfig.programs.ssh = {
+    enable = true;
+    controlMaster = "auto";
+    controlPersist = "60";
+    matchBlocks =
+      lib.mapAttrs (name: value: { hostname = value.networking.public.ipv4; })
+      (lib.filterAttrs (name: value: value.networking.public.hasIpv4) nodes);
+  };
 
   services.zrepl = {
     enable = true;
@@ -260,11 +269,6 @@ in {
   hardware.opengl.driSupport32Bit = true;
 
   hardware.bluetooth.enable = true;
-
-  mine.sshMounts = lib.mapAttrs (name: value: {
-    host = "infinisil@${value}:/home/infinisil";
-    identity = "/home/infinisil/.ssh/id_rsa";
-  }) config.networking.connections;
 
   mine.profiles.desktop.enable = true;
 
