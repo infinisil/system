@@ -22,14 +22,29 @@ let
   };
 
 in {
-  options.environment.autoUpdate.packages = lib.mkOption {
-    type = types.attrsOf packageType;
-    default = {};
+  options.environment.autoUpdate = {
+    profile = lib.mkOption {
+      type = types.str;
+      readOnly = true;
+      default = "/var/lib/auto-update/profile";
+    };
+    packages = lib.mkOption {
+      type = types.attrsOf packageType;
+      default = {};
+    };
+    presets.youtube-dl = lib.mkEnableOption "youtube-dl";
   };
 
   config = {
 
-    environment.profiles = [ "/var/lib/auto-update/profile" ];
+
+    environment.autoUpdate.packages.youtube-dl = lib.mkIf cfg.presets.youtube-dl {
+      attrPath = [ "youtube-dl" ];
+      url = "channel:nixpkgs-unstable";
+      period = "hourly";
+    };
+
+    environment.profiles = [ cfg.profile ];
 
     users.users.auto-update = {
       isSystemUser = true;

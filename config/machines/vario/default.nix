@@ -225,11 +225,7 @@ in {
     }];
   };
 
-  environment.autoUpdate.packages.youtube-dl = {
-    attrPath = [ "youtube-dl" ];
-    url = "channel:nixpkgs-unstable";
-    period = "hourly";
-  };
+  environment.autoUpdate.presets.youtube-dl = true;
 
   services.vault.enable = true;
 
