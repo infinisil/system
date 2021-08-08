@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }: {
 
   imports = [
-    ./znc.nix
     ./bins.nix
     ./user.nix
   ];

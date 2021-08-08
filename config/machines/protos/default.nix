@@ -65,7 +65,6 @@
   mine.paste.enable = true;
   mine.publicDir.enable = true;
   mine.gitHost.enable = true;
-  mine.znc.enable = true;
 
   mine.profiles.server.enable = true;
 
