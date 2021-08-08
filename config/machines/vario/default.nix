@@ -341,6 +341,7 @@ in {
     monitor
     syncplay
     anki-bin
+    element-desktop
   ];
 
   mine.gaming.enable = true;
