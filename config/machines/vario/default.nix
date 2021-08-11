@@ -342,6 +342,8 @@ in {
     syncplay
     anki-bin
     element-desktop
+    htop
+    obs-studio
   ];
 
   mine.gaming.enable = true;
