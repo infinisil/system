@@ -43,6 +43,7 @@ in
         coc-explorer
         haskell-vim
         gruvbox-community
+        vim-gitgutter
       ];
       extraConfig = ''
         set tabstop=2
