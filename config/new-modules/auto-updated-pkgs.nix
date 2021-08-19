@@ -64,7 +64,7 @@ in {
         flock -x lock nix-env -p profile -ir packages/*
         flock -x lock nix-env -p profile --delete-generations old
       '';
-      path = [ config.nix.package pkgs.utillinux ];
+      path = [ config.nix.package pkgs.utillinux pkgs.gnutar pkgs.xz ];
       environment.HOME = "%T/home";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
