@@ -381,11 +381,5 @@ in {
     firewall.allowedTCPPorts = [ 80 ];
     useDHCP = false;
     interfaces.eno1.useDHCP = true;
-    interfaces.enp0s20u7c4i2.useDHCP = true;
-    # Prefer tethering
-    dhcpcd.extraConfig = ''
-      interface enp0s20u7c4i2
-      metric 100
-    '';
   };
 }
