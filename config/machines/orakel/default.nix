@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
     ];
 
+  services.music-server.enable = true;
+
   services.zrepl = {
     enable = true;
     settings = {
@@ -93,6 +95,8 @@
     isSystemUser = true;
   };
 
+  users.users.nginx.extraGroups = [ "users" ];
+
   mine.enableUser = true;
 
   mine.transmission.enable = true;
@@ -103,9 +107,9 @@
     server = {
       enable = true;
       local = false;
-      musicDir = "/home/infinisil/music";
-      user = "infinisil";
-      group = "users";
+      musicDir = "/var/lib/music";
+      user = "music";
+      group = "music";
       password = config.private.passwords.mpd;
     };
   };

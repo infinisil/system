@@ -16,6 +16,7 @@
         protos.root = true;
         orakel.root = true;
         vario.root = true;
+        orakel.music = true;
       };
     };
     keys.root = {

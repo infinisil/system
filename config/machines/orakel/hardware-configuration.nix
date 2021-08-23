@@ -27,7 +27,7 @@
       fsType = "ext4";
     };
 
-  fileSystems."/home/infinisil/music" =
+  fileSystems."/var/lib/music" =
     { device = "tank/root/music";
       fsType = "zfs";
     };

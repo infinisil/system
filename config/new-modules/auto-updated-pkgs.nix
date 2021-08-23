@@ -66,7 +66,6 @@ in {
       '';
       path = [ config.nix.package pkgs.utillinux pkgs.gnutar pkgs.xz ];
       environment.HOME = "%T/home";
-      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
         User = "auto-update";
