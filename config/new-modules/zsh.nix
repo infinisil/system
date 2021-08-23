@@ -7,7 +7,6 @@ mkIf config.mine.console.enable {
   programs.zsh = {
     enable = true;
     histSize = 1000000;
-    histFile = "$HOME/.config/zsh/.zsh_history";
     syntaxHighlighting.enable = true;
     autosuggestions.enable = true;
     enableBashCompletion = true;
