@@ -52,6 +52,14 @@ in {
     ./hardware-configuration.nix
   ];
 
+
+  nix.binaryCachePublicKeys = [
+    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+  ];
+  nix.binaryCaches = [
+    "https://hydra.iohk.io"
+  ];
+
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" ];
 
