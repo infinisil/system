@@ -12,7 +12,7 @@ with lib;
 
   config = mkIf config.mine.console.enable {
 
-    environment.pathsToLink = [ "/share/zsh" ];
+    environment.pathsToLink = [ "/share/zsh" "/share/nix-direnv" ];
 
     mine.vim.enable = true;
 
@@ -22,6 +22,7 @@ with lib;
     };
 
     environment.systemPackages = with pkgs; [
+      nix-direnv
       most
       direnv
       gitFull
