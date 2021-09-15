@@ -62,6 +62,7 @@ in
         root = cfg.dataDir;
         extraConfig = ''
           charset UTF-8;
+          default_type text/plain;
         '';
       };
     };
