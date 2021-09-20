@@ -18,7 +18,7 @@ with lib;
         enableACME = true;
         forceSSL = true;
         root = "/var/lib/public";
-        locations."/".extraConfig = ''
+        locations."~ /.*/".extraConfig = ''
           autoindex on;
           charset UTF-8;
         '';
