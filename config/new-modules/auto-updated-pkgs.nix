@@ -64,7 +64,13 @@ in {
         flock -x lock nix-env -p profile -ir packages/*
         flock -x lock nix-env -p profile --delete-generations old
       '';
-      path = [ config.nix.package pkgs.utillinux pkgs.gnutar pkgs.xz ];
+      path = [
+        config.nix.package
+        pkgs.utillinux
+        pkgs.gnutar
+        pkgs.xz
+        pkgs.gzip
+      ];
       environment.HOME = "%T/home";
       serviceConfig = {
         Type = "oneshot";

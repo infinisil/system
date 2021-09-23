@@ -237,6 +237,11 @@ in {
   };
 
   environment.autoUpdate.presets.youtube-dl = true;
+  environment.autoUpdate.packages.discord = {
+    attrPath = [ "discord" ];
+    url = "https://github.com/NixOS/nixpkgs/archive/master.tar.gz";
+    period = "daily";
+  };
 
   services.vault.enable = true;
 
