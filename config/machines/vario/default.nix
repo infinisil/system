@@ -345,7 +345,6 @@ in {
   environment.systemPackages = with pkgs; [
     guvcview
     slack-dark
-    zoom-us
     pot
     yt
     projector
