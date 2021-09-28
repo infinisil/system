@@ -45,9 +45,9 @@
     };
 
   fileSystems."/home/infinisil/music" =
-    { device = "main/backup/orakel/tank/root/music";
+    { device = "tank2/root/data/music";
       fsType = "zfs";
-      options = [ "nofail" "ro" ];
+      options = [ "nofail" ];
     };
 
   fileSystems."/betty" =

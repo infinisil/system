@@ -52,6 +52,7 @@ in {
     ./hardware-configuration.nix
   ];
 
+  mine.localMusic.enable = true;
 
   nix.binaryCachePublicKeys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
@@ -342,8 +343,6 @@ in {
     # https://discourse.nixos.org/t/browsers-unbearably-slow-after-update/9414/31
     kernelParams = [ "intel_pstate=active" ];
   };
-
-  mine.binalias.rate = "mpc sendmessage rating";
 
   programs.zsh.shellAliases.yt = "noglob yt";
 

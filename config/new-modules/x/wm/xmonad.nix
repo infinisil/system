@@ -30,9 +30,8 @@ in
 
     scripts = let
       pactl = "${pkgs.pulseaudioLight}/bin/pactl";
-      mpc = "MPD_HOST=${config.mine.mpdHost} ${pkgs.mpc_cli}/bin/mpc";
-
       vol = up: ''
+        ${pactl} set-source-mute @DEFAULT_SOURCE@ false
         ${pactl} set-sink-mute @DEFAULT_SINK@ false
         ${pactl} set-sink-volume @DEFAULT_SINK@ ${if up then "+" else "-"}2%
       '';
@@ -53,26 +52,9 @@ in
       volDown = vol false;
       brightUp = bright true;
       brightDown = bright false;
-      nope = "${mpc} sendmessage nope nope";
       toggleCompton = toggleService true "compton";
-      tag = ''
-        mkdir -p $HOME/.local/share/mtags
-        cd $HOME/.local/share/mtags
-        ${pkgs.fd}/bin/fd -t f | \
-          xargs stat --printf "%Z\t%n\n" | \
-          sort -r | cut -f2 | \
-          ${pkgs.dmenu}/bin/dmenu -l 10 | \
-            xargs ${pkgs.writeScript "mkdirTag" ''
-              #!${pkgs.bash}/bin/bash
-              mkdir -p "$(dirname "$1")"
-              touch "$1"
-              ${mpc} sendmessage tag "$1"
-            ''}
-      '';
       toggleXmobar = toggleService true "xmobar";
       toggleLive = toggleService true "live-wallpaper";
-      next = "${mpc} next";
-      prev = "${mpc} prev";
       toggleMute = ''
         export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package pkgs.gnused pkgs.gawk ]}
         currentName=$(pacmd dump | sed -n 's/set-default-sink \(.*\)/\1/p')
@@ -111,16 +93,12 @@ in
           }
         ')
       '';
-      playpause = toggleService true "music";
       firefox = "${config.mine.firefox}/bin/firefox";
       irc = "exec kitty -e weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
       run = "${pkgs.rofi}/bin/rofi -show run -theme gruvbox-dark";
 
-    } // listToAttrs (map (n: {
-      name = "rate${toString n}";
-      value = "${mpc} sendmessage rating ${toString n}";
-    }) (range 1 10));
+    };
 
     mine.userConfig = {
 

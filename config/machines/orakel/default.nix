@@ -6,7 +6,7 @@
       ./hardware-configuration.nix
     ];
 
-  services.music-server.enable = true;
+  #services.music-server.enable = true;
 
   services.zrepl = {
     enable = true;
@@ -53,7 +53,6 @@
             };
           };
           filesystems."tank/root" = true;
-          filesystems."tank/root/music" = true;
           snapshotting = {
             type = "periodic";
             interval = "1h";
@@ -102,23 +101,6 @@
   mine.transmission.enable = true;
 
   mine.profiles.server.enable = true;
-
-  mine.music = {
-    server = {
-      enable = true;
-      local = false;
-      musicDir = "/var/lib/music";
-      user = "music";
-      group = "music";
-      password = config.private.passwords.mpd;
-    };
-  };
-
-  mine.youtubeDl = {
-    enable = true;
-    user = "infinisil";
-    mpdHost = "${config.private.passwords.mpd}@localhost";
-  };
 
   boot.loader.grub.enable = true;
   boot.loader.grub.splashImage = null;

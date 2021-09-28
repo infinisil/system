@@ -28,8 +28,9 @@
     };
 
   fileSystems."/var/lib/music" =
-    { device = "tank/root/music";
+    { device = "tank/backup/vario/tank2/root/data/music";
       fsType = "zfs";
+      options = [ "nofail" "ro" ];
     };
 
   fileSystems."/var/lib/torrent" =

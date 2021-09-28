@@ -34,11 +34,6 @@ with lib;
     #mine.dev.idris.enable = true;
     mine.dev.haskell.enable = true;
 
-    mine.music.client = {
-      enable = true;
-      server = nodes.orakel;
-    };
-
     nix.extraOptions = ''
       keep-derivations = true
       keep-outputs = true

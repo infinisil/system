@@ -42,18 +42,6 @@ let
           , "-l" , "green"
           , "-n" , "orange"
           , "-h" , "red" ] 10
-        , Run CommandReader "${pkgs.writeScript "info" ''
-            #!${pkgs.bash}/bin/bash
-            export MPD_HOST="${config.mine.mpdHost}"
-            ${pkgs.mpc_cli}/bin/mpc waitmessage info &
-            ${pkgs.mpc_cli}/bin/mpc sendmessage updateInfo update
-            while true; do
-              ${pkgs.mpc_cli}/bin/mpc waitmessage info
-              if [ $? != 0 ]; then
-                sleep 1
-              fi
-            done
-          ''}" "info"
         , Run CommandReader "${pkgs.writeScript "enoping" ''
             #!${pkgs.bash}/bin/bash
             while true; do
@@ -67,7 +55,6 @@ let
           ''}" "enoping"
         , Run Com "${config.scripts.power}" [] "power" 10
         , Run Com "${config.scripts.batt}" [] "bt" 50
-        , Run Com "${config.scripts.playing}" [] "playing" 10
         , Run Com "${pkgs.writeShellScript "xmobar-volume" ''
           export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package pkgs.gnused pkgs.gawk ]}
           currentName=$(pacmd dump | sed -n 's/set-default-sink \(.*\)/\1/p')
@@ -147,7 +134,7 @@ let
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% }{ %info%   %playing%  | ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | eno1 %enoping% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% }{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | eno1 %enoping% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
@@ -213,14 +200,6 @@ in {
         esac
 
         printf "<fc=#%02x%02x00>%s%% %s</fc> (%s)\n" "$red" "$green" "$charge" "$symbol" "$postfix"
-      '';
-      playing = ''
-        status="$(${config.systemd.package}/bin/systemctl --user is-active music)"
-        if [ $status = active ]; then
-          echo 
-        else
-          echo 
-        fi
       '';
 
     };

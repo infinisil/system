@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+
+# TODO:
+# Run both nixos-rebuild build and home-manager build
+# Then check whether they need to be activated
+# something like that, but then we won't be able to have the home-manager config depend on the system
+# Or will we?? What if there's an interface for having home-manager depend on the system
+# Something like "nixos-rebuild will write /var/lib/home-manager-defaults/defaults.json, which home-manager will/can then read if enabled by the user
+
 set -euo pipefail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
