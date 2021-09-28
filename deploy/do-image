@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+nix-build '<nixpkgs/nixos>' --arg configuration '<nixpkgs/nixos/modules/virtualisation/digital-ocean-image.nix>' -A config.system.build.digitalOceanImage -I nixpkgs=channel:nixos-21.05
+
