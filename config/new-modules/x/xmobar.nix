@@ -4,6 +4,10 @@ with lib;
 
 let
 
+  musicInfo = pkgs.writers.writePython3 "musicInfo" {
+    libraries = [ pkgs.python3.pkgs.mpd2 ];
+  } ../musicInfo.py;
+
   configFile = let
     fonts = lib.concatStringsSep "," [
       "Helvetica Neue LT Std,HelveticaNeueLT Std Lt Cn:style=47 Light Condensed,Regular:pixelsize=12"
@@ -127,14 +131,14 @@ let
             fi
           fi
 
-          echo "$odescr | Vol: $ovolume%$muteString"
+          echo "<action=pot>$odescr</action> | Vol: $ovolume%$muteString"
 
         ''}" [] "volume" 2
-        , Run PipeReader "<test>:/home/infinisil/Test/xmobar/pipe" "testpipe"
+      , Run CommandReader "${musicInfo}" "info"
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% }{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | eno1 %enoping% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% }%info%{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | eno1 %enoping% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
@@ -214,6 +218,7 @@ in {
         };
 
         Service = {
+          Environment = "PATH=${lib.makeBinPath [ pkgs.mpc_cli pkgs.pot pkgs.pulseaudio pkgs.gnused ]}";
           ExecStart = "${pkgs.haskellPackages.xmobar}/bin/xmobar ${configFile}";
           Restart = "on-failure";
         };

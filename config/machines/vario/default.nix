@@ -346,6 +346,10 @@ in {
 
   programs.zsh.shellAliases.yt = "noglob yt";
 
+  nixpkgs.overlays = [ (self: super: {
+    inherit pot;
+  }) ];
+
   environment.systemPackages = with pkgs; [
     guvcview
     slack-dark

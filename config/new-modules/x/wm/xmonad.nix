@@ -97,7 +97,6 @@ in
       irc = "exec kitty -e weechat";
       zpool = "${pkgs.zfs}/bin/zpool";
       run = "${pkgs.rofi}/bin/rofi -show run -theme gruvbox-dark";
-
     };
 
     mine.userConfig = {
