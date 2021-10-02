@@ -53,6 +53,9 @@ def update(event):
                         client.repeat(1)
                         client.single(1)
                         client.seekcur("+" + str(relativeChange))
+                        # Go back 10 seconds so that
+                        # the song can't end immediately
+                        client.seekcur("-10.0")
                         client.repeat(status["repeat"])
                         client.single(status["single"])
                     elif message["message"] == "backward":
