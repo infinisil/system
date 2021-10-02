@@ -46,8 +46,10 @@ in {
 
     environment.profiles = [ cfg.profile ];
 
+    users.groups.auto-update = {};
     users.users.auto-update = {
       isSystemUser = true;
+      group = "auto-update";
     };
 
     # Necessary for --tarball-ttl
