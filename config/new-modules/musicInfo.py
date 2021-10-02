@@ -59,20 +59,22 @@ def update(event):
                         client.seekcur("-" + str(relativeChange))
 
     artistTitle = database.execute("""
-          SELECT artist, title
-          FROM items
-          WHERE path = :path
+        SELECT artist, title
+        FROM items
+        WHERE path = :path
     """, {"path": pathblob}).fetchone()
 
     stars = ""
+    artist = ""
+    title = ""
 
     if artistTitle is None:
-        name = file
+        if "artist" in song:
+            artist = song["artist"]
+        if "title" in song:
+            title = song["title"]
     else:
         artist, title = artistTitle
-        if artist != "":
-            artist += " — "
-        name = artist + title
 
         cursor = database.execute("""
               SELECT value
@@ -97,6 +99,15 @@ def update(event):
             else:
                 stars += " "
             stars += "</action>"
+
+    if artist == "" and title == "":
+        name = file
+    else:
+        if artist == "":
+            artist = "(unknown artist)"
+        if title == "":
+            title = "(unknown title)"
+        name = artist + " — " + title
 
     seekLeft = "<action=mpc sendmessage seek backward>  </action>"
     seekRight = "<action=mpc sendmessage seek forward>  </action>"
