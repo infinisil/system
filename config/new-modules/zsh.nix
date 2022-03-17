@@ -155,7 +155,7 @@ mkIf config.mine.console.enable {
     grbi = "git rebase -i";
     grhh = "git reset --hard HEAD";
     gst = "git status";
-    gsts = "git stash show --text";
+    gsts = "git stash show --text --include-untracked";
     gsta = "git stash save";
     gstaa = "git stash apply";
     gstl = "git stash list";
