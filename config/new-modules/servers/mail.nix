@@ -86,6 +86,8 @@ in
         fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "cc" "ci_activity@noreply.github.com" {
         fileinto :flags "\\Seen" "Builds";
+      } elsif address :is :domain "from" "dev.bevuta.com" {
+        fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
         fileinto :flags "\\Seen" "DMARC";
       } elsif address :is :all "from" "notifications@github.com" {
