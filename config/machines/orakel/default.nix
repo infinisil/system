@@ -129,6 +129,4 @@
   mine.hardware.swap = true;
 
   services.openssh.enable = true;
-
-  system.stateVersion = "19.03";
 }
