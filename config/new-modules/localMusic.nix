@@ -18,6 +18,23 @@ in {
         playlistDirectory = "${musicDir}/playlists";
       };
 
+      systemd.user.services.musicInfo = let
+        musicInfo = pkgs.writers.writePython3 "musicInfo" {
+          libraries = [ pkgs.python3.pkgs.mpd2 ];
+        } ./musicInfo.py;
+      in {
+        Unit = {
+          Requires = [ "mpd.service" ];
+          After = [ "mpd.service" ];
+        };
+
+        Install.WantedBy = [ "default.target" ];
+
+        Service = {
+          ExecStart = "${musicInfo}";
+        };
+      };
+
       home.packages = with pkgs; [
         mpc_cli
         ncmpcpp

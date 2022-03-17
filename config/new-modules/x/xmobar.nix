@@ -4,10 +4,6 @@ with lib;
 
 let
 
-  musicInfo = pkgs.writers.writePython3 "musicInfo" {
-    libraries = [ pkgs.python3.pkgs.mpd2 ];
-  } ../musicInfo.py;
-
   configFile = let
     fonts = lib.concatStringsSep "," [
       "Helvetica Neue LT Std,HelveticaNeueLT Std Lt Cn:style=47 Light Condensed,Regular:pixelsize=12"
@@ -134,7 +130,7 @@ let
           echo "<action=pot>$odescr</action> | Vol: $ovolume%$muteString"
 
         ''}" [] "volume" 2
-      , Run CommandReader "${musicInfo}" "info"
+      , Run PipeReader "''${XDG_RUNTIME_DIR}/musicInfo" "info"
       ]
       , sepChar = "%"
       , alignSep = "}{"
@@ -213,7 +209,8 @@ in {
       systemd.user.services.xmobar = {
         Unit = {
           Description = "Xmobar";
-          After = [ "graphical-session-pre.target" ];
+          After = [ "graphical-session-pre.target" "musicInfo.service" ];
+          Requires = [ "musicInfo.service" ];
           PartOf = [ "graphical-session.target" ];
         };
 
