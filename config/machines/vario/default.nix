@@ -23,21 +23,6 @@ let
     pactl set-default-sink "''${sinks[$toActivate]}"
   '';
 
-  yt = pkgs.writeShellScriptBin "yt" ''
-    url=$1
-
-    formats=$(youtube-dl -F "$url" 2>/dev/null | rg 'format code.*extension.*resolution.*note' -A 100000 | tail -n +2)
-
-    audioid=$(echo "$formats" | rg "audio only" | cut -d' ' -f1 | sort | tail -1)
-
-    videoid=$(echo "$formats" | rg "video only" | fzf --tac | cut -d' ' -f1)
-
-    echo $audioid
-    echo $videoid
-
-    mpv "$url" --ytdl-format="$videoid+$audioid"
-  '';
-
   projector = pkgs.writeShellScriptBin "projector" ''
     xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off
     pactl set-default-sink alsa_output.usb-Kingston_HyperX_7.1_Audio_00000000-00.iec958-stereo
@@ -226,10 +211,6 @@ in {
   environment.variables.GLFW_IM_MODULE = "ibus";
 
   nix = {
-    extraOptions = ''
-      allowed-uris = https://github.com/
-    '';
-
     buildMachines = [{
       hostName = "192.168.178.51";
       maxJobs = 4;
@@ -242,8 +223,6 @@ in {
   environment.autoUpdate.enable = true;
   environment.autoUpdate.presets.yt-dlp = true;
 
-  services.vault.enable = true;
-
   # Remove fs-before.target
   systemd.services.zfs-import-main.before = lib.mkForce [
     "betty.mount"
@@ -252,8 +231,6 @@ in {
   ];
   systemd.targets.zfs-import.after = lib.mkForce [];
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
-
-  services.lorri.enable = true;
 
   mine.enableUser = true;
 
@@ -265,12 +242,7 @@ in {
     audio = true;
   };
 
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "zfs";
-  };
-
-  users.users.infinisil.extraGroups = [ "docker" "transmission" "plugdev" ];
+  users.users.infinisil.extraGroups = [ "transmission" "plugdev" ];
   users.groups.transmission.gid = 70;
   users.groups.plugdev = {};
 
@@ -292,38 +264,6 @@ in {
     }
   ];
 
-  #services.ipfs = {
-  #  enable = true;
-  #  autostart = true;
-  #};
-
-  #mine.dev.rust.enable = true;
-
-  #mine.deluged.enable = true;
-  services.deluge = {
-    declarative = true;
-    config = {
-      move_completed_path = "/betty/Torrent";
-      queue_new_to_top = true;
-      max_active_limit = -1;
-      max_active_downloading = -1;
-      max_active_seeding = -1;
-      allow_remote = true;
-      max_half_open_connections = -1;
-      download_location = "/var/lib/deluge/part";
-      max_upload_speed = 500.0;
-      max_connections_per_second = -1;
-      dont_count_slow_torrents = true;
-      torrentfiles_location = "/var/lib/deluge/torrent";
-      enabled_plugins = [ "YaRSS2" ];
-      max_connections_global = 500;
-      listen_ports = [ 6881 6891 ];
-      max_upload_speed_per_torrent = 250.0;
-      copy_torrent_file = true;
-      move_completed = true;
-    };
-  };
-
   # hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
@@ -341,8 +281,6 @@ in {
     kernelParams = [ "intel_pstate=active" ];
   };
 
-  programs.zsh.shellAliases.yt = "noglob yt";
-
   nixpkgs.overlays = [ (self: super: {
     inherit pot;
   }) ];
@@ -351,7 +289,6 @@ in {
     guvcview
     slack-dark
     pot
-    yt
     projector
     monitor
     syncplay
