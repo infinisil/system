@@ -390,6 +390,8 @@ in {
     KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", MODE:="0666"
   '';
 
+  systemd.services.nix-daemon.serviceConfig.LimitNOFILE = lib.mkForce 40960;
+
   networking = {
     hostName = "vario";
     hostId = "56236562";
