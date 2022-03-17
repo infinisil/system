@@ -15,11 +15,11 @@ let
       rev = "8a7af38594e55d0b87813ece5354508aae6ec668";
       sha256 = "sha256-f74h+dVCtd48Gkwz5rt+8aDcRiuBn/HO/JCsudV/H94=";
     };
-    "1.17" = nixus.pkgs.fetchFromGitHub {
+    "1.17.1" = nixus.pkgs.fetchFromGitHub {
       owner = "infinisil";
       repo = "on-demand-minecraft";
-      rev = "d7cfb1b4166ac5cd9395e2cc11e498596bf6d986";
-      sha256 = "sha256-W7tLuwXjQU6Aeyzxmqads/dDh9ZiUzeC5h/C/chHRcI=";
+      rev = "e3cb5b8dd35d192f3f676fc39fcc351442e62fbb";
+      sha256 = "13756hnhfaqdnvcn8d1f26xzl3rmrw683kznjd3hdx4c1wab85v9";
     };
   };
 
@@ -90,7 +90,7 @@ in {
 
         options.version = lib.mkOption {
           type = types.str;
-          default = "1.17";
+          default = "1.17.1";
         };
 
         # Like minecraft.infinisil.com
