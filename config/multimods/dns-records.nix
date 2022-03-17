@@ -32,5 +32,6 @@ in {
       "ns4.infinisil.com.".A = "206.81.23.189";
       "torrent.infinisil.com.".A = "51.15.187.150";
       "media.infinisil.com.".A = "51.15.187.150";
+      "tune.infinisil.com.".A = "51.15.187.150";
     } // lib.listToAttrs (map (s: lib.nameValuePair "${s}.infinisil.com." { CNAME = "infinisil.com."; }) subdomains);
 }

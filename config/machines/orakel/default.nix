@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
     ];
 
+  mine.remoteMusic.enable = true;
+
   #services.music-server.enable = true;
 
   services.zrepl = {
