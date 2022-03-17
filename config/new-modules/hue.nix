@@ -16,6 +16,7 @@ in {
 
     host = lib.mkOption {
       type = types.nullOr types.str;
+      default = null;
       description = ''
         IP of the HUE bridge. Use <command>hueadm search</command> to find
         bridges in your network.
@@ -24,6 +25,7 @@ in {
 
     user = lib.mkOption {
       type = types.nullOr (types.strMatching "[0-9a-zA-Z]{40}");
+      default = null;
       description = ''
         Registered Username. Use <command>hueadm register
         <replaceable>NAME</replaceable></command> to register a new user.
