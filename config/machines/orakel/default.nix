@@ -94,7 +94,10 @@
 
   users.users.syncplay = {
     isSystemUser = true;
+    group = "syncplay";
   };
+
+  users.groups.syncplay = {};
 
   users.users.nginx.extraGroups = [ "users" ];
 

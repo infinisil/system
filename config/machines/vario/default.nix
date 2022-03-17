@@ -56,9 +56,11 @@ in {
 
   nix.binaryCachePublicKeys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "tweag-haskell-fido2.cachix.org-1:bB+jy70CksEq3o6LKAJgZP1Fr5Moi7fsWzXBg3aZVxE="
   ];
   nix.binaryCaches = [
     "https://hydra.iohk.io"
+    "https://tweag-haskell-fido2.cachix.org"
   ];
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];

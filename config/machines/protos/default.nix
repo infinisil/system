@@ -55,7 +55,10 @@
 
   users.users.syncplay = {
     isSystemUser = true;
+    group = "syncplay";
   };
+
+  users.groups.syncplay = {};
 
   users.users.nixbot.isSystemUser = true;
 
