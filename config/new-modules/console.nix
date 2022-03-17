@@ -50,7 +50,7 @@ with lib;
       fd
       gitAndTools.gh
       fzf
-      sqliteInteractive
+      sqlite-interactive
       gnumake
       exa
       asciinema

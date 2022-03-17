@@ -5,11 +5,13 @@
     ./user.nix
   ];
 
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
   time.timeZone = "Europe/Zurich";
 
   mine.webKeyDirectory.directory = ./wkd;
 
-  security.acme.email = "acme@infinisil.com";
+  security.acme.defaults.email = "acme@infinisil.com";
   security.acme.acceptTerms = true;
 
   mine.userConfig = {

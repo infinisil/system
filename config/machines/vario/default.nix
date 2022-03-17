@@ -54,11 +54,11 @@ in {
 
   mine.localMusic.enable = true;
 
-  nix.binaryCachePublicKeys = [
+  nix.settings.trusted-public-keys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     "tweag-haskell-fido2.cachix.org-1:bB+jy70CksEq3o6LKAJgZP1Fr5Moi7fsWzXBg3aZVxE="
   ];
-  nix.binaryCaches = [
+  nix.settings.substituters = [
     "https://hydra.iohk.io"
     "https://tweag-haskell-fido2.cachix.org"
   ];
@@ -337,7 +337,6 @@ in {
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
     # https://discourse.nixos.org/t/browsers-unbearably-slow-after-update/9414/31
     kernelParams = [ "intel_pstate=active" ];
   };

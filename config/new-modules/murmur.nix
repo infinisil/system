@@ -96,9 +96,9 @@ in {
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
         preStart = if cfg.superuserPasswordFile != null then ''
-          cat ${cfg.superuserPasswordFile} | ${pkgs.murmur}/bin/murmurd -ini ${configFile} -readsupw || true
+          cat ${cfg.superuserPasswordFile} | ${pkgs.murmur}/bin/mumble-server -ini ${configFile} -readsupw || true
         '' else ''
-          ${pkgs.murmur}/bin/murmurd -ini ${configFile} -disablesu || true
+          ${pkgs.murmur}/bin/mumble-server -ini ${configFile} -disablesu || true
         '';
 
         serviceConfig = {
@@ -106,7 +106,7 @@ in {
           WorkingDirectory = dataDir;
           User = user;
           Group = group;
-          ExecStart = "${pkgs.murmur}/bin/murmurd -ini ${configFile} -fg";
+          ExecStart = "${pkgs.murmur}/bin/mumble-server -ini ${configFile} -fg";
           # For reloading SSL settings
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
         };

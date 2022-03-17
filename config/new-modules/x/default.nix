@@ -73,7 +73,7 @@ with lib;
       gtk_engines
       gtk-engine-murrine
       dmenu
-      xlibs.xev
+      xorg.xev
       thunderbird
       haskellPackages.xmobar
     ];
@@ -94,7 +94,6 @@ with lib;
         mine.pics
         thunderbird
         helvetica-neue-lt-std
-        mine.arcred
       ];
 
       services.random-background = {

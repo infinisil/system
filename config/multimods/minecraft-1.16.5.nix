@@ -5,7 +5,6 @@
   ];
 
   virtualisation.digitalOceanImage.compressionMethod = "bzip2";
-  virtualisation.digitalOceanImage.channelNixpkgs = null;
 
   nixpkgs.overlays = [(self: super: {
     zfs = super.zfs.override { enablePython = false; };

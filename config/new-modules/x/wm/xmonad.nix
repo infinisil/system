@@ -29,7 +29,7 @@ in
     mine.terminal.enable = true;
 
     scripts = let
-      pactl = "${pkgs.pulseaudioLight}/bin/pactl";
+      pactl = "${pkgs.pulseaudio}/bin/pactl";
       vol = up: ''
         ${pactl} set-source-mute @DEFAULT_SOURCE@ false
         ${pactl} set-sink-mute @DEFAULT_SINK@ false

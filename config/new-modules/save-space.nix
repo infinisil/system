@@ -5,7 +5,7 @@
   config = lib.mkIf config.mine.saveSpace {
 
     nix = {
-      autoOptimiseStore = true;
+      settings.auto-optimise-store = true;
       # I can't have this because of https://github.com/NixOS/nix/issues/719 :/
       #gc = {
       #  automatic = true;
