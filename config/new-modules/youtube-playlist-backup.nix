@@ -39,7 +39,7 @@ in
 
   config = {
 
-    environment.autoUpdate.presets.youtube-dl = true;
+    environment.autoUpdate.presets.yt-dlp = true;
 
     systemd.services = lib.mapAttrs' (name: value: lib.nameValuePair "youtube-playlist-download-${name}" {
       description = "Automatic youtube playlist download for ${name}";
