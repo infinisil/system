@@ -364,6 +364,7 @@ in {
     element-desktop
     htop
     obs-studio
+    zoom-us
   ];
 
   mine.gaming.enable = true;
