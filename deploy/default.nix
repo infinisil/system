@@ -23,8 +23,7 @@ let
 
 in
 
-{ label ? ""
-, nodes ? []
+{ nodes ? []
 , ignoreFailingSystemdUnits ? true
 }: import /home/infinisil/prj/nixus {
   libOverlay = self: super: {
@@ -50,8 +49,6 @@ in
         ../external/private/default-old.nix
         nurNoPkgs.repos.rycee.modules.home-manager
       ];
-
-      system.nixos.label = label;
 
       environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
 

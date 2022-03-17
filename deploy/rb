@@ -20,16 +20,6 @@ export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
 git() { command git -C "$DIR/.." "$@"; }
 gitbranch() { git symbolic-ref --short HEAD; }
 
-if [[ ! -z "$(git add --all --dry-run)" ]]; then
-	git add --all
-  git commit -v --allow-empty-message
-fi
-
-branch="$(gitbranch | \
-	sed 's/^\.*//' | tr -cs '+-._?=[:alnum:]' -)"
-msg="$(git log --pretty=format:'%h-%f' -1 \
-	--no-merges --grep=".+" --extended-regexp)"
-label="$(printf "%s-%.35s" "$branch" "$msg")"
 
 nodes="[ "
 for node in "$@"; do
@@ -45,10 +35,16 @@ export NIX_CONF_DIR="$tmp/confdir"
 
 echo "Evaluating..."
 nix-instantiate "$DIR" --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
-  --argstr label "$label" --arg nodes "$nodes"
+  --arg nodes "$nodes"
 
 echo "Building..."
 nix-build "$tmp"/drv --out-link "$tmp/result" >/dev/null
+
+echo "Committing.."
+if [[ ! -z "$(git add --all --dry-run)" ]]; then
+	git add --all
+  git commit --allow-empty-message -m ""
+fi
 
 echo "Deploying..."
 "$tmp/result"
