@@ -37,6 +37,8 @@ in {
     ./hardware-configuration.nix
   ];
 
+  hardware.cpu.intel.updateMicrocode = true;
+
   mine.localMusic.enable = true;
 
   nix.settings.trusted-public-keys = [
