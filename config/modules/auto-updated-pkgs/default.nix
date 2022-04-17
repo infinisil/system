@@ -164,6 +164,7 @@ in {
         pkgs.gzip
       ];
       wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
       environment.HOME = "%T/home";
       serviceConfig = {
         Type = "notify";
