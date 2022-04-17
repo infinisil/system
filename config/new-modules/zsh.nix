@@ -39,7 +39,7 @@ mkIf config.mine.console.enable {
       __cda() {
         local sel
 
-        sel="$(fd -t d -d 5 -H -L | fzf \
+        sel="$(fd -t d -H -L | fzf \
           -1 -0 +s +m \
           --height 50% \
           --reverse --border \
@@ -62,7 +62,7 @@ mkIf config.mine.console.enable {
       __vima() {
         local sel
 
-        sel="$(fd -t f -d 5 -H -L | fzf \
+        sel="$(fd -t f -H -L | fzf \
           -m -1 -0 +s \
           --height 50% \
           --reverse --border \
