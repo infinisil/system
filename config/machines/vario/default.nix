@@ -41,6 +41,8 @@ in {
 
   mine.localMusic.enable = true;
 
+  nix.settings.experimental-features = [ "flakes" "nix-command" "ca-derivations" ];
+
   nix.settings.trusted-public-keys = [
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     "tweag-haskell-fido2.cachix.org-1:bB+jy70CksEq3o6LKAJgZP1Fr5Moi7fsWzXBg3aZVxE="
