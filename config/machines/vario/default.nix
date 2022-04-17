@@ -301,6 +301,12 @@ in {
     htop
     obs-studio
     zoom-us
+    xournal
+    audacity
+    chromium
+    libreoffice
+    moreutils
+    jless
   ];
 
   mine.gaming.enable = true;
