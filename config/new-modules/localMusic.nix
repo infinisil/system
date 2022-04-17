@@ -32,6 +32,7 @@ in {
 
         Service = {
           ExecStart = "${musicInfo}";
+          Restart = "on-failure";
         };
       };
 

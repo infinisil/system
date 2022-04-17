@@ -15,6 +15,8 @@ def signal_handler(signal, frame):
 @contextmanager
 def musicInfoPipe():
     filename = os.environ["XDG_RUNTIME_DIR"] + "/musicInfo"
+    if os.path.exists(filename):
+        os.remove(filename)
     os.mkfifo(filename)
     try:
         yield filename
