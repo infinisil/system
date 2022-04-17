@@ -1,6 +1,7 @@
 { config, ... }: {
 
   services.on-demand-minecraft.instances.main = {
+    enable = false;
     node = "protos";
     domain = "infinisil.com";
     imageConfiguration = ./minecraft.nix;
@@ -20,6 +21,7 @@
   nodes.protos.configuration.systemd.services.on-demand-minecraft-main.serviceConfig.SupplementaryGroups = "do-api";
 
   services.on-demand-minecraft.instances.ss = {
+    enable = false;
     node = "protos";
     domain = "ss.infinisil.com";
     imageConfiguration = ./minecraft-1.16.5.nix;
@@ -41,6 +43,7 @@
   nodes.protos.configuration.systemd.services.on-demand-minecraft-ss.serviceConfig.SupplementaryGroups = "do-api";
 
   services.on-demand-minecraft.instances.creative = {
+    enable = false;
     node = "protos";
     domain = "creative.infinisil.com";
     imageConfiguration = ./minecraft.nix;
@@ -61,6 +64,7 @@
   nodes.protos.configuration.systemd.services.on-demand-minecraft-creative.serviceConfig.SupplementaryGroups = "do-api";
 
   services.on-demand-minecraft.instances.qbp = {
+    enable = false;
     node = "protos";
     domain = "qbp.infinisil.com";
     imageConfiguration = ./minecraft.nix;
@@ -81,6 +85,7 @@
   nodes.protos.configuration.systemd.services.on-demand-minecraft-qbp.serviceConfig.SupplementaryGroups = "do-api";
 
   services.on-demand-minecraft.instances.anna = {
+    enable = false;
     node = "protos";
     domain = "anna.infinisil.com";
     imageConfiguration = ./minecraft.nix;

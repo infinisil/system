@@ -38,10 +38,10 @@ let
       SRV.port = cfg.settings.port;
       SRV.target = absoluteDomain;
     })
-  ) (lib.filter (cfg: cfg.domain != null) (lib.attrValues config.services.on-demand-minecraft.instances));
+  ) (lib.filter (cfg: cfg.enable && cfg.domain != null) (lib.attrValues config.services.on-demand-minecraft.instances));
 
   /* <node> -> <name> -> cfg */
-  nodeInstances = lib.mapAttrs (node: lib.listToAttrs) (lib.groupBy (v: v.value.node) (lib.mapAttrsToList lib.nameValuePair config.services.on-demand-minecraft.instances));
+  nodeInstances = lib.mapAttrs (node: lib.listToAttrs) (lib.groupBy (v: v.value.node) (lib.filter (v: v.value.enable) (lib.mapAttrsToList lib.nameValuePair config.services.on-demand-minecraft.instances)));
 
   nodeConfigs = lib.mapAttrs (node: instances: {
     configuration = {
@@ -82,6 +82,10 @@ in {
     instances = lib.mkOption {
       default = {};
       type = types.attrsOf (types.submodule ({ config, name, ... }: {
+
+        options.enable = lib.mkEnableOption "on-demand-minecraft instance" // {
+          default = true;
+        };
 
         # Can get the public ip from nodes.*.configuration.networking.public.ipv{4,6}
         options.node = lib.mkOption {
