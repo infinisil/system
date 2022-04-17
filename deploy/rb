@@ -42,7 +42,7 @@ nix-build "$tmp"/drv --out-link "$tmp/result" >/dev/null
 
 echo "Committing.."
 if [[ ! -z "$(git add --all --dry-run)" ]]; then
-	git add --all
+	git add -u
   git commit --allow-empty-message -m ""
 fi
 
