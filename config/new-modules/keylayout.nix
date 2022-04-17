@@ -24,13 +24,8 @@ in
       xkbOptions = "compose:rwin";
     };
 
-    mine.userConfig = {
-      systemd.user.services.setxkbmap = {
-        Install.WantedBy = lib.mkForce [];
-        Unit.After = lib.mkForce [];
-        Unit.PartOf = lib.mkForce [];
-      };
-    };
+    # Disable home-managers keyboard layout management
+    mine.userConfig.home.keyboard = null;
 
   };
 }
