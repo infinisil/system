@@ -49,7 +49,7 @@ in {
       '';
     };
 
-    networking.firewall.allowedTCPPorts = [ config.services.mpd.network.port opusPort mp3Port ];
+    networking.firewall.allowedTCPPorts = [ 80 443 config.services.mpd.network.port opusPort mp3Port ];
 
     services.nginx = {
       enable = true;

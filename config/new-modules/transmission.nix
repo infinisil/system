@@ -45,7 +45,7 @@
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ config.services.transmission.settings.rpc-port ];
+    networking.firewall.allowedTCPPorts = [ 80 443 config.services.transmission.settings.rpc-port ];
 
     users.users.infinisil.extraGroups = [ "transmission" ];
     users.users.nginx.extraGroups = [ "transmission" ];
