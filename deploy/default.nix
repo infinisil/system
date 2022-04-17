@@ -24,7 +24,7 @@ let
 in
 
 { nodes ? []
-, ignoreFailingSystemdUnits ? true
+, ignoreFailingSystemdUnits ? false
 }: import /home/infinisil/prj/nixus {
   libOverlay = self: super: {
     ip = import ./lib/ip.nix self;
