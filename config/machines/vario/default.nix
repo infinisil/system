@@ -246,7 +246,12 @@ in {
     audio = true;
   };
 
-  users.users.infinisil.extraGroups = [ "transmission" "plugdev" ];
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "zfs";
+  };
+
+  users.users.infinisil.extraGroups = [ "docker" "transmission" "plugdev" ];
   users.groups.transmission.gid = 70;
   users.groups.plugdev = {};
 
