@@ -1,16 +1,23 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
 
-  mine.mainUsers = [ "root" ];
+  options.mine.profiles.default = {
+    enable = lib.mkEnableOption "default config";
+  };
 
-  networking.nameservers = lib.mkDefault [ "1.1.1.1" ];
+  config = lib.mkIf config.mine.profiles.default.enable {
 
-  nix.settings.trusted-users = [ "root" "@wheel" ];
-  nixpkgs.config.allowUnfree = true;
+    mine.mainUsers = [ "root" ];
 
-  home-manager.useUserPackages = true;
+    networking.nameservers = lib.mkDefault [ "1.1.1.1" ];
 
-  security.sudo.wheelNeedsPassword = false;
+    nix.settings.trusted-users = [ "root" "@wheel" ];
+    nixpkgs.config.allowUnfree = true;
 
-  boot.cleanTmpDir = true;
+    home-manager.useUserPackages = true;
+
+    security.sudo.wheelNeedsPassword = false;
+
+    boot.cleanTmpDir = true;
+  };
 
 }

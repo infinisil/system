@@ -69,6 +69,7 @@
   mine.publicDir.enable = true;
   mine.gitHost.enable = true;
 
+  mine.profiles.default.enable = true;
   mine.profiles.server.enable = true;
 
   mine.webKeyDirectory.enable = true;

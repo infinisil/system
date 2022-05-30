@@ -105,6 +105,7 @@
 
   mine.transmission.enable = true;
 
+  mine.profiles.default.enable = true;
   mine.profiles.server.enable = true;
 
   boot.loader.grub.enable = true;

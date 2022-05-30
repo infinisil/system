@@ -262,6 +262,7 @@ in {
 
   hardware.bluetooth.enable = true;
 
+  mine.profiles.default.enable = true;
   mine.profiles.desktop.enable = true;
 
   services.xserver.xrandrHeads = [
