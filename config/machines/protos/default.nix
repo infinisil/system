@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ((import ../../sources).nixbot + "/module.nix")
   ];
 
 
@@ -60,8 +59,6 @@
 
   users.groups.syncplay = {};
 
-  users.users.nixbot.isSystemUser = true;
-
   mine.mail.enable = true;
   mine.saveSpace = true;
   mine.radicale.enable = true;
@@ -90,51 +87,11 @@
     keys.enable = true;
   };
 
-  services.nixbot = {
-    enable = true;
-    channels = [ "nixos-unstable" "nixos-20.03" "nixos-19.09" "nixos-19.03" ];
-    config = {
-      host = "devoted-teal-duck.rmq.cloudamqp.com";
-      port = 5671;
-      users = {
-        commands.enable = true;
-        nixrepl.enable = true;
-        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
-      };
-      channels.nixos-unregistered.unreg.enable = true;
-      channels.home-manager.pr = {
-        defaultRepo = "home-manager";
-        defaultOwners.home-manager = "rycee";
-      };
-      channels.nixos-borg.pr = {
-        defaultRepo = "ofborg";
-      };
-      channelDefaults = {
-        pr.enable = true;
-        commands.enable = true;
-        nixrepl.enable = true;
-        leaked.enable = true;
-        karma.enable = true;
-        nixrepl.nixPath = [ "nixbotlib=/var/lib/nixbot/lib" ];
-        karma.blacklist = [ "c" ];
-      };
-    };
-
-  };
-
-  services.nginx.virtualHosts."nixbot.${config.networking.domain}" = {
-    enableACME = true;
-    forceSSL = true;
-  };
-
   services.nginx.virtualHosts."pc.infinisil.com" = {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://10.99.1.2:80";
   };
-
-  users.users.infinisil.extraGroups = [ "nixbot" ];
-  users.users.nginx.extraGroups = [ "nixbot" ];
 
   mine.enableUser = true;
 

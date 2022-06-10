@@ -16,7 +16,7 @@ in {
 
   dns.records =
     let
-      subdomains = [ "keys" "www" "private" "dav" "public" "paste" "pc" "nixbot" ];
+      subdomains = [ "keys" "www" "private" "dav" "public" "paste" "pc" ];
     in {
       "infinisil.com.".A = "206.81.23.189";
       "infinisil.com.".AAAA = "2a03:b0c0:3:d0::5f7f:5001";
