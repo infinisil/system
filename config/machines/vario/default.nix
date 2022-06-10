@@ -25,11 +25,9 @@ let
 
   projector = pkgs.writeShellScriptBin "projector" ''
     xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off
-    pactl set-default-sink alsa_output.usb-Kingston_HyperX_7.1_Audio_00000000-00.iec958-stereo
   '';
   monitor = pkgs.writeShellScriptBin "monitor" ''
     xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440
-    pactl set-default-sink alsa_output.pci-0000_00_1b.0.analog-stereo
   '';
 in {
 
