@@ -14,40 +14,20 @@ with lib;
   config = mkIf config.mine.sound.enable {
 
     environment.systemPackages = with pkgs; [
-      mine.say
-      (mkIf config.hardware.bluetooth.enable blueman)
+      #mine.say
+      #(mkIf config.hardware.bluetooth.enable blueman)
       pavucontrol
-      pulseeffects-legacy
+      easyeffects
+      qjackctl
     ];
 
-    mine.userConfig = {
-      home.file.".config/vis/config".text = ''
-        audio.sources=pulse
-      '';
-    };
-
-    hardware.pulseaudio = {
+    security.rtkit.enable = true;
+    services.pipewire = {
       enable = true;
-      package = pkgs.pulseaudioFull;
-      extraConfig = ''
-        unload-module module-switch-on-port-available
-      '';
-    };
-
-    mine.userConfig.systemd.user.services.pulseeffects = {
-      Unit = {
-        After = [ "graphical-session-pre.target" ];
-        Requires = [ "pulseaudio.service" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        ExecStart = "${pkgs.pulseeffects-legacy}/bin/pulseeffects --gapplication-service";
-        # https://github.com/wwmm/pulseeffects/issues/533
-        Environment = "PATH=${pkgs.pulseaudio}/bin";
-      };
-
-      Install.WantedBy = [ "graphical-session.target" ];
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
     };
 
   };
