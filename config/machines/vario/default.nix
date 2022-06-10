@@ -266,6 +266,7 @@ in {
   hardware.opengl.driSupport32Bit = true;
 
   hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   mine.profiles.default.enable = true;
   mine.profiles.desktop.enable = true;
