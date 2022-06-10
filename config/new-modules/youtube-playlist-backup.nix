@@ -44,7 +44,7 @@ in
     systemd.services = lib.mapAttrs' (name: value: lib.nameValuePair "youtube-playlist-download-${name}" {
       description = "Automatic youtube playlist download for ${name}";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      after = [ "network.target" "auto-update.service" ];
 
       preStart = "mkdir -p ${value.targetDir}";
       serviceConfig = {
