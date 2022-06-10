@@ -53,6 +53,20 @@
     };
   };
 
+  ssh.access.zion = {
+    hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFdSFceLb/6m2y86vzFM1xJqxe0hiqoQQsUPiLKR/vye";
+    hostNames = [
+      "192.168.0.17"
+    ];
+    keys.infinisil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOanEbhsLadAU2Nlu/l/QCF6VIYKCvBHgOa/RaZvh5sO infinisil@zion";
+    keys.infinisil.hasAccessTo = {
+      zion.root = true;
+      protos.git = true;
+      protos.root = true;
+      orakel.root = true;
+      vario.root = true;
+    };
+  };
 
   ssh.access.phone.keys.me = {
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIElZSK+qNC1Wt5R6YrJ799nJWjyxDLsV0UzyRt+fK/km phone";
