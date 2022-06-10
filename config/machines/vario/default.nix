@@ -61,7 +61,7 @@ in {
     controlPersist = "60";
     matchBlocks =
       lib.mapAttrs (name: value: { hostname = value.networking.public.ipv4; })
-      (lib.filterAttrs (name: value: value.networking.public.hasIpv4) nodes);
+      (lib.filterAttrs (name: value: value.networking ? public.hasIpv4 && value.networking.public.hasIpv4) nodes);
   };
 
   services.zrepl = {
