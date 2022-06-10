@@ -10,14 +10,16 @@
 
 set -euo pipefail
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' exit
 
-export NIX_PATH=nixpkgs=$(realpath "$DIR/../external/nixpkgs")
+nixpkgs=$(nix-instantiate --eval -E '(import ../nix/sources.nix {}).nixpkgs.outPath' --json | tr -d '"')
 
-git() { command git -C "$DIR/.." "$@"; }
+export NIX_PATH=nixpkgs="$nixpkgs"
+
+git() { command git -C .. "$@"; }
 gitbranch() { git symbolic-ref --short HEAD; }
 
 deployHost=$(hostname)
@@ -33,16 +35,16 @@ fi
 nodes+="]"
 
 echo "Building Nix..."
-PATH=$(nix-build '<nixpkgs>' -A nix --no-out-link)/bin:$PATH
+PATH=$(nix-build "$nixpkgs" -A nix --no-out-link)/bin:$PATH
 
 echo "Building nix.conf..."
 mkdir "$tmp/confdir"
-nix-build "$DIR" --show-trace --out-link "$tmp/confdir/nix.conf" >/dev/null \
+nix-build --show-trace --out-link "$tmp/confdir/nix.conf" >/dev/null \
   -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source
 export NIX_CONF_DIR="$tmp/confdir"
 
 echo "Evaluating..."
-nix-instantiate "$DIR" --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
+nix-instantiate --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
   --arg nodes "$nodes" --argstr deployHost "$deployHost"
 
 echo "Building..."

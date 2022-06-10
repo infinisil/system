@@ -19,14 +19,14 @@ let
     };
   };
 
-  nurNoPkgs = import (import ../config/sources).nur {};
+  sources = import ../nix/sources.nix {};
 
 in
 
 { nodes ? []
 , deployHost ? null
 , ignoreFailingSystemdUnits ? false
-}: import /home/infinisil/prj/nixus {
+}: import sources.nixus {
   libOverlay = self: super: {
     ip = import ./lib/ip.nix self;
   };
@@ -39,14 +39,20 @@ in
     ../config/multimods
   ];
 
+  _module.args.sources = sources;
+
   inherit deployHost;
 
   defaults = { name, lib, ... }: {
     enable = lib.elem name nodes;
 
-    nixpkgs = ../external/nixpkgs;
+    nixpkgs = sources.nixpkgs;
 
     inherit ignoreFailingSystemdUnits;
+
+    configuration = {
+      _module.args.sources = sources;
+    };
   };
 
   nodes.protos = {
@@ -56,14 +62,14 @@ in
       imports = [
         ../config
         ../external/private/default-old.nix
-        nurNoPkgs.repos.rycee.modules.home-manager
+        (sources.home-manager + "/nixos")
         ../config/machines/protos
       ];
       networking.public.ipv4 = "206.81.23.189";
       networking.public.ipv6 = "2a03:b0c0:3:d0::5f7f:5001";
       system.stateVersion = "19.03";
 
-      environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
+      environment.etc.nixpkgs.source = toString sources.nixpkgs;
 
       nix.nixPath = [
         "nixos-config=${nixosConfig}"
@@ -78,13 +84,13 @@ in
       imports = [
         ../config
         ../external/private/default-old.nix
-        nurNoPkgs.repos.rycee.modules.home-manager
+        (sources.home-manager + "/nixos")
         ../config/machines/vario
         deployer
       ];
       system.stateVersion = "19.03";
 
-      environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
+      environment.etc.nixpkgs.source = toString sources.nixpkgs;
 
       nix.nixPath = [
         "nixos-config=${nixosConfig}"
@@ -101,14 +107,14 @@ in
       imports = [
         ../config
         ../external/private/default-old.nix
-        nurNoPkgs.repos.rycee.modules.home-manager
+        (sources.home-manager + "/nixos")
         ../config/machines/orakel
       ];
       networking.public.ipv4 = "51.15.187.150";
       networking.public.ipv6 = "fe80::208:a2ff:fe0c:2ab4";
       system.stateVersion = "19.03";
 
-      environment.etc.nixpkgs.source = lib.cleanSource (toString ../external/nixpkgs);
+      environment.etc.nixpkgs.source = toString sources.nixpkgs;
 
       nix.nixPath = [
         "nixos-config=${nixosConfig}"

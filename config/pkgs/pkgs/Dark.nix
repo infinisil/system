@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitLab }:
+{ stdenv, fetchFromGitLab, sources }:
 
 stdenv.mkDerivation {
   name = "Dark";
-  src = (import ../../sources).Dark;
+  src = sources.DarK;
   makeFlags = [ "PREFIX=$(out)" ];
 }
 

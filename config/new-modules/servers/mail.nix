@@ -6,7 +6,7 @@ let
 
   cfg = config.mine.mail;
 
-  module = import (import ../../sources).nixos-mailserver;
+  module = import (import ../../../nix/sources.nix {}).nixos-mailserver;
 
   domain = config.networking.domain;
 

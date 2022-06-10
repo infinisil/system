@@ -1,10 +1,10 @@
-{ lib, config, nixus, ... }:
+{ lib, config, nixus, sources, ... }:
 let
   inherit (lib) types;
 
   nixusConfig = config;
 
-  package = import (import ../../sources).on-demand-minecraft;
+  package = import sources.on-demand-minecraft;
 
 
 

@@ -1,1 +1,1 @@
-{ }: import (import ../../sources).soph {}
+{ sources }: import sources.soph {}

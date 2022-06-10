@@ -1,6 +1,3 @@
-[submodule "nixpkgs"]
-	path = external/nixpkgs
-	url = git@github.com:Infinisil/nixpkgs
 [submodule "private"]
 	path = external/private
 	url = git@infinisil.com:private

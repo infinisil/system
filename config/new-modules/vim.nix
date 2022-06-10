@@ -1,10 +1,10 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, sources, ... }:
 
 with lib;
 
 let
 
-  dag = (import (import ../sources).nur { inherit pkgs; }).repos.rycee.lib.dag;
+  dag = (import sources.nur { inherit pkgs; }).repos.rycee.lib.dag;
 
 in
 

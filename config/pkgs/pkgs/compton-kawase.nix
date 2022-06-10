@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub }:
+{ lib, fetchFromGitHub, sources }:
 
 # TODO: Clean up this mess
 
@@ -30,7 +30,7 @@ let
 
   compton-kawase = pkgs.compton-git.overrideAttrs (old: {
 
-    src = (import ../../sources).compton-kawase;
+    src = sources.compton-kawase;
 
     nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.makeWrapper ];
 
