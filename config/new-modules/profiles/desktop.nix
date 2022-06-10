@@ -15,8 +15,6 @@ with lib;
 
     mine.hueadm.enable = true;
 
-    mine.newsboat.enable = true;
-
     mine.userConfig = {
       services.flameshot.enable = true;
       services.gpg-agent = {
