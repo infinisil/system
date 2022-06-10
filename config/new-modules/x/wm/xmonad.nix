@@ -111,9 +111,7 @@ in
         enable = true;
         extraPackages = self: [ self.fuzzy ];
         enableContribAndExtras = true;
-        config = pkgs.runCommand "xmonad.hs" (config.scripts // {
-          spacing = if config.mine.hardware.battery then "False" else "True";
-        }) "substituteAll ${./xmonad.hs} $out";
+        config = pkgs.runCommand "xmonad.hs" config.scripts "substituteAll ${./xmonad.hs} $out";
 
       };
 

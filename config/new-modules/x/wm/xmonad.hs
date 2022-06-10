@@ -41,14 +41,11 @@ import           Data.Semigroup
 import           XMonad.Actions.CopyWindow
 
 layoutSpacing =
-  mods $ mkToggle (single FULL) emptyBSP
-    where
-      mods = avoidStruts . smartBorders . smartSpacing 2
-
-layout =
-  mods $ mkToggle (single FULL) emptyBSP
-    where
-      mods = avoidStruts . smartBorders
+  avoidStruts
+  . smartBorders
+  . smartSpacing 2
+  . mkToggle (single FULL)
+  $ emptyBSP
 
 c1 = "#6F1313"
 c2 = "#A93316"
@@ -81,39 +78,12 @@ myKeymap c n =
   , ("M4-p", passPrompt ppconfig)
   , ("M4-t", withFocused $ windows . W.sink)
   , ("M4-m", sendMessage $ Toggle FULL)
-  --, ("<Break> x", xmonadPrompt def)
-  --, ("<Break> s m", spawn "@mobile@")
-  --, ("<Break> s d", spawn "@desktop@")
-  --, ("<Break> m ;", spawn "@rate1@")
-  --, ("<Break> m ,", spawn "@rate2@")
-  --, ("<Break> m .", spawn "@rate3@")
-  --, ("<Break> m p", spawn "@rate4@")
-  --, ("<Break> m y", spawn "@rate5@")
-  --, ("<Break> m f", spawn "@rate6@")
-  --, ("<Break> m g", spawn "@rate7@")
-  --, ("<Break> m c", spawn "@rate8@")
-  --, ("<Break> m r", spawn "@rate9@")
-  --, ("<Break> m l", spawn "@rate10@")
-  --, ("<Break> m n", spawn "@nope@")
-  --, ("<Break> s n", spawn "@nani@")
-  --, ("<Break> s e", spawn "@explosion@")
-  --, ("<Break> s b", spawn "@baka@")
-  --, ("M4-n", spawn "@nope@")
-  --, ("<Break> m t", spawn "@tag@")
-  --, ("<Break> b h", spawn "home-manager switch")
-  --, ("<Break> r x", spawn "xmonad --restart && systemctl --user restart xmobar")
-  --, ("<Break> t b", spawn "@toggleXmobar@")
-  --, ("<Break> t l", spawn "@toggleLive@")
-  --, ("<Break> t p", spawn "@toggle@")
-  --, ("<Break> t c", spawn "@toggleCompton@")
   , ("<XF86AudioPlay>", spawn "mpc sendmessage toggle 1")
   , ("<XF86AudioNext>", spawn "mpc sendmessage playlist next")
   , ("<XF86AudioPrev>", spawn "mpc sendmessage playlist prev")
   , ("<XF86AudioRaiseVolume>", spawn "@volUp@")
   , ("<XF86AudioLowerVolume>", spawn "@volDown@")
   , ("<XF86AudioMute>", spawn "@toggleMute@")
-  --, ("<F2>", spawn "@brightUp@")
-  --, ("<F1>", spawn "@brightDown@")
   , ("M4-<Tab>", windows W.focusDown)
   , ("M4-S-<Tab>", windows W.focusUp)
   , ("M4-a", sendMessage SelectNode)
@@ -163,25 +133,22 @@ myNavigation2DConfig = def
 main :: IO ()
 main = do
   nScreens <- countScreens
-  let spacing = fromMaybe False . readMaybe $ "@spacing@"
-  if spacing
-    then xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
-    else xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layout
+  xmonad $ EWMH.ewmhFullscreen $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
 
-copyWindowToAll :: (Eq a, Eq i, Eq s) => a -> W.StackSet i l a s sd -> W.StackSet i l a s sd
-copyWindowToAll w s = foldr (copyWindow w . W.tag) s (W.workspaces s)
+-- copyWindowToAll :: (Eq a, Eq i, Eq s) => a -> W.StackSet i l a s sd -> W.StackSet i l a s sd
+-- copyWindowToAll w s = foldr (copyWindow w . W.tag) s (W.workspaces s)
 
-copyShivacam :: Event -> X All
-copyShivacam MapRequestEvent { ev_window = w } = runQuery title w >>= \case
-  "copyall" -> withDisplay $ \dpy -> do
-    withWindowAttributes dpy w $ \wa -> do
-      managed <- isClient w
-      when (not (wa_override_redirect wa) && not managed) $ manage w
-
-    windows $ copyWindowToAll w
-    return $ All False
-  _ -> return $ All True
-copyShivacam _ = return $ All True
+-- copyShivacam :: Event -> X All
+-- copyShivacam MapRequestEvent { ev_window = w } = runQuery title w >>= \case
+--   "copyall" -> withDisplay $ \dpy -> do
+--     withWindowAttributes dpy w $ \wa -> do
+--       managed <- isClient w
+--       when (not (wa_override_redirect wa) && not managed) $ manage w
+--
+--     windows $ copyWindowToAll w
+--     return $ All False
+--   _ -> return $ All True
+-- copyShivacam _ = return $ All True
 
 
 myConfig :: ScreenId -> l Window -> XConfig l
@@ -191,14 +158,11 @@ myConfig n l = def
     , manageHook =
       (title =? "copyall" --> doFloat) <+>
       (title =? "Dunst" --> insertPosition Above Older) <+>
-      (isFullscreen --> doFullFloat) <+>
+      -- (isFullscreen --> doFullFloat) <+>
       manageHook def
     , layoutHook = l
     , workspaces = (if n == 1 then id else withScreens n) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    , handleEventHook =
-      copyShivacam <+>
-      EWMH.fullscreenEventHook <+>
-      EWMH.ewmhDesktopsEventHook
+    -- , handleEventHook = copyShivacam
     , logHook = dynamicLogString xmobarPP
       { ppTitle = xmobarColor "green" "" . shorten 30
       } >>= xmonadPropLog
@@ -206,8 +170,7 @@ myConfig n l = def
     , normalBorderColor = "#000000"
     , focusedBorderColor = "#FFFFFF"
     , keys = \c -> mkKeymap c (myKeymap c n)
-    , startupHook = do
-        return ()
+    , startupHook =
         --checkKeymap myConfig (myKeymap myConfig)
         setDefaultCursor xC_left_ptr
     }
