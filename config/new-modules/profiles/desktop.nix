@@ -13,8 +13,6 @@ with lib;
     services.printing.enable = true;
     programs.system-config-printer.enable = true;
 
-    mine.hueadm.enable = true;
-
     mine.userConfig = {
       services.flameshot.enable = true;
       services.gpg-agent = {
