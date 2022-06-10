@@ -227,6 +227,11 @@ in {
   environment.autoUpdate.enable = true;
   environment.autoUpdate.presets.yt-dlp = true;
 
+  environment.autoUpdate.packages.discord.spec = {
+    attrPath = [ "discord" ];
+    config.allowUnfree = true;
+  };
+
   # Remove fs-before.target
   systemd.services.zfs-import-main.before = lib.mkForce [
     "betty.mount"
