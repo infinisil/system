@@ -215,7 +215,7 @@ in {
         };
 
         Service = {
-          Environment = "PATH=${lib.makeBinPath [ pkgs.mpc_cli pkgs.pot pkgs.pulseaudio pkgs.gnused ]}";
+          Environment = "PATH=${lib.makeBinPath [ pkgs.mpc_cli /*pkgs.pot*/ pkgs.pulseaudio pkgs.gnused ]}";
           ExecStart = "${pkgs.haskellPackages.xmobar}/bin/xmobar ${configFile}";
           Restart = "on-failure";
         };

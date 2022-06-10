@@ -86,12 +86,15 @@ with lib;
       };
 
       services.redshift.enable = true;
+      services.redshift = {
+        latitude = "47.4";
+        longitude = "9.2";
+      };
 
       xsession.enable = true;
 
       home.packages = with pkgs; [
         (mpv.override { youtubeSupport = false; })
-        mine.pics
         thunderbird
         helvetica-neue-lt-std
       ];
