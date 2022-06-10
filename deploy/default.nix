@@ -123,6 +123,17 @@ in
     };
   };
 
+  nodes.zion = {
+    deployFrom.vario.host = "root@192.168.0.17";
+    deployFrom.vario.hasFastConnection = true;
+    configuration = {
+      imports = [
+        (sources.home-manager + "/nixos")
+        ../config/machines/zion
+      ];
+    };
+  };
+
   nodes.mac.enable = false;
   nodes.phone.enable = false;
 
