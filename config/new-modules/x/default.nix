@@ -55,7 +55,7 @@ with lib;
         })
         hanazono
         ipafont
-        mplus-outline-fonts
+        mplus-outline-fonts.osdnRelease
         noto-fonts-cjk
         noto-fonts-emoji
         noto-fonts
