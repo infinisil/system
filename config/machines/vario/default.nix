@@ -62,6 +62,13 @@ in {
       (lib.filterAttrs (name: value: value.networking ? public.hasIpv4 && value.networking.public.hasIpv4) nodes);
   };
 
+  services.picom = {
+    enable = true;
+    vSync = true;
+    experimentalBackends = true;
+    backend = "glx";
+  };
+
   services.zrepl = {
     enable = true;
     settings = {
