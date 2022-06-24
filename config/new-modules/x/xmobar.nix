@@ -210,7 +210,7 @@ in {
         Unit = {
           Description = "Xmobar";
           After = [ "graphical-session-pre.target" "musicInfo.service" ];
-          Requires = [ "musicInfo.service" ];
+          Wants = [ "musicInfo.service" ];
           PartOf = [ "graphical-session.target" ];
         };
 

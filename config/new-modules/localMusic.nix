@@ -16,6 +16,14 @@ in {
         enable = true;
         musicDirectory = "${musicDir}/data";
         playlistDirectory = "${musicDir}/playlists";
+        extraConfig = ''
+          audio_output {
+              type "pipewire"
+              name "Pipewire"
+          }
+
+          replaygain "auto"
+        '';
       };
 
       systemd.user.services.musicInfo = let
