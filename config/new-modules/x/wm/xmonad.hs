@@ -7,7 +7,9 @@ import           System.Environment                  (getEnv)
 import qualified Text.Fuzzy                          as Fuzz
 import           Text.Read                           (readMaybe)
 import           XMonad
+import           XMonad.Util.WindowProperties (getProp32)
 import           XMonad.Actions.DeManage
+import           XMonad.Prelude (delete)
 import           XMonad.Actions.Navigation2D
 import           XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.EwmhDesktops           as EWMH
@@ -17,7 +19,7 @@ import           XMonad.Hooks.ManageHelpers
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.BoringWindows
 import           XMonad.Layout.CenteredMaster
-import           XMonad.Layout.Fullscreen
+import           XMonad.Layout.Fullscreen as Full
 import           XMonad.Layout.MosaicAlt
 import           XMonad.Layout.MultiToggle
 import           XMonad.Layout.MultiToggle.Instances
@@ -41,10 +43,10 @@ import           Data.Semigroup
 import           XMonad.Actions.CopyWindow
 
 layoutSpacing =
-  avoidStruts
-  . smartBorders
-  . smartSpacing 2
-  . mkToggle (single FULL)
+  Full.fullscreenFocus .
+  noBorders .
+  avoidStruts .
+  mkToggle (single FULL)
   $ emptyBSP
 
 c1 = "#6F1313"
@@ -77,7 +79,19 @@ myKeymap c n =
   , ("M4-i", spawn "@irc@")
   , ("M4-p", passPrompt ppconfig)
   , ("M4-t", withFocused $ windows . W.sink)
-  , ("M4-m", sendMessage $ Toggle FULL)
+  , ("M4-m", withDisplay $ \dpy -> withFocused $ \win -> do
+      wmstate <- getAtom "_NET_WM_STATE"
+      fullsc <- getAtom "_NET_WM_STATE_FULLSCREEN"
+      wstate <- fromMaybe [] <$> getProp32 wmstate win
+      let isFull = fromIntegral fullsc `elem` wstate
+          chWState f = io $ changeProperty32 dpy win wmstate aTOM propModeReplace (f wstate)
+      if isFull then do
+        chWState $ delete (fromIntegral fullsc)
+        broadcastMessage $ Full.RemoveFullscreen win
+        sendMessage Full.FullscreenChanged
+      else
+        sendMessage $ Toggle FULL
+    )
   , ("<XF86AudioPlay>", spawn "mpc sendmessage toggle 1")
   , ("<XF86AudioNext>", spawn "mpc sendmessage playlist next")
   , ("<XF86AudioPrev>", spawn "mpc sendmessage playlist prev")
@@ -133,7 +147,7 @@ myNavigation2DConfig = def
 main :: IO ()
 main = do
   nScreens <- countScreens
-  xmonad $ EWMH.ewmhFullscreen $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
+  xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
 
 -- copyWindowToAll :: (Eq a, Eq i, Eq s) => a -> W.StackSet i l a s sd -> W.StackSet i l a s sd
 -- copyWindowToAll w s = foldr (copyWindow w . W.tag) s (W.workspaces s)
@@ -158,11 +172,12 @@ myConfig n l = def
     , manageHook =
       (title =? "copyall" --> doFloat) <+>
       (title =? "Dunst" --> insertPosition Above Older) <+>
-      -- (isFullscreen --> doFullFloat) <+>
-      manageHook def
+      manageHook def <+>
+      Full.fullscreenManageHook
     , layoutHook = l
     , workspaces = (if n == 1 then id else withScreens n) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    -- , handleEventHook = copyShivacam
+    , handleEventHook = -- copyShivacam
+        Full.fullscreenEventHook
     , logHook = dynamicLogString xmobarPP
       { ppTitle = xmobarColor "green" "" . shorten 30
       } >>= xmonadPropLog
@@ -171,6 +186,6 @@ myConfig n l = def
     , focusedBorderColor = "#FFFFFF"
     , keys = \c -> mkKeymap c (myKeymap c n)
     , startupHook =
-        --checkKeymap myConfig (myKeymap myConfig)
-        setDefaultCursor xC_left_ptr
+      setDefaultCursor xC_left_ptr <+>
+        EWMH.fullscreenStartup
     }

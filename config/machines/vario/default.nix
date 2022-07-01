@@ -67,6 +67,14 @@ in {
     vSync = true;
     experimentalBackends = true;
     backend = "glx";
+    inactiveOpacity = 0.9;
+    settings = {
+      blur = {
+        method = "gaussian";
+        size = 10;
+        deviation = 5.0;
+      };
+    };
   };
 
   services.zrepl = {
