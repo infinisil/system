@@ -19,6 +19,13 @@ in
         options.targetDir = lib.mkOption {
           type = types.path;
         };
+        options.outputTemplate = lib.mkOption {
+          type = types.addCheck types.str (str: ! lib.hasPrefix "/" str);
+          default = "%(upload_date)s %(title)s.%(ext)s";
+          description = ''
+            See <https://github.com/yt-dlp/yt-dlp#output-template>
+          '';
+        };
         options.user = lib.mkOption {
           type = types.str;
         };
@@ -44,7 +51,7 @@ in
     systemd.services = lib.mapAttrs' (name: value: lib.nameValuePair "youtube-playlist-download-${name}" {
       description = "Automatic youtube playlist download for ${name}";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "auto-update.service" ];
+      after = [ "network-online.target" "auto-update.service" ];
 
       preStart = "mkdir -p ${value.targetDir}";
       serviceConfig = {
@@ -55,7 +62,8 @@ in
           "--download-archive" "${value.targetDir}/.archive"
           "--add-metadata"
           "--ignore-errors"
-          "--output" "${value.targetDir}/%(upload_date)s %(title)s.%(ext)s"
+          "--paths" value.targetDir
+          "--output" value.outputTemplate
           value.playlist
         ] ++ value.extraOptions);
       };
