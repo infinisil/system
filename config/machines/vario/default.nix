@@ -47,6 +47,8 @@ in {
     ./hardware-configuration.nix
   ];
 
+  mine.cdSupport.enable = true;
+
   hardware.cpu.intel.updateMicrocode = true;
 
   mine.localMusic.enable = true;
