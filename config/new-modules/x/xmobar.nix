@@ -135,15 +135,15 @@ in {
     scripts = {
 
       power = ''
-        ${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/BAT0/current_now)/1000000"
+        ${pkgs.bc}/bin/bc <<< "scale=1; $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/*/current_now)/1000000"
       '';
       batt = ''
         PATH="${lib.makeBinPath (with pkgs; [ acpi gawk bc coreutils ])}:$PATH"
 
         battstat=$(acpi -b | cut -d' ' -f3 | tr -d ',')
 
-        charge_now=$(cat /sys/class/power_supply/BAT0/charge_now)
-        charge_full=$(cat /sys/class/power_supply/BAT0/charge_full)
+        charge_now=$(cat /sys/class/power_supply/*/charge_now)
+        charge_full=$(cat /sys/class/power_supply/*/charge_full)
 
         charge=$(bc <<EOF
         scale=2
