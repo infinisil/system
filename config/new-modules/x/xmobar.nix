@@ -119,11 +119,11 @@ let
           echo "<action=pot>$odescr</action> | Vol: $ovolume%$muteString"
 
         ''}" [] "volume" 2
-      , Run PipeReader "''${XDG_RUNTIME_DIR}/musicInfo" "info"
+      ${lib.optionalString config.mine.localMusic.enable '', Run PipeReader "''${XDG_RUNTIME_DIR}/musicInfo" "info"''}
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% }%info%{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% }${lib.optionalString config.mine.localMusic.enable "%info%"}{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
@@ -198,8 +198,8 @@ in {
       systemd.user.services.xmobar = {
         Unit = {
           Description = "Xmobar";
-          After = [ "graphical-session-pre.target" "musicInfo.service" ];
-          Wants = [ "musicInfo.service" ];
+          After = [ "graphical-session-pre.target" ] ++ lib.optional config.mine.localMusic.enable "musicInfo.service";
+          Wants = lib.optional config.mine.localMusic.enable "musicInfo.service";
           PartOf = [ "graphical-session.target" ];
         };
 
