@@ -34,7 +34,9 @@ mkIf config.mine.console.enable {
         cd "$HOME/test/$1"
       }
 
-      bindkey '^ ' autosuggest-execute
+      ${lib.optionalString config.programs.zsh.autosuggestions.enable ''
+        bindkey '^ ' autosuggest-execute
+      ''}
 
       __cda() {
         local sel
