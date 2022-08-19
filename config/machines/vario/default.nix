@@ -23,11 +23,23 @@ let
     pactl set-default-sink "''${sinks[$toActivate]}"
   '';
 
+  hippo = pkgs.writeShellScriptBin "hippo" ''
+    ${pkgs.xorg.xrandr}/bin/xrandr \
+      --output HDMI-0 --mode 3840x2160 --pos 0x0 --scale 1x1 --rate 30 --primary \
+      --output DP-2 --off \
+      --output DP-5 --mode 1920x1080 --pos 0x0 --scale 2x2 --rate 30
+  '';
   projector = pkgs.writeShellScriptBin "projector" ''
-    xrandr --output HDMI-0 --mode 1920x1080 --output DP-2 --off
+    ${pkgs.xorg.xrandr}/bin/xrandr \
+      --output HDMI-0 --mode 1920x1080 --pos 0x0 --scale 1x1 --rate 119.88 --primary \
+      --output DP-2 --off \
+      --output DP-5 --mode 1920x1080 --pos 0x0 --scale 1x1 --rate 119.88
   '';
   monitor = pkgs.writeShellScriptBin "monitor" ''
-    xrandr --output HDMI-0 --off --output DP-2 --mode 2560x1440
+    ${pkgs.xorg.xrandr}/bin/xrandr \
+      --output HDMI-0 --off \
+      --output DP-2 --mode 2560x1440 --pos 0x0 --scale 1x1 --rate 144.00 --primary \
+      --output DP-5 --mode 1280x720 --pos 0x0 --scale 2x2 --rate 60.00
   '';
 in {
 
@@ -273,14 +285,15 @@ in {
   mine.profiles.default.enable = true;
   mine.profiles.desktop.enable = true;
 
-  services.xserver.xrandrHeads = [
-    {
-      output = "HDMI-0";
-      monitorConfig = ''
-        Option "Enable" "false"
-      '';
-    }
-  ];
+  services.xserver.displayManager.lightdm.extraSeatDefaults = ''
+    display-setup-script=${monitor}/bin/monitor
+  '';
+  services.xserver.serverFlagsSection = ''
+    Option "StandbyTime" "120"
+    Option "SuspendTime" "120"
+    Option "OffTime" "120"
+    Option "BlankTime" "120"
+  '';
 
   # hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
@@ -308,6 +321,7 @@ in {
     slack-dark
     pot
     projector
+    hippo
     monitor
     syncplay
     anki-bin
