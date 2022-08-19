@@ -12,24 +12,90 @@
       ../../assets
       ../../modules
       ../../personal/user.nix
+      ((import ../../../nix/sources.nix {}).nixos-hardware + "/framework")
+      ../../personal/bins.nix
     ];
 
+  hardware.bluetooth.enable = true;
+
+  mine.userConfig = {
+    services.gpg-agent = {
+      enable = true;
+      extraConfig = ''
+        pinentry-program ${pkgs.pinentry.qt}/bin/pinentry
+      '';
+    };
+  };
+
+  services.clight.enable = true;
+
+  location.latitude = 47.4;
+  location.longitude = 9.2;
+
   mine.sound.enable = true;
+  mine.vim.enable = true;
+
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
+  services.fwupd.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: lib.elem (lib.getName pkg) [
     "helvetica-neue-lt-std"
+    "slack"
   ];
+
+  networking.iphoneUsbTethering.enable = true;
+
+  #services.udev.extraHwdb = ''
+  #  evdev:atkbd:dmi:*
+  #   KEYBOARD_KEY_db=leftalt
+  #   KEYBOARD_KEY_38=leftmeta
+  #'';
+
+  mine.hardware.battery = true;
 
   mine.enableUser = true;
 
-  mine.console.enable = false;
+  mine.console.enable = true;
 
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
 
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+    efiInstallAsRemovable = true;
+    #extraEntries = ''
+    #  menuentry "LibreElec" {
+    #    search -set=drive1 --label boot
+    #    linux ($drive1)//root/@//KERNEL boot=/dev/nvme0n1p2 disk=/dev/nvme0n1p3
+    #  }
+    #'';
+    #extraFiles = {
+    #  KERNEL = /boot/KERNEL;
+    #  SYSTEM = /boot/SYSTEM;
+    #};
+  };
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.editor = false;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #boot.loader.systemd-boot = let
+  #in {
+  #  enable = true;
+  #  editor = false;
+  #  netbootxyz.enable = true;
+  #  extraEntries = {
+  #    "libre-elec.conf" = ''
+  #      title LibreELEC
+  #      version Some version
+  #      linux /KERNEL
+  #      options disk="LABEL=STORAGE"
+  #    '';
+  #  };
+  #  extraFiles = {
+  #    "KERNEL" = /mnt/KERNEL;
+  #    "SYSTEM" = /mnt/SYSTEM;
+  #  };
+  #};
+  #boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "zion";
   networking.hostId = "e585b53a";
@@ -38,19 +104,11 @@
 
   services.fprintd.enable = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
   time.timeZone = "Europe/Zurich";
 
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
   console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
@@ -62,7 +120,6 @@
     displayManager = {
       lightdm = {
         enable = true;
-        #background = toString config.mine.assets.blurred;
       };
 
       #sessionCommands = ''
@@ -108,16 +165,6 @@
     ];
   };
 
-  #mine.xUserConfig = {
-  #  xsession.enable = true;
-  #  xsession.windowManager.xmonad = {
-  #    enable = true;
-  #    extraPackages = self: [ self.fuzzy ];
-  #    enableContribAndExtras = true;
-  #    config = pkgs.runCommand "xmonad.hs" config.scripts "substituteAll ${../../new-modules/x/wm/xmonad.hs} $out";
-  #  };
-  #};
-
   services.xserver.autoRepeatDelay = 200;
   services.xserver.autoRepeatInterval = 25;
   services.xserver.xkbOptions = "caps:backspace";
@@ -129,29 +176,13 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.jane = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  #   packages = with pkgs; [
-  #     firefox
-  #     thunderbird
-  #   ];
-  # };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
+    vim
     htop
+    git
+    slack
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -162,6 +193,7 @@
   #   enableSSHSupport = true;
   # };
   services.xserver.libinput.enable = true;
+  services.xserver.libinput.touchpad.naturalScrolling = true;
 
   # List services that you want to enable:
 
@@ -172,19 +204,28 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjY4cuUk4IWgBgnEJSULkIHO+njUmIFP+WSWy7IobBs"
   ];
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  fonts = {
+    fontDir.enable = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "Iosevka"
+          "FiraMono"
+          "FantasqueSansMono"
+        ];
+      })
+      hanazono
+      ipafont
+      mplus-outline-fonts.osdnRelease
+      noto-fonts-cjk
+      noto-fonts-emoji
+      noto-fonts
+      wqy_zenhei
+    ];
+  };
 
-  #mine.x.enable = true;
-  #mine.wm.enable = true;
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -193,6 +234,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
 }
 

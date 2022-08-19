@@ -30,6 +30,7 @@ in
   libOverlay = self: super: {
     ip = import ./lib/ip.nix self;
   };
+  specialArgs.sources = sources;
 } ({ lib, ... }: {
 
   _file = ./default.nix;
@@ -38,8 +39,6 @@ in
     ../external/private
     ../config/multimods
   ];
-
-  _module.args.sources = sources;
 
   inherit deployHost;
 
@@ -130,6 +129,7 @@ in
       imports = [
         (sources.home-manager + "/nixos")
         ../config/machines/zion
+        deployer
       ];
     };
   };

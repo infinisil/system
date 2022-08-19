@@ -17,6 +17,18 @@
         "url": "https://github.com/nix-community/home-manager/archive/70824bb5c790b820b189f62f643f795b1d2ade2e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nixos-hardware": {
+        "branch": "master",
+        "description": "A collection of NixOS modules covering hardware quirks.",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "0cab18a48de7914ef8cad35dca0bb36868f3e1af",
+        "sha256": "03350xdwh3nr2fvlsvrrgi3ggvqjnpmlbp0wg2gks9pvic5knylr",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixos-hardware/archive/0cab18a48de7914ef8cad35dca0bb36868f3e1af.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixos-mailserver": {
         "branch": "master",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver.git",
