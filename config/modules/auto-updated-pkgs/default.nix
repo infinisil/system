@@ -180,6 +180,8 @@ in {
         NotifyAccess = "all";
         DynamicUser = true;
         RuntimeDirectory = "auto-update";
+        # Sometimes it takes a bit longer to download the packages
+        TimeoutStartSec = 300;
       };
     };
 
