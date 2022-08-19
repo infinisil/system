@@ -94,7 +94,7 @@ with lib;
       xsession.enable = true;
 
       home.packages = with pkgs; [
-        (mpv.override { youtubeSupport = false; })
+        mpv
         thunderbird
         helvetica-neue-lt-std
       ];

@@ -84,6 +84,15 @@ in {
       spec.overrides.withAlias = true;
     };
 
+    nixpkgs.overlays = [
+      # By default, mpv comes with youtube-dl/yt-dlp as a dependency and doesn't use the version from PATH
+      (lib.mkIf cfg.presets.yt-dlp (self: super: {
+        mpv = super.mpv.override {
+          youtubeSupport = false;
+        };
+      }))
+    ];
+
     environment.profiles = [ cfg.profile ];
 
     systemd.services.auto-update = {
