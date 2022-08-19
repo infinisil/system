@@ -71,7 +71,7 @@ ppconfig = def
   , historyFilter = deleteConsecutive
   }
 
-myKeymap c n =
+myKeymap c =
   [ ("M4-f", spawn "@firefox@")
   , ("M4-w", kill)
   , ("M4-<Space>", spawn "@run@")
@@ -145,9 +145,7 @@ myNavigation2DConfig = def
   }
 
 main :: IO ()
-main = do
-  nScreens <- countScreens
-  xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig nScreens layoutSpacing
+main = xmonad $ EWMH.ewmh $ docks $ withNavigation2DConfig myNavigation2DConfig $ myConfig layoutSpacing
 
 -- copyWindowToAll :: (Eq a, Eq i, Eq s) => a -> W.StackSet i l a s sd -> W.StackSet i l a s sd
 -- copyWindowToAll w s = foldr (copyWindow w . W.tag) s (W.workspaces s)
@@ -165,8 +163,8 @@ main = do
 -- copyShivacam _ = return $ All True
 
 
-myConfig :: ScreenId -> l Window -> XConfig l
-myConfig n l = def
+myConfig :: l Window -> XConfig l
+myConfig l = def
     { terminal = "kitty"
     , modMask = mod4Mask
     , manageHook =
@@ -175,7 +173,7 @@ myConfig n l = def
       manageHook def <+>
       Full.fullscreenManageHook
     , layoutHook = l
-    , workspaces = (if n == 1 then id else withScreens n) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    , workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     , handleEventHook = -- copyShivacam
         Full.fullscreenEventHook
     , logHook = dynamicLogString xmobarPP
@@ -184,7 +182,7 @@ myConfig n l = def
     , borderWidth = 2
     , normalBorderColor = "#000000"
     , focusedBorderColor = "#FFFFFF"
-    , keys = \c -> mkKeymap c (myKeymap c n)
+    , keys = \c -> mkKeymap c (myKeymap c)
     , startupHook =
       setDefaultCursor xC_left_ptr <+>
         EWMH.fullscreenStartup
