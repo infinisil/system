@@ -7,12 +7,12 @@
     services.usbmuxd.enable = true;
 
     # Predictably names the iphone's tethering interface "iphone"
-    systemd.network.links."81-iphone" = {
-      matchConfig.Driver = "ipheth";
-      linkConfig.Name = "iphone";
-    };
+    #systemd.network.links."81-iphone" = {
+    #  matchConfig.Driver = "ipheth";
+    #  linkConfig.Name = "iphone";
+    #};
 
     # Enable DHCP to set up correct routes
-    networking.interfaces.iphone.useDHCP = true;
+    #networking.interfaces.iphone.useDHCP = true;
   };
 }
