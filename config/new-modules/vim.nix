@@ -18,7 +18,10 @@ in
       mkdir -p $HOME/.local/share/vim/{undo,swap}
     '';
 
-    home.packages = [ pkgs.nodePackages.bash-language-server ];
+    home.packages = [
+      pkgs.nodePackages.bash-language-server
+      pkgs.xclip
+    ];
 
     home.sessionVariables.EDITOR = "vim";
 
