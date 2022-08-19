@@ -47,6 +47,7 @@ in {
     ./hardware-configuration.nix
   ];
 
+  mine.terminal.enable = true;
   mine.cdSupport.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -72,21 +73,6 @@ in {
     matchBlocks =
       lib.mapAttrs (name: value: { hostname = value.networking.public.ipv4; })
       (lib.filterAttrs (name: value: value.networking ? public.hasIpv4 && value.networking.public.hasIpv4) nodes);
-  };
-
-  services.picom = {
-    enable = true;
-    vSync = true;
-    experimentalBackends = true;
-    backend = "glx";
-    inactiveOpacity = 0.9;
-    settings = {
-      blur = {
-        method = "gaussian";
-        size = 10;
-        deviation = 5.0;
-      };
-    };
   };
 
   services.zrepl = {
@@ -284,6 +270,39 @@ in {
 
   mine.profiles.default.enable = true;
   mine.profiles.desktop.enable = true;
+
+  mine.xmonad = {
+    enable = true;
+    modifier = 4;
+    switchWorkspaceKeys = [
+      "M-S-7"  # & in the US layout
+      "M-["    # [
+      "M-S-["  # {
+      "M-S-]"  # }
+      "M-S-9"  # (
+      "M-="    # =
+      "M-S-8"  # *
+      "M-S-0"  # )
+      "M-S-="  # +
+      "M-]"    # ]
+      "M-S-1"  # !
+      "M-S-3"  # #
+    ];
+    shiftWorkspaceKeys = [
+      "M-S-5"  # % in the US layout
+      "M-7"    # 7
+      "M-5"    # 5
+      "M-3"    # 3
+      "M-1"    # 1
+      "M-9"    # 9
+      "M-0"    # 0
+      "M-2"    # 2
+      "M-4"    # 4
+      "M-6"    # 6
+      "M-8"    # 8
+      "M-`"    # `
+    ];
+  };
 
   services.xserver.displayManager.lightdm.extraSeatDefaults = ''
     display-setup-script=${monitor}/bin/monitor

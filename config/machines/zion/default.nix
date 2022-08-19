@@ -55,17 +55,10 @@
   };
 
   mine.terminal.enable = true;
-  mine.xmobar.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver = {
-    windowManager.xmonad = {
-      enable = true;
-      extraPackages = self: [ self.fuzzy ];
-      enableContribAndExtras = true;
-      config = pkgs.runCommand "xmonad.hs" config.scripts "substituteAll ${./xmonad.hs} $out";
-    };
     displayManager = {
       lightdm = {
         enable = true;
@@ -82,6 +75,38 @@
     };
   };
 
+  mine.xmonad = {
+    enable = true;
+    modifier = 1;
+    switchWorkspaceKeys = [
+      "M-&"
+      "M-["
+      "M-{"
+      "M-}"
+      "M-("
+      "M-="
+      "M-*"
+      "M-)"
+      "M-+"
+      "M-]"
+      "M-!"
+      "M-#"
+    ];
+    shiftWorkspaceKeys = [
+      "M-S-&"
+      "M-S-["
+      "M-S-{"
+      "M-S-}"
+      "M-S-("
+      "M-S-="
+      "M-S-*"
+      "M-S-)"
+      "M-S-+"
+      "M-S-]"
+      "M-S-!"
+      "M-S-#"
+    ];
+  };
 
   #mine.xUserConfig = {
   #  xsession.enable = true;
@@ -95,9 +120,11 @@
 
   services.xserver.autoRepeatDelay = 200;
   services.xserver.autoRepeatInterval = 25;
-  services.xserver.xkbOptions = "caps:backspace,";
+  services.xserver.xkbOptions = "caps:backspace";
   # "compose???" ];
   services.xserver.xkbVariant = "dvp";
+
+  mine.userConfig.home.keyboard = null;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

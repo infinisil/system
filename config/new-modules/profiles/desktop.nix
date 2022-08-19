@@ -26,7 +26,6 @@ with lib;
     mine.taskclient.enable = true;
 
     mine.x.enable = true;
-    mine.wm.enable = true;
     #mine.dev.idris.enable = true;
     mine.dev.haskell.enable = true;
 
