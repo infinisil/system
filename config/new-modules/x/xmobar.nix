@@ -42,17 +42,6 @@ let
           , "-l" , "green"
           , "-n" , "orange"
           , "-h" , "red" ] 10
-        , Run CommandReader "${pkgs.writeScript "enoping" ''
-            #!${pkgs.bash}/bin/bash
-            while true; do
-              if /run/wrappers/bin/ping -I eno1 -c 1 -w 1 1.1.1.1 >/dev/null; then
-                echo "up"
-              else
-                echo "down"
-              fi
-              sleep 10
-            done
-          ''}" "enoping"
         , Run Com "${config.scripts.power}" [] "power" 10
         , Run Com "${config.scripts.batt}" [] "bt" 50
         , Run Com "${pkgs.writeShellScript "xmobar-volume" ''
@@ -134,7 +123,7 @@ let
       ]
       , sepChar = "%"
       , alignSep = "}{"
-      , template = "%XMonadLog% }%info%{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | eno1 %enoping% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
+      , template = "%XMonadLog% }%info%{ ${optionalString config.mine.hardware.battery "%power%A  | "}%volume% | %memory% | %dynnetwork%%cpu%  | ${optionalString config.mine.hardware.battery "%bt% | "}<fc=#ee9a00>%date%</fc>"
       }
   '';
 in {
