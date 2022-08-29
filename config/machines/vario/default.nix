@@ -27,19 +27,16 @@ let
     ${pkgs.xorg.xrandr}/bin/xrandr \
       --output HDMI-0 --mode 3840x2160 --pos 0x0 --scale 1x1 --rate 30 --primary \
       --output DP-2 --off \
-      --output DP-5 --mode 1920x1080 --pos 0x0 --scale 2x2 --rate 30
   '';
   projector = pkgs.writeShellScriptBin "projector" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
       --output HDMI-0 --mode 1920x1080 --pos 0x0 --scale 1x1 --rate 119.88 --primary \
       --output DP-2 --off \
-      --output DP-5 --mode 1920x1080 --pos 0x0 --scale 1x1 --rate 119.88
   '';
   monitor = pkgs.writeShellScriptBin "monitor" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output HDMI-0 --off \
+      --output HDMI-0 --mode 1280x720 --scale 2x2 --pos 0x0 \
       --output DP-2 --mode 2560x1440 --pos 0x0 --scale 1x1 --rate 144.00 --primary \
-      --output DP-5 --mode 1280x720 --pos 0x0 --scale 2x2 --rate 60.00
   '';
 in {
 
