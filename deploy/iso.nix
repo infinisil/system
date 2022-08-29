@@ -1,10 +1,22 @@
-(import ../external/nixpkgs/nixos {
-  configuration = {
+let
+  sources = import ../nix/sources.nix {};
 
-    imports = [ ../external/nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix ];
+  configuration = {
+    imports = [
+      (sources.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix")
+    ];
+
+    programs.neovim = {
+      enable = true;
+      vimAlias = true;
+      defaultEditor = true;
+    };
 
     i18n.consoleUseXkbConfig = true;
     services.xserver.xkbVariant = "dvp";
-
   };
-}).config.system.build.isoImage
+
+  nixos = import (sources.nixpkgs + "/nixos") {
+    inherit configuration;
+  };
+in nixos.config.system.build.isoImage
