@@ -16,6 +16,8 @@
         protos.root = true;
         orakel.root = true;
         vario.root = true;
+        zion.root = true;
+        zion.infinisil = true;
       };
     };
     keys.root = {
@@ -54,17 +56,19 @@
   };
 
   ssh.access.zion = {
-    hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFdSFceLb/6m2y86vzFM1xJqxe0hiqoQQsUPiLKR/vye";
+    hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICD5VQnx4jNFo5zG3ytUSZr07+HlzsB9P63VdDbO56hZ";
+    hostKeys.libreelec = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHeYHPkNEzBSL3S8q1catVqNwVD2yMn4IImvAaEVSjI3";
     hostNames = [
       "192.168.0.17"
     ];
-    keys.infinisil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOanEbhsLadAU2Nlu/l/QCF6VIYKCvBHgOa/RaZvh5sO infinisil@zion";
+    keys.infinisil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5yjcQ8Urk+uenJq96BopO/hnGow/hwiZtrM/+OBr8t infinisil@zion";
     keys.infinisil.hasAccessTo = {
       zion.root = true;
       protos.git = true;
       protos.root = true;
       orakel.root = true;
       vario.root = true;
+      vario.infinisil = true;
     };
   };
 

@@ -8,40 +8,39 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tank/enc/root";
+    { device = "pool/personal/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "tank/enc/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/var/lib" =
-    { device = "tank/enc/data/varlib";
+    { device = "pool/personal/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank/enc/data/home";
+    { device = "pool/personal/data/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/lib" =
+    { device = "pool/personal/data/varlib";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "boot";
       fsType = "zfs";
     };
 
   fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/F2EB-28BE";
+    { device = "/dev/disk/by-uuid/F822-04E1";
       fsType = "vfat";
-    };
-
-  fileSystems."/boot" =
-    { device = "boot/root";
-      fsType = "zfs";
     };
 
   swapDevices = [ ];

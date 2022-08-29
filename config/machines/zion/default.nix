@@ -16,6 +16,8 @@
       ../../personal/bins.nix
     ];
 
+  users.mutableUsers = false;
+
   hardware.bluetooth.enable = true;
 
   mine.userConfig = {
@@ -60,47 +62,28 @@
 
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
 
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev";
-    efiInstallAsRemovable = true;
-    #extraEntries = ''
-    #  menuentry "LibreElec" {
-    #    search -set=drive1 --label boot
-    #    linux ($drive1)//root/@//KERNEL boot=/dev/nvme0n1p2 disk=/dev/nvme0n1p3
-    #  }
-    #'';
-    #extraFiles = {
-    #  KERNEL = /boot/KERNEL;
-    #  SYSTEM = /boot/SYSTEM;
-    #};
+  boot.loader = {
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      extraEntries = ''
+        menuentry "LibreElec" {
+          search --set -f /KERNEL
+          # Turns off the builtin display, and forces a specific resolution for the projector (otherwise it only detects very low resolutions for some reason)
+          linux /KERNEL boot=UUID=E0D2-41B5 disk=UUID=a61696ac-07d1-4c07-a763-ab4618bb0996 quiet video=DP-4:3840x2160@60 video=eDP-1:d drm.edid_firmware=edid/edid.bin
+          initrd /edid.cpio
+        }
+      '';
+    };
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/efi";
+    };
   };
-  # Use the systemd-boot EFI boot loader.
-  #boot.loader.systemd-boot = let
-  #in {
-  #  enable = true;
-  #  editor = false;
-  #  netbootxyz.enable = true;
-  #  extraEntries = {
-  #    "libre-elec.conf" = ''
-  #      title LibreELEC
-  #      version Some version
-  #      linux /KERNEL
-  #      options disk="LABEL=STORAGE"
-  #    '';
-  #  };
-  #  extraFiles = {
-  #    "KERNEL" = /mnt/KERNEL;
-  #    "SYSTEM" = /mnt/SYSTEM;
-  #  };
-  #};
-  #boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "zion";
   networking.hostId = "e585b53a";
-  boot.zfs.devNodes = "/dev";
-  boot.loader.efi.efiSysMountPoint = "/efi";
 
   services.fprintd.enable = true;
 
@@ -199,10 +182,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjY4cuUk4IWgBgnEJSULkIHO+njUmIFP+WSWy7IobBs"
-  ];
 
   fonts = {
     fontDir.enable = true;
