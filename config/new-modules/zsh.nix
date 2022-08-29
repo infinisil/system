@@ -4,6 +4,12 @@ with lib;
 
 mkIf config.mine.console.enable {
 
+  home-manager.users.infinisil = {
+    home.file.".zshrc".text = ''
+      # Empty file, using system config
+    '';
+  };
+
   programs.zsh = {
     enable = true;
     histSize = 1000000;
