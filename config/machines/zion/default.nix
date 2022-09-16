@@ -133,6 +133,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg: lib.elem (lib.getName pkg) [
     "helvetica-neue-lt-std"
     "slack"
+    "zoom"
   ];
 
   networking.iphoneUsbTethering.enable = true;
@@ -220,6 +221,17 @@
     htop
     git
     slack
+    element-desktop
+    feh
+    arandr
+    mpv
+    xdotool
+    xorg.xwininfo
+    simplescreenrecorder
+    ffmpeg
+    thunderbird
+    guvcview
+    zoom-us
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
