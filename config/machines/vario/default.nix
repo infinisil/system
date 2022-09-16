@@ -25,18 +25,11 @@ let
 
   hippo = pkgs.writeShellScriptBin "hippo" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output HDMI-0 --mode 3840x2160 --pos 0x0 --scale 1x1 --rate 30 --primary \
-      --output DP-2 --off \
+      --output HDMI-0 --mode 3840x2160 --rate 30
   '';
   projector = pkgs.writeShellScriptBin "projector" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output HDMI-0 --mode 1920x1080 --pos 0x0 --scale 1x1 --rate 119.88 --primary \
-      --output DP-2 --off \
-  '';
-  monitor = pkgs.writeShellScriptBin "monitor" ''
-    ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output HDMI-0 --mode 1280x720 --scale 2x2 --pos 0x0 \
-      --output DP-2 --mode 2560x1440 --pos 0x0 --scale 1x1 --rate 144.00 --primary \
+      --output HDMI-0 --mode 1920x1080 --rate 119.88
   '';
 in {
 
@@ -302,7 +295,7 @@ in {
   };
 
   services.xserver.displayManager.lightdm.extraSeatDefaults = ''
-    display-setup-script=${monitor}/bin/monitor
+    display-setup-script=${projector}/bin/projector
   '';
   services.xserver.serverFlagsSection = ''
     Option "StandbyTime" "120"
@@ -338,7 +331,6 @@ in {
     pot
     projector
     hippo
-    monitor
     syncplay
     anki-bin
     element-desktop
