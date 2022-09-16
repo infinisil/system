@@ -30,6 +30,15 @@
     };
   };
 
+
+  mine.xUserConfig = {
+    services.random-background = {
+      enable = true;
+      imageDirectory = "%h/background";
+      interval = "120";
+    };
+  };
+
   services.clight.enable = true;
 
   location.latitude = 47.4;
@@ -40,7 +49,84 @@
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
+  boot.initrd.availableKernelModules = [
+    # https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
+    "i915"
+  ];
+
+  boot.kernelParams = [
+    "drm.edid_firmware=DP-1:edid/rogswift.bin"
+  ];
+
+  hardware.firmware = let
+    rogswiftEdid = pkgs.runCommand "rogswift.bin" {
+      # EDID data for ASUS PG278Q ROG monitor
+      # From https://bbs.archlinux.org/viewtopic.php?pid=2014292#p2014292
+      hex = ''
+        00ffffffffffff000469b127758201002b180104a53c2278064ce1a55850
+        a0230b505400000001010101010101010101010101010101565e00a0a0a0
+        29503020350056502100001a000000ff002341534e536230494c30655064
+        000000fd001e961ed236010a202020202020000000fc00524f4720504732
+        3738510a2020015002030a01654b040001015a8700a0a0a03b5030203500
+        56502100001a5aa000a0a0a046503020350056502100001a6fc200a0a0a0
+        55503020350056502100001a74d20016a0a009500410110056502100001e
+        1c2500a0a0a011503020350056502100001a000000000000000000000000
+        000000000000000000000000000000af'';
+      passAsFile = [ "hex" ];
+      nativeBuildInputs = [ pkgs.xxd ];
+    } ''
+      mkdir -p $out/lib/firmware/edid
+      xxd -r -p <"$hexPath" >"$out/lib/firmware/edid/rogswift.bin"
+    '';
+  in [
+    rogswiftEdid
+  ];
+
   services.fwupd.enable = true;
+
+  services.autorandr = {
+    enable = true;
+    defaultTarget = "--debug default";
+    hooks.postswitch = {
+      "restart-xmonad" = ''
+        xmonad --restart
+        pkill -x xmobar-custom
+      '';
+    };
+    profiles = {
+      default = {
+        fingerprint = {
+          eDP-1 = "00ffffffffffff0009e55f0900000000171d0104a51c137803de50a3544c99260f505400000001010101010101010101010101010101115cd01881e02d50302036001dbe1000001aa749d01881e02d50302036001dbe1000001a000000fe00424f452043510a202020202020000000fe004e4531333546424d2d4e34310a00fb";
+        };
+        config.eDP-1 = {
+          enable = true;
+          mode = "2256x1504";
+        };
+      };
+      docked = {
+        fingerprint = {
+          eDP-1 = "00ffffffffffff0009e55f0900000000171d0104a51c137803de50a3544c99260f505400000001010101010101010101010101010101115cd01881e02d50302036001dbe1000001aa749d01881e02d50302036001dbe1000001a000000fe00424f452043510a202020202020000000fe004e4531333546424d2d4e34310a00fb";
+          DP-1 = "00ffffffffffff000469b127758201002b180104a53c2278064ce1a55850a0230b505400000001010101010101010101010101010101565e00a0a0a029503020350056502100001a000000ff002341534e536230494c30655064000000fd001e961ed236010a202020202020000000fc00524f47205047323738510a2020015002030a01654b040001015a8700a0a0a03b503020350056502100001a5aa000a0a0a046503020350056502100001a6fc200a0a0a055503020350056502100001a74d20016a0a009500410110056502100001e1c2500a0a0a011503020350056502100001a000000000000000000000000000000000000000000000000000000af";
+        };
+        config = {
+          eDP-1 = {
+            enable = true;
+            mode = "2256x1504";
+            position = "0x0";
+          };
+          DP-1 = {
+            enable = true;
+            mode = "2560x1440";
+            primary = true;
+            position = "2256x0";
+            rate = "120";
+            # Tries to be smart with gamma, but misses the mark, no custom gamma is needed
+            gamma = "1.0:1.0:1.0";
+          };
+        };
+      };
+    };
+  };
 
   nixpkgs.config.allowUnfreePredicate = pkg: lib.elem (lib.getName pkg) [
     "helvetica-neue-lt-std"
@@ -100,6 +186,11 @@
     displayManager = {
       lightdm = {
         enable = true;
+        extraSeatDefaults = ''
+          display-setup-script=${pkgs.writeShellScript "autorandr-test" ''
+            /run/current-system/sw/bin/autorandr -c &>> /autorandr-output
+          ''}
+        '';
       };
 
       #sessionCommands = ''
