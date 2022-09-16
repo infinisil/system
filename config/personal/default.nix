@@ -20,8 +20,6 @@
     programs.gpg.settings.default-key = "0xE8F1E9EAD284E17D";
   };
 
-  mine.keylayout.enable = true;
-
   networking.extraHosts = ''
     192.168.178.1 fritz.box
   '';

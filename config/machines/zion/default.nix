@@ -12,6 +12,7 @@
       ../../assets
       ../../modules
       ../../personal/user.nix
+      ../../personal/key-layout.nix
       ((import ../../../nix/sources.nix {}).nixos-hardware + "/framework")
       ../../personal/bins.nix
     ];
@@ -91,10 +92,6 @@
 
   time.timeZone = "Europe/Zurich";
 
-  console = {
-    useXkbConfig = true; # use xkbOptions in tty.
-  };
-
   mine.terminal.enable = true;
 
   # Enable the X11 windowing system.
@@ -117,44 +114,8 @@
 
   mine.xmonad = {
     enable = true;
-    modifier = 1;
-    switchWorkspaceKeys = [
-      "M-&"
-      "M-["
-      "M-{"
-      "M-}"
-      "M-("
-      "M-="
-      "M-*"
-      "M-)"
-      "M-+"
-      "M-]"
-      "M-!"
-      "M-#"
-    ];
-    shiftWorkspaceKeys = [
-      "M-S-&"
-      "M-S-["
-      "M-S-{"
-      "M-S-}"
-      "M-S-("
-      "M-S-="
-      "M-S-*"
-      "M-S-)"
-      "M-S-+"
-      "M-S-]"
-      "M-S-!"
-      "M-S-#"
-    ];
+    users = [ "infinisil" "tweagysil" ];
   };
-
-  services.xserver.autoRepeatDelay = 200;
-  services.xserver.autoRepeatInterval = 25;
-  services.xserver.xkbOptions = "caps:backspace";
-  # "compose???" ];
-  services.xserver.xkbVariant = "dvp";
-
-  mine.userConfig.home.keyboard = null;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

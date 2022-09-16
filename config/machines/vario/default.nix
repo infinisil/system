@@ -35,6 +35,7 @@ in {
 
   imports = [
     ./hardware-configuration.nix
+    ../../personal/key-layout.nix
   ];
 
   mine.terminal.enable = true;
@@ -263,35 +264,7 @@ in {
 
   mine.xmonad = {
     enable = true;
-    modifier = 4;
-    switchWorkspaceKeys = [
-      "M-S-7"  # & in the US layout
-      "M-["    # [
-      "M-S-["  # {
-      "M-S-]"  # }
-      "M-S-9"  # (
-      "M-="    # =
-      "M-S-8"  # *
-      "M-S-0"  # )
-      "M-S-="  # +
-      "M-]"    # ]
-      "M-S-1"  # !
-      "M-S-3"  # #
-    ];
-    shiftWorkspaceKeys = [
-      "M-S-5"  # % in the US layout
-      "M-7"    # 7
-      "M-5"    # 5
-      "M-3"    # 3
-      "M-1"    # 1
-      "M-9"    # 9
-      "M-0"    # 0
-      "M-2"    # 2
-      "M-4"    # 4
-      "M-6"    # 6
-      "M-8"    # 8
-      "M-`"    # `
-    ];
+    users = [ "infinisil" ];
   };
 
   services.xserver.displayManager.lightdm.extraSeatDefaults = ''
