@@ -17,6 +17,8 @@
       ../../personal/bins.nix
     ];
 
+  nix.settings.experimental-features = [ "flakes" "nix-command" ];
+
   users.mutableUsers = false;
 
   hardware.bluetooth.enable = true;
