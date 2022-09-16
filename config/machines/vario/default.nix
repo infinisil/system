@@ -55,7 +55,11 @@ in {
   ];
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-  boot.kernelModules = [ "v4l2loopback" ];
+  boot.kernelModules = [
+    "v4l2loopback"
+    # Needed for disks..
+    "sg"
+  ];
 
   mine.userConfig.programs.ssh = {
     enable = true;
