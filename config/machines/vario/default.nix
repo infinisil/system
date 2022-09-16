@@ -318,6 +318,7 @@ in {
     libreoffice
     moreutils
     jless
+    makemkv
   ];
 
   mine.gaming.enable = true;
