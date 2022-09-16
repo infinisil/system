@@ -14,22 +14,22 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "pool/personal/root";
+    { device = "pool/encroot/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "pool/personal/nix";
+    { device = "pool/encroot/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "pool/personal/data/home";
+    { device = "pool/encroot/data/home";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "pool/personal/data/varlib";
+    { device = "pool/encroot/data/varlib";
       fsType = "zfs";
     };
 
