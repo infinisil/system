@@ -304,7 +304,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     guvcview
-    slack-dark
     pot
     projector
     hippo
@@ -313,7 +312,6 @@ in {
     element-desktop
     htop
     obs-studio
-    zoom-us
     xournal
     audacity
     chromium
