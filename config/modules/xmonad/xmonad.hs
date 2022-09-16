@@ -1,6 +1,11 @@
-import Data.List (delete)
+{-# LANGUAGE FlexibleContexts #-}
+
+import Control.Concurrent (forkIO)
+import Control.Monad (forM_)
+import Data.List (delete, intercalate)
 import Data.Maybe (fromMaybe)
 import Graphics.X11
+import System.Exit (exitSuccess)
 import qualified Text.Fuzzy as Fuzz
 import XMonad
 import XMonad.Actions.Navigation2D
@@ -8,8 +13,10 @@ import XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.EwmhDesktops as EWMH
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
+import XMonad.Hooks.StatusBar (StatusBarConfig, statusBarProp, statusBarPropTo, withSB)
 import XMonad.Layout.BinarySpacePartition
 import qualified XMonad.Layout.Fullscreen as Full
+import XMonad.Layout.IndependentScreens
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (FULL))
 import XMonad.Layout.NoBorders (noBorders)
@@ -21,7 +28,9 @@ import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.WindowProperties (getProp32)
 
 main :: IO ()
-main = xmonad (myConfig layoutSpacing)
+main = do
+  screenCount <- countScreens
+  xmonad (myConfig screenCount layoutSpacing)
 
 layoutSpacing =
   Full.fullscreenFocus
@@ -36,37 +45,42 @@ myNavigation2DConfig =
     { defaultTiledNavigation = hybridNavigation
     }
 
-myConfig :: l Window -> XConfig l
-myConfig l =
+pp :: PP
+pp =
+  xmobarPP
+    { ppTitle = xmobarColor "green" "" . shorten 30
+    }
+
+sb :: ScreenId -> StatusBarConfig
+sb screenIndex = statusBarPropTo ("_XMONAD_LOG_" ++ indexStr) command $ pure (marshallPP screenIndex pp)
+  where
+    command = "xmobar-custom " ++ indexStr
+    indexStr = show (fromEnum screenIndex)
+
+myConfig :: LayoutClass l Window => ScreenId -> l Window -> XConfig l
+myConfig screenCount l =
   EWMH.ewmh $
     docks $
-      withNavigation2DConfig myNavigation2DConfig $
-        def
-          { terminal = "kitty",
-            modMask = case "@modifier@" of
-              "1" -> mod1Mask
-              "3" -> mod3Mask
-              "4" -> mod4Mask
-              mod -> error $ "Unsupported modifier: " ++ mod,
-            manageHook =
-              (title =? "Dunst" --> insertPosition Above Older)
-                <+> manageHook def
-                <+> Full.fullscreenManageHook,
-            layoutHook = l,
-            workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-            handleEventHook = Full.fullscreenEventHook,
-            logHook =
-              dynamicLogString
-                xmobarPP
-                  { ppTitle = xmobarColor "green" "" . shorten 30
-                  }
-                >>= xmonadPropLog,
-            keys = \c -> mkKeymap c (myKeymap c),
-            startupHook =
-              setDefaultCursor xC_left_ptr
-                <+> EWMH.fullscreenStartup
-          }
+      withSB (foldMap sb [0 .. (screenCount - 1)]) $
+        withNavigation2DConfig myNavigation2DConfig $
+          def
+            { terminal = "kitty",
+              modMask = mod1Mask,
+              manageHook =
+                (title =? "Dunst" --> insertPosition Above Older)
+                  <+> manageHook def
+                  <+> Full.fullscreenManageHook,
+              layoutHook = l,
+              workspaces = withScreens screenCount ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+              handleEventHook = Full.fullscreenEventHook,
+              keys = \c -> mkKeymap c (myKeymap c),
+              startupHook =
+                setDefaultCursor xC_left_ptr
+                  <+> EWMH.fullscreenStartup
+                  <+> spawn "systemctl --user restart random-background"
+            }
 
+myKeymap :: XConfig l -> [(String, X ())]
 myKeymap c =
   [ ("M-q", io exitSuccess),
     ("M-f", spawn "firefox"),

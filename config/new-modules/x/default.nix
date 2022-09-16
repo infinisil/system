@@ -75,7 +75,6 @@ with lib;
       dmenu
       xorg.xev
       thunderbird
-      haskellPackages.xmobar
     ];
 
 

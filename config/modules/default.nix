@@ -6,5 +6,6 @@
     ./japanese-input
     ./cd-support.nix
     ./xmonad
+    ./xmobar
   ];
 }
