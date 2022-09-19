@@ -22,7 +22,11 @@ in {
               name "Pipewire"
           }
 
-          replaygain "auto"
+          # Two beets bugs:
+          # - It doesn't run replaygain automatically (even though it's configured) when importing tracks
+          # - It writes r128_album_gain tags to opus files, but with value 0, which the player then uses, and is usually way too loud
+          # This code only fixes the second one. The first one is just written down here because I'm too lazy to put it somewhere else
+          replaygain "track"
         '';
       };
 
@@ -61,8 +65,6 @@ in {
         acoustid.apikey = "ex5RgecjNm";
 
         import = {
-          move = true;
-          resume = true;
           incremental = true;
           log = "${musicDir}/beets/import.log";
         };
