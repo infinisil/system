@@ -92,6 +92,7 @@ with lib;
         iniContent.pull.ff = "only";
         iniContent.commit.verbose = true;
         iniContent.merge.conflictstyle = "diff3";
+        iniContent.init.defaultBranch = "main";
       };
 
     };
