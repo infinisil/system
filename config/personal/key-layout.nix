@@ -13,6 +13,9 @@
     '';
   };
 
+  # For some reason the gtk greeter resets the layout to the default us one, _unless_ the `~layout` indicator is added! The heck?? This took me hours to debug..
+  services.xserver.displayManager.lightdm.greeters.gtk.indicators = [ "~host" "~spacer" "~clock" "~spacer" "~layout" "~session" "~power" ];
+
   # Tapping left ctrl is escape
   services.interception-tools = {
     enable = true;
