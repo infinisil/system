@@ -31,13 +31,34 @@ in
     ip = import ./lib/ip.nix self;
   };
   specialArgs.sources = sources;
-} ({ lib, ... }: {
+} {
 
   _file = ./default.nix;
 
   imports = [
     ../external/private
     ../config/multimods
+    ({ lib, nixus, config, ... }: {
+      options.preBuild = lib.mkOption {
+        type = lib.types.package;
+        description = ''
+          Script to run before building the configuration
+        '';
+        default = nixus.pkgs.writeShellScript "pre-build" ''
+          set -euo pipefail
+          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: ''
+            if ssh ${value.host} test -e /var/lib/nixus/deployed-config; then
+              echo "Fetching deployed config from node ${name}.."
+              git -C "$ROOT" fetch ${value.host}:/var/lib/nixus/deployed-config active
+              echo "Merging deployed config from node ${name}.."
+              git -C "$ROOT" merge FETCH_HEAD
+            else
+              echo "deployed config isn't tracked on node ${name} yet, will be created when successfully deployed"
+            fi
+          '') (lib.filterAttrs (name: value: value.enable) config.nodes))}
+        '';
+      };
+    })
   ];
 
   inherit deployHost;
@@ -52,6 +73,17 @@ in
     configuration = {
       _module.args.sources = sources;
     };
+
+    postDeployScript = ''
+      if [[ "$status" == "success" ]]; then
+        if ! ssh "$HOST" test -e /var/lib/nixus/deployed-config; then
+          echo "Creating initially empty deployed config.."
+          ssh "$HOST" git init --bare --initial-branch=active /var/lib/nixus/deployed-config
+        fi
+        echo "Pushing deployed config.."
+        git push "$HOST":/var/lib/nixus/deployed-config wip:active
+      fi
+    '';
   };
 
   nodes.protos = {
@@ -79,7 +111,7 @@ in
 
   nodes.vario = {
     switchTimeout = 240;
-    configuration = { lib, ... }: {
+    configuration = {
       imports = [
         ../config
         ../external/private/default-old.nix
@@ -137,4 +169,4 @@ in
   nodes.mac.enable = false;
   nodes.phone.enable = false;
 
-})
+}
