@@ -19,6 +19,8 @@
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
+  mine.dunst.enable = true;
+
   users.mutableUsers = false;
 
   hardware.bluetooth.enable = true;
