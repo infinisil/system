@@ -10,36 +10,44 @@
 
 set -euo pipefail
 
-cd "$(dirname "${BASH_SOURCE[0]}")"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-export ROOT=$(realpath ..)
+export ROOT=$(realpath "$SCRIPT_DIR"/..)
+
+cd "$SCRIPT_DIR"
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' exit
 
-git() { command git -C .. "$@"; }
+git() { command git -C "$ROOT" "$@"; }
 
-git switch wip
+git switch -q wip
+
+deployHost=$(hostname)
+deploySystem=$(nix-instantiate --eval --strict --json -E builtins.currentSystem | jq -r .)
+
+if [[ "$#" -eq 0 ]]; then
+  set -- "$deployHost"
+fi
+
+echo "Committing.."
+if [[ ! -z "$(git add -A --dry-run)" ]]; then
+  git add -A
+  git commit -m "deploy from $deployHost to: $*"
+fi
 
 nixpkgs=$(nix-instantiate --eval -E '(import ../nix/sources.nix {}).nixpkgs.outPath' --json | tr -d '"')
 
 export NIX_PATH=nixpkgs="$nixpkgs"
 
-
-deployHost=$(hostname)
-
-if [[ "$#" -eq 0 ]]; then
-  set -- "$deployHost"
-fi
+echo "Building Nix..."
+PATH=$(nix-build "$nixpkgs" -A nix --no-out-link)/bin:$PATH
 
 nodes="[ "
 for node in "$@"; do
   nodes+="\"$node\" "
 done
 nodes+="]"
-
-echo "Building Nix..."
-PATH=$(nix-build "$nixpkgs" -A nix --no-out-link)/bin:$PATH
 
 nix-build -o "$tmp/preBuild" -A config.preBuild \
   --arg nodes "$nodes" --argstr deployHost "$deployHost" >/dev/null
@@ -48,22 +56,19 @@ nix-build -o "$tmp/preBuild" -A config.preBuild \
 
 echo "Building nix.conf..."
 mkdir "$tmp/confdir"
-nix-build --show-trace --out-link "$tmp/confdir/nix.conf" >/dev/null \
+nix-build --out-link "$tmp/confdir/nix.conf" >/dev/null \
   -A config.nodes."$(hostname)".configuration.environment.etc.'"nix/nix.conf"'.source
 export NIX_CONF_DIR="$tmp/confdir"
 
 echo "Evaluating..."
 nix-instantiate --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
-  --arg nodes "$nodes" --argstr deployHost "$deployHost"
+  --arg nodes "$nodes" --argstr deployHost "$deployHost" --argstr deploySystem "$deploySystem" \
+  --expr 'import (fetchGit { submodules = true; url = ./..; rev = "'$(git rev-parse HEAD)'"; } + "/deploy")' \
+  --pure-eval
 
 echo "Building..."
 nix-build "$tmp"/drv --out-link "$tmp/result" >/dev/null
 
-echo "Committing.."
-if [[ ! -z "$(git add -A --dry-run)" ]]; then
-  git add -A
-  git commit -m "deploy from $deployHost to: $@"
-fi
 
 echo "Deploying..."
 "$tmp/result"

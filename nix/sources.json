@@ -89,10 +89,10 @@
         "homepage": "",
         "owner": "infinisil",
         "repo": "soph",
-        "rev": "722294ea6058542556539a53b2e02a4f9e988cd2",
-        "sha256": "1hk7a02fcpp5iqj76kmmv8prc8srpx47b52qsbqn1hn9c41h467x",
+        "rev": "8331ec296d1394e9d4ad5274cd24e0aa7e130ae4",
+        "sha256": "0bpgz9gzbdwg76ywk9270j900yyvzcwirbjjwpjdma7p726kwdhr",
         "type": "tarball",
-        "url": "https://github.com/infinisil/soph/archive/722294ea6058542556539a53b2e02a4f9e988cd2.tar.gz",
+        "url": "https://github.com/infinisil/soph/archive/8331ec296d1394e9d4ad5274cd24e0aa7e130ae4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

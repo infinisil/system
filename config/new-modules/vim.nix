@@ -4,7 +4,7 @@ with lib;
 
 let
 
-  dag = (import sources.nur { inherit pkgs; }).repos.rycee.lib.dag;
+  dag = (import sources.nur { nurpkgs = pkgs; inherit pkgs; }).repos.rycee.lib.dag;
 
 in
 

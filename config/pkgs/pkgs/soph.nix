@@ -1,1 +1,1 @@
-{ sources }: import sources.soph {}
+{ pkgs, sources }: import sources.soph { system = pkgs.system; }

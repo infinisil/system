@@ -14,7 +14,7 @@ let
 
   deployer = { pkgs, ... }: {
     environment.shellAliases = {
-      rb = toString ./rb;
+      rb = "/home/infinisil/cfg/deploy/rb";
       cachix-use = "cachix use -n -d ${toString ../config}";
     };
   };
@@ -26,11 +26,13 @@ in
 { nodes ? []
 , deployHost ? null
 , ignoreFailingSystemdUnits ? false
+, deploySystem ? builtins.currentSystem
 }: import sources.nixus {
   libOverlay = self: super: {
     ip = import ./lib/ip.nix self;
   };
   specialArgs.sources = sources;
+  inherit deploySystem;
 } {
 
   _file = ./default.nix;
@@ -100,6 +102,10 @@ in
       networking.public.ipv6 = "2a03:b0c0:3:d0::5f7f:5001";
       system.stateVersion = "19.03";
 
+      home-manager.sharedModules = [
+        { home.stateVersion = "22.11"; }
+      ];
+
       environment.etc.nixpkgs.source = toString sources.nixpkgs;
 
       nix.nixPath = [
@@ -120,6 +126,10 @@ in
         deployer
       ];
       system.stateVersion = "19.03";
+
+      home-manager.sharedModules = [
+        { home.stateVersion = "22.11"; }
+      ];
 
       environment.etc.nixpkgs.source = toString sources.nixpkgs;
 
@@ -144,6 +154,9 @@ in
       networking.public.ipv4 = "51.15.187.150";
       networking.public.ipv6 = "fe80::208:a2ff:fe0c:2ab4";
       system.stateVersion = "19.03";
+      home-manager.sharedModules = [
+        { home.stateVersion = "22.11"; }
+      ];
 
       environment.etc.nixpkgs.source = toString sources.nixpkgs;
 
@@ -162,6 +175,9 @@ in
         (sources.home-manager + "/nixos")
         ../config/machines/zion
         deployer
+      ];
+      home-manager.sharedModules = [
+        { home.stateVersion = "22.11"; }
       ];
     };
   };
