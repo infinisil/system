@@ -46,20 +46,19 @@ in
     services.radicale = {
       enable = true;
       package = pkgs.radicale2;
-      config = ''
-        [auth]
-        type = htpasswd
-        htpasswd_filename = ${htpasswd}
-        htpasswd_encryption = crypt
-
-        [server]
-
-        [storage]
-        filesystem_folder = /var/lib/radicale/collections
-
-        [logging]
-        debug = True
-      '';
+      settings = {
+        auth = {
+          type = "htpasswd";
+          htpasswd_filename = "htpasswd";
+          htpasswd_encryption = "crypt";
+        };
+        storage = {
+          filesystem_folder = "/var/lib/radicale/collections";
+        };
+        logging = {
+          debug = true;
+        };
+      };
       # Hangs radicale:
       # storage.hook = ${pkgs.git}/bin/git add -A && (${pkgs.git}/bin/git diff --cached --quiet || ${pkgs.git}/bin/git commit -m 'Changes by infinisil')
     };
