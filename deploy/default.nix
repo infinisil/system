@@ -89,7 +89,7 @@ in
   };
 
   nodes.protos = {
-    host = "206.81.23.189";
+    host = "root@206.81.23.189";
     switchTimeout = 240;
     configuration = {
       imports = [
@@ -116,6 +116,8 @@ in
   };
 
   nodes.vario = {
+    deployFrom.zion.host = "root@192.168.0.12";
+    deployFrom.zion.hasFastConnection = true;
     switchTimeout = 240;
     configuration = {
       imports = [
@@ -141,7 +143,7 @@ in
   };
 
   nodes.orakel = {
-    host = "51.15.187.150";
+    host = "root@51.15.187.150";
     switchTimeout = 240;
     successTimeout = 120;
     configuration = {
