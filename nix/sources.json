@@ -36,15 +36,15 @@
         "type": "git"
     },
     "nixpkgs": {
-        "branch": "nixos-unstable",
+        "branch": "system",
         "description": "Nix Packages collection",
         "homepage": "",
-        "owner": "NixOS",
+        "owner": "infinisil",
         "repo": "nixpkgs",
-        "rev": "2da64a81275b68fdad38af669afeda43d401e94b",
-        "sha256": "1k71lmzdaa48yqkmsnd22n177qmxxi4gj2qcmdbv0mc6l4f27wd0",
+        "rev": "e5623525a2836e6cd17f5313555f815e09cd3b4b",
+        "sha256": "0qrvz7yq3d8nn39vbah623hvrbgchbp70m32xcaqsgls6wlx1477",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/2da64a81275b68fdad38af669afeda43d401e94b.tar.gz",
+        "url": "https://github.com/infinisil/nixpkgs/archive/e5623525a2836e6cd17f5313555f815e09cd3b4b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixus": {
