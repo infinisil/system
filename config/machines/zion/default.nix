@@ -63,7 +63,14 @@
     };
   };
 
-  services.clight.enable = true;
+  services.clight = {
+    enable = true;
+    settings = {
+      inhibit.disabled = true;
+      dpms.disabled = true;
+      dimmer.disabled = true;
+    };
+  };
 
   location.latitude = 47.4;
   location.longitude = 9.2;

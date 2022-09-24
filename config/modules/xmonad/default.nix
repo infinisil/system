@@ -57,6 +57,9 @@
         extraPackages = self: [ self.fuzzy ];
         config = ./xmonad.hs;
       };
+      xsession.initExtra = ''
+        ${pkgs.lightlocker}/bin/light-locker --lock-on-suspend --lock-on-lid --lock-after-screensaver=30 &
+      '';
 
       home.packages = let
         xmonadVolume = pkgs.writeScriptBin "xmonad-volume" ''

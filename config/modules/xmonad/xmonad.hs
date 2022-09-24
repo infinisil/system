@@ -8,6 +8,7 @@ import Graphics.X11
 import System.Exit (exitSuccess)
 import qualified Text.Fuzzy as Fuzz
 import XMonad
+import XMonad.Actions.Commands (defaultCommands, runCommand, runCommandConfig)
 import XMonad.Actions.Navigation2D
 import XMonad.Hooks.DynamicLog
 import qualified XMonad.Hooks.EwmhDesktops as EWMH
@@ -24,6 +25,7 @@ import XMonad.Prompt (XPConfig (..), deleteConsecutive)
 import XMonad.Prompt.Pass (passPrompt)
 import qualified XMonad.StackSet as W
 import XMonad.Util.Cursor (setDefaultCursor)
+import XMonad.Util.Dmenu (menuArgs)
 import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.WindowProperties (getProp32)
 
@@ -80,9 +82,22 @@ myConfig screenCount l =
                   <+> spawn "systemctl --user restart random-background"
             }
 
+commands :: X [(String, X ())]
+commands =
+  return
+    [ ("logout", io exitSuccess),
+      ("lock", spawn "light-locker-command -l"),
+      ("hibernate", spawn "systemctl hibernate"),
+      ("suspend", spawn "systemctl suspend"),
+      ("reboot", spawn "systemctl reboot -i")
+    ]
+
+rofiCommand :: [String] -> X String
+rofiCommand = menuArgs "rofi" ["-dmenu"]
+
 myKeymap :: XConfig l -> [(String, X ())]
 myKeymap c =
-  [ ("M-q", io exitSuccess),
+  [ ("M-S-q", commands >>= runCommandConfig rofiCommand),
     ("M-f", spawn "firefox"),
     ("M-<Space>", spawn "rofi -show run -theme gruvbox-dark"),
     ("M-c", spawn "kitty"),
