@@ -36,11 +36,47 @@ in
       enable = true;
       vimAlias = true;
       withNodeJs = true;
+      coc = {
+        enable = true;
+        settings = {
+          languageserver = {
+            haskell = {
+              command = "haskell-language-server";
+              args = ["--lsp"];
+              rootPatterns = ["*.cabal" "stack.yaml" "cabal.project" "package.yaml" "hie.yaml"];
+              filetypes = ["haskell" "lhaskell"];
+              initializationOptions = {
+                haskell = {};
+              };
+            };
+            bash = {
+              command = "bash-language-server";
+              args = ["start"];
+              filetypes = ["sh"];
+              ignoredRootPaths = ["~"];
+            };
+            clangd = {
+              command = "clangd";
+              rootPatterns = ["compile_flags.txt" "compile_commands.json"];
+              filetypes = ["c" "cc" "cpp" "c++" "objc" "objcpp"];
+            };
+            golang = {
+              command = "gopls";
+              rootPatterns = ["go.mod" ".vim/" ".git/" ".hg/"];
+              filetypes = ["go"];
+              initializationOptions = {};
+            };
+          };
+          "codeLens.enable" = true;
+          "coc.preferences.formatOnSaveFiletypes" = [ "haskell" "lhaskell" ];
+          "coc.preferences.currentFunctionSymbolAutoUpdate" = true;
+          "suggest.noselect" = true;
+        };
+      };
       plugins = with pkgs.vimPlugins; [
         undotree
         vim-nix
         editorconfig-vim
-        coc-nvim
         coc-json
         coc-explorer
         haskell-vim
