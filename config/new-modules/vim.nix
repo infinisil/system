@@ -12,6 +12,15 @@ in
 
   options.mine.vim.enable = mkEnableOption "vim config";
 
+  # Mainly for having EDITOR set correctly
+  # Setting home.sessionVaribales.EDITOR doesn't work correctly because I'm
+  # using the zsh module from NixOS, not home-manager
+  config.programs.neovim = {
+    enable = true;
+    vimAlias = true;
+    defaultEditor = true;
+  };
+
   config.mine.userConfig = mkIf config.mine.vim.enable {
 
     home.activation.vimDirs = dag.entryAfter [ "linkGeneration" ] ''
@@ -22,16 +31,6 @@ in
       pkgs.nodePackages.bash-language-server
       pkgs.xclip
     ];
-
-    home.sessionVariables.EDITOR = "vim";
-
-    #nixpkgs.overlays = [(self: super: {
-    #  ycmd = super.ycmd.override {
-    #    gocode = null;
-    #    godef = null;
-    #    rustracerd = null;
-    #  };
-    #})];
 
     programs.neovim = {
       enable = true;
@@ -272,16 +271,6 @@ in
         " Copy to local clipboard
         autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''' | OSCYankReg " | endif
       '';
-
-      #settings = {
-      #  tabstop = 2;
-      #  shiftwidth = 2;
-      #};
-      #plugins = with pkgs.vimPlugins; [
-      #  vim-nix
-      #  syntastic
-      #  editorconfig-vim
-      #];
     };
   };
 
