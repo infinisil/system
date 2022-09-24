@@ -5,34 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-
-  services.zrepl = {
-    enable = true;
-    settings = {
-      jobs = [
-        {
-          type = "source";
-          name = "data";
-          serve = {
-            type = "tcp";
-            listen = ":8888";
-            clients = {
-              "10.99.3.2" = "vario";
-            };
-          };
-          filesystems."tank/root/data<" = true;
-          snapshotting = {
-            type = "periodic";
-            interval = "1h";
-            prefix = "zrepl_";
-          };
-          send.raw = true;
-        }
-      ];
-    };
-  };
-
-
   secrets.files.syncplay.file = ../../../external/private/secrets/syncplay;
   secrets.files.syncplay.user = "syncplay";
 

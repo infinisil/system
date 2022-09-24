@@ -10,62 +10,6 @@
 
   #services.music-server.enable = true;
 
-  services.zrepl = {
-    enable = true;
-    settings = {
-      jobs = [
-        {
-          type = "sink";
-          name = "backups";
-          root_fs = "tank/backup";
-          serve = {
-            type = "tcp";
-            listen = ":8888";
-            clients = {
-              "10.99.2.2" = "vario";
-            };
-          };
-        }
-        {
-          type = "source";
-          name = "current-torrents";
-          serve = {
-            type = "tcp";
-            listen = ":8889";
-            clients = {
-              "10.99.2.2" = "vario";
-            };
-          };
-          filesystems."tank/root/torrent/current" = true;
-          snapshotting = {
-            type = "periodic";
-            interval = "1h";
-            prefix = "zrepl_";
-          };
-          send.raw = true;
-        }
-        {
-          type = "source";
-          name = "data";
-          serve = {
-            type = "tcp";
-            listen = ":8890";
-            clients = {
-              "10.99.2.2" = "vario";
-            };
-          };
-          filesystems."tank/root" = true;
-          snapshotting = {
-            type = "periodic";
-            interval = "1h";
-            prefix = "zrepl_";
-          };
-          send.raw = true;
-        }
-      ];
-    };
-  };
-
   services.murmur = {
     enable = true;
     openFirewall = true;

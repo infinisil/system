@@ -6,6 +6,8 @@
     ./ssh-access.nix
     ./vpn-setup.nix
     ./dns-records.nix
+    ./zrepl.nix
+    ./zrepl-setup.nix
   ];
 
   defaults.configuration.nixpkgs.overlays = import ../overlays;

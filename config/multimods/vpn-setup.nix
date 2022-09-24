@@ -40,6 +40,11 @@
       wireguard.publicKey = "t90gKxoMhKb1AscC1Ty8kfxPJQPzZ4tiaj0fn6NwLG4=";
       wireguard.privateKeyFile = "/root/wireguard-keys/private";
     };
+    clients.zion = {
+      subnetIp = "10.99.3.4";
+      wireguard.publicKey = "DW9+0Mp8HksC2gJQzECM+tNGvhk92AWmwfCjpEvYKX8=";
+      wireguard.privateKeyFile = "/root/wireguard-keys/private";
+    };
   };
 
 }
