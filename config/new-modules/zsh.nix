@@ -106,6 +106,9 @@ mkIf config.mine.console.enable {
       bindkey '^A^G' __vima
       bindkey '^A^H' __cda
 
+      bindkey "\e[1;3D" backward-word
+      bindkey "\e[1;3C" forward-word
+
       autoload -Uz edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd v edit-command-line
