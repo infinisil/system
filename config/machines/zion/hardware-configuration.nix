@@ -28,6 +28,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/root" =
+    { device = "pool/encroot/data/home/root";
+      fsType = "zfs";
+    };
+
   fileSystems."/var/lib" =
     { device = "pool/encroot/data/varlib";
       fsType = "zfs";
