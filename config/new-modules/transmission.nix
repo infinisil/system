@@ -10,7 +10,7 @@
       enable = true;
       home = "/var/lib/torrent";
       settings = {
-        download-dir = "/var/lib/torrent/current";
+        download-dir = "/var/lib/torrent/archive";
         # script-torrent-done-enabled: Boolean (default = false) Run a script at torrent completion.
         # script-torrent-done-filename =
         rpc-authentication-required = true;

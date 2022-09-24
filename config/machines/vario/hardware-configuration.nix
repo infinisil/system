@@ -62,12 +62,6 @@
       options = [ "nofail" ];
     };
 
-  fileSystems."/home/infinisil/torrent" =
-    { device = "main/current-torrents/tank/root/torrent/current";
-      fsType = "zfs";
-      options = [ "nofail" "ro" ];
-    };
-
   fileSystems."/home/infinisil/noback" =
     { device = "tank2/root/noback";
       fsType = "zfs";
