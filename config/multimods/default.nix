@@ -8,6 +8,8 @@
     ./dns-records.nix
     ./zrepl.nix
     ./zrepl-setup.nix
+    ./rtcwake.nix
+    ./rtcwake-setup.nix
   ];
 
   defaults.configuration.nixpkgs.overlays = import ../overlays;
