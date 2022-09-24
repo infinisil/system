@@ -33,7 +33,6 @@ mkIf config.mine.console.enable {
 
       source ${pkgs.fzf}/share/fzf/completion.zsh
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
-      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
       function mktest() {
         mkdir -p "$HOME/test/$1"

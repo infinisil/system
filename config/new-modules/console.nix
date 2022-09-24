@@ -12,9 +12,11 @@ with lib;
 
   config = mkIf config.mine.console.enable {
 
-    environment.pathsToLink = [ "/share/zsh" "/share/nix-direnv" ];
+    environment.pathsToLink = [ "/share/zsh" ];
 
     mine.vim.enable = true;
+
+    programs.direnv.enable = true;
 
     environment.variables = {
       BC_ENV_ARGS = "-lq";
@@ -22,9 +24,7 @@ with lib;
     };
 
     environment.systemPackages = with pkgs; [
-      nix-direnv
       most
-      direnv
       gitFull
       tmux
       lsof

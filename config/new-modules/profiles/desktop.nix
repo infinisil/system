@@ -29,10 +29,8 @@ with lib;
     #mine.dev.idris.enable = true;
     mine.dev.haskell.enable = true;
 
-    nix.extraOptions = ''
-      keep-derivations = true
-      keep-outputs = true
-    '';
+    nix.settings.keep-derivations = true;
+    nix.settings.keep-outputs = true;
 
     environment.systemPackages = with pkgs; [
       neofetch

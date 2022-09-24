@@ -7,5 +7,6 @@
     ./cd-support.nix
     ./xmonad
     ./xmobar
+    ./direnv.nix
   ];
 }
