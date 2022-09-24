@@ -4,7 +4,7 @@ with lib;
 
 mkIf config.mine.console.enable {
 
-  home-manager.users.infinisil = {
+  mine.userConfig = {
     home.file.".zshrc".text = ''
       # Empty file, using system config
     '';

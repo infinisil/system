@@ -70,6 +70,12 @@
       vario.root = true;
       vario.infinisil = true;
     };
+    keys.tweagysil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGxgiiNTxFuancFOT41jt7vxnDzsnWbaoBpOpj0Nyndl tweagysil@zion";
+    keys.tweagysil.hasAccessTo = {
+      zion.root = true;
+      zion.infinisil = true;
+      protos.git = true;
+    };
   };
 
   ssh.access.phone.keys.me = {

@@ -23,6 +23,26 @@
 
   users.mutableUsers = false;
 
+  users.users.tweagysil = {
+    uid = 1001;
+    description = "Silvan Mosberger @ Tweag";
+    isNormalUser = true;
+    createHome = true;
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "pipewire"
+    ];
+    packages = with pkgs; [
+      slack
+      zoom-us
+    ];
+  };
+
+  services.pipewire.systemWide = true;
+
+  mine.mainUsers = [ "tweagysil" ];
+
   hardware.bluetooth.enable = true;
 
   mine.userConfig = {
@@ -222,7 +242,6 @@
     vim
     htop
     git
-    slack
     element-desktop
     feh
     arandr
@@ -233,7 +252,6 @@
     ffmpeg
     thunderbird
     guvcview
-    zoom-us
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

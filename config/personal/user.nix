@@ -12,6 +12,7 @@
       extraGroups = [
         "wheel"
         "systemd-journal"
+        "pipewire"
       ];
     };
 
