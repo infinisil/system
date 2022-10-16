@@ -97,6 +97,8 @@ in
         set termguicolors
         set showcmd
         set background=dark
+        set ignorecase
+        set smartcase
 
         set mouse=a
         set list listchars=tab:▸▸,trail:·
