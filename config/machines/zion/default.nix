@@ -17,6 +17,8 @@
       ../../personal/bins.nix
     ];
 
+  mine.localMusic.enable = true;
+
   virtualisation.docker.enable = true;
 
   services.logind.lidSwitch = "suspend-then-hibernate";
