@@ -1,7 +1,7 @@
 {
   rtcwake.vario = {
     serverNode = "protos";
-    interval = 60 * 60;
+    interval = 4 * 60 * 60;
     sshKeyPairFiles = ../../external/private/rtcwake;
   };
 
