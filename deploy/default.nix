@@ -14,7 +14,7 @@ let
 
   deployer = { pkgs, ... }: {
     environment.shellAliases = {
-      rb = "/home/infinisil/cfg/deploy/rb";
+      rb = "$HOME/cfg/deploy/rb";
       cachix-use = "cachix use -n -d ${toString ../config}";
     };
   };
