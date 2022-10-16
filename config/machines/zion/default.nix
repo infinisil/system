@@ -50,6 +50,13 @@
     packages = with pkgs; [
       slack
       zoom-us
+      tmate
+    ];
+  };
+
+  users.users.infinisil = {
+    packages = with pkgs; [
+      mumble
     ];
   };
 
