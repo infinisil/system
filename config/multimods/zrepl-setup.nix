@@ -1,21 +1,23 @@
 {
 
+  nodes.zion.configuration.networking.firewall.allowedTCPPorts = [ 8888 ];
+
   zrepl.setups = {
     vario-backups = {
       mode = "push";
       from = {
         node = "vario";
-        ip = "10.99.2.2";
+        ip = "192.168.0.12";
         fileSystems."tank2/root/data<" = true;
         sendOptions.raw = true;
         snapshotInterval = "1m";
         pruning.lastN = null;
         pruning.grid = "1x15m(keep=all) | 24x1h | 10x1d";
       };
-      to.orakel = {
-        ip = "10.99.2.1";
+      to.zion = {
+        ip = "192.168.0.17";
         port = 8888;
-        rootFileSystem = "tank/backup";
+        rootFileSystem = "pool/backup";
         syncInterval = "1h";
         pruning.lastN = null;
         pruning.grid = "7x1d | 5x1w | 12x5w";
@@ -63,28 +65,6 @@
         syncInterval = "1h";
         pruning.lastN = null;
         pruning.grid = "7x1d | 5x1w | 12x5w";
-        placeholder.encryption = "off";
-      };
-    };
-
-    orakel-backups = {
-      mode = "pull";
-      from = {
-        node = "orakel";
-        ip = "10.99.2.1";
-        port = 8889;
-        fileSystems."tank/root" = true;
-        sendOptions.raw = true;
-        snapshotInterval = null;
-        pruning.lastN = null;
-        pruning.grid = null;
-      };
-      to.vario = {
-        ip = "10.99.2.2";
-        rootFileSystem = "main/backup";
-        syncInterval = "1h";
-        pruning.lastN = null;
-        pruning.grid = "7x1d";
         placeholder.encryption = "off";
       };
     };
