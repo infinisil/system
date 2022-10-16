@@ -43,7 +43,7 @@ with lib;
           sticky_history = true;
           history_length = 20;
           dmenu = "${pkgs.dmenu}/bin/dmenu -p dunst";
-          browser = "${config.mine.firefox}/bin/firefox --new-tab";
+          browser = "firefox --new-tab";
           always_run_script = true;
           title = "Dunst";
           class = "Dunst";

@@ -40,6 +40,7 @@ in {
 
   mine.terminal.enable = true;
   mine.cdSupport.enable = true;
+  mine.firefox.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
 

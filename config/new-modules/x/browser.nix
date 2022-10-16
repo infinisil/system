@@ -1,18 +1,47 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, sources, ... }:
 with lib;
-
+let
+  extensions = (import sources.nur { pkgs = pkgs; nurpkgs = pkgs; }).repos.rycee.firefox-addons;
+in
 {
 
-  options.mine.firefox = mkOption {
-    type = types.package;
-    description = "Default firefox";
-  };
+  options.mine.firefox.enable = lib.mkEnableOption "firefox";
 
-  config = {
-    environment.systemPackages = mkIf config.services.xserver.enable [ config.mine.firefox ];
-    nixpkgs.config.firefox.enableBrowserpass = true;
-    # Note: extensions don't work with -bin versions of firefox
-    mine.firefox = pkgs.firefox;
+  config = lib.mkIf config.mine.firefox.enable {
+    mine.userConfig = {
+      programs.firefox = {
+        enable = true;
+        extensions = with extensions; [
+          tree-style-tab
+          browserpass
+        ];
+        # profiles.default = {
+        #   settings = {
+        #     # Always restore tabs and windows when starting
+        #     "browser.startup.page" = 3;
+        #     # Dark theme
+        #     "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        #     "browser.theme.content-theme" = 0;
+        #     "browser.theme.toolbar-theme" = 0;
+        #     # Don't confirm when quitting
+        #     "browser.warnOnQuitShortcut" = false;
+        #   };
+
+        #   userChrome = ''
+        #     #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+        #       opacity: 0;
+        #       pointer-events: none;
+        #     }
+        #     #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+        #         visibility: collapse !important;
+        #     }
+        #   '';
+        # };
+      };
+    };
+    #nixpkgs.config.firefox.enableBrowserpass = true;
+    ## Note: extensions don't work with -bin versions of firefox
+    #mine.firefox = pkgs.firefox;
   };
 
 }

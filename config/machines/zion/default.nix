@@ -27,6 +27,7 @@
   ];
 
   mine.dunst.enable = true;
+  mine.firefox.enable = true;
 
   users.mutableUsers = false;
 
