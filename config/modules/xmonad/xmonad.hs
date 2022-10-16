@@ -87,8 +87,10 @@ commands =
   return
     [ ("logout", io exitSuccess),
       ("lock", spawn "light-locker-command -l"),
-      ("hibernate", spawn "systemctl hibernate"),
       ("suspend", spawn "systemctl suspend"),
+      ("hibernate", spawn "systemctl hibernate"),
+      ("suspend-then-hibernate", spawn "systemctl suspend-then-hibernate"),
+      ("poweroff", spawn "systemctl poweroff"),
       ("reboot", spawn "systemctl reboot -i")
     ]
 
