@@ -24,7 +24,7 @@
     enable = true;
     certDir =
       let base = config.security.acme.certs."torrent.infinisil.com".directory;
-      in pkgs.runCommandNoCC "syncplay-certs" {} ''
+      in pkgs.runCommand "syncplay-certs" {} ''
         mkdir $out
         ln -s ${base}/cert.pem $out/cert.pem
         ln -s ${base}/key.pem $out/privkey.pem

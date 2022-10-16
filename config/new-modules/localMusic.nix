@@ -55,6 +55,7 @@ in {
 
       programs.zsh.shellAliases.beet = "noglob beet";
 
+      programs.beets.enable = true;
       programs.beets.settings = {
         directory = "${musicDir}/data";
         library = "${musicDir}/beets/beets.db";

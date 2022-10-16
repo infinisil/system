@@ -189,9 +189,9 @@ def main(pipe):
                 if rating >= i:
                     # If we don't add these spaces,
                     # xmobar displays the stars way too tightly
-                    stars += ""
+                    stars += " "
                 else:
-                    stars += ""
+                    stars += " "
                 stars += "</action>"
 
         seekLeft = "<action=mpc sendmessage seek backward>  </action>"

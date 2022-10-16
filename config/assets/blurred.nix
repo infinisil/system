@@ -1,7 +1,7 @@
-{ runCommand, imagemagick7 }:
+{ runCommand, imagemagick }:
 
 runCommand "blurred.png" {
-  buildInputs = [ imagemagick7 ];
+  buildInputs = [ imagemagick ];
 } ''
   magick -monitor ${./bg.jpg} -gaussian-blur 72,24 $out
 ''

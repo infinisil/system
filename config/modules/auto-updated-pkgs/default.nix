@@ -167,7 +167,7 @@ in {
       '';
       path = [
         config.nix.package
-        pkgs.utillinux
+        pkgs.util-linux
         pkgs.gnutar
         pkgs.xz
         pkgs.gzip

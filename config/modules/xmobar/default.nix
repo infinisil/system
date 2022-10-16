@@ -110,7 +110,7 @@ in {
       xmobar-custom
       xmobar-batt
       xmobar-power
-      pkgs.alsaUtils
+      pkgs.alsa-utils
       pkgs.mpc_cli
       pkgs.pulseaudio
     ];
