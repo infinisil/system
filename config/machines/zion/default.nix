@@ -17,6 +17,8 @@
       ../../personal/bins.nix
     ];
 
+  services.logind.lidSwitch = "suspend-then-hibernate";
+
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
   nix.settings.trusted-public-keys = [
