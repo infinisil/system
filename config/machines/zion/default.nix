@@ -17,6 +17,8 @@
       ../../personal/bins.nix
     ];
 
+  virtualisation.docker.enable = true;
+
   services.logind.lidSwitch = "suspend-then-hibernate";
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
