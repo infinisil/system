@@ -47,13 +47,6 @@ in {
 
   nix.settings.experimental-features = [ "flakes" "nix-command" "ca-derivations" ];
 
-  nix.settings.trusted-public-keys = [
-    "tweag-haskell-fido2.cachix.org-1:bB+jy70CksEq3o6LKAJgZP1Fr5Moi7fsWzXBg3aZVxE="
-  ];
-  nix.settings.substituters = [
-    "https://tweag-haskell-fido2.cachix.org"
-  ];
-
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   boot.kernelModules = [
     "v4l2loopback"

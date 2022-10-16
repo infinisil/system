@@ -19,6 +19,13 @@
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
+  nix.settings.trusted-public-keys = [
+    "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
+  ];
+  nix.settings.substituters = [
+    "https://tweag-webauthn.cachix.org"
+  ];
+
   mine.dunst.enable = true;
 
   users.mutableUsers = false;
