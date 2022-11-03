@@ -23,9 +23,9 @@ let
     pactl set-default-sink "''${sinks[$toActivate]}"
   '';
 
-  hippo = pkgs.writeShellScriptBin "hippo" ''
+  hippo = pkgs.writeShellScriptBin "cinema" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output HDMI-0 --mode 3840x2160 --rate 30
+      --output HDMI-0 --mode 3840x2160 --rate 23.98
   '';
   projector = pkgs.writeShellScriptBin "projector" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
@@ -39,7 +39,7 @@ in {
   ];
 
   mine.terminal.enable = true;
-  mine.cdSupport.enable = true;
+  mine.diskSupport.enable = true;
   mine.firefox.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -175,7 +175,6 @@ in {
     libreoffice
     moreutils
     jless
-    makemkv
   ];
 
   mine.gaming.enable = true;
