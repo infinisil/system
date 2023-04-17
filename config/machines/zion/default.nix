@@ -24,6 +24,7 @@
   services.logind.lidSwitch = "suspend-then-hibernate";
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
+  nix.settings.trusted-users = [ "tweagysil" ];
 
   nix.settings.trusted-public-keys = [
     "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
