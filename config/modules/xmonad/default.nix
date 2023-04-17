@@ -33,7 +33,6 @@
 
     services.picom = {
       enable = true;
-      experimentalBackends = true;
       backend = "glx";
       vSync = true;
       inactiveOpacity = 0.9;

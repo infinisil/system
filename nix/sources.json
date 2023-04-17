@@ -11,10 +11,10 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "86bc0e349fcc7ab7a9ac7e6892c6bd6ac12fd1ee",
-        "sha256": "19rrk3yccwmycidr0mgbihxb82ryb3qa4wcl02i29f449v6r2y0x",
+        "rev": "0e065e1b6f0776ebbacea9dcbc977af7bc9eddc0",
+        "sha256": "0ly5bj8rjw2sa0cl2gkg7cghqqspsy75im1hkvg7rnh6xwpasaaz",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/86bc0e349fcc7ab7a9ac7e6892c6bd6ac12fd1ee.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/0e065e1b6f0776ebbacea9dcbc977af7bc9eddc0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-hardware": {
@@ -23,16 +23,16 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "674d05f9ae2249d606a0e6fc63e522d2031a27ac",
-        "sha256": "0wrsb3px3ziv4g98w2my3y0nqy6b8vl0pligwvqg7hnzfgbji9nh",
+        "rev": "a6aa8174fa61e55bd7e62d35464d3092aefe0421",
+        "sha256": "14jba7xggr0ghgy6bvq4v34hlafk0nr182s5i0nv3x4xj1hzd13a",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixos-hardware/archive/674d05f9ae2249d606a0e6fc63e522d2031a27ac.tar.gz",
+        "url": "https://github.com/NixOS/nixos-hardware/archive/a6aa8174fa61e55bd7e62d35464d3092aefe0421.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
         "branch": "master",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver.git",
-        "rev": "004c229ca44c069d93c92abf67ff1619fb508c6a",
+        "rev": "6d0d9fb966cc565a3df74d3b686f924c7615118c",
         "type": "git"
     },
     "nixpkgs": {
@@ -41,22 +41,22 @@
         "homepage": "",
         "owner": "infinisil",
         "repo": "nixpkgs",
-        "rev": "448fe5db58cddfcc9258a71ca0c4c11d19ca1ecb",
-        "sha256": "0ghhmmiiib4d2qsp8374rra0184jzygcdhsf9wbav43f2ipvr2y1",
+        "rev": "8524442003daff73afa9329e9d67c484332f30e2",
+        "sha256": "1dkmfsd8q830qhp41d1p4q4f6d6bhhbli4p4jwhimjqa5ii1fi8x",
         "type": "tarball",
-        "url": "https://github.com/infinisil/nixpkgs/archive/448fe5db58cddfcc9258a71ca0c4c11d19ca1ecb.tar.gz",
+        "url": "https://github.com/infinisil/nixpkgs/archive/8524442003daff73afa9329e9d67c484332f30e2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixus": {
-        "branch": "niv-sources",
+        "branch": "master",
         "description": null,
         "homepage": "",
         "owner": "infinisil",
         "repo": "nixus",
-        "rev": "b702e342737ce9acd610b6f0f958db75d54c49ef",
-        "sha256": "0apkmcsxrls1q2ln3bch0ac3vhgld626r9yx91xn56pf159f32fm",
+        "rev": "9ff2a3923f733849100f99102b57a0d6c7240f2e",
+        "sha256": "1a2dhfrckhv94j4m3q42va1z5k21qk5s25s3m1qj3gkqyxvpilc5",
         "type": "tarball",
-        "url": "https://github.com/infinisil/nixus/archive/b702e342737ce9acd610b6f0f958db75d54c49ef.tar.gz",
+        "url": "https://github.com/infinisil/nixus/archive/9ff2a3923f733849100f99102b57a0d6c7240f2e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nur": {
@@ -65,10 +65,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "e945ad29f5d2449cd4d3fdace6a1222f07701b21",
-        "sha256": "0wz33k49955pjpw9w7p6jkdsnz84rlf45qbybf51rqpfiyz5ply8",
+        "rev": "fa953d3867d6f133eb4d72234d8dd0fa68d007e0",
+        "sha256": "19n7sf4pg15ig79hlilldkrxccnvjyqjznmhkvnwqmv68qgpy3n3",
         "type": "tarball",
-        "url": "https://github.com/nix-community/nur/archive/e945ad29f5d2449cd4d3fdace6a1222f07701b21.tar.gz",
+        "url": "https://github.com/nix-community/nur/archive/fa953d3867d6f133eb4d72234d8dd0fa68d007e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "on-demand-minecraft": {

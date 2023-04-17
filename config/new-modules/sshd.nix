@@ -14,7 +14,7 @@ with lib;
 
     services.openssh = {
       enable = true;
-      gatewayPorts = "clientspecified";
+      settings.GatewayPorts = "clientspecified";
       extraConfig = ''
         ClientAliveInterval 15
       '';

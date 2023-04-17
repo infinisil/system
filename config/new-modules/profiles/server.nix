@@ -15,13 +15,15 @@ with lib;
 
     services.openssh = {
       enable = true;
-      passwordAuthentication = false;
-      kexAlgorithms = options.services.openssh.kexAlgorithms.default ++ [
-        "diffie-hellman-group14-sha1"
-      ];
-      macs = options.services.openssh.macs.default ++ [
-        "hmac-sha1"
-      ];
+      settings = { options, ... }: {
+        PasswordAuthentication = false;
+        KexAlgorithms = options.KexAlgorithms.default ++ [
+          "diffie-hellman-group14-sha1"
+        ];
+        Macs = options.Macs.default ++ [
+          "hmac-sha1"
+        ];
+      };
     };
 
     # https://github.com/NixOS/nixpkgs/pull/80952
