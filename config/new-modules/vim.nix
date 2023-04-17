@@ -30,6 +30,7 @@ in
     home.packages = [
       pkgs.nodePackages.bash-language-server
       pkgs.xclip
+      pkgs.rust-analyzer
     ];
 
     programs.neovim = {
@@ -39,6 +40,8 @@ in
       coc = {
         enable = true;
         settings = {
+          rust-analyzer.server.path = "rust-analyzer";
+          rust-analyzer.inlayHints.closureReturnTypeHints.enable = false;
           languageserver = {
             haskell = {
               command = "haskell-language-server";
@@ -79,6 +82,7 @@ in
         editorconfig-vim
         coc-json
         coc-explorer
+        coc-rust-analyzer
         haskell-vim
         gruvbox-community
         vim-gitgutter
