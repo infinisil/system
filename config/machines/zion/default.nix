@@ -209,7 +209,7 @@
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
 
   boot.loader = {
-    timeout = 0;
+    timeout = 1;
     grub = {
       enable = true;
       efiSupport = true;
