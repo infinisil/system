@@ -10,12 +10,15 @@ in {
 
   config = lib.mkIf cfg.enable {
 
+    networking.firewall.allowedTCPPorts = [ 6600 ];
+
     home-manager.users.infinisil = {
 
       services.mpd = {
         enable = true;
         musicDirectory = "${musicDir}/data";
         playlistDirectory = "${musicDir}/playlists";
+        network.listenAddress = "any";
         extraConfig = ''
           audio_output {
               type "pipewire"
@@ -52,6 +55,8 @@ in {
         mpc_cli
         ncmpcpp
       ];
+
+      systemd.user.services.mpd.Service.Restart = "on-failure";
 
       programs.zsh.shellAliases.beet = "noglob beet";
 
