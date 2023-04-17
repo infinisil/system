@@ -10,6 +10,7 @@
     #systemd.network.links."81-iphone" = {
     #  matchConfig.Driver = "ipheth";
     #  linkConfig.Name = "iphone";
+    #  networkConfig.DHCP = true;
     #};
 
     # Enable DHCP to set up correct routes

@@ -1,7 +1,7 @@
 let
 
   nixosConfig = builtins.toFile "configuration.nix" ''
-    builtins.trace "This machine is managed by NixOps, using dummy configuration file for evaluation" {
+    builtins.trace "This machine is managed by Nixus, using dummy configuration file for evaluation" {
       fileSystems."/".device = "/dev/sda1";
       boot.loader.grub.device = "nodev";
 
@@ -127,7 +127,7 @@ in
         ../config/machines/vario
         deployer
       ];
-      system.stateVersion = "19.03";
+      system.stateVersion = "22.11";
 
       home-manager.sharedModules = [
         { home.stateVersion = "22.11"; }

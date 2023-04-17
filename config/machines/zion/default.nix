@@ -244,6 +244,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver = {
+    exportConfiguration = true;
     displayManager = {
       lightdm = {
         enable = true;
@@ -275,6 +276,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    nix-output-monitor
     vim
     htop
     git
