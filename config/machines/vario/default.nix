@@ -213,6 +213,11 @@ in {
 
   systemd.services.nix-daemon.serviceConfig.LimitNOFILE = lib.mkForce 40960;
 
+  # Wingo router
+  networking.extraHosts = ''
+    192.168.0.254 winbox.local
+  '';
+
   networking = {
     hostName = "vario";
     hostId = "56236562";
