@@ -92,6 +92,7 @@ in
       extraConfig = ''
         set tabstop=2
         set shiftwidth=2
+        set linebreak
 
         filetype on
         syntax enable
