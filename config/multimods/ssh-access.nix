@@ -64,8 +64,10 @@
     keys.infinisil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5yjcQ8Urk+uenJq96BopO/hnGow/hwiZtrM/+OBr8t infinisil@zion";
     keys.infinisil.hasAccessTo = {
       zion.root = true;
+      zion.infinisil = true;
       protos.git = true;
       protos.root = true;
+      protos.infinisil = true;
       orakel.root = true;
       vario.root = true;
       vario.infinisil = true;
