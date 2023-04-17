@@ -11,10 +11,13 @@ in
     mine.userConfig = {
       programs.firefox = {
         enable = true;
-        extensions = with extensions; [
-          tree-style-tab
-          browserpass
-        ];
+        package = pkgs.firefox.override {
+          cfg.enableBrowserpass = true;
+        };
+        #extensions = with extensions; [
+        #  tree-style-tab
+        #  browserpass
+        #];
         # profiles.default = {
         #   settings = {
         #     # Always restore tabs and windows when starting
@@ -39,9 +42,6 @@ in
         # };
       };
     };
-    #nixpkgs.config.firefox.enableBrowserpass = true;
-    ## Note: extensions don't work with -bin versions of firefox
-    #mine.firefox = pkgs.firefox;
   };
 
 }
