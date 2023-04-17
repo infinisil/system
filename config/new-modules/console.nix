@@ -80,7 +80,7 @@ with lib;
         enable = true;
         package = pkgs.gitFull;
         userName = "Silvan Mosberger";
-        userEmail = "contact@infinisil.com";
+        userEmail = lib.mkDefault "contact@infinisil.com";
         aliases.lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         signing = {
           key = "0xE8F1E9EAD284E17D";

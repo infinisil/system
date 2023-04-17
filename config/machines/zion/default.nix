@@ -54,6 +54,12 @@
     ];
   };
 
+  home-manager.users.tweagysil = {
+    programs.git = {
+      userEmail = "silvan.mosberger@tweag.io";
+    };
+  };
+
   users.users.infinisil = {
     packages = with pkgs; [
       mumble
