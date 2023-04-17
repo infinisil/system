@@ -38,6 +38,14 @@ in {
     ../../personal/key-layout.nix
   ];
 
+  services.transmission = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      incomplete-dir-enabled = false;
+    };
+  };
+
   mine.terminal.enable = true;
   mine.diskSupport.enable = true;
   mine.firefox.enable = true;

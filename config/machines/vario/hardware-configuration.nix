@@ -68,6 +68,12 @@
       options = [ "nofail" ];
     };
 
+  fileSystems."/var/lib/transmission" =
+    { device = "main/torrent";
+      fsType = "zfs";
+      options = [ "nofail" ];
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/25b8d3ca-fd22-4099-9c31-2d24f3ccc6e6"; }
   ];
