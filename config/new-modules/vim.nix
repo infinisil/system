@@ -86,7 +86,8 @@ in
         haskell-vim
         gruvbox-community
         vim-gitgutter
-        vim-oscyank
+        # Seems to cause crashes when copying sometimes..
+        #vim-oscyank
       ];
       extraConfig = ''
         set tabstop=2
@@ -311,7 +312,7 @@ in
         nnoremap <C-l> <C-w>l
 
         " Copy to local clipboard
-        autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''' | OSCYankReg " | endif
+        " autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is ''' | OSCYankReg " | endif
       '';
     };
   };
