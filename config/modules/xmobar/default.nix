@@ -23,14 +23,12 @@ let
     '';
   };
 
-  xmobar-power = pkgs.writeShellScriptBin "xmobar-power" ''
-    ${pkgs.bc}/bin/bc <<< "scale=1; $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/*/current_now)/1000000"
-  '';
   xmobar-batt = pkgs.writeShellScriptBin "xmobar-batt" ''
     PATH="${lib.makeBinPath (with pkgs; [ acpi gawk bc coreutils ])}:$PATH"
 
     battstat=$(acpi -b | cut -d' ' -f3 | tr -d ',')
 
+    power=$(${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/*/current_now)/1000000")
     charge_now=$(cat /sys/class/power_supply/*/charge_now)
     charge_full=$(cat /sys/class/power_supply/*/charge_full)
 
@@ -74,10 +72,12 @@ let
       postfix="+$(date -u -d $(acpi -b | cut -d' ' -f5) +"%Hh%M")"
       ;;
     *)
+      echo ""
+      exit
       ;;
     esac
 
-    printf "<fc=#%02x%02x00>%s%% %s</fc> (%s)\n" "$red" "$green" "$charge" "$symbol" "$postfix"
+    printf "%power%A \57354 | <fc=#%02x%02x00>%s%% %s</fc> (%s) | \n" "$red" "$green" "$charge" "$symbol" "$postfix"
   '';
 in {
 
@@ -109,7 +109,6 @@ in {
     environment.systemPackages = [
       xmobar-custom
       xmobar-batt
-      xmobar-power
       pkgs.alsa-utils
       pkgs.mpc_cli
       pkgs.pulseaudio

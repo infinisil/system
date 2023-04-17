@@ -313,6 +313,7 @@
           "Iosevka"
           "FiraMono"
           "FantasqueSansMono"
+          "NerdFontsSymbolsOnly"
         ];
       })
       hanazono

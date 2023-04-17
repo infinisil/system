@@ -97,7 +97,6 @@ def main(pipe):
                             client.stop()
                     else:
                         print("Pausing", flush=True)
-                        client.sendmessage("update", "1")
                         client.play()
                 elif message["channel"] == "playlist":
                     if message["message"] == "next":
@@ -189,9 +188,9 @@ def main(pipe):
                 if rating >= i:
                     # If we don't add these spaces,
                     # xmobar displays the stars way too tightly
-                    stars += " "
+                    stars += ""
                 else:
-                    stars += " "
+                    stars += ""
                 stars += "</action>"
 
         seekLeft = "<action=mpc sendmessage seek backward>  </action>"
@@ -200,7 +199,7 @@ def main(pipe):
         next = "<action=mpc sendmessage playlist next> </action>"
 
         controls = prev + seekLeft + icon + seekRight + next
-        line = name + " " + stars + "  " + controls
+        line = name + "  " + stars + "  " + controls
         print(line, flush=True, file=open(pipe, "w"))
 
     update("player")

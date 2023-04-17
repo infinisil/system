@@ -51,6 +51,7 @@ with lib;
             "Iosevka"
             "FiraMono"
             "FantasqueSansMono"
+            "NerdFontsSymbolsOnly"
           ];
         })
         hanazono

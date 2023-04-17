@@ -6,24 +6,24 @@ import Data.List (delete, intercalate)
 import Data.Maybe (fromMaybe)
 import Graphics.X11
 import System.Exit (exitSuccess)
-import qualified Text.Fuzzy as Fuzz
+import Text.Fuzzy qualified as Fuzz
 import XMonad
 import XMonad.Actions.Commands (defaultCommands, runCommand, runCommandConfig)
 import XMonad.Actions.Navigation2D
 import XMonad.Hooks.DynamicLog
-import qualified XMonad.Hooks.EwmhDesktops as EWMH
+import XMonad.Hooks.EwmhDesktops qualified as EWMH
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.StatusBar (StatusBarConfig, statusBarProp, statusBarPropTo, withSB)
 import XMonad.Layout.BinarySpacePartition
-import qualified XMonad.Layout.Fullscreen as Full
+import XMonad.Layout.Fullscreen qualified as Full
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (FULL))
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Prompt (XPConfig (..), deleteConsecutive)
 import XMonad.Prompt.Pass (passPrompt)
-import qualified XMonad.StackSet as W
+import XMonad.StackSet qualified as W
 import XMonad.Util.Cursor (setDefaultCursor)
 import XMonad.Util.Dmenu (menuArgs)
 import XMonad.Util.EZConfig (mkKeymap)
@@ -49,8 +49,9 @@ myNavigation2DConfig =
 
 pp :: PP
 pp =
-  xmobarPP
-    { ppTitle = xmobarColor "green" "" . shorten 30
+  def
+    { ppTitle = xmobarColor "#d3869b" "" . shorten 40,
+      ppCurrent = xmobarColor "#fabd2f" "" . wrap "[" "]"
     }
 
 sb :: ScreenId -> StatusBarConfig
@@ -186,8 +187,8 @@ ppconfig =
       searchPredicate = Fuzz.test,
       alwaysHighlight = False,
       borderColor = "#feca6a",
-      promptBorderWidth = 1,
-      height = 20,
+      promptBorderWidth = 2,
+      height = 25,
       maxComplRows = Just 5,
       historyFilter = deleteConsecutive
     }
