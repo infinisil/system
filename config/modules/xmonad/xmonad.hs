@@ -51,7 +51,9 @@ pp :: PP
 pp =
   def
     { ppTitle = xmobarColor "#d3869b" "" . shorten 40,
-      ppCurrent = xmobarColor "#fabd2f" "" . wrap "[" "]"
+      ppCurrent = xmobarColor "#fabd2f" "" . wrap "[" "]",
+      ppVisible = wrap "[" "]",
+      ppSep = " <fc=#83a598>|</fc> "
     }
 
 sb :: ScreenId -> StatusBarConfig

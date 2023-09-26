@@ -21,7 +21,7 @@ xmobarConfig screenId =
         [ Run $
             Cpu
               [ "-t",
-                "\62171 <total>%",
+                "\57958 <total>%",
                 "-L",
                 "10",
                 "-H",
@@ -42,7 +42,7 @@ xmobarConfig screenId =
           Run $
             DynNetwork
               [ "-t",
-                "\62513 <tx> KB/s | \62515 <rx> KB/s",
+                "\62513 <tx> KB/s <fc=#83a598>|</fc> \62515 <rx> KB/s",
                 "-L",
                 "10000",
                 "-H",
@@ -60,7 +60,7 @@ xmobarConfig screenId =
         ],
       sepChar = "%",
       alignSep = "}{",
-      template = "} %XMonadLog%{%info% | %dynnetwork% | %cpu% | %bt%%date% "
+      template = "} %XMonadLog%{%info% <fc=#83a598>|</fc> %dynnetwork% <fc=#83a598>|</fc> %cpu% <fc=#83a598>|</fc> %bt%%date% "
     }
   where
     -- Check with fc-match "<string>" family size
