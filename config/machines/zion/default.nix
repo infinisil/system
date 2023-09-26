@@ -36,6 +36,12 @@
   mine.dunst.enable = true;
   mine.firefox.enable = true;
 
+  networking.extraHosts = ''
+    206.81.23.189 protos
+    10.99.3.2 vario-via-protos
+    192.168.0.12 vario-local
+  '';
+
   users.mutableUsers = false;
 
   users.users.tweagysil = {
