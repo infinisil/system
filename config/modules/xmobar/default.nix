@@ -24,60 +24,99 @@ let
   };
 
   xmobar-batt = pkgs.writeShellScriptBin "xmobar-batt" ''
-    PATH="${lib.makeBinPath (with pkgs; [ acpi gawk bc coreutils ])}:$PATH"
+    PATH="${lib.makeBinPath (with pkgs; [ jc jq acpi bc coreutils ])}:$PATH"
 
-    battstat=$(acpi -b | cut -d' ' -f3 | tr -d ',')
+    shopt -s nullglob
 
-    power=$(${pkgs.bc}/bin/bc <<< "scale=1; $(cat /sys/class/power_supply/*/current_now)/1000000")
-    charge_now=$(cat /sys/class/power_supply/*/charge_now)
-    charge_full=$(cat /sys/class/power_supply/*/charge_full)
+    for supply in /sys/class/power_supply/*; do
+      cd "$supply"
+      if [[ $(<type) != "Battery" ]]; then
+        continue
+      fi
 
-    charge=$(bc <<EOF
-    scale=2
-    100 * $charge_now / $charge_full
+      charge=$(bc <<EOF
+      scale=2
+      charge=100 * $(<charge_now) / $(<charge_full)
+      if (charge > 100) {
+        charge=100
+      }
+      if (charge < 0) {
+        charge=0
+      }
+      charge
     EOF
-    )
+      )
 
-    chargeInteger=$(printf "%.0f\n" "$charge")
+      level=$(bc <<EOF
+      scale=0
+      define round(f) {
+        return (f + 0.5) / 1;
+      }
+      round($charge * 0.1)
+    EOF
+      )
 
+      if [[ "$level" -le 2 ]]; then
+        color="#fb4934"
+      elif [[ "$level" -ge 8 ]]; then
+        color="#b8bb26"
+      else
+        color="#fabd2f"
+      fi
 
-    if [ $chargeInteger -le 0 ]; then
-      chargeInteger=0
-    elif [ $chargeInteger -ge 100 ]; then
-      chargeInteger=100
-    fi
+      case "$(<status)" in
+        "Discharging")
+          powered=
+          ;;
+        "Charging" | "Not charging" | "Full")
+          powered=1
+          ;;
+      esac
 
-    if [ $chargeInteger -le 12 ]; then
-      symbol=
-    elif [ $chargeInteger -le 37 ]; then
-      symbol=
-    elif [ $chargeInteger -le 62 ]; then
-      symbol=
-    elif [ $chargeInteger -le 87 ]; then
-      symbol=
-    else
-      symbol=
-    fi
+      if [[ "$(bc <<< "$charge > 99.5")" == 1 ]]; then
+        full=1
+      fi
 
-    red=$(( 255 - $chargeInteger * 255 / 100 ))
-    green=$(( $chargeInteger * 255 / 100 ))
+      unpowered_icons=(󰂎 󰁺 󰁻 󰁼 󰁽 󰁾 󰁿 󰂀 󰂁 󰂂 󰁹)
+      powered_icons=(󰢟 󰢜 󰂆 󰂇 󰂈 󰢝 󰂉 󰢞 󰂊 󰂋 󰂅)
 
-    case $battstat in
-    Full)
-      ;;
-    Discharging)
-      postfix="-$(date -u -d $(acpi -b | cut -d' ' -f5) +"%Hh%M")"
-      ;;
-    Charging)
-      postfix="+$(date -u -d $(acpi -b | cut -d' ' -f5) +"%Hh%M")"
-      ;;
-    *)
-      echo ""
-      exit
-      ;;
-    esac
+      icon=''${unpowered_icons["$level"]}
 
-    printf "%power%A \57354 | <fc=#%02x%02x00>%s%% %s</fc> (%s) | \n" "$red" "$green" "$charge" "$symbol" "$postfix"
+      #if [[ -n "$powered" ]]; then
+      #  icon="$icon "
+      #fi
+
+      acpiResult=$(acpi | jc --acpi | jq '.[]')
+
+      if [[ -n "$powered" ]]; then
+        if [[ -n "$full" ]]; then
+          suffix=""
+        else
+          hours=$(jq -r '.until_charged_hours' <<< "$acpiResult")
+          minutes=$(jq -r '.until_charged_minutes' <<< "$acpiResult")
+          time=$(printf "%dh%02d" "$hours" "$minutes")
+          suffix=" <fc=#83a598>|</fc> 󰚥 ($time)"
+        fi
+      elif [[ -z "$full" ]] then
+        hours=$(jq -r '.charge_remaining_hours' <<< "$acpiResult")
+        minutes=$(jq -r '.charge_remaining_minutes' <<< "$acpiResult")
+        time=$(printf "%dh%02d" "$hours" "$minutes")
+        power_A=$(bc <<< "scale=2; $(<current_now) / 1000000")
+        if [[ "$(bc <<< "$power_A <= 1.0")" == 1 ]]; then
+          powerColor="#b8bb26"
+        elif [[ "$(bc <<< "$power_A >= 1.6")" == 1 ]]; then
+          powerColor="#fb4934"
+        else
+          powerColor="#fabd2f"
+        fi
+        suffix=" <fc=#83a598>|</fc> 󰚦 (<fc=$powerColor>$power_A</fc>A, $time)"
+      else
+        charge=100
+        suffix=""
+      fi
+
+      printf "%s <fc=%s>%s</fc>%%%s <fc=#83a598>|</fc> \n" "$icon" "$color" "$charge" "$suffix"
+    done
   '';
 in {
 
