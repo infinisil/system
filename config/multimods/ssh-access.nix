@@ -18,6 +18,7 @@
         vario.root = true;
         zion.root = true;
         zion.infinisil = true;
+        zion.tweagysil = true;
       };
     };
     keys.root = {
@@ -77,6 +78,7 @@
       zion.root = true;
       zion.infinisil = true;
       protos.git = true;
+      vario.infinisil = true;
     };
   };
 
