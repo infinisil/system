@@ -103,6 +103,8 @@
       inhibit.disabled = true;
       dpms.disabled = true;
       dimmer.disabled = true;
+      screen.disabled = true;
+      backlight.no_auto_calibration = true;
     };
   };
 
