@@ -80,18 +80,12 @@ in
         keep;
       } elsif address :is :domain "from" "patreon.com" {
         fileinto "Patreon";
-      } elsif address :is :domain "from" "notifications.heroku.com" {
-        fileinto :flags "\\Seen" "Builds";
-      } elsif address :is :all "from" "builds@circleci.com" {
-        fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "cc" "ci_activity@noreply.github.com" {
-        fileinto :flags "\\Seen" "Builds";
-      } elsif address :is :domain "from" "dev.bevuta.com" {
         fileinto :flags "\\Seen" "Builds";
       } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
         fileinto :flags "\\Seen" "DMARC";
       } elsif address :is :all "from" "notifications@github.com" {
-        fileinto "GitHub";
+        fileinto :flags "\\Seen" "GitHub";
       } elsif not address :is :domain ["to", "cc"] "infinisil.com" {
         fileinto "Junk";
         stop;
