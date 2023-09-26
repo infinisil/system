@@ -3,16 +3,21 @@ let
   inherit (lib) types;
   cfg = config.mine.localMusic;
   musicDir = "/home/infinisil/music";
+  streamPort = 6601;
 in {
   options.mine.localMusic = {
     enable = lib.mkEnableOption "localMusic";
+    musicDir = lib.mkOption {
+      type = types.str;
+      default = "/home/infinisil/music";
+    };
   };
 
   config = lib.mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = [ 6600 ];
+    networking.firewall.allowedTCPPorts = [ 6600 streamPort ];
 
-    home-manager.users.infinisil = {
+    home-manager.users.infinisil = { config, ... }: {
 
       services.mpd = {
         enable = true;
@@ -23,6 +28,18 @@ in {
           audio_output {
               type "pipewire"
               name "Pipewire"
+          }
+          audio_output {
+              type            "httpd"
+              name            "My HTTP Stream, opus"
+              encoder         "opus"
+              signal          "music"
+              complexity      "10"
+              port            "${toString streamPort}"
+              bitrate         "128000"
+              format          "48000:16:2"
+              max_clients     "0"
+              always_on       "yes"
           }
 
           # Two beets bugs:
