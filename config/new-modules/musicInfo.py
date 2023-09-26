@@ -5,6 +5,7 @@ import signal
 import sys
 import os
 import time
+import subprocess
 from contextlib import contextmanager
 
 
@@ -31,7 +32,6 @@ def main(pipe):
 
     client = MPDClient()
     client.connect("localhost", 6600)
-    client.subscribe("rating")
     client.subscribe("seek")
     client.subscribe("toggle")
     client.subscribe("update")
@@ -62,16 +62,7 @@ def main(pipe):
 
         if event == "message":
             for message in client.readmessages():
-                if message["channel"] == "rating" and pathblob is not None:
-                    rating = float(message["message"])
-                    cursor = database.execute("""
-                        INSERT INTO item_attributes (entity_id, key, value)
-                        SELECT id, "rating", :rating
-                        FROM items
-                        WHERE path = :path
-                    """, {"path": pathblob, "rating": rating})
-                    database.commit()
-                elif message["channel"] == "seek":
+                if message["channel"] == "seek":
                     if "duration" in song:
                         relativeChange = float(song["duration"]) / 10
                         if message["message"] == "forward":
@@ -102,6 +93,11 @@ def main(pipe):
                     if message["message"] == "next":
                         print("Next", flush=True)
                         client.next()
+                    elif message["message"] == "silentnext":
+                        print("Silent next", flush=True)
+                        subprocess.run(["systemctl", "--user", "stop", "mpdstats"])
+                        client.next()
+                        subprocess.run(["systemctl", "--user", "start", "mpdstats"])
                     elif message["message"] == "prev":
                         print("Prev", flush=True)
                         client.previous()
@@ -185,7 +181,7 @@ def main(pipe):
 
             for i in range(1, 11):
                 stars += "<action=mpc sendmessage rating " + str(i) + ">"
-                if rating >= i:
+                if rating >= i / 10.0:
                     # If we don't add these spaces,
                     # xmobar displays the stars way too tightly
                     stars += ""

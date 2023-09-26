@@ -111,6 +111,8 @@ myKeymap c =
     ("<XF86AudioPrev>", spawn "mpc sendmessage playlist prev"),
     ("<XF86AudioLowerVolume>", spawn "xmonad-volume lower"),
     ("<XF86AudioRaiseVolume>", spawn "xmonad-volume raise"),
+    ("S-<XF86AudioLowerVolume>", spawn "mpc sendmessage playlist silentnext"),
+    ("S-<XF86AudioRaiseVolume>", spawn "mpc sendmessage playlist next"),
     ("<XF86AudioMute>", spawn "xmonad-mute"),
     ("<XF86MonBrightnessDown>", spawn "busctl --user call org.clight.clight /org/clight/clight org.clight.clight DecBl d 0.1"),
     ("<XF86MonBrightnessUp>", spawn "busctl --user call org.clight.clight /org/clight/clight org.clight.clight IncBl d 0.1"),

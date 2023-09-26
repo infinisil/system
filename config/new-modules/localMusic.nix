@@ -36,6 +36,7 @@ in {
       systemd.user.services.musicInfo = let
         musicInfo = pkgs.writers.writePython3 "musicInfo" {
           libraries = [ pkgs.python3.pkgs.mpd2 ];
+          flakeIgnore = [ "E501" ];
         } ./musicInfo.py;
       in {
         Unit = {
@@ -47,6 +48,20 @@ in {
 
         Service = {
           ExecStart = "${musicInfo}";
+          Restart = "on-failure";
+        };
+      };
+
+      systemd.user.services.mpdstats = {
+        Unit = {
+          Requires = [ "mpd.service" ];
+          After = [ "mpd.service" ];
+        };
+
+        Install.WantedBy = [ "default.target" ];
+
+        Service = {
+          ExecStart = "${lib.getBin config.programs.beets.package}/bin/beet mpdstats";
           Restart = "on-failure";
         };
       };
@@ -80,6 +95,7 @@ in {
           "fromfilename"
           "edit"
           "fetchart"
+          "mpdstats"
           "mpdupdate"
           "ftintitle"
           "replaygain"
@@ -89,14 +105,16 @@ in {
         ];
 
         types = {
-          rating = "float";
+          star_rating = "int";
         };
 
         play = {
           command = pkgs.writeShellScript "play" ''
+            systemctl --user stop mpdstats.service
             mpc clear
             mpc add < "$1"
             mpc play
+            systemctl --user start mpdstats.service
           '';
           relative_to = "${musicDir}/data";
           warning_threshold = false;
