@@ -47,7 +47,7 @@ in
               command = "haskell-language-server";
               args = ["--lsp"];
               rootPatterns = ["*.cabal" "stack.yaml" "cabal.project" "package.yaml" "hie.yaml"];
-              filetypes = ["haskell" "lhaskell"];
+              #filetypes = ["haskell" "lhaskell"];
               initializationOptions = {
                 haskell = {};
               };
