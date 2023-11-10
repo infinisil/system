@@ -31,11 +31,6 @@ with lib;
 
     services.vnstat.enable = true;
 
-    home-manager.sharedModules = [{
-      # Makes sure glibc isn't pulled in, see
-      # https://github.com/nix-community/home-manager/issues/2333
-      disabledModules = [ "config/i18n.nix" ];
-    }];
     home-manager.users.infinisil = {
       # https://github.com/keybase/keybase-issues/issues/1712#issuecomment-141226705
       home.sessionVariables.GPG_TTY = "$(tty)";

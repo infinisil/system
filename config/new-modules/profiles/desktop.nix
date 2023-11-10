@@ -26,8 +26,6 @@ with lib;
     mine.taskclient.enable = true;
 
     mine.x.enable = true;
-    #mine.dev.idris.enable = true;
-    mine.dev.haskell.enable = true;
 
     nix.settings.keep-derivations = true;
     nix.settings.keep-outputs = true;

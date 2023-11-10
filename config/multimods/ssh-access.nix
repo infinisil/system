@@ -12,9 +12,7 @@
         vario.infinisil = true;
         protos.infinisil = true;
         protos.git = true;
-        orakel.infinisil = true;
         protos.root = true;
-        orakel.root = true;
         vario.root = true;
         zion.root = true;
         zion.infinisil = true;
@@ -24,7 +22,6 @@
     keys.root = {
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgAYXd/tYlniYlz2TlfRUmZ+sxkRe8g7YGgPp7fADG+ root@vario";
       hasAccessTo = {
-        orakel.root = true;
       };
     };
   };
@@ -43,19 +40,6 @@
     keys.infinisil.hasAccessTo.vario.infinisil = true;
   };
 
-  ssh.access.orakel = {
-    hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH40I0FtZBAdqgiOvygJGwyIEPteTqSJjrhOQPgKaZkB";
-    hostNames = [
-      "51.15.187.150"
-      "10.99.2.1"
-    ];
-    keys.infinisil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMfXy5p2YiuHMyqgsyhv0qJL7/uA3TL72yvTq49C+V0 infinisil@orakel";
-    keys.root.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7ZoWP2pfikvwyxQYmDtU0h2luN6JnsKVKStepQP+SV root@orakel";
-    keys.root.hasAccessTo = {
-      vario.root = true;
-    };
-  };
-
   ssh.access.zion = {
     hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICD5VQnx4jNFo5zG3ytUSZr07+HlzsB9P63VdDbO56hZ";
     hostKeys.libreelec = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHeYHPkNEzBSL3S8q1catVqNwVD2yMn4IImvAaEVSjI3";
@@ -69,7 +53,6 @@
       protos.git = true;
       protos.root = true;
       protos.infinisil = true;
-      orakel.root = true;
       vario.root = true;
       vario.infinisil = true;
     };
