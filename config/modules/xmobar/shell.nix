@@ -1,1 +1,1 @@
-(import ../../../deploy {}).config.nodes.vario.configuration.mine.xmobar.shell
+(import ../../.. {}).config.nodes.vario.configuration.mine.xmobar.shell

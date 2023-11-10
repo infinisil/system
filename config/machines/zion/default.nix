@@ -17,6 +17,7 @@
     ];
 
   boot.zfs.allowHibernation = true;
+  boot.zfs.forceImportRoot = false;
 
   services.logind.lidSwitch = "suspend-then-hibernate";
 

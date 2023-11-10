@@ -76,7 +76,7 @@ in
               rootPatterns = ["flake.nix"];
               settings.nil.formatting = {
                 command = [
-                  (lib.getExe pkgs.nixfmt_118)
+                  (lib.getExe pkgs.nixfmt)
                 ];
               };
             };
