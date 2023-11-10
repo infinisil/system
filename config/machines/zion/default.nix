@@ -182,6 +182,15 @@
 
   services.fwupd.enable = true;
 
+  # https://github.com/NixOS/nixpkgs/pull/266598
+  users.users.fwupd-refresh.isSystemUser = true;
+  users.users.fwupd-refresh.group = "fwupd-refresh";
+  users.groups.fwupd-refresh = {};
+  systemd.services.fwupd-refresh.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    StandardError = "inherit";
+  };
+
   services.autorandr = {
     enable = true;
     defaultTarget = "--debug default";
