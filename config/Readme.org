@@ -4,10 +4,6 @@ The ~default.nix~ file here imports all the stuff the configuration needs, so to
 
 A general idea in this directory is to not set options directly, but rather define new options that when enabled set other options. Combining this with the importing-all-files means that I don't have to worry about import-hell: I can move files around freely and not have to worry about having to change the paths to them, since I'm actually using the options they declare, not the files themselves. Also this enables me to add new files wherever i want and the options I declare there are automatically available wherever I want to set them, no need to import the new file.
 
-** Assets
-
-This folder recursively maps every file within it to either the path directly (to be imported in the nix store) or it will get called with callPackage if it's a Nix file. The result of this will get put in the `mine.assets` option.
-
 ** Hardware
 
 Hardware related settings for my machines. Also contains some not-hardware related stuff I should put at the right place. This should probably be more in the style of [[https://github.com/NixOS/nixos-hardware][nixos-hardware]] eventually.

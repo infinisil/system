@@ -9,7 +9,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../new-modules
-      ../../assets
       ../../modules
       ../../personal/user.nix
       ../../personal/key-layout.nix
