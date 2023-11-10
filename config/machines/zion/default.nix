@@ -16,14 +16,42 @@
       ../../personal/bins.nix
     ];
 
-  mine.localMusic.enable = true;
-
-  virtualisation.docker.enable = true;
+  boot.zfs.allowHibernation = true;
 
   services.logind.lidSwitch = "suspend-then-hibernate";
 
+  # The behavior of suspend-then-hibernate changed in systemd 252, see https://github.com/systemd/systemd/issues/25269
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=${toString (60 * 60)}
+  '';
+
+  nix.package = pkgs.nixVersions.unstable;
+  nix.buildMachines = [
+    # tweag remote builders
+    {
+      hostName = "build01.tweag.io";
+      maxJobs = 24;
+      sshUser = "nix";
+      sshKey = "/root/.ssh/id-tweag-builder";
+      system = "x86_64-linux";
+      supportedFeatures = [ "big-parallel" "kvm" "nixos-test" ];
+    }
+    {
+      hostName = "build02.tweag.io";
+      maxJobs = 24;
+      sshUser = "nix";
+      sshKey = "/root/.ssh/id-tweag-builder";
+      systems = ["aarch64-darwin" "x86_64-darwin"];
+      supportedFeatures = [ "big-parallel" ];
+    }
+  ];
+
+  nix.daemonCPUSchedPolicy = "idle";
+
+  nix.settings.builders-use-substitutes = true;
+
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "tweagysil" ];
+  nix.settings.trusted-users = [ "infinisil" "tweagysil" ];
 
   nix.settings.trusted-public-keys = [
     "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
@@ -200,7 +228,7 @@
     "zoom"
   ];
 
-  networking.iphoneUsbTethering.enable = true;
+  networking.iphoneUsbTethering.enable = false;
 
   #services.udev.extraHwdb = ''
   #  evdev:atkbd:dmi:*
