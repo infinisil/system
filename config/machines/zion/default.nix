@@ -85,6 +85,7 @@
       slack
       zoom-us
       tmate
+      nixfmt
     ];
   };
 

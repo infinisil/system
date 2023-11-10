@@ -1,4 +1,4 @@
-{
+{ sources, ... }: {
   imports = [
     ./on-demand-minecraft
 
@@ -12,5 +12,9 @@
     ./rtcwake-setup.nix
   ];
 
-  defaults.configuration.nixpkgs.overlays = import ../overlays;
+  defaults.configuration.nixpkgs.overlays = [
+    (self: super: {
+      inherit sources;
+    })
+  ] ++ import ../overlays;
 }

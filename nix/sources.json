@@ -17,18 +17,6 @@
         "url": "https://github.com/nix-community/home-manager/archive/6a8444467c83c961e2f5ff64fb4f422e303c98d3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixfmt": {
-        "branch": "master",
-        "description": "A formatter for Nix code",
-        "homepage": "https://nixfmt.serokell.io",
-        "owner": "serokell",
-        "repo": "nixfmt",
-        "rev": "7e9e06eefed52d6d698b828ee83b83ea5c163f3b",
-        "sha256": "0yh1baanifnv5fl3d7ixkgaki7ka1big0kxkiv4h5rik6zkqfyqz",
-        "type": "tarball",
-        "url": "https://github.com/serokell/nixfmt/archive/7e9e06eefed52d6d698b828ee83b83ea5c163f3b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "nixfmt_118": {
         "branch": "rfc101-style",
         "description": "A formatter for Nix code",

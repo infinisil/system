@@ -1,2 +1,3 @@
 [
+  (import ./nixfmt.nix)
 ]
