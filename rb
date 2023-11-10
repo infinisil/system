@@ -10,18 +10,11 @@
 
 set -euo pipefail
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-export ROOT=$(realpath "$SCRIPT_DIR"/..)
-
-cd "$SCRIPT_DIR"
+ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd "$ROOT"
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' exit
-
-git() { command git -C "$ROOT" "$@"; }
-
-git switch -q wip
 
 deployHost=$(hostname)
 deploySystem=$(nix-instantiate --eval --strict --json -E builtins.currentSystem | jq -r .)
@@ -30,29 +23,18 @@ if [[ "$#" -eq 0 ]]; then
   set -- "$deployHost"
 fi
 
-echo "Committing.."
-if [[ ! -z "$(git add -A --dry-run)" ]]; then
-  git add -A
-  git commit -m "deploy from $deployHost to: $*"
-fi
-
-nixpkgs=$(nix-instantiate --eval -E '(import ../nix/sources.nix {}).nixpkgs.outPath' --json | tr -d '"')
+nixpkgs=$(nix-instantiate --eval -E '(import ./nix/sources.nix {}).nixpkgs.outPath' --json | tr -d '"')
 
 export NIX_PATH=nixpkgs="$nixpkgs"
 
 echo "Building Nix..."
-PATH=$(nix-build "$nixpkgs" -A nix --no-out-link)/bin:$PATH
+PATH=$(nix-build "$nixpkgs" -A nix --no-out-link)/bin:$(nix-build "$nixpkgs" -A nix-output-monitor --no-out-link)/bin:$PATH
 
 nodes="[ "
 for node in "$@"; do
   nodes+="\"$node\" "
 done
 nodes+="]"
-
-nix-build -o "$tmp/preBuild" -A config.preBuild \
-  --arg nodes "$nodes" --argstr deployHost "$deployHost" >/dev/null
-
-"$tmp/preBuild"
 
 echo "Building nix.conf..."
 mkdir "$tmp/confdir"
@@ -63,11 +45,11 @@ export NIX_CONF_DIR="$tmp/confdir"
 echo "Evaluating..."
 nix-instantiate --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
   --arg nodes "$nodes" --argstr deployHost "$deployHost" --argstr deploySystem "$deploySystem" \
-  --expr 'import (fetchGit { submodules = true; url = ./..; rev = "'$(git rev-parse HEAD)'"; } + "/deploy")' \
+  --expr 'import (builtins.path { path = ./.; sha256 = "'$(nix-hash --type sha256 --base32 .)'"; })' \
   --pure-eval
 
 echo "Building..."
-nix-build "$tmp"/drv --out-link "$tmp/result" >/dev/null
+nom-build "$tmp"/drv --out-link "$tmp/result" >/dev/null
 
 
 echo "Deploying..."
