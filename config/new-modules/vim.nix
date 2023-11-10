@@ -31,6 +31,7 @@ in
       pkgs.nodePackages.bash-language-server
       pkgs.xclip
       pkgs.rust-analyzer
+      pkgs.nil
     ];
 
     programs.neovim = {
@@ -68,6 +69,16 @@ in
               rootPatterns = ["go.mod" ".vim/" ".git/" ".hg/"];
               filetypes = ["go"];
               initializationOptions = {};
+            };
+            nix = {
+              command = "nil";
+              filetypes = ["nix"];
+              rootPatterns = ["flake.nix"];
+              settings.nil.formatting = {
+                command = [
+                  (lib.getExe pkgs.nixfmt_118)
+                ];
+              };
             };
           };
           "codeLens.enable" = true;
