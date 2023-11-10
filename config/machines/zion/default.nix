@@ -275,6 +275,7 @@
 
   mine.xmonad = {
     enable = true;
+    locker = true;
     users = [ "infinisil" "tweagysil" ];
   };
 
