@@ -86,6 +86,8 @@
       zoom-us
       tmate
       nixfmt
+      obs-studio
+      shellcheck
     ];
   };
 
@@ -313,6 +315,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    flameshot
     nix-output-monitor
     vim
     htop
@@ -327,6 +330,8 @@
     ffmpeg
     thunderbird
     guvcview
+    moreutils
+    evince
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
