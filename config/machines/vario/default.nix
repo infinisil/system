@@ -33,6 +33,8 @@ in {
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
+  boot.zfs.requestEncryptionCredentials = false;
+
   boot.kernelModules = [
     # Needed for disks..
     "sg"
@@ -51,15 +53,6 @@ in {
 
   environment.autoUpdate.enable = true;
   environment.autoUpdate.presets.yt-dlp = true;
-
-  # Remove fs-before.target
-  systemd.services.zfs-import-main.before = lib.mkForce [
-    "betty.mount"
-    "home-infinisil-music.mount"
-    "home-infinisil-torrent.mount"
-  ];
-  systemd.targets.zfs-import.after = lib.mkForce [];
-  systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
 
   mine.enableUser = true;
 

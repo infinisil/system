@@ -38,16 +38,9 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var/lib/docker" =
-    { device = "tank2/root/docker";
-      fsType = "zfs";
-      options = [ "nofail" ];
-    };
-
   fileSystems."/home/infinisil/music" =
     { device = "tank2/root/data/music";
       fsType = "zfs";
-      options = [ "nofail" ];
     };
 
   fileSystems."/betty" =
@@ -59,13 +52,11 @@
   fileSystems."/home/infinisil/media" =
     { device = "tank2/root/data/media";
       fsType = "zfs";
-      options = [ "nofail" ];
     };
 
   fileSystems."/home/infinisil/noback" =
     { device = "tank2/root/noback";
       fsType = "zfs";
-      options = [ "nofail" ];
     };
 
   fileSystems."/var/lib/transmission" =
