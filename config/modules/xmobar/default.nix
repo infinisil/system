@@ -28,7 +28,7 @@ let
 
     shopt -s nullglob
 
-    for supply in /sys/class/power_supply/*; do
+    for supply in /sys/class/power_supply/BAT*; do
       cd "$supply"
       if [[ $(<type) != "Battery" ]]; then
         continue
