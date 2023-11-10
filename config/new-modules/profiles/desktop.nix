@@ -44,8 +44,6 @@ with lib;
       cachix
     ];
 
-    services.usbmuxd.enable = true;
-
     boot.supportedFilesystems = [ "exfat" "ntfs" ];
 
   };
