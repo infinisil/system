@@ -1,4 +1,4 @@
-{ stdenv, writeScript, writeScriptBin, feh, rsync, exa }:
+{ stdenv, writeScript, writeScriptBin, feh, rsync }:
 
 let
   action = writeScript "action" ''

@@ -52,11 +52,10 @@ with lib;
       fzf
       sqlite-interactive
       gnumake
-      exa
+      eza
       asciinema
       ncdu
       whois
-      exa
       aspellDicts.en
       bat
     ];

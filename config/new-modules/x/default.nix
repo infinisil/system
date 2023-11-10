@@ -45,7 +45,7 @@ with lib;
     fonts = {
       fontDir.enable = true;
       enableGhostscriptFonts = true;
-      fonts = with pkgs; [
+      packages = with pkgs; [
         (nerdfonts.override {
           fonts = [
             "Iosevka"

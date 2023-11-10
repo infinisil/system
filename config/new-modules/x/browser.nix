@@ -12,7 +12,7 @@ in
       programs.firefox = {
         enable = true;
         package = pkgs.firefox.override {
-          cfg.enableBrowserpass = true;
+          nativeMessagingHosts = [ pkgs.browserpass ];
         };
         #extensions = with extensions; [
         #  tree-style-tab

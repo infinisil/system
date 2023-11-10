@@ -21,7 +21,7 @@
 
     documentation.doc.enable = false;
 
-    boot.cleanTmpDir = true;
+    boot.tmp.cleanOnBoot = true;
 
   };
 }

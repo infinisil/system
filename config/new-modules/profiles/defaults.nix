@@ -17,7 +17,7 @@
 
     security.sudo.wheelNeedsPassword = false;
 
-    boot.cleanTmpDir = true;
+    boot.tmp.cleanOnBoot = true;
   };
 
 }
