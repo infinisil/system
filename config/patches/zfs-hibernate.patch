@@ -1,0 +1,30 @@
+commit b8e8e8c720ce4a8efd3835b9e99bdde1eea77b07
+Author: Silvan Mosberger <contact@infinisil.com>
+Date:   Wed Sep 21 01:08:17 2022 +0200
+
+    Resume from hibernate before postDeviceCommands
+    
+    Should work for me, because I don't want to be asked for ZFS credentials
+    when I can resume
+
+diff --git a/nixos/modules/system/boot/stage-1-init.sh b/nixos/modules/system/boot/stage-1-init.sh
+index af57310bda7d..74d69318dc05 100644
+--- a/nixos/modules/system/boot/stage-1-init.sh
++++ b/nixos/modules/system/boot/stage-1-init.sh
+@@ -267,7 +267,6 @@ lvm vgchange -ay
+ if test -n "$debug1devices"; then fail; fi
+ 
+ 
+-@postDeviceCommands@
+ 
+ 
+ # Check the specified file system, if appropriate.
+@@ -484,6 +483,8 @@ if test -e /sys/power/resume -a -e /sys/power/disk; then
+     fi
+ fi
+ 
++@postDeviceCommands@
++
+ # If we have a path to an iso file, find the iso and link it to /dev/root
+ if [ -n "$isoPath" ]; then
+   mkdir -p /findiso
