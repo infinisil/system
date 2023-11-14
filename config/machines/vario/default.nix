@@ -15,6 +15,8 @@ in {
     ../../personal/key-layout.nix
   ];
 
+  services.invidious.enable = true;
+
   services.transmission = {
     enable = true;
     openFirewall = true;
