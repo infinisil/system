@@ -89,7 +89,7 @@ in
       };
       plugins = with pkgs.vimPlugins; [
         undotree
-        vim-nix
+        nvim-treesitter.withAllGrammars
         editorconfig-vim
         coc-json
         coc-explorer
@@ -100,6 +100,13 @@ in
         # Seems to cause crashes when copying sometimes..
         #vim-oscyank
       ];
+      extraLuaConfig = ''
+        require'nvim-treesitter.configs'.setup {
+          highlight = {
+            enable = true,
+          },
+        }
+      '';
       extraConfig = ''
         set tabstop=2
         set shiftwidth=2
