@@ -48,7 +48,7 @@ in
               command = "haskell-language-server";
               args = ["--lsp"];
               rootPatterns = ["*.cabal" "stack.yaml" "cabal.project" "package.yaml" "hie.yaml"];
-              #filetypes = ["haskell" "lhaskell"];
+              filetypes = ["haskell" "lhaskell"];
               initializationOptions = {
                 haskell = {};
               };
@@ -82,7 +82,7 @@ in
             };
           };
           "codeLens.enable" = true;
-          "coc.preferences.formatOnSaveFiletypes" = [ "haskell" "lhaskell" ];
+          #"coc.preferences.formatOnSaveFiletypes" = [ "haskell" "lhaskell" ];
           "coc.preferences.currentFunctionSymbolAutoUpdate" = true;
           "suggest.noselect" = true;
         };
