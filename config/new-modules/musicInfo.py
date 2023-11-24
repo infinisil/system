@@ -179,11 +179,11 @@ def main(pipe):
                 rating, = row
                 rating = float(rating)
 
+            ratingInt = round(rating * 10)
+
             for i in range(1, 11):
                 stars += "<action=mpc sendmessage rating " + str(i) + ">"
-                if rating >= i / 10.0:
-                    # If we don't add these spaces,
-                    # xmobar displays the stars way too tightly
+                if ratingInt >= i:
                     stars += ""
                 else:
                     stars += ""
