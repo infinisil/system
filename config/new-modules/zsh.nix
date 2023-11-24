@@ -22,6 +22,9 @@ mkIf config.mine.console.enable {
       source ${./p10k.zsh}
       typeset -g POWERLEVEL9K_CONFIG_FILE=${toString ./p10k.zsh}
 
+      # Prefixing commands with a space doesn't add them to the history
+      setopt HIST_IGNORE_SPACE
+
       export BAT_CONFIG_PATH=${pkgs.writeText "bat.config" ''
         --theme="Monokai Extended"
         --plain
