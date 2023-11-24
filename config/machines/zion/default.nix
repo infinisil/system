@@ -98,6 +98,7 @@
   home-manager.users.tweagysil = {
     programs.git = {
       userEmail = "silvan.mosberger@tweag.io";
+      lfs.enable = true;
     };
   };
 
