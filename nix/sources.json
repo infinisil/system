@@ -23,10 +23,10 @@
         "homepage": "https://nixfmt.serokell.io",
         "owner": "piegamesde",
         "repo": "nixfmt",
-        "rev": "7649a1b5626d87219904350295ca77593aff1349",
-        "sha256": "1ibf385d6d8mdj7nk0g2392l4b6wzlzqx6ldv938b84jlwv1sscd",
+        "rev": "3327b1dce67d008bc2df7e33372f3e0d9495efe1",
+        "sha256": "0rc9gaqf8pp9mp608d01qlhr1k18vl2766a6cb60m1zj7vcyl3ff",
         "type": "tarball",
-        "url": "https://github.com/piegamesde/nixfmt/archive/7649a1b5626d87219904350295ca77593aff1349.tar.gz",
+        "url": "https://github.com/piegamesde/nixfmt/archive/3327b1dce67d008bc2df7e33372f3e0d9495efe1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-hardware": {
