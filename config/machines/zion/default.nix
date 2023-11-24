@@ -16,6 +16,9 @@
       ../../personal/bins.nix
     ];
 
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.addNetworkInterface = false;
+
   boot.zfs.allowHibernation = true;
   boot.zfs.forceImportRoot = false;
 
