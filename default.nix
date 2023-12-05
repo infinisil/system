@@ -24,7 +24,7 @@ in
 
 { nodes ? []
 , deployHost ? null
-, ignoreFailingSystemdUnits ? false
+, ignoreFailingSystemdUnits ? true
 , deploySystem ? builtins.currentSystem
 }:
 let
