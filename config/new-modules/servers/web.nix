@@ -32,7 +32,11 @@ in
       recommendedTlsSettings = true;
       recommendedProxySettings = true;
 
-      virtualHosts."www.${domain}".globalRedirect = domain;
+      virtualHosts."www.${domain}" = {
+        globalRedirect = domain;
+        forceSSL = true;
+        enableACME = true;
+      };
       virtualHosts."${domain}" = {
         forceSSL = true;
         enableACME = true;
