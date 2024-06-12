@@ -125,6 +125,7 @@ in {
     element-desktop
     htop
     moreutils
+    zulip
   ];
 
   # Wingo router
