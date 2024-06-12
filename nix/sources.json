@@ -11,22 +11,22 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "defbb9c5857e157703e8fc7cf3c2ceb01cb95883",
-        "sha256": "1jv49087s87sjfa0fxbjcvcmjsqsv7rm3lif8hrx7mz2b3cls670",
+        "rev": "892f76bd0aa09a0f7f73eb41834b8a904b6d0fad",
+        "sha256": "1b7ky6386zhz9pjq6kyibz07x7kzyn7vkm9838bv6rs2qsbvl3vh",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/defbb9c5857e157703e8fc7cf3c2ceb01cb95883.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/892f76bd0aa09a0f7f73eb41834b8a904b6d0fad.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixfmt_118": {
-        "branch": "rfc101-style",
-        "description": "A formatter for Nix code",
+    "nixfmt": {
+        "branch": "master",
+        "description": "The official (but not yet stable) formatter for Nix code",
         "homepage": "https://nixfmt.serokell.io",
-        "owner": "piegamesde",
+        "owner": "NixOS",
         "repo": "nixfmt",
-        "rev": "9424bd08ea945a9f79fe90f5a858409e212cceea",
-        "sha256": "0nckpg8qvm7lc2h4rijh152njwxfm4m2w6rvlg9bv1q9kl1qzc3p",
+        "rev": "c67a7b65906bd2432730929bd0e4957659c95b8e",
+        "sha256": "03f00vwlla6i3m125389h3xjsl5xm07630ahm4w5gqwq1007y3r2",
         "type": "tarball",
-        "url": "https://github.com/piegamesde/nixfmt/archive/9424bd08ea945a9f79fe90f5a858409e212cceea.tar.gz",
+        "url": "https://github.com/NixOS/nixfmt/archive/c67a7b65906bd2432730929bd0e4957659c95b8e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-hardware": {
@@ -35,16 +35,16 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "fef05bf9c8e818f4ca1425ef4c18e6680becd072",
-        "sha256": "1hmfr76lfvx3j8hmd3wr660s8mnpv13y28bks692p6qvqhkvq4q5",
+        "rev": "9e848e173ca83adf884815c66edc08652ef9ade8",
+        "sha256": "0p13q432pxvi1cz10r2kx0c460zhaacyld62b1cbgbkg6hsvdqzx",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixos-hardware/archive/fef05bf9c8e818f4ca1425ef4c18e6680becd072.tar.gz",
+        "url": "https://github.com/NixOS/nixos-hardware/archive/9e848e173ca83adf884815c66edc08652ef9ade8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
         "branch": "master",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver.git",
-        "rev": "008d78cc21959e33d0d31f375b88353a7d7121ae",
+        "rev": "29916981e7b3b5782dc5085ad18490113f8ff63b",
         "type": "git"
     },
     "nixpkgs": {
@@ -53,10 +53,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d8fe5e6c92d0d190646fb9f1056741a229980089",
-        "sha256": "0jd6x1qaggxklah856zx86dxwy4j17swv4df52njcn3ln410bic8",
+        "rev": "57d6973abba7ea108bac64ae7629e7431e0199b6",
+        "sha256": "1sx6ijjj0cic06khxb13iaihqadwm8drixy9rw32xapdvj6x92pm",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/d8fe5e6c92d0d190646fb9f1056741a229980089.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/57d6973abba7ea108bac64ae7629e7431e0199b6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-invidious": {
@@ -77,10 +77,10 @@
         "homepage": "",
         "owner": "infinisil",
         "repo": "nixus",
-        "rev": "3d829c74b3dff74f211ef21d64def233532e9e5d",
-        "sha256": "1vwg567jafcwaikkbdgckyirhnb0hd7r8x25j5wsb5a5563bpi65",
+        "rev": "9becb43c79661b3f407c2fdb90e2ae1bc64b8c95",
+        "sha256": "1q34x4wsrd4g1h6vikrj1pqzv0gq2yr2kqiqvdy6bqr4pqffvdxj",
         "type": "tarball",
-        "url": "https://github.com/infinisil/nixus/archive/3d829c74b3dff74f211ef21d64def233532e9e5d.tar.gz",
+        "url": "https://github.com/infinisil/nixus/archive/9becb43c79661b3f407c2fdb90e2ae1bc64b8c95.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nur": {
@@ -89,10 +89,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "a74ab283c88537f02e64833ace0f37f95c9cf169",
-        "sha256": "02mz7n9bbcdqgcqkzcw2wq6bilmqyyh1lkdqcn463yasdcjmwvm6",
+        "rev": "b0b498f819352d922f8d4e4d6ac0b0fe094ad687",
+        "sha256": "0fhsawds9gbdqv25762any0852ww8ja566brvj7snnkdfqsqdz5c",
         "type": "tarball",
-        "url": "https://github.com/nix-community/nur/archive/a74ab283c88537f02e64833ace0f37f95c9cf169.tar.gz",
+        "url": "https://github.com/nix-community/nur/archive/b0b498f819352d922f8d4e4d6ac0b0fe094ad687.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "on-demand-minecraft": {

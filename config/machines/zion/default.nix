@@ -12,8 +12,7 @@
       ../../modules
       ../../personal/user.nix
       ../../personal/key-layout.nix
-      ((import ../../../nix/sources.nix {}).nixos-hardware + "/framework")
-      ../../personal/bins.nix
+      ((import ../../../nix/sources.nix {}).nixos-hardware + "/framework/13-inch/11th-gen-intel")
     ];
 
   virtualisation.virtualbox.host.enable = true;
@@ -29,7 +28,7 @@
     HibernateDelaySec=${toString (60 * 60)}
   '';
 
-  nix.package = pkgs.nixVersions.unstable;
+  nix.package = pkgs.nixVersions.latest;
   nix.buildMachines = [
     # tweag remote builders
     {
@@ -355,8 +354,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad.naturalScrolling = true;
+  services.libinput.enable = true;
+  services.libinput.touchpad.naturalScrolling = true;
 
   # List services that you want to enable:
 
