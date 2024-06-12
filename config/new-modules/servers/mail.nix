@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, sources, ... }:
 
 with lib;
 
@@ -6,7 +6,7 @@ let
 
   cfg = config.mine.mail;
 
-  module = import (import ../../../nix/sources.nix {}).nixos-mailserver;
+  module = import sources.nixos-mailserver;
 
   domain = config.networking.domain;
 

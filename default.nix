@@ -58,21 +58,37 @@ import sources.nixus {
   inherit deployHost;
 
   defaults = { name, lib, ... }: {
-    enable = lib.elem name nodes;
 
-    nixpkgs = nixpkgs;
+    options.configuration = lib.mkOption {
+      type = lib.types.submoduleWith {
+        modules = [];
+        specialArgs.sources = sources;
+      };
+    };
 
-    inherit ignoreFailingSystemdUnits;
+    config = {
+      enable = lib.elem name nodes;
 
-    configuration = { lib, pkgs, ... }: {
-      config._module.args.sources = sources;
+      nixpkgs = nixpkgs;
 
-      config.nix.nixPath = [
-        "nixos-config=${nixosConfig}"
-        "nixpkgs=/etc/nixpkgs"
-      ];
+      inherit ignoreFailingSystemdUnits;
 
-      config.environment.etc.nixpkgs.source = toString nixpkgs;
+      configuration = { lib, pkgs, ... }: {
+
+        options.effectivePkgs = lib.mkOption {
+          type = lib.types.raw;
+          default = pkgs;
+        };
+
+        #config._module.args.sources = sources;
+
+        config.nix.nixPath = [
+          "nixos-config=${nixosConfig}"
+          "nixpkgs=/etc/nixpkgs"
+        ];
+
+        config.environment.etc.nixpkgs.source = toString nixpkgs;
+      };
     };
   };
 

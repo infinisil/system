@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, sources, ... }:
 
 {
   imports =
@@ -12,7 +12,7 @@
       ../../modules
       ../../personal/user.nix
       ../../personal/key-layout.nix
-      ((import ../../../nix/sources.nix {}).nixos-hardware + "/framework/13-inch/11th-gen-intel")
+      (sources.nixos-hardware + "/framework/13-inch/11th-gen-intel")
     ];
 
   virtualisation.virtualbox.host.enable = true;
