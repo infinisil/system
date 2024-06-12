@@ -56,11 +56,12 @@ xmobarConfig screenId =
               ]
               10,
           Run $ Com "xmobar-batt" [] "bt" 50,
-          Run $ PipeReader "${XDG_RUNTIME_DIR}/musicInfo" "info"
+          Run $ PipeReader "${XDG_RUNTIME_DIR}/musicInfo" "info",
+          Run $ PipeReader "${XDG_RUNTIME_DIR}/obs" "obs",
         ],
       sepChar = "%",
       alignSep = "}{",
-      template = "} %XMonadLog%{%info% <fc=#83a598>|</fc> %dynnetwork% <fc=#83a598>|</fc> %cpu% <fc=#83a598>|</fc> %bt%%date% "
+      template = "} %XMonadLog%{%obs% <fc=#83a598>|</fc> %dynnetwork% <fc=#83a598>|</fc> %cpu% <fc=#83a598>|</fc> %bt%%date% "
     }
   where
     -- Check with fc-match "<string>" family size
