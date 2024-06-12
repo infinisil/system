@@ -109,7 +109,7 @@
     packages = with pkgs; [
       mumble
     ];
-    extraUsers = [ "transmission" ];
+    extraGroups = [ "transmission" ];
   };
 
   services.pipewire.systemWide = true;
