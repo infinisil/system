@@ -6,7 +6,7 @@ let
   '';
   projector = pkgs.writeShellScriptBin "projector" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output HDMI-0 --mode 1920x1080 --rate 119.88
+      --output HDMI-A-0 --mode 1920x1080 --rate 240 --set TearFree on --gamma 1.0
   '';
 in {
 
@@ -74,7 +74,7 @@ in {
   users.groups.transmission.gid = 70;
   users.groups.plugdev = {};
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
