@@ -79,9 +79,17 @@ in
                 ];
               };
             };
+            languageserver = {
+              go = {
+                command = "gopls";
+                rootPatterns = ["go.work" "go.mod" ".vim/" ".git/" ".hg/"];
+                filetypes = ["go"];
+                initializationOptions = {
+                  usePlaceholders = true;
+                };
+              };
+            };
           };
-          "codeLens.enable" = true;
-          #"coc.preferences.formatOnSaveFiletypes" = [ "haskell" "lhaskell" ];
           "coc.preferences.currentFunctionSymbolAutoUpdate" = true;
           "suggest.noselect" = true;
         };
