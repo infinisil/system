@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }: {
 
   imports = [
-    ./bins.nix
     ./user.nix
   ];
 

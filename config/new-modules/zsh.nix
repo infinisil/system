@@ -174,5 +174,10 @@ mkIf config.mine.console.enable {
     gstp = "git stash pop";
     glum = "git pull upstream master";
     gwch = "git log --patch --no-merges";
+
+    sc = "sudo systemctl";
+    scu = "systemctl --user";
+    jc = "journalctl";
+    jcu = "journalctl --user";
   };
 }
