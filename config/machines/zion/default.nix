@@ -189,6 +189,7 @@
   ];
 
   services.fwupd.enable = true;
+  services.fwupd.extraRemotes = [ "lvfs-testing" ];
 
   # https://github.com/NixOS/nixpkgs/pull/266598
   users.users.fwupd-refresh.isSystemUser = true;
