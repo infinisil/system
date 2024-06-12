@@ -30,5 +30,26 @@ with lib;
       jack.enable = true;
     };
 
+    services.pipewire.wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/51-spdif-noise.conf" ''
+        monitor.alsa.rules = [
+          {
+            matches = [
+              {
+                device.profile.name = "iec958-stereo"
+              }
+            ]
+            actions = {
+              update-props = {
+                dither.noise = 2,
+                node.pause-on-idle = false,
+                session.suspend-timeout-seconds = 0
+              }
+            }
+          }
+        ]
+      '')
+    ];
+
   };
 }
