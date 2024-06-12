@@ -5,6 +5,18 @@
         "rev": "f43f9d119b40d086edbf1d9d442c825bf06c3dc7",
         "type": "git"
     },
+    "flake-compat": {
+        "branch": "master",
+        "description": null,
+        "homepage": null,
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "sha256": "0m9grvfsbwmvgwaxvdzv6cmyvjnlww004gfxjvcl806ndqaxzy4j",
+        "type": "tarball",
+        "url": "https://github.com/edolstra/flake-compat/archive/0f9255e01c2351cc7d116c072cb317785dd33b33.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
@@ -15,6 +27,18 @@
         "sha256": "1b7ky6386zhz9pjq6kyibz07x7kzyn7vkm9838bv6rs2qsbvl3vh",
         "type": "tarball",
         "url": "https://github.com/nix-community/home-manager/archive/892f76bd0aa09a0f7f73eb41834b8a904b6d0fad.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-index-database": {
+        "branch": "main",
+        "description": "Weekly updated nix-index database [maintainer=@Mic92]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "88ad3d7501e22b2401dd72734b032b7baa794434",
+        "sha256": "0bz0c9mi9dwlsqg07kbdqz2gh9rxc232c7ycz21g79qdj3wwhmdh",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/nix-index-database/archive/88ad3d7501e22b2401dd72734b032b7baa794434.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixfmt": {

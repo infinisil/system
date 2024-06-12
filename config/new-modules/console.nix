@@ -1,8 +1,14 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, sources, ... }:
 
 with lib;
 
 {
+
+  imports = [
+    (import sources.flake-compat {
+      src = sources.nix-index-database;
+    }).defaultNix.nixosModules.nix-index
+  ];
 
   options.mine.console.enable = mkOption {
     type = types.bool;
@@ -11,6 +17,15 @@ with lib;
   };
 
   config = mkIf config.mine.console.enable {
+
+    # Needed for the nix-index-database nixos module
+    _module.args.databases = import (sources.nix-index-database + "/packages.nix");
+
+    # Also enable comma
+    programs.nix-index-database.comma.enable = true;
+
+    # Conflicts with the nix-index-provided one
+    programs.command-not-found.enable = false;
 
     environment.pathsToLink = [ "/share/zsh" ];
 

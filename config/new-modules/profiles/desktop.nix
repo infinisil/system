@@ -36,7 +36,6 @@ with lib;
       imagemagickBig
       nix-prefetch-git
       sshfs
-      nix-index
       mine.soph
       mine.imgurdl
       mine.Dark
