@@ -1,4 +1,4 @@
-{ nodes, lib, config, pkgs, ... }:
+{ nodes, sources, lib, config, pkgs, ... }:
 let
   hippo = pkgs.writeShellScriptBin "cinema" ''
     ${pkgs.xorg.xrandr}/bin/xrandr \
@@ -16,6 +16,10 @@ in {
   ];
 
   services.invidious.enable = true;
+  services.invidious.package =
+    (import sources.nixpkgs-invidious {
+      system = config.nixpkgs.system;
+    }).invidious;
 
   services.transmission = {
     enable = true;
@@ -130,7 +134,10 @@ in {
   networking = {
     hostName = "vario";
     hostId = "56236562";
-    firewall.allowedTCPPorts = [ 80 ];
+    firewall.allowedTCPPorts = [
+      80
+      config.services.invidious.port
+    ];
     useDHCP = false;
     interfaces.eno1.useDHCP = true;
   };
