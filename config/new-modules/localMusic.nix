@@ -31,13 +31,11 @@ in {
           }
           audio_output {
               type            "httpd"
-              name            "My HTTP Stream, opus"
-              encoder         "opus"
-              signal          "music"
-              complexity      "10"
+              name            "My HTTP Stream, normal mp3 lame"
+              encoder         "lame"
               port            "${toString streamPort}"
-              bitrate         "128000"
-              format          "48000:16:2"
+              bitrate         "192"
+              format          "44100:16:2"
               max_clients     "0"
               always_on       "yes"
           }
@@ -47,6 +45,9 @@ in {
           # - It writes r128_album_gain tags to opus files, but with value 0, which the player then uses, and is usually way too loud
           # This code only fixes the second one. The first one is just written down here because I'm too lazy to put it somewhere else
           replaygain "track"
+
+          password "${lib.fileContents ../../external/private/mpd}@read,add,control,admin,player"
+          host_permissions "127.0.0.1 read,add,control,player,admin"
         '';
       };
 
