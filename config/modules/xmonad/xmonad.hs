@@ -20,7 +20,7 @@ import XMonad.Layout.Fullscreen qualified as Full
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (FULL))
-import XMonad.Layout.NoBorders (noBorders)
+import XMonad.Layout.NoBorders (smartBorders, withBorder)
 import XMonad.Prompt (XPConfig (..), deleteConsecutive)
 import XMonad.Prompt.Pass (passPrompt)
 import XMonad.StackSet qualified as W
@@ -36,7 +36,8 @@ main = do
 
 layoutSpacing =
   Full.fullscreenFocus
-    . noBorders
+    . smartBorders
+    . withBorder 2
     . avoidStruts
     . mkToggle (single FULL)
     $ emptyBSP
@@ -44,7 +45,7 @@ layoutSpacing =
 myNavigation2DConfig :: Navigation2DConfig
 myNavigation2DConfig =
   def
-    { defaultTiledNavigation = hybridNavigation
+    { defaultTiledNavigation = hybridOf lineNavigation centerNavigation
     }
 
 pp :: PP

@@ -32,20 +32,6 @@
 
     mine.xmobar.enable = true;
 
-    services.picom = {
-      enable = true;
-      backend = "glx";
-      vSync = true;
-      inactiveOpacity = 0.9;
-      settings = {
-        blur = {
-          method = "gaussian";
-          size = 10;
-          deviation = 5.0;
-        };
-      };
-    };
-
     # Apparently needed for a home-manager-managed xsession
     services.xserver.desktopManager.xterm.enable = true;
 
