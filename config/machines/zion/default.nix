@@ -18,6 +18,10 @@
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.addNetworkInterface = false;
 
+  services.transmission.enable = true;
+
+  mine.japaneseInput = true;
+
   boot.zfs.allowHibernation = true;
   boot.zfs.forceImportRoot = false;
 
@@ -105,6 +109,7 @@
     packages = with pkgs; [
       mumble
     ];
+    extraUsers = [ "transmission" ];
   };
 
   services.pipewire.systemWide = true;
@@ -345,6 +350,7 @@
     guvcview
     moreutils
     evince
+    zulip
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

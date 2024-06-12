@@ -30,7 +30,6 @@ in
     home.packages = [
       pkgs.nodePackages.bash-language-server
       pkgs.xclip
-      pkgs.rust-analyzer
       pkgs.nil
     ];
 
