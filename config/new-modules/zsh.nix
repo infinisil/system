@@ -115,6 +115,8 @@ mkIf config.mine.console.enable {
       autoload -Uz edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd v edit-command-line
+
+      preexec(){ [ $1 != $2 ] && print -r "> $2" }
     '';
   };
 
