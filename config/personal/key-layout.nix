@@ -4,9 +4,9 @@
   services.xserver = {
     autoRepeatDelay = 200;
     autoRepeatInterval = 25;
-    layout = "us";
-    xkbVariant = "dvp";
-    xkbOptions = "caps:backspace,compose:ralt";
+    xkb.layout = "us";
+    xkb.variant = "dvp";
+    xkb.options = "caps:backspace,compose:ralt";
     # Makes caps-as-backspace key repeat work in X
     displayManager.sessionCommands = ''
       ${pkgs.xorg.xmodmap}/bin/xmodmap -e "clear Lock"

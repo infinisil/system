@@ -11,10 +11,10 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6a8444467c83c961e2f5ff64fb4f422e303c98d3",
-        "sha256": "1w7cvhfg21slcr9l2grdz9kw4nw2bxmv2r5va6j17s7wcwhlcjwx",
+        "rev": "defbb9c5857e157703e8fc7cf3c2ceb01cb95883",
+        "sha256": "1jv49087s87sjfa0fxbjcvcmjsqsv7rm3lif8hrx7mz2b3cls670",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/6a8444467c83c961e2f5ff64fb4f422e303c98d3.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/defbb9c5857e157703e8fc7cf3c2ceb01cb95883.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixfmt_118": {
@@ -23,10 +23,10 @@
         "homepage": "https://nixfmt.serokell.io",
         "owner": "piegamesde",
         "repo": "nixfmt",
-        "rev": "3327b1dce67d008bc2df7e33372f3e0d9495efe1",
-        "sha256": "0rc9gaqf8pp9mp608d01qlhr1k18vl2766a6cb60m1zj7vcyl3ff",
+        "rev": "9424bd08ea945a9f79fe90f5a858409e212cceea",
+        "sha256": "0nckpg8qvm7lc2h4rijh152njwxfm4m2w6rvlg9bv1q9kl1qzc3p",
         "type": "tarball",
-        "url": "https://github.com/piegamesde/nixfmt/archive/3327b1dce67d008bc2df7e33372f3e0d9495efe1.tar.gz",
+        "url": "https://github.com/piegamesde/nixfmt/archive/9424bd08ea945a9f79fe90f5a858409e212cceea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-hardware": {
@@ -35,16 +35,16 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "627bc9b88256379578885a7028c9e791c29fb581",
-        "sha256": "08xq883mls3650wnr90cfqwqjlvdax3y5l9fnnl5sghv7cibggkh",
+        "rev": "fef05bf9c8e818f4ca1425ef4c18e6680becd072",
+        "sha256": "1hmfr76lfvx3j8hmd3wr660s8mnpv13y28bks692p6qvqhkvq4q5",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixos-hardware/archive/627bc9b88256379578885a7028c9e791c29fb581.tar.gz",
+        "url": "https://github.com/NixOS/nixos-hardware/archive/fef05bf9c8e818f4ca1425ef4c18e6680becd072.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
         "branch": "master",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver.git",
-        "rev": "84783b661ecf33927c534b6476beb74ea3308968",
+        "rev": "008d78cc21959e33d0d31f375b88353a7d7121ae",
         "type": "git"
     },
     "nixpkgs": {
@@ -53,10 +53,12 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5a09cb4b393d58f9ed0d9ca1555016a8543c2ac8",
-        "sha256": "019y1skg6p0wc5x9yxpzmq1zi3yw6hlj2hqsm4rfv12a6ffm68j7",
+        "rev": "d8fe5e6c92d0d190646fb9f1056741a229980089",
+        "sha256": "0jd6x1qaggxklah856zx86dxwy4j17swv4df52njcn3ln410bic8",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5a09cb4b393d58f9ed0d9ca1555016a8543c2ac8.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/d8fe5e6c92d0d190646fb9f1056741a229980089.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs-invidious": {
         "branch": "invidious",
         "description": "Nix Packages collection",
@@ -87,10 +89,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "9cd27f0212a36ff73ab599bd3b88de5593be585c",
-        "sha256": "0qj2pkpzdx2ghi2naap0abrq8gf9vp25g74pjpb6yp0p77gg6xfa",
+        "rev": "a74ab283c88537f02e64833ace0f37f95c9cf169",
+        "sha256": "02mz7n9bbcdqgcqkzcw2wq6bilmqyyh1lkdqcn463yasdcjmwvm6",
         "type": "tarball",
-        "url": "https://github.com/nix-community/nur/archive/9cd27f0212a36ff73ab599bd3b88de5593be585c.tar.gz",
+        "url": "https://github.com/nix-community/nur/archive/a74ab283c88537f02e64833ace0f37f95c9cf169.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "on-demand-minecraft": {

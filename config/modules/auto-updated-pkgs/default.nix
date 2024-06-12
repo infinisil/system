@@ -173,6 +173,7 @@ in {
         pkgs.gzip
       ];
       wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
       environment.HOME = "%T/home";
       serviceConfig = {
