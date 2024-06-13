@@ -15,6 +15,8 @@
       (sources.nixos-hardware + "/framework/13-inch/11th-gen-intel")
     ];
 
+  obswatch.enable = true;
+
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.addNetworkInterface = false;
 
