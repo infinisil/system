@@ -17,6 +17,8 @@
 
   obswatch.enable = true;
 
+  services.netdata.enable = true;
+
   hardware.opengl.extraPackages = [
     pkgs.vpl-gpu-rt
   ];
