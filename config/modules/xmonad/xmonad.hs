@@ -72,6 +72,7 @@ myConfig screenCount l =
           def
             { terminal = "kitty",
               modMask = mod1Mask,
+              focusedBorderColor = "#fb4934",
               manageHook =
                 (title =? "Dunst" --> insertPosition Above Older)
                   <+> manageHook def
