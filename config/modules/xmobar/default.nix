@@ -22,7 +22,7 @@ let
       {
         echo "Now running.."
         while true; do
-          ${placeholder "out"}/bin/xmobar-custom-unwrapped "$@"
+          OBS_PASSWORD=$(<${config.secrets.files.obs.file}) ${placeholder "out"}/bin/xmobar-custom-unwrapped "$@"
           echo "Exited with code $?, restarting.."
         done
       } 2>&1 | \
