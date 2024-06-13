@@ -17,6 +17,10 @@
 
   obswatch.enable = true;
 
+  hardware.opengl.extraPackages = [
+    pkgs.vpl-gpu-rt
+  ];
+
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.addNetworkInterface = false;
 
