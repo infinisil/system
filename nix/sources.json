@@ -84,15 +84,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-invidious": {
-        "branch": "invidious",
+        "branch": "master",
         "description": "Nix Packages collection",
         "homepage": "",
-        "owner": "infinisil",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "030a0fc6a529d9d43fad942d5873a6fe4f2453a5",
-        "sha256": "149sak59imv5l5kgx1b871krcsiyy6cq2w1mjlcihs2nj12p5f96",
+        "rev": "5e9fc51b5be0f0c11cab93f69765f8e6a5e011fc",
+        "sha256": "1s2yv3a7yjy51i56rgck0wwl7z49kvp00pq4mwm0wp5m54dbn2f7",
         "type": "tarball",
-        "url": "https://github.com/infinisil/nixpkgs/archive/030a0fc6a529d9d43fad942d5873a6fe4f2453a5.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/5e9fc51b5be0f0c11cab93f69765f8e6a5e011fc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixus": {
