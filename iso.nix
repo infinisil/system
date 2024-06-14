@@ -1,9 +1,9 @@
 let
-  sources = import ../nix/sources.nix {};
+  sources = import ./nix/sources.nix {};
 
   configuration = {
     imports = [
-      (sources.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix")
+      (sources.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
     ];
 
     programs.neovim = {
