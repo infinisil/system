@@ -15,6 +15,8 @@ in {
     ../../personal/key-layout.nix
   ];
 
+  services.netdata.enable = true;
+
   services.invidious.enable = true;
   services.invidious.settings.db.user = "invidious";
   services.invidious.package =
