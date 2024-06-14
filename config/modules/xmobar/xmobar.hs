@@ -57,7 +57,7 @@ xmobarConfig screenId =
               10,
           Run $ Com "xmobar-batt" [] "bt" 50,
           Run $ PipeReader "${XDG_RUNTIME_DIR}/musicInfo" "info",
-          Run $ PipeReader "${XDG_RUNTIME_DIR}/obs" "obs",
+          Run $ PipeReader "${XDG_RUNTIME_DIR}/obs" "obs"
         ],
       sepChar = "%",
       alignSep = "}{",
