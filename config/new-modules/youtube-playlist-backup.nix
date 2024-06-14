@@ -50,6 +50,7 @@ in
 
     systemd.services = lib.mapAttrs' (name: value: lib.nameValuePair "youtube-playlist-download-${name}" {
       description = "Automatic youtube playlist download for ${name}";
+      wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" "auto-update.service" ];
 

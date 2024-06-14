@@ -94,8 +94,8 @@ in {
   services.xserver.displayManager.lightdm.extraSeatDefaults = ''
     display-setup-script=${projector}/bin/projector
   '';
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "infinisil";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "infinisil";
   services.xserver.serverFlagsSection = ''
     Option "StandbyTime" "120"
     Option "SuspendTime" "120"
