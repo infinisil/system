@@ -61,6 +61,7 @@
       zion.root = true;
       zion.infinisil = true;
       protos.git = true;
+      protos.root = true;
       vario.infinisil = true;
     };
   };
