@@ -15,6 +15,8 @@ in {
     ../../personal/key-layout.nix
   ];
 
+  hardware.memreserver.enable = true;
+
   services.netdata.enable = true;
 
   services.invidious.enable = true;
