@@ -66,7 +66,7 @@
   nix.settings.builders-use-substitutes = true;
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "infinisil" "tweagysil" ];
+  nix.settings.trusted-users = [ "infinisil" "tweagysil" "ncasil" ];
 
   nix.settings.trusted-public-keys = [
     "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
@@ -106,10 +106,35 @@
     ];
   };
 
+  users.users.ncasil = {
+    uid = 1002;
+    description = "Silvan Mosberger @ NCA";
+    isNormalUser = true;
+    createHome = true;
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "pipewire"
+    ];
+    packages = with pkgs; [
+      zoom-us
+      tmate
+      nixfmt
+      shellcheck
+    ];
+  };
+
   home-manager.users.tweagysil = {
     programs.git = {
       userEmail = "silvan.mosberger@tweag.io";
       lfs.enable = true;
+    };
+  };
+
+  home-manager.users.ncasil = {
+    programs.git = {
+      userEmail = "nca@infinisil.com";
+      #lfs.enable = true;
     };
   };
 
@@ -122,7 +147,7 @@
 
   services.pipewire.systemWide = true;
 
-  mine.mainUsers = [ "tweagysil" ];
+  mine.mainUsers = [ "tweagysil" "ncasil" ];
 
   hardware.bluetooth.enable = true;
 
@@ -256,6 +281,7 @@
     "helvetica-neue-lt-std"
     "slack"
     "zoom"
+    "discord"
   ];
 
   networking.iphoneUsbTethering.enable = false;
@@ -333,7 +359,7 @@
   mine.xmonad = {
     enable = true;
     locker = true;
-    users = [ "infinisil" "tweagysil" ];
+    users = [ "infinisil" "tweagysil" "ncasil" ];
   };
 
   # Enable CUPS to print documents.
@@ -360,6 +386,7 @@
     moreutils
     evince
     zulip
+    discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
