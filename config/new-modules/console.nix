@@ -105,7 +105,7 @@ with lib;
         iniContent."url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
         iniContent.pull.ff = "only";
         iniContent.commit.verbose = true;
-        iniContent.merge.conflictstyle = "diff3";
+        iniContent.merge.conflictstyle = "zdiff3";
         iniContent.init.defaultBranch = "main";
       };
 
