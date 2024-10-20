@@ -195,6 +195,7 @@
 
   boot.kernelParams = [
     "drm.edid_firmware=DP-1:edid/rogswift.bin"
+    "mem_sleep_default=deep"
   ];
 
   hardware.firmware = let
