@@ -21,15 +21,12 @@ let
       #!${pkgs.runtimeShell}
       {
         echo "Now running.."
-        while true; do
-          ${
-            if config.secrets.files ? obs then
-              ''OBS_PASSWORD=$(<${config.secrets.files.obs.file}) ${placeholder "out"}/bin/xmobar-custom-unwrapped "$@"''
-            else
-              ''${placeholder "out"}/bin/xmobar-custom-unwrapped "$@"''
-          }
-          echo "Exited with code $?, restarting.."
-        done
+        ${
+          if config.secrets.files ? obs then
+            ''OBS_PASSWORD=$(<${config.secrets.files.obs.file}) ${placeholder "out"}/bin/xmobar-custom-unwrapped "$@"''
+          else
+            ''${placeholder "out"}/bin/xmobar-custom-unwrapped "$@"''
+        }
       } 2>&1 | \
         logger -t xmobar-custom
     '';
