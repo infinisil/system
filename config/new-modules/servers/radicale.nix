@@ -50,13 +50,10 @@ in
         auth = {
           type = "htpasswd";
           htpasswd_filename = "${htpasswd}";
-          htpasswd_encryption = "crypt";
+          htpasswd_encryption = "bcrypt";
         };
         storage = {
           filesystem_folder = "/var/lib/radicale/collections";
-        };
-        logging = {
-          debug = true;
         };
       };
       # Hangs radicale:
