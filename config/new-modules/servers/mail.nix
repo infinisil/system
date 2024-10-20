@@ -74,7 +74,7 @@ in
       GitHub.auto = "subscribe";
     };
 
-    services.dovecot2.sieveScripts.after2 = builtins.toFile "after2.sieve" ''
+    services.dovecot2.sieve.scripts.after2 = builtins.toFile "after2.sieve" ''
       require ["fileinto", "imap4flags"];
       if address :is :all ["to","cc"] "contact@infinisil.com" {
         keep;
