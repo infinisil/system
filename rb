@@ -45,8 +45,9 @@ export NIX_CONF_DIR="$tmp/confdir"
 echo "Evaluating..."
 nix-instantiate --show-trace --add-root "$tmp"/drv --indirect >/dev/null \
   --arg nodes "$nodes" --argstr deployHost "$deployHost" --argstr deploySystem "$deploySystem" \
-  --expr 'import (builtins.path { path = ./.; sha256 = "'$(nix-hash --type sha256 --base32 .)'"; })' \
-  --pure-eval
+  --expr 'import (builtins.path { path = ./.; sha256 = "'$(nix-hash --type sha256 --base32 .)'"; })'
+
+# --pure-eval is broken :/
 
 echo "Building..."
 nom-build "$tmp"/drv --out-link "$tmp/result" >/dev/null

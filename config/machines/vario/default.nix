@@ -81,7 +81,7 @@ in {
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable32Bit = true;
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;

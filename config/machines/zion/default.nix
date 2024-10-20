@@ -186,8 +186,6 @@
   mine.sound.enable = true;
   mine.vim.enable = true;
 
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
   boot.initrd.availableKernelModules = [
     # https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
     "i915"

@@ -4,8 +4,6 @@
     ./user.nix
   ];
 
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
   time.timeZone = "Europe/Zurich";
 
   mine.webKeyDirectory.directory = ./wkd;
