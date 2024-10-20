@@ -52,7 +52,27 @@ in
       loginAccounts = {
         "${mkMail "contact"}" = {
           aliases = [ (mkMail "") ];
+          sieveScript = ''
+            require ["fileinto", "imap4flags"];
+            if address :is :all ["to","cc"] "contact@infinisil.com" {
+              keep;
+            } elsif address :is :domain "from" "patreon.com" {
+              fileinto "Patreon";
+            } elsif address :is :all "cc" "ci_activity@noreply.github.com" {
+              fileinto :flags "\\Seen" "Builds";
+            } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
+              fileinto :flags "\\Seen" "DMARC";
+            } elsif address :is :all "from" "notifications@github.com" {
+              fileinto :flags "\\Seen" "GitHub";
+            } elsif not address :is :domain ["to", "cc"] "infinisil.com" {
+              fileinto "Junk";
+              stop;
+            } else {
+              fileinto "Services";
+            }
+          '';
         };
+        ${mkMail "nca"} = {};
       };
 
       certificateScheme = "acme-nginx";
@@ -73,26 +93,6 @@ in
       DMARC.auto = "subscribe";
       GitHub.auto = "subscribe";
     };
-
-    services.dovecot2.sieve.scripts.after2 = builtins.toFile "after2.sieve" ''
-      require ["fileinto", "imap4flags"];
-      if address :is :all ["to","cc"] "contact@infinisil.com" {
-        keep;
-      } elsif address :is :domain "from" "patreon.com" {
-        fileinto "Patreon";
-      } elsif address :is :all "cc" "ci_activity@noreply.github.com" {
-        fileinto :flags "\\Seen" "Builds";
-      } elsif address :is :all "to" "dmarc_rua@infinisil.com" {
-        fileinto :flags "\\Seen" "DMARC";
-      } elsif address :is :all "from" "notifications@github.com" {
-        fileinto :flags "\\Seen" "GitHub";
-      } elsif not address :is :domain ["to", "cc"] "infinisil.com" {
-        fileinto "Junk";
-        stop;
-      } else {
-        fileinto "Services";
-      }
-    '';
   };
 
 

@@ -63,6 +63,11 @@
       protos.root = true;
       vario.infinisil = true;
     };
+    keys.ncasil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEwoTK3UBqgnmQOuonYvLkjXo+7DXAbkUJhLoUEYke8j ncasil@zion";
+    keys.ncasil.hasAccessTo = {
+      zion.infinisil = true;
+      vario.infinisil = true;
+    };
   };
 
   ssh.access.phone.keys.me = {
