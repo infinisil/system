@@ -41,8 +41,7 @@
   };
 
   ssh.access.zion = {
-    hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICD5VQnx4jNFo5zG3ytUSZr07+HlzsB9P63VdDbO56hZ";
-    hostKeys.libreelec = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHeYHPkNEzBSL3S8q1catVqNwVD2yMn4IImvAaEVSjI3";
+    hostKeys.ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRhX+l9q3xtCYS3T313xwYe6e6RClifVYwl3nQEWq13";
     hostNames = [
       "192.168.0.17"
     ];
