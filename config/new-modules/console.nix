@@ -46,7 +46,7 @@ with lib;
       pass
       dnsutils
       gnupg
-      taskwarrior
+      taskwarrior3
       mtr
       iftop
       atool

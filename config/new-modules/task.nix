@@ -9,7 +9,7 @@ with lib;
     (mkIf config.mine.taskclient.enable {
 
       environment.systemPackages = with pkgs; [
-        taskwarrior
+        taskwarrior3
         tasknc
       ];
 
@@ -18,7 +18,7 @@ with lib;
           dataDir = "~/.local/share/task";
             in ''
           data.location=${dataDir}
-          include ${pkgs.taskwarrior}/share/doc/task/rc/solarized-dark-256.theme
+          include ${pkgs.taskwarrior3}/share/doc/task/rc/solarized-dark-256.theme
 
           taskd.certificate=${dataDir}/keys/public.cert
           taskd.key=${dataDir}/keys/private.key

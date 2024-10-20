@@ -20,8 +20,6 @@
       '';
     salt = "WQCMMEFEPA";
     passwordFile = config.secrets.files.syncplay.file;
-    user = "syncplay";
-    group = config.security.acme.certs."infinisil.com".group;
   };
 
   users.users.syncplay = {

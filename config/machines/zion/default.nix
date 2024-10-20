@@ -19,7 +19,7 @@
 
   services.netdata.enable = true;
 
-  hardware.opengl.extraPackages = [
+  hardware.graphics.extraPackages = [
     pkgs.vpl-gpu-rt
   ];
 
