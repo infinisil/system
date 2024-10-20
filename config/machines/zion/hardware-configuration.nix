@@ -43,19 +43,19 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home/infinisil/music" =
-    { device = "pool/backup/vario/tank2/root/data/music";
-      fsType = "zfs";
-      options = [ "nofail" ];
-    };
+  #fileSystems."/home/infinisil/music" =
+  #  { device = "pool/backup/vario/tank2/root/data/music";
+  #    fsType = "zfs";
+  #    options = [ "nofail" ];
+  #  };
 
   fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/F822-04E1";
+    { device = "/dev/disk/by-uuid/9D48-BDB4";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/6e8158ea-7abe-4f9e-bfd3-8997aa57e553"; }
+    [ { device = "/dev/disk/by-uuid/8d817dfb-4eb5-4c88-ac99-b9a2965f6265"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

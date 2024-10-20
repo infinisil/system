@@ -66,7 +66,7 @@
   nix.settings.builders-use-substitutes = true;
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "infinisil" "tweagysil" ];
+  nix.settings.trusted-users = [ "infinisil" "tweagysil" "ncasil" ];
 
   nix.settings.trusted-public-keys = [
     "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
@@ -106,10 +106,35 @@
     ];
   };
 
+  users.users.ncasil = {
+    uid = 1002;
+    description = "Silvan Mosberger @ NCA";
+    isNormalUser = true;
+    createHome = true;
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "pipewire"
+    ];
+    packages = with pkgs; [
+      zoom-us
+      tmate
+      nixfmt
+      shellcheck
+    ];
+  };
+
   home-manager.users.tweagysil = {
     programs.git = {
       userEmail = "silvan.mosberger@tweag.io";
       lfs.enable = true;
+    };
+  };
+
+  home-manager.users.ncasil = {
+    programs.git = {
+      userEmail = "nca@infinisil.com";
+      #lfs.enable = true;
     };
   };
 
@@ -122,7 +147,7 @@
 
   services.pipewire.systemWide = true;
 
-  mine.mainUsers = [ "tweagysil" ];
+  mine.mainUsers = [ "tweagysil" "ncasil" ];
 
   hardware.bluetooth.enable = true;
 
@@ -170,6 +195,7 @@
 
   boot.kernelParams = [
     "drm.edid_firmware=DP-1:edid/rogswift.bin"
+    "mem_sleep_default=deep"
   ];
 
   hardware.firmware = let
@@ -208,54 +234,11 @@
     StandardError = "inherit";
   };
 
-  services.autorandr = {
-    enable = true;
-    defaultTarget = "--debug default";
-    hooks.postswitch = {
-      "restart-xmonad" = ''
-        xmonad --restart
-        pkill -x xmobar-custom
-      '';
-    };
-    profiles = {
-      default = {
-        fingerprint = {
-          eDP-1 = "00ffffffffffff0009e55f0900000000171d0104a51c137803de50a3544c99260f505400000001010101010101010101010101010101115cd01881e02d50302036001dbe1000001aa749d01881e02d50302036001dbe1000001a000000fe00424f452043510a202020202020000000fe004e4531333546424d2d4e34310a00fb";
-        };
-        config.eDP-1 = {
-          enable = true;
-          mode = "2256x1504";
-        };
-      };
-      docked = {
-        fingerprint = {
-          eDP-1 = "00ffffffffffff0009e55f0900000000171d0104a51c137803de50a3544c99260f505400000001010101010101010101010101010101115cd01881e02d50302036001dbe1000001aa749d01881e02d50302036001dbe1000001a000000fe00424f452043510a202020202020000000fe004e4531333546424d2d4e34310a00fb";
-          DP-1 = "00ffffffffffff000469b127758201002b180104a53c2278064ce1a55850a0230b505400000001010101010101010101010101010101565e00a0a0a029503020350056502100001a000000ff002341534e536230494c30655064000000fd001e961ed236010a202020202020000000fc00524f47205047323738510a2020015002030a01654b040001015a8700a0a0a03b503020350056502100001a5aa000a0a0a046503020350056502100001a6fc200a0a0a055503020350056502100001a74d20016a0a009500410110056502100001e1c2500a0a0a011503020350056502100001a000000000000000000000000000000000000000000000000000000af";
-        };
-        config = {
-          eDP-1 = {
-            enable = true;
-            mode = "2256x1504";
-            position = "0x0";
-          };
-          DP-1 = {
-            enable = true;
-            mode = "2560x1440";
-            primary = true;
-            position = "2256x0";
-            rate = "120";
-            # Tries to be smart with gamma, but misses the mark, no custom gamma is needed
-            gamma = "1.0:1.0:1.0";
-          };
-        };
-      };
-    };
-  };
-
   nixpkgs.config.allowUnfreePredicate = pkg: lib.elem (lib.getName pkg) [
     "helvetica-neue-lt-std"
     "slack"
     "zoom"
+    "discord"
   ];
 
   networking.iphoneUsbTethering.enable = false;
@@ -313,11 +296,6 @@
     displayManager = {
       lightdm = {
         enable = true;
-        extraSeatDefaults = ''
-          display-setup-script=${pkgs.writeShellScript "autorandr-test" ''
-            /run/current-system/sw/bin/autorandr -c &>> /autorandr-output
-          ''}
-        '';
       };
 
       #sessionCommands = ''
@@ -333,7 +311,7 @@
   mine.xmonad = {
     enable = true;
     locker = true;
-    users = [ "infinisil" "tweagysil" ];
+    users = [ "infinisil" "tweagysil" "ncasil" ];
   };
 
   # Enable CUPS to print documents.
@@ -360,6 +338,7 @@
     moreutils
     evince
     zulip
+    discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

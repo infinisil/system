@@ -95,6 +95,7 @@ in {
         description = "Murmur Mumble server";
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
         preStart = if cfg.superuserPasswordFile != null then ''
           cat ${cfg.superuserPasswordFile} | ${pkgs.murmur}/bin/mumble-server -ini ${configFile} -readsupw || true
         '' else ''
