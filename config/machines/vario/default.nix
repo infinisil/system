@@ -21,6 +21,7 @@ in {
 
   services.invidious.enable = true;
   services.invidious.settings.db.user = "invidious";
+  services.invidious.sig-helper.enable = true;
   services.invidious.package =
     (import sources.nixpkgs-invidious {
       system = config.nixpkgs.system;
