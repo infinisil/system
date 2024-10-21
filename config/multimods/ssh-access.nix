@@ -5,6 +5,8 @@
       "10.99.2.2"
       "10.99.3.2"
       "192.168.178.53"
+      "144.2.119.22"
+      "192.168.0.12"
     ];
     keys.infinisil = {
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjY4cuUk4IWgBgnEJSULkIHO+njUmIFP+WSWy7IobBs infinisil@vario";
@@ -62,6 +64,7 @@
       protos.git = true;
       protos.root = true;
       vario.infinisil = true;
+      vario.root = true;
     };
     keys.ncasil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEwoTK3UBqgnmQOuonYvLkjXo+7DXAbkUJhLoUEYke8j ncasil@zion";
     keys.ncasil.hasAccessTo = {
