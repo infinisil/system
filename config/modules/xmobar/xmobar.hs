@@ -61,7 +61,7 @@ xmobarConfig screenId =
         ],
       sepChar = "%",
       alignSep = "}{",
-      template = "} %XMonadLog%{%obs% <fc=#83a598>|</fc> %dynnetwork% <fc=#83a598>|</fc> %cpu% <fc=#83a598>|</fc> %bt%%date% "
+      template = "} %XMonadLog%{%info% <fc=#83a598>|</fc> %dynnetwork% <fc=#83a598>|</fc> %cpu% <fc=#83a598>|</fc> %bt%%date% "
     }
   where
     -- Check with fc-match "<string>" family size
