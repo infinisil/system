@@ -149,7 +149,7 @@ mkIf config.mine.console.enable {
     "gcan!" = "git commit -v -a --no-edit --amend";
     gcb = "git checkout -b";
 
-    gcm = "git checkout master";
+    gcm = "git checkout \"$(git branch --list --format '%(refname:short)' master main | head -1)\"";
     gcmsg = "git commit -m";
     gcp = "git cherry-pick";
 
