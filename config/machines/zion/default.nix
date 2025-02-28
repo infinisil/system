@@ -170,6 +170,7 @@
   services.pipewire.systemWide = true;
 
   mine.mainUsers = [ "tweagysil" "ncasil" "silchan" ];
+  mine.console.users = [ "tweagysil" "ncasil" "silchan" "root" ];
 
   hardware.bluetooth.enable = true;
 

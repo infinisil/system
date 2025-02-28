@@ -16,6 +16,11 @@ with lib;
     description = "enable console config";
   };
 
+  options.mine.console.users = mkOption {
+    type = types.listOf types.str;
+    default = [];
+  };
+
   config = mkIf config.mine.console.enable {
 
     # Needed for the nix-index-database nixos module
@@ -76,7 +81,7 @@ with lib;
 
     users.defaultUserShell = pkgs.zsh;
 
-    mine.userConfig = {
+    home-manager.users = lib.genAttrs config.mine.console.users (user: {
 
       home.file.".sqliterc".text = ''
         .headers on
@@ -108,7 +113,7 @@ with lib;
         iniContent.init.defaultBranch = "main";
       };
 
-    };
+    });
 
   };
 
