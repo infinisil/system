@@ -15,6 +15,8 @@
       (sources.nixos-hardware + "/framework/13-inch/11th-gen-intel")
     ];
 
+  virtualisation.docker.enable = true;
+
   obswatch.enable = true;
 
   services.netdata.enable = true;
@@ -83,6 +85,7 @@
     10.99.3.2 vario-via-protos
     192.168.0.12 vario-local
   '';
+  networking.firewall.trustedInterfaces = [ "docker0" ];
 
   users.mutableUsers = false;
 
@@ -95,6 +98,7 @@
       "wheel"
       "systemd-journal"
       "pipewire"
+      "docker"
     ];
     packages = with pkgs; [
       slack
