@@ -29,6 +29,7 @@ in
 
     home.packages = [
       pkgs.nodePackages.bash-language-server
+      pkgs.jq-lsp
       pkgs.xclip
       pkgs.nil
     ];
@@ -42,6 +43,11 @@ in
         settings = {
           rust-analyzer.server.path = "rust-analyzer";
           rust-analyzer.inlayHints.closureReturnTypeHints.enable = false;
+          rust-analyzer.inlayHints.typeHints.enable = false;
+          rust-analyzer.inlayHints.parameterHints.enable = false;
+          rust-analyzer.inlayHints.chainingHints.enable = false;
+          rust-analyzer.inlayHints.closingBraceHints.enable = false;
+          rust-analyzer.inlayHints.genericParameterHints.enable = false;
           languageserver = {
             haskell = {
               command = "haskell-language-server";
@@ -68,6 +74,10 @@ in
               rootPatterns = ["go.mod" ".vim/" ".git/" ".hg/"];
               filetypes = ["go"];
               initializationOptions = {};
+            };
+            jq = {
+              command = "jq-lsp";
+              filetypes = ["jq"];
             };
             nix = {
               command = "nil";
