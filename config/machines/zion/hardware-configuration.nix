@@ -43,11 +43,11 @@
       fsType = "zfs";
     };
 
-  #fileSystems."/home/infinisil/music" =
-  #  { device = "pool/backup/vario/tank2/root/data/music";
-  #    fsType = "zfs";
-  #    options = [ "nofail" ];
-  #  };
+  fileSystems."/home/infinisil/music" =
+    { device = "pool/backup/vario/tank2/root/data/music";
+      fsType = "zfs";
+      options = [ "ro" "nofail" ];
+    };
 
   fileSystems."/efi" =
     { device = "/dev/disk/by-uuid/9D48-BDB4";
