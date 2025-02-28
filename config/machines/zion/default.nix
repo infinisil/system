@@ -106,6 +106,24 @@
     ];
   };
 
+  users.users."silchan" = {
+    uid = 1003;
+    description = "モスバーガーシルヴァン";
+    isNormalUser = true;
+    createHome = true;
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "pipewire"
+    ];
+
+    packages = with pkgs; [
+      libreoffice
+      tagainijisho
+      anki-bin
+    ];
+  };
+
   users.users.ncasil = {
     uid = 1002;
     description = "Silvan Mosberger @ NCA";
@@ -147,7 +165,7 @@
 
   services.pipewire.systemWide = true;
 
-  mine.mainUsers = [ "tweagysil" "ncasil" ];
+  mine.mainUsers = [ "tweagysil" "ncasil" "silchan" ];
 
   hardware.bluetooth.enable = true;
 
@@ -309,7 +327,7 @@
   mine.xmonad = {
     enable = true;
     locker = true;
-    users = [ "infinisil" "tweagysil" "ncasil" ];
+    users = [ "infinisil" "tweagysil" "ncasil" "silchan" ];
   };
 
   # Enable CUPS to print documents.
@@ -368,6 +386,7 @@
       })
       roboto
       roboto-mono
+      mplus-outline-fonts.osdnRelease
     ];
   };
 
