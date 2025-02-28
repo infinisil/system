@@ -26,7 +26,7 @@ mkIf config.mine.console.enable {
       setopt HIST_IGNORE_SPACE
 
       export BAT_CONFIG_PATH=${pkgs.writeText "bat.config" ''
-        --theme="Monokai Extended"
+        --theme="gruvbox-light"
         --plain
       ''}
 

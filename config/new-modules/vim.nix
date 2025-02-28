@@ -127,7 +127,7 @@ in
         set hidden
         set termguicolors
         set showcmd
-        set background=dark
+        set background=light
         set ignorecase
         set smartcase
 
