@@ -54,7 +54,11 @@ in
           aliases = [ (mkMail "") ];
           sieveScript = ''
             require ["fileinto", "imap4flags"];
-            if address :is :all ["to","cc"] "contact@infinisil.com" {
+            if address :is :domain ["to","cc","delivered-to"] "nixos.org" {
+              fileinto "Nix official";
+            } elsif address :is :all ["to","cc"] "contact@infinisil.com" {
+              keep;
+            } elsif address :is :all ["to","cc"] "ethz@infinisil.com" {
               keep;
             } elsif address :is :domain "from" "patreon.com" {
               fileinto "Patreon";
