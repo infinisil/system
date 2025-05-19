@@ -60,6 +60,7 @@ with lib;
         noto-fonts-emoji
         noto-fonts
         wqy_zenhei
+        noto-fonts-cjk-serif
       ];
     };
 
