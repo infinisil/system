@@ -35,6 +35,7 @@ with lib;
     environment.pathsToLink = [ "/share/zsh" ];
 
     mine.vim.enable = true;
+    mine.vim.users = config.mine.console.users;
 
     programs.direnv.enable = true;
 
