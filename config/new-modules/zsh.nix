@@ -8,6 +8,10 @@ mkIf config.mine.console.enable {
     home.file.".zshrc".text = ''
       # Empty file, using system config
     '';
+
+    home.packages = [
+      pkgs.xsel
+    ];
   };
 
   programs.zsh = {
@@ -181,5 +185,7 @@ mkIf config.mine.console.enable {
     scu = "systemctl --user";
     jc = "journalctl";
     jcu = "journalctl --user";
+
+    c = "xsel --clipboard";
   };
 }
