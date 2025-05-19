@@ -45,18 +45,14 @@ with lib;
       fontDir.enable = true;
       enableGhostscriptFonts = true;
       packages = with pkgs; [
-        (nerdfonts.override {
-          fonts = [
-            "Iosevka"
-            "FiraMono"
-            "FantasqueSansMono"
-            "NerdFontsSymbolsOnly"
-          ];
-        })
+        nerd-fonts.iosevka
+        nerd-fonts.fira-mono
+        nerd-fonts.fantasque-sans-mono
+        nerd-fonts.symbols-only
         hanazono
         ipafont
         mplus-outline-fonts.osdnRelease
-        noto-fonts-cjk
+        noto-fonts-cjk-sans
         noto-fonts-emoji
         noto-fonts
         wqy_zenhei

@@ -14,13 +14,13 @@ with lib;
     };
 
     xUserConfig = mkOption {
-      type = options.home-manager.users.type.functor.wrapped;
+      type = options.home-manager.users.type.nestedTypes.elemType;
       default = {};
       description = "Home-manager configuration to be used for all main X users, this will in all cases exclude the root user";
     };
 
     userConfig = mkOption {
-      type = options.home-manager.users.type.functor.wrapped;
+      type = options.home-manager.users.type.nestedTypes.elemType;
       default = {};
       description = "Home-manager configuration to be used for all main users";
     };

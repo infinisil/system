@@ -115,7 +115,7 @@ import sources.nixus {
       ];
       networking.public.ipv4 = "206.81.23.189";
       networking.public.ipv6 = "2a03:b0c0:3:d0::5f7f:5001";
-      system.stateVersion = "19.03";
+      system.stateVersion = "22.11";
 
       home-manager.sharedModules = [
         { home.stateVersion = "22.11"; }
@@ -135,7 +135,7 @@ import sources.nixus {
         ./config/machines/vario
         deployer
       ];
-      system.stateVersion = "22.11";
+      system.stateVersion = "24.11";
 
       home-manager.sharedModules = [
         { home.stateVersion = "22.11"; }

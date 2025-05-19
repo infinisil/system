@@ -381,14 +381,10 @@
     fontDir.enable = true;
     enableGhostscriptFonts = true;
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "Iosevka"
-          "FiraMono"
-          "FantasqueSansMono"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
+      nerd-fonts.iosevka
+      nerd-fonts.fira-mono
+      nerd-fonts.fantasque-sans-mono
+      nerd-fonts.symbols-only
       roboto
       roboto-mono
       mplus-outline-fonts.osdnRelease
