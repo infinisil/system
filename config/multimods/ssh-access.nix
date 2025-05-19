@@ -71,6 +71,10 @@
       zion.infinisil = true;
       vario.infinisil = true;
     };
+    keys.silchan.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIETvaCSEiPkVHDIG/uSgAMLyEOPhXgcjPdAMPeJOvGL7 silchan@zion";
+    keys.silchan.hasAccessTo = {
+      protos.git = true;
+    };
   };
 
   ssh.access.phone.keys.me = {
