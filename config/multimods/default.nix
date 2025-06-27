@@ -10,6 +10,8 @@
     ./zrepl-setup.nix
     ./rtcwake.nix
     ./rtcwake-setup.nix
+    ./music.nix
+    ./music-setup.nix
   ];
 
   defaults.configuration.nixpkgs.overlays = [

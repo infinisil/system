@@ -38,6 +38,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/music" =
+    { device = "music/music";
+      fsType = "zfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/3dd5e6c5-a581-4422-b5cb-453b98f7926c"; }
     ];

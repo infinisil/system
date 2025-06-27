@@ -33,5 +33,6 @@ in {
       "torrent.infinisil.com.".A = "51.15.187.150";
       "media.infinisil.com.".A = "51.15.187.150";
       "tune.infinisil.com.".A = "51.15.187.150";
+      "tune.infinisil.com.".AAAA = "2a03:b0c0:3:d0::5f7f:5001";
     } // lib.listToAttrs (map (s: lib.nameValuePair "${s}.infinisil.com." { CNAME = "infinisil.com."; }) subdomains);
 }

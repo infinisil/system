@@ -41,8 +41,6 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  mine.localMusic.enable = true;
-
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
   boot.zfs.requestEncryptionCredentials = false;

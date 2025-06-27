@@ -38,11 +38,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home/infinisil/music" =
-    { device = "tank2/root/data/music";
-      fsType = "zfs";
-    };
-
   fileSystems."/betty" =
     { device = "main/betty";
       fsType = "zfs";
