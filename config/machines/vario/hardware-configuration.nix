@@ -14,7 +14,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tank2/root";
+    { device = "main/root";
       fsType = "zfs";
     };
 
@@ -24,17 +24,17 @@
     };
 
   fileSystems."/nix" =
-    { device = "tank2/root/nix";
+    { device = "main/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank2/root/data/home";
+    { device = "main/root/data/home";
       fsType = "zfs";
     };
 
   fileSystems."/var/lib" =
-    { device = "tank2/root/data/varlib";
+    { device = "main/root/data/varlib";
       fsType = "zfs";
     };
 
@@ -45,12 +45,12 @@
     };
 
   fileSystems."/home/infinisil/media" =
-    { device = "tank2/root/data/media";
+    { device = "main/root/data/media";
       fsType = "zfs";
     };
 
   fileSystems."/home/infinisil/noback" =
-    { device = "tank2/root/noback";
+    { device = "main/root/noback";
       fsType = "zfs";
     };
 
