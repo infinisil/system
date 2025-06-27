@@ -17,6 +17,8 @@ in {
 
   hardware.memreserver.enable = true;
 
+  mine.console.users = [ "infinisil" "root" ];
+
   services.netdata.enable = true;
 
   services.invidious.enable = true;
