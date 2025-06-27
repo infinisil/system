@@ -39,17 +39,6 @@ let
     src = sources.nixpkgs;
     patches = [
       ./config/patches/zfs-hibernate.patch
-      # https://github.com/NixOS/nixpkgs/issues/349496
-      (basePkgs.fetchpatch {
-        url = "https://github.com/NixOS/nixpkgs/commit/2f4291af950f6edbcf2d80610c27380e5112f426.patch";
-        hash = "sha256-NVJtCKaCRyzJHDJ237jj/vTREU3+EiCQwnbl316AEPQ=";
-        revert = true;
-      })
-      (basePkgs.fetchpatch {
-        url = "https://github.com/NixOS/nixpkgs/compare/2b42c16efb3f200c4d32c1e5047b7750cf311148~...7da346bb57236b4ab88363f3cce66c2604c00bd0.patch";
-        hash = "sha256-HpD9Tmp61TFId4w6m6GFqHsdQMmYhSfZl70EI0vWYDY=";
-        revert = true;
-      })
     ];
   };
 in

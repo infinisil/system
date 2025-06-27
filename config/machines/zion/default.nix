@@ -68,7 +68,7 @@
   nix.settings.builders-use-substitutes = true;
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "infinisil" "tweagysil" "ncasil" ];
+  nix.settings.trusted-users = [ "infinisil" "tweagysil" ];
 
   nix.settings.trusted-public-keys = [
     "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
@@ -128,35 +128,10 @@
     ];
   };
 
-  users.users.ncasil = {
-    uid = 1002;
-    description = "Silvan Mosberger @ NCA";
-    isNormalUser = true;
-    createHome = true;
-    extraGroups = [
-      "wheel"
-      "systemd-journal"
-      "pipewire"
-    ];
-    packages = with pkgs; [
-      zoom-us
-      tmate
-      nixfmt
-      shellcheck
-    ];
-  };
-
   home-manager.users.tweagysil = {
     programs.git = {
       userEmail = "silvan.mosberger@moduscreate.com";
       lfs.enable = true;
-    };
-  };
-
-  home-manager.users.ncasil = {
-    programs.git = {
-      userEmail = "nca@infinisil.com";
-      #lfs.enable = true;
     };
   };
 
@@ -169,8 +144,8 @@
 
   services.pipewire.systemWide = true;
 
-  mine.mainUsers = [ "tweagysil" "ncasil" "silchan" ];
-  mine.console.users = [ "tweagysil" "ncasil" "silchan" "root" ];
+  mine.mainUsers = [ "tweagysil" "silchan" ];
+  mine.console.users = [ "infinisil" "tweagysil" "silchan" "root" ];
 
   hardware.bluetooth.enable = true;
 
@@ -332,7 +307,7 @@
   mine.xmonad = {
     enable = true;
     locker = true;
-    users = [ "infinisil" "tweagysil" "ncasil" "silchan" ];
+    users = [ "infinisil" "tweagysil" "silchan" ];
   };
 
   # Enable CUPS to print documents.

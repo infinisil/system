@@ -66,11 +66,6 @@
       vario.infinisil = true;
       vario.root = true;
     };
-    keys.ncasil.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEwoTK3UBqgnmQOuonYvLkjXo+7DXAbkUJhLoUEYke8j ncasil@zion";
-    keys.ncasil.hasAccessTo = {
-      zion.infinisil = true;
-      vario.infinisil = true;
-    };
     keys.silchan.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIETvaCSEiPkVHDIG/uSgAMLyEOPhXgcjPdAMPeJOvGL7 silchan@zion";
     keys.silchan.hasAccessTo = {
       protos.git = true;

@@ -83,26 +83,4 @@
   };
 
   nodes.protos.configuration.systemd.services.on-demand-minecraft-qbp.serviceConfig.SupplementaryGroups = "do-api";
-
-  services.on-demand-minecraft.instances.anna = {
-    enable = false;
-    node = "protos";
-    domain = "anna.infinisil.com";
-    imageConfiguration = ./minecraft.nix;
-    settings = {
-      port = 25570;
-      whitelist.infinisil = "01e2780a-1334-4891-95dd-506e58dcebb9";
-      whitelist.liquidamber = "77ea3a9d-7f47-4602-897e-f5bf048112d3";
-      digitalOcean = {
-        region = "fra1";
-        size = "g-2vcpu-8gb";
-        sshKey = "25879389";
-        volume = "4ddfca2f-4ef6-11ec-b6b7-0a58ac14d053";
-        # TODO: This is nasty, make it better
-        tokenFile = config.nodes.protos.configuration.secrets.files.doauth.file;
-      };
-    };
-  };
-
-  nodes.protos.configuration.systemd.services.on-demand-minecraft-anna.serviceConfig.SupplementaryGroups = "do-api";
 }

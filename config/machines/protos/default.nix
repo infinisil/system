@@ -1,33 +1,9 @@
-{ lib, config, pkgs, ... }:
+{ config, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
   ];
-
-  secrets.files.syncplay.file = ../../../external/private/secrets/syncplay;
-  secrets.files.syncplay.user = "syncplay";
-
-  services.syncplay = {
-    enable = true;
-    certDir =
-      let base = config.security.acme.certs."infinisil.com".directory;
-      in pkgs.runCommand "syncplay-certs" {} ''
-        mkdir $out
-        ln -s ${base}/cert.pem $out/cert.pem
-        ln -s ${base}/key.pem $out/privkey.pem
-        ln -s ${base}/chain.pem $out/chain.pem
-      '';
-    salt = "WQCMMEFEPA";
-    passwordFile = config.secrets.files.syncplay.file;
-  };
-
-  users.users.syncplay = {
-    isSystemUser = true;
-    group = "syncplay";
-  };
-
-  users.groups.syncplay = {};
 
   mine.mail.enable = true;
   mine.saveSpace = true;
@@ -43,24 +19,11 @@
 
   services.do-agent.enable = true;
 
-  services.murmur = {
-    enable = true;
-    openFirewall = true;
-    config.registerName = "Infinisil's Server";
-    acmeDomain = "infinisil.com";
-  };
-
   services.taskserver.enable = true;
   mine.web = {
     enable = true;
     root = "/webroot/www";
     keys.enable = true;
-  };
-
-  services.nginx.virtualHosts."pc.infinisil.com" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/".proxyPass = "http://10.99.1.2:80";
   };
 
   mine.enableUser = true;
@@ -104,7 +67,7 @@
       }];
       macAddress = "4e:5c:97:f6:7e:bc";
     };
-    firewall.allowedTCPPorts = [ 2362 config.services.syncplay.port ];
+    firewall.allowedTCPPorts = [ 2362 ];
     firewall.allowedUDPPorts = [ 51820 ];
   };
 
