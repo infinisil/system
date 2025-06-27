@@ -82,6 +82,9 @@ with lib;
 
     users.defaultUserShell = pkgs.zsh;
 
+    # Prevent the new user dialog in zsh
+    system.userActivationScripts.zshrc = "touch .zshrc";
+
     home-manager.users = lib.genAttrs config.mine.console.users (user: {
 
       home.file.".sqliterc".text = ''
