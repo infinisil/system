@@ -6,8 +6,7 @@
     ./ssh-access.nix
     ./vpn-setup.nix
     ./dns-records.nix
-    ./zrepl.nix
-    ./zrepl-setup.nix
+    ./borg.nix
     ./rtcwake.nix
     ./rtcwake-setup.nix
     ./music.nix
