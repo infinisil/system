@@ -17,6 +17,12 @@
         "url": "https://github.com/edolstra/flake-compat/archive/9100a0f413b0c601e0533d1d94ffd501ce2e7885.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "freescout-nix-flake": {
+        "branch": "both",
+        "repo": "https://cyberchaos.dev/infinisil/freescout-nix-flake.git",
+        "rev": "cd9ea25eed24b7bb94ac0547b76ab28f0975c68a",
+        "type": "git"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",

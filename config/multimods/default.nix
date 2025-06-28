@@ -11,6 +11,7 @@
     ./rtcwake-setup.nix
     ./music.nix
     ./music-setup.nix
+    ./freescout.nix
   ];
 
   defaults.configuration.nixpkgs.overlays = [

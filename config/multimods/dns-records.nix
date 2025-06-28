@@ -1,23 +1,27 @@
-{ lib, ... }: let
+{ lib, config, ... }: let
   dkimKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDqEBkfzMeMpXcHmMnasi5sE98SGIphwuWMHFmtXAtqGKsr8gjOQ5rZLTRhqOZR2CZc6xY2iCBtQ6nxFOHfJ/UW5tNanvi2nuo4jhrq9+ZNupdsKwxDpBNm7W9HVO2a0FP6dGa9bme0Zc4wqf9Socialr02YuZqRKwU3kBQtfRg4wIDAQAB";
 in {
 
-
-  dns.zones."infinisil.com" = {
-    ttl = 600;
-    primaryNode = "protos";
-    soa.master = "ns3.infinisil.com.";
-    soa.email = "hostmaster.infinisil.com.";
-    soa.refresh = 3 * 60 * 60;
-    soa.retry = 15;
-    soa.expire = 7 * 24 * 60 * 60;
-    soa.negativeTtl = 3 * 60 * 60;
+  options.subdomains = lib.mkOption {
+    type = lib.types.listOf lib.types.str;
   };
 
-  dns.records =
-    let
-      subdomains = [ "keys" "www" "private" "dav" "public" "paste" "pc" ];
-    in {
+  config = {
+
+    subdomains = [ "keys" "www" "private" "dav" "public" "paste" "pc" ];
+
+    dns.zones."infinisil.com" = {
+      ttl = 600;
+      primaryNode = "protos";
+      soa.master = "ns3.infinisil.com.";
+      soa.email = "hostmaster.infinisil.com.";
+      soa.refresh = 3 * 60 * 60;
+      soa.retry = 15;
+      soa.expire = 7 * 24 * 60 * 60;
+      soa.negativeTtl = 3 * 60 * 60;
+    };
+
+    dns.records = {
       "infinisil.com.".A = "206.81.23.189";
       "infinisil.com.".AAAA = "2a03:b0c0:3:d0::5f7f:5001";
       "infinisil.com.".NS = [ "ns3" "ns4" ];
@@ -34,5 +38,6 @@ in {
       "media.infinisil.com.".A = "51.15.187.150";
       "tune.infinisil.com.".A = "51.15.187.150";
       "tune.infinisil.com.".AAAA = "2a03:b0c0:3:d0::5f7f:5001";
-    } // lib.listToAttrs (map (s: lib.nameValuePair "${s}.infinisil.com." { CNAME = "infinisil.com."; }) subdomains);
+    } // lib.listToAttrs (map (s: lib.nameValuePair "${s}.infinisil.com." { CNAME = "infinisil.com."; }) config.subdomains);
+  };
 }
