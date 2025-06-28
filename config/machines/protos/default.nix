@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-  mine.mail.enable = true;
   mine.saveSpace = true;
   mine.radicale.enable = true;
   mine.paste.enable = true;

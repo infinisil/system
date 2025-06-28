@@ -26,12 +26,71 @@ in {
       "infinisil.com.".AAAA = "2a03:b0c0:3:d0::5f7f:5001";
       "infinisil.com.".NS = [ "ns3" "ns4" ];
       "infinisil.com.".CAA = "letsencrypt.org";
-      "infinisil.com.".MX = "mail";
       "mail.infinisil.com.".A = "206.81.23.189";
       "mail.infinisil.com.".AAAA = { ttl = 10; address = "2a03:b0c0:3:d0::5f7f:5001"; };
-      "infinisil.com.".TXT = "v=spf1 ip4:206.81.23.189 -all";
+      "infinisil.com.".MX = [
+        {
+          domain = "in1-smtp.messagingengine.com.";
+          preference = 10;
+        }
+        {
+          domain = "in2-smtp.messagingengine.com.";
+          preference = 20;
+        }
+      ];
+      "_submission._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 0;
+        port = 0;
+        target = ".";
+      };
+      "_imap._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 0;
+        port = 0;
+        target = ".";
+      };
+      "_pop3._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 0;
+        port = 0;
+        target = ".";
+      };
+      "_submissions._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 1;
+        port = 465;
+        target = "smtp.fastmail.com.";
+      };
+      "_imaps._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 1;
+        port = 993;
+        target = "imap.fastmail.com.";
+      };
+      "_pop3s._tcp.infinisil.com.".SRV = {
+        priority = 10;
+        weight = 1;
+        port = 995;
+        target = "pop.fastmail.com.";
+      };
+      "_jmap._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 1;
+        port = 443;
+        target = "api.fastmail.com.";
+      };
+      "_autodiscover._tcp.infinisil.com.".SRV = {
+        priority = 0;
+        weight = 1;
+        port = 443;
+        target = "autodiscover.fastmail.com.";
+      };
+      "infinisil.com.".TXT = "v=spf1 include:spf.messagingengine.com ?all";
       "_dmarc.infinisil.com.".TXT = "v=DMARC1; p=quarantine; rua=mailto:dmarc_rua@infinisil.com; ruf=mailto:dmarc_ruf@infinisil.com";
-      "mail._domainkey.infinisil.com.".TXT = "v=DKIM1; p=${dkimKey}";
+      "fm1._domainkey.infinisil.com.".CNAME = "fm1.infinisil.com.dkim.fmhosted.com.";
+      "fm2._domainkey.infinisil.com.".CNAME = "fm2.infinisil.com.dkim.fmhosted.com.";
+      "fm3._domainkey.infinisil.com.".CNAME = "fm3.infinisil.com.dkim.fmhosted.com.";
       "ns3.infinisil.com.".A = "206.81.23.189";
       "ns4.infinisil.com.".A = "206.81.23.189";
       "torrent.infinisil.com.".A = "51.15.187.150";

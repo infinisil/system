@@ -71,12 +71,6 @@
         "url": "https://github.com/NixOS/nixos-hardware/archive/e81fd167b33121269149c57806599045fd33eeed.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixos-mailserver": {
-        "branch": "master",
-        "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver.git",
-        "rev": "433520257af7170824ab6e567d49b8e305e776e9",
-        "type": "git"
-    },
     "nixpkgs": {
         "branch": "nixos-unstable",
         "description": "Nix Packages collection",

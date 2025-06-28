@@ -4,10 +4,9 @@ with lib;
 
 let
 
-  mailAccounts = config.mailserver.loginAccounts;
   htpasswd = pkgs.writeText "radicale.users" (concatStrings
-    (flip mapAttrsToList mailAccounts (mail: user:
-      mail + ":" + user.hashedPassword + "\n"
+    (flip mapAttrsToList config.mine.radicale.hashedUserPasswords (user: hashedPassword:
+      user + ":" + hashedPassword + "\n"
     ))
   );
 
@@ -16,6 +15,10 @@ in
 {
 
   options.mine.radicale.enable = mkEnableOption "radicale server";
+  options.mine.radicale.hashedUserPasswords = lib.mkOption {
+    type = types.attrsOf types.str;
+    default = {};
+  };
 
   config = mkIf config.mine.radicale.enable {
 
