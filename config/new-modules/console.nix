@@ -68,7 +68,7 @@ with lib;
       nmap
       traceroute
       fd
-      gitAndTools.gh
+      gh
       fzf
       sqlite-interactive
       gnumake

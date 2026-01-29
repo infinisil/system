@@ -95,15 +95,18 @@ in
                   ];
                 };
               };
-              languageserver = {
-                go = {
-                  command = "gopls";
-                  rootPatterns = ["go.work" "go.mod" ".vim/" ".git/" ".hg/"];
-                  filetypes = ["go"];
-                  initializationOptions = {
-                    usePlaceholders = true;
-                  };
+              go = {
+                command = "gopls";
+                rootPatterns = ["go.work" "go.mod" ".vim/" ".git/" ".hg/"];
+                filetypes = ["go"];
+                initializationOptions = {
+                  usePlaceholders = true;
                 };
+              };
+              graphql = {
+                command = "graphql-lsp";
+                args = [ "server" "-m" "stream"];
+                filetypes = [ "graphql" ];
               };
             };
             "coc.preferences.currentFunctionSymbolAutoUpdate" = true;

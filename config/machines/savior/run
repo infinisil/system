@@ -1,0 +1,26 @@
+zpool create \
+    -o compatibility=grub2 \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posix \
+    -O xattr=sa \
+    -O atime=off \
+    -O compression=on \
+    -O normalization=formD \
+    -O canmount=noauto \
+    -O mountpoint=legacy \
+    -R /mnt \
+    boot /dev/nvme0n1p3
+zpool create \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posix \
+    -O xattr=sa \
+    -O atime=off \
+    -O dnodesize=auto \
+    -O compression=on \
+    -O normalization=formD \
+    -O canmount=off \
+    -O mountpoint=none \
+    -O quota=400GB \
+    pool /dev/nvme0n1p1

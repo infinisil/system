@@ -10,27 +10,12 @@
       ./hardware-configuration.nix
       ../../new-modules
       ../../modules
-      ../../personal/user.nix
       ../../personal/key-layout.nix
-      (sources.nixos-hardware + "/framework/13-inch/11th-gen-intel")
+      ../../personal/user.nix
+      (sources.nixos-hardware + "/lenovo/thinkpad/x1/11th-gen")
     ];
 
-  virtualisation.docker.enable = true;
-
-  obswatch.enable = true;
-
-  services.netdata.enable = true;
-
-  hardware.graphics.extraPackages = [
-    pkgs.vpl-gpu-rt
-  ];
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.addNetworkInterface = false;
-
-  services.transmission.enable = true;
-
-  mine.japaneseInput = true;
+  #virtualisation.docker.enable = true;
 
   boot.zfs.allowHibernation = true;
   boot.zfs.forceImportRoot = false;
@@ -68,7 +53,7 @@
   nix.settings.builders-use-substitutes = true;
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "infinisil" "tweagysil" ];
+  nix.settings.trusted-users = [ "tweagysil" ];
 
   nix.settings.trusted-public-keys = [
     "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
@@ -80,17 +65,33 @@
   mine.dunst.enable = true;
   mine.firefox.enable = true;
 
-  networking.extraHosts = ''
-    206.81.23.189 protos
-    10.99.3.2 vario-via-protos
-    192.168.0.12 vario-local
-  '';
-  networking.firewall.trustedInterfaces = [ "docker0" ];
+  #networking.firewall.trustedInterfaces = [ "docker0" ];
 
   users.mutableUsers = false;
 
   users.users.tweagysil = {
     uid = 1001;
+    description = "Silvan Mosberger @ Tweag";
+    isNormalUser = true;
+    createHome = true;
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "pipewire"
+      "docker"
+    ];
+    packages = with pkgs; [
+      slack
+      zoom-us
+      tmate
+      nixfmt
+      obs-studio
+      shellcheck
+    ];
+  };
+
+  users.users.nixcon = {
+    uid = 1002;
     description = "Silvan Mosberger @ Tweag";
     isNormalUser = true;
     createHome = true;
@@ -128,6 +129,7 @@
     ];
   };
 
+
   home-manager.users.tweagysil = {
     programs.git = {
       userEmail = "silvan.mosberger@moduscreate.com";
@@ -135,17 +137,10 @@
     };
   };
 
-  users.users.infinisil = {
-    packages = with pkgs; [
-      mumble
-    ];
-    extraGroups = [ "transmission" ];
-  };
-
   services.pipewire.systemWide = true;
 
   mine.mainUsers = [ "tweagysil" "silchan" ];
-  mine.console.users = [ "infinisil" "tweagysil" "silchan" "root" ];
+  mine.console.users = [ "tweagysil" "root" "silchan" ];
 
   hardware.bluetooth.enable = true;
 
@@ -186,51 +181,41 @@
   mine.sound.enable = true;
   mine.vim.enable = true;
 
-  boot.initrd.availableKernelModules = [
-    # https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
-    "i915"
-  ];
+  #boot.initrd.availableKernelModules = [
+  #  # https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
+  #  "i915"
+  #];
 
-  boot.kernelParams = [
-    "drm.edid_firmware=DP-1:edid/rogswift.bin"
-    "mem_sleep_default=deep"
-  ];
+  #boot.kernelParams = [
+  #  "drm.edid_firmware=DP-1:edid/rogswift.bin"
+  #  "mem_sleep_default=deep"
+  #];
 
-  hardware.firmware = let
-    rogswiftEdid = pkgs.runCommand "rogswift.bin" {
-      # EDID data for ASUS PG278Q ROG monitor
-      # From https://bbs.archlinux.org/viewtopic.php?pid=2014292#p2014292
-      hex = ''
-        00ffffffffffff000469b127758201002b180104a53c2278064ce1a55850
-        a0230b505400000001010101010101010101010101010101565e00a0a0a0
-        29503020350056502100001a000000ff002341534e536230494c30655064
-        000000fd001e961ed236010a202020202020000000fc00524f4720504732
-        3738510a2020015002030a01654b040001015a8700a0a0a03b5030203500
-        56502100001a5aa000a0a0a046503020350056502100001a6fc200a0a0a0
-        55503020350056502100001a74d20016a0a009500410110056502100001e
-        1c2500a0a0a011503020350056502100001a000000000000000000000000
-        000000000000000000000000000000af'';
-      passAsFile = [ "hex" ];
-      nativeBuildInputs = [ pkgs.xxd ];
-    } ''
-      mkdir -p $out/lib/firmware/edid
-      xxd -r -p <"$hexPath" >"$out/lib/firmware/edid/rogswift.bin"
-    '';
-  in [
-    rogswiftEdid
-  ];
+  #hardware.firmware = let
+  #  rogswiftEdid = pkgs.runCommand "rogswift.bin" {
+  #    # EDID data for ASUS PG278Q ROG monitor
+  #    # From https://bbs.archlinux.org/viewtopic.php?pid=2014292#p2014292
+  #    hex = ''
+  #      00ffffffffffff000469b127758201002b180104a53c2278064ce1a55850
+  #      a0230b505400000001010101010101010101010101010101565e00a0a0a0
+  #      29503020350056502100001a000000ff002341534e536230494c30655064
+  #      000000fd001e961ed236010a202020202020000000fc00524f4720504732
+  #      3738510a2020015002030a01654b040001015a8700a0a0a03b5030203500
+  #      56502100001a5aa000a0a0a046503020350056502100001a6fc200a0a0a0
+  #      55503020350056502100001a74d20016a0a009500410110056502100001e
+  #      1c2500a0a0a011503020350056502100001a000000000000000000000000
+  #      000000000000000000000000000000af'';
+  #    passAsFile = [ "hex" ];
+  #    nativeBuildInputs = [ pkgs.xxd ];
+  #  } ''
+  #    mkdir -p $out/lib/firmware/edid
+  #    xxd -r -p <"$hexPath" >"$out/lib/firmware/edid/rogswift.bin"
+  #  '';
+  #in [
+  #  rogswiftEdid
+  #];
 
   services.fwupd.enable = true;
-  services.fwupd.extraRemotes = [ "lvfs-testing" ];
-
-  # https://github.com/NixOS/nixpkgs/pull/266598
-  users.users.fwupd-refresh.isSystemUser = true;
-  users.users.fwupd-refresh.group = "fwupd-refresh";
-  users.groups.fwupd-refresh = {};
-  systemd.services.fwupd-refresh.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    StandardError = "inherit";
-  };
 
   nixpkgs.config.allowUnfreePredicate = pkg: lib.elem (lib.getName pkg) [
     "helvetica-neue-lt-std"
@@ -241,43 +226,20 @@
 
   networking.iphoneUsbTethering.enable = false;
 
-  #services.udev.extraHwdb = ''
-  #  evdev:atkbd:dmi:*
-  #   KEYBOARD_KEY_db=leftalt
-  #   KEYBOARD_KEY_38=leftmeta
-  #'';
-
   mine.hardware.battery = true;
-
-  mine.enableUser = true;
 
   mine.console.enable = true;
 
   i18n.supportedLocales = [ (config.i18n.defaultLocale + "/UTF-8") ];
 
-  boot.loader = {
-    timeout = 1;
-    grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev";
-      extraEntries = ''
-        menuentry "LibreElec" {
-          search --set -f /KERNEL
-          # Turns off the builtin display, and forces a specific resolution for the projector (otherwise it only detects very low resolutions for some reason)
-          linux /KERNEL boot=UUID=E0D2-41B5 disk=UUID=a61696ac-07d1-4c07-a763-ab4618bb0996 quiet video=DP-4:3840x2160@60 video=eDP-1:d drm.edid_firmware=edid/edid.bin
-          initrd /edid.cpio
-        }
-      '';
-    };
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/efi";
-    };
-  };
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.timeout = 1;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/efi";
 
-  networking.hostName = "zion";
-  networking.hostId = "e585b53a";
+  networking.hostName = "savior";
+  networking.hostId = "1bfc1bb0";
 
   services.fprintd.enable = true;
 
@@ -295,21 +257,13 @@
       lightdm = {
         enable = true;
       };
-
-      #sessionCommands = ''
-      #  # Set GTK_DATA_PREFIX so that GTK+ can find the themes
-      #  export GTK_DATA_PREFIX=${config.system.path}
-
-      #  # find theme engines
-      #  export GTK_PATH=${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0
-      #'';
     };
   };
 
   mine.xmonad = {
     enable = true;
     locker = true;
-    users = [ "infinisil" "tweagysil" "silchan" ];
+    users = [ "tweagysil" "silchan" ];
   };
 
   # Enable CUPS to print documents.
@@ -320,7 +274,6 @@
   environment.systemPackages = with pkgs; [
     flameshot
     nix-output-monitor
-    chromium
     vim
     htop
     git
@@ -338,6 +291,15 @@
     evince
     zulip
     discord
+    #cinny-desktop
+    signal-desktop
+    inkscape
+    libreoffice
+    jless
+    xournalpp
+    chromium
+    acpi
+    diffoscope
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -365,18 +327,36 @@
       nerd-fonts.symbols-only
       roboto
       roboto-mono
+      fira-sans
       mplus-outline-fonts.osdnRelease
     ];
   };
 
+  mine.japaneseInput = true;
 
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  # This option defines the first version of NixOS you have installed on this particular machine,
+  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+  #
+  # Most users should NEVER change this value after the initial install, for any reason,
+  # even if you've upgraded your system to a new NixOS release.
+  #
+  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
+  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
+  # to actually do that.
+  #
+  # This value being lower than the current NixOS release does NOT mean your system is
+  # out of date, out of support, or vulnerable.
+  #
+  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+  # and migrated your data accordingly.
+  #
+  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "25.05"; # Did you read the comment?
+  home-manager.sharedModules = [
+    {
+      home.stateVersion = "25.05"; # Did you read the comment?
+    }
+  ];
 }
+
 

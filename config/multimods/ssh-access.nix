@@ -72,6 +72,13 @@
     };
   };
 
+  ssh.access.savior = {
+    keys.silchan.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEtgeN+HutvykssQTS5hcQs41S1LL1RywMtu8qy0WgAa silchan@savior";
+    keys.silchan.hasAccessTo = {
+      protos.git = true;
+    };
+  };
+
   ssh.access.phone.keys.me = {
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIElZSK+qNC1Wt5R6YrJ799nJWjyxDLsV0UzyRt+fK/km phone";
     hasAccessTo = {

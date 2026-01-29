@@ -4,15 +4,6 @@
     options.mine.borg.enable = lib.mkEnableOption "borg";
 
     config = lib.mkIf config.mine.borg.enable {
-
-      services.borgbackup.package = pkgs.borgbackup.overrideAttrs (old: {
-        patches = old.patches or [] ++ [
-          # https://github.com/borgbackup/borg/pull/8939
-          ./borg.patch
-        ];
-        doInstallCheck = false;
-      });
-
       services.borgbackup.jobs.main = {
         paths = [ "/var/lib" "/home" "/root" ];
         exclude = [ "/var/lib/transmission/" "*/.cache/" "*/.direnv/" "/var/lib/docker/" "*/Downloads/" "*/noback/" ];
@@ -23,7 +14,7 @@
         };
         extraArgs = [
           (
-            assert config.services.borgbackup.package.version == "1.4.1";
+            assert config.services.borgbackup.package.version == "1.4.2";
             "--remote-path=borg14"
           )
         ];

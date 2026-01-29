@@ -57,7 +57,7 @@ import sources.nixus {
 
   inherit deployHost;
 
-  defaults = { name, lib, ... }: {
+  defaults = { name, lib, options, ... }: {
 
     options.configuration = lib.mkOption {
       type = lib.types.submoduleWith {
@@ -66,6 +66,7 @@ import sources.nixus {
       };
     };
 
+
     config = {
       enable = lib.elem name nodes;
 
@@ -73,7 +74,11 @@ import sources.nixus {
 
       inherit ignoreFailingSystemdUnits;
 
-      configuration = { lib, pkgs, ... }: {
+      configuration = { lib, pkgs, options, ... }: {
+
+        options._options = lib.mkOption {
+          default = options;
+        };
 
         options.effectivePkgs = lib.mkOption {
           type = lib.types.raw;
@@ -143,6 +148,16 @@ import sources.nixus {
       ];
       home-manager.sharedModules = [
         { home.stateVersion = "22.11"; }
+      ];
+    };
+  };
+
+  nodes.savior = {
+    configuration = {
+      imports = [
+        (sources.home-manager + "/nixos")
+        ./config/machines/savior
+        deployer
       ];
     };
   };

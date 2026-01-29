@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, sources, ... }:
 
 with lib;
 
@@ -24,7 +24,10 @@ in
       ];
 
       mine.xUserConfig = {
-        xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
+        xdg.configFile."kitty/kitty.conf".text = ''
+          include ${sources.gruvbox-contrib}/kitty/gruvbox-light.conf
+          include ${./kitty.conf}
+        '';
       };
 
     })

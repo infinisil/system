@@ -1,0 +1,52 @@
+- Set nvme sector size to 4k: https://www.bjonnh.net/article/20210721_nvme4k/
+- Format disk (1.8TB) like this:
+  - Temporary partition 128 size 256GB from the start
+  - Partition 1 fill out the rest, default type, this will be the main ZFS pool
+  - Delete partition 128
+  - Partition 2 size 1GB, type EFI System, this will be the ESP
+  - Partition 3 size 4GB, default type, this will be the boot ZFS pool
+  - There's additional 251GB space after partition 3 and before partition 1 to install other things, such as:
+    - Swap
+    - LibreELEC
+    - Other OSes
+- mkfs.vfat /dev/nvme0n1p2
+# The following are mostly from https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/Root%20on%20ZFS/2-system-installation.html
+- zpool create \
+    -o compatibility=grub2 \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posix \
+    -O xattr=sa \
+    -O atime=off \        # I don't care about atime, speeds things up
+    -O compression=on \   # Just let ZFS pick the default
+    -O normalization=formD \
+    -O canmount=noauto \
+    -O mountpoint=legacy \
+    -R /mnt \
+    boot /dev/nvme0n1p3
+- zpool create \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posix \
+    -O xattr=sa \
+    -O atime=off \
+    -O dnodesize=auto \
+    -O compression=on \
+    -O normalization=formD \
+    -O canmount=off \
+    -O mountpoint=none \
+    -O quota=1.4TB \ # Don't let it use more than about 90% of the space
+    pool /dev/nvme0n1p1
+- Create ZFS datasets in pool like this (set -o mountpoint=legacy when there's a mount point)
+  - personal
+    - root, mountpoint=/
+    - nix, mountpoint=/nix
+    - data
+      - home, mountpoint=/home
+      - varlib, mountpoint=/var/lib
+- Mount all of the above to the correct place under /mnt
+- Create /mnt/boot and /mnt/efi, mount boot pool and ESP (vfat) on there
+- Run nixos-generate-config --root /mnt
+- Customize /mnt/etc/nixos/{hardware-,}configuration.nix
+- nixos-install
+- zpool export the pools before rebooting!

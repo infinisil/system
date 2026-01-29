@@ -48,7 +48,7 @@ in
 
     services.radicale = {
       enable = true;
-      package = pkgs.radicale3;
+      package = pkgs.radicale;
       settings = {
         auth = {
           type = "htpasswd";
