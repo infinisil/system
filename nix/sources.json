@@ -17,12 +17,6 @@
         "url": "https://github.com/edolstra/flake-compat/archive/f387cd2afec9419c8ee37694406ca490c3f34ee5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "freescout-nix-flake": {
-        "branch": "both",
-        "repo": "https://cyberchaos.dev/infinisil/freescout-nix-flake.git",
-        "rev": "cd9ea25eed24b7bb94ac0547b76ab28f0975c68a",
-        "type": "git"
-    },
     "gruvbox-contrib": {
         "branch": "master",
         "description": "Ports of the gruvbox colorscheme",
@@ -113,10 +107,10 @@
         "homepage": "",
         "owner": "infinisil",
         "repo": "nixus",
-        "rev": "f3010b72d15520cd9a9e87cc0e7a1f1f2727a5cf",
-        "sha256": "0cydhq2zh3bxnlj1cp18wnlhniz8z3nnjjjnwdm6936al4a9jy3b",
+        "rev": "b12665bc80134ac167eef1fff2f4e41e1f8925cb",
+        "sha256": "11894412807mhg0kgkrn4bjbdk9b2a89b0plh0bpdn06c8pfg11g",
         "type": "tarball",
-        "url": "https://github.com/infinisil/nixus/archive/f3010b72d15520cd9a9e87cc0e7a1f1f2727a5cf.tar.gz",
+        "url": "https://github.com/infinisil/nixus/archive/b12665bc80134ac167eef1fff2f4e41e1f8925cb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nur": {
@@ -129,18 +123,6 @@
         "sha256": "0xn6gnr91mvckpm1lmlnzkn3f3fv5qjn79cppfnq2mm0m60gkxdz",
         "type": "tarball",
         "url": "https://github.com/nix-community/nur/archive/c30a53a5947bcc874b3f8842e6fe5c34bc81d8dd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "on-demand-minecraft": {
-        "branch": "master",
-        "description": null,
-        "homepage": "",
-        "owner": "infinisil",
-        "repo": "on-demand-minecraft",
-        "rev": "e3cb5b8dd35d192f3f676fc39fcc351442e62fbb",
-        "sha256": "13756hnhfaqdnvcn8d1f26xzl3rmrw683kznjd3hdx4c1wab85v9",
-        "type": "tarball",
-        "url": "https://github.com/infinisil/on-demand-minecraft/archive/e3cb5b8dd35d192f3f676fc39fcc351442e62fbb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "soph": {

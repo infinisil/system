@@ -35,14 +35,24 @@ let
   };
 
   nixpkgs = basePkgs.srcOnly {
+    stdenv = basePkgs.stdenvNoCC;
     name = "nixpkgs-patched";
     src = sources.nixpkgs;
     patches = [
       ./config/patches/zfs-hibernate.patch
+      # https://github.com/NixOS/nixpkgs/pull/479283
+      #(basePkgs.fetchpatch {
+      #  url = "https://github.com/NixOS/nixpkgs/pull/479283/commits/a3556b106651d6b246ba6b16823b24e16ad56739.patch";
+      #  hash = "sha256-s22Tv4Ujanzz5sd2pTnKSB6hGJnoHBiW1Bag408+RPk=";
+      #})
+      #(basePkgs.fetchpatch {
+      #  url = "https://github.com/NixOS/nixpkgs/pull/479283/commits/01a5efa47470cf5800f4e8b352d7bbe24b81e788.patch";
+      #  hash = "sha256-3cOHpFOek6Wk0IN7tKC88Uuta1w8KSF+TqUrC5k8ndc=";
+      #})
     ];
   };
 in
-import sources.nixus {
+import /home/infinisil/prj/nixus {
   specialArgs.sources = sources;
   inherit deploySystem;
   nixpkgs = nixpkgs;
@@ -117,47 +127,25 @@ import sources.nixus {
     };
   };
 
-  nodes.vario = {
-    deployFrom.zion.host = "root@192.168.0.12";
-    deployFrom.zion.hasFastConnection = true;
-    switchTimeout = 240;
-    configuration = {
-      imports = [
-        ./config
-        ./external/private/default-old.nix
-        (sources.home-manager + "/nixos")
-        ./config/machines/vario
-        deployer
-      ];
-      system.stateVersion = "24.11";
-
-      home-manager.sharedModules = [
-        { home.stateVersion = "22.11"; }
-      ];
-    };
-  };
-
-  nodes.zion = {
-    deployFrom.vario.host = "root@192.168.0.17";
-    deployFrom.vario.hasFastConnection = true;
-    configuration = {
-      imports = [
-        (sources.home-manager + "/nixos")
-        ./config/machines/zion
-        deployer
-      ];
-      home-manager.sharedModules = [
-        { home.stateVersion = "22.11"; }
-      ];
-    };
-  };
-
   nodes.savior = {
     configuration = {
       imports = [
         (sources.home-manager + "/nixos")
         ./config/machines/savior
         deployer
+      ];
+    };
+  };
+
+  nodes.void = {
+    configuration = {
+      imports = [
+        (sources.home-manager + "/nixos")
+        ./config/machines/void
+        deployer
+      ];
+      home-manager.sharedModules = [
+        { home.stateVersion = "22.11"; }
       ];
     };
   };

@@ -132,7 +132,7 @@
 
   home-manager.users.tweagysil = {
     programs.git = {
-      userEmail = "silvan.mosberger@moduscreate.com";
+      settings.user.email = "silvan.mosberger@moduscreate.com";
       lfs.enable = true;
     };
   };

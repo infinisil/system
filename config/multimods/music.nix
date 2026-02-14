@@ -86,7 +86,7 @@ let
     services.samba = {
       enable = true;
       openFirewall = true;
-      shares.music = {
+      settings.music = {
         path = "/var/lib/music/data";
       };
     };

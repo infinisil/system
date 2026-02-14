@@ -6,7 +6,5 @@
     ./cd-support.nix
     ./xmonad
     ./xmobar
-    ./obswatch/module.nix
-    ./memreserver
   ];
 }

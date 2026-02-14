@@ -9,6 +9,7 @@ with lib;
     mainUsers = mkOption {
       type = types.listOf types.str;
       example = [ "paul" "john" ];
+      apply = lib.uniqueStrings;
       default = [];
       description = "Main users for this system";
     };

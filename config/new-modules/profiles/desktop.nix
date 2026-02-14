@@ -26,8 +26,6 @@ with lib;
       };
     };
 
-    mine.taskclient.enable = true;
-
     mine.x.enable = true;
 
     nix.settings.keep-derivations = true;

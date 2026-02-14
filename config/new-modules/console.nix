@@ -101,13 +101,13 @@ with lib;
       programs.git = {
         enable = true;
         package = pkgs.gitFull;
-        userName = "Silvan Mosberger";
-        userEmail = lib.mkDefault "git@infinisil.com";
-        aliases.lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        settings.user.name = "Silvan Mosberger";
+        settings.user.email = lib.mkDefault "git@infinisil.com";
+        settings.aliases.lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         signing = {
           key = "0xE8F1E9EAD284E17D";
           #signByDefault = true;
-          gpgPath = "${pkgs.gnupg}/bin/gpg";
+          signer = "${pkgs.gnupg}/bin/gpg";
         };
         iniContent.credential.helper = "store";
         iniContent."url \"git@github.com:\"".pushInsteadOf = "https://github.com/";

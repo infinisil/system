@@ -36,7 +36,7 @@ with lib;
           {
             matches = [
               {
-                device.profile.name = "iec958-stereo"
+                device.name = "~alsa_card.*"
               }
             ]
             actions = {

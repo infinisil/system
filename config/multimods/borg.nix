@@ -39,7 +39,8 @@
     - sudo borg key export --remote-path=borg14 zh5536@zh5536.rsync.net:$(hostname) /root/borgbackup_key
     - pass vario@borgbackup > /root/borgbackup_key_passphrase
   */
-  nodes.vario.configuration.mine.borg.enable = true;
+  #nodes.vario.configuration.mine.borg.enable = true;
   nodes.zion.configuration.mine.borg.enable = true;
   nodes.protos.configuration.mine.borg.enable = true;
+  nodes.void.configuration.mine.borg.enable = true;
 }

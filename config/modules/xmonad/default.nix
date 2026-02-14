@@ -53,7 +53,7 @@
 
       home.packages = let
         xmonadVolume = pkgs.writeScriptBin "xmonad-volume" ''
-          export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package ]}
+          export PATH=${lib.makeBinPath [ config.services.pulseaudio.package ]}
           case "$1" in
           lower)
             change="-2%"
@@ -69,7 +69,7 @@
           pactl set-sink-volume @DEFAULT_SINK@ "$change"
         '';
         xmonadMute = pkgs.writeScriptBin "xmonad-mute" ''
-          export PATH=${lib.makeBinPath [ config.hardware.pulseaudio.package ]}
+          export PATH=${lib.makeBinPath [ config.services.pulseaudio.package ]}
           pactl set-sink-mute "@DEFAULT_SINK@" toggle
         '';
       in [

@@ -7,5 +7,6 @@ let
 in pkgs.mkShellNoCC {
   nativeBuildInputs = [
     pkgs.niv
+    pkgs.jq
   ];
 }

@@ -12,101 +12,58 @@
       ../../modules
       ../../personal/user.nix
       ../../personal/key-layout.nix
-      (sources.nixos-hardware + "/framework/13-inch/11th-gen-intel")
+      (sources.nixos-hardware + "/lenovo/thinkpad/x1/13th-gen")
     ];
-
-  virtualisation.docker.enable = true;
-
-  obswatch.enable = true;
-
-  services.netdata.enable = true;
-
-  hardware.graphics.extraPackages = [
-    pkgs.vpl-gpu-rt
-  ];
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.addNetworkInterface = false;
 
   services.transmission.enable = true;
 
   mine.japaneseInput = true;
 
-  boot.zfs.allowHibernation = true;
-  boot.zfs.forceImportRoot = false;
+  #boot.zfs.allowHibernation = true;
+  #boot.zfs.forceImportRoot = false;
 
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  #services.logind.lidSwitch = "suspend-then-hibernate";
 
   # The behavior of suspend-then-hibernate changed in systemd 252, see https://github.com/systemd/systemd/issues/25269
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=${toString (60 * 60)}
+  #systemd.sleep.extraConfig = ''
+  #  HibernateDelaySec=${toString (60 * 60)}
+  #'';
+
+  services.xserver.serverFlagsSection = ''
+    Option "StandbyTime" "120"
+    Option "SuspendTime" "120"
+    Option "OffTime" "120"
+    Option "BlankTime" "120"
   '';
 
   nix.package = pkgs.nixVersions.latest;
-  nix.buildMachines = [
-    # tweag remote builders
-    {
-      hostName = "build01.tweag.io";
-      maxJobs = 24;
-      sshUser = "nix";
-      sshKey = "/root/.ssh/id-tweag-builder";
-      system = "x86_64-linux";
-      supportedFeatures = [ "big-parallel" "kvm" "nixos-test" ];
-    }
-    {
-      hostName = "build02.tweag.io";
-      maxJobs = 24;
-      sshUser = "nix";
-      sshKey = "/root/.ssh/id-tweag-builder";
-      systems = ["aarch64-darwin" "x86_64-darwin"];
-      supportedFeatures = [ "big-parallel" ];
-    }
-  ];
 
   nix.daemonCPUSchedPolicy = "idle";
 
-  nix.settings.builders-use-substitutes = true;
-
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
-  nix.settings.trusted-users = [ "infinisil" "tweagysil" ];
-
-  nix.settings.trusted-public-keys = [
-    "tweag-webauthn.cachix.org-1:FnOU/CHnxuFf7DGSRu82EJzQZ9UknNxgYl/BcHaPDEI="
-  ];
-  nix.settings.substituters = [
-    "https://tweag-webauthn.cachix.org"
-  ];
+  nix.settings.trusted-users = [ "infinisil" "silchan" ];
 
   mine.dunst.enable = true;
   mine.firefox.enable = true;
 
-  networking.extraHosts = ''
-    206.81.23.189 protos
-    10.99.3.2 vario-via-protos
-    192.168.0.12 vario-local
-  '';
-  networking.firewall.trustedInterfaces = [ "docker0" ];
+  #networking.extraHosts = ''
+  #  206.81.23.189 protos
+  #  10.99.3.2 vario-via-protos
+  #  192.168.0.12 vario-local
+  #'';
 
   users.mutableUsers = false;
 
-  users.users.tweagysil = {
-    uid = 1001;
-    description = "Silvan Mosberger @ Tweag";
+  users.users.infinisil = {
+    uid = 1000;
+    description = "Silvan Mosberger";
     isNormalUser = true;
     createHome = true;
     extraGroups = [
       "wheel"
       "systemd-journal"
       "pipewire"
-      "docker"
-    ];
-    packages = with pkgs; [
-      slack
-      zoom-us
-      tmate
-      nixfmt
-      obs-studio
-      shellcheck
+      "transmission"
     ];
   };
 
@@ -128,24 +85,10 @@
     ];
   };
 
-  home-manager.users.tweagysil = {
-    programs.git = {
-      userEmail = "silvan.mosberger@moduscreate.com";
-      lfs.enable = true;
-    };
-  };
-
-  users.users.infinisil = {
-    packages = with pkgs; [
-      mumble
-    ];
-    extraGroups = [ "transmission" ];
-  };
-
   services.pipewire.systemWide = true;
 
-  mine.mainUsers = [ "tweagysil" "silchan" ];
-  mine.console.users = [ "infinisil" "tweagysil" "silchan" "root" ];
+  mine.mainUsers = [ "infinisil" "silchan" ];
+  mine.console.users = [ "infinisil" "silchan" "root" ];
 
   hardware.bluetooth.enable = true;
 
@@ -159,7 +102,6 @@
       '';
     };
   };
-
 
   mine.xUserConfig = {
     services.random-background = {
@@ -186,60 +128,16 @@
   mine.sound.enable = true;
   mine.vim.enable = true;
 
-  boot.initrd.availableKernelModules = [
-    # https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
-    "i915"
-  ];
-
-  boot.kernelParams = [
-    "drm.edid_firmware=DP-1:edid/rogswift.bin"
-    "mem_sleep_default=deep"
-  ];
-
-  hardware.firmware = let
-    rogswiftEdid = pkgs.runCommand "rogswift.bin" {
-      # EDID data for ASUS PG278Q ROG monitor
-      # From https://bbs.archlinux.org/viewtopic.php?pid=2014292#p2014292
-      hex = ''
-        00ffffffffffff000469b127758201002b180104a53c2278064ce1a55850
-        a0230b505400000001010101010101010101010101010101565e00a0a0a0
-        29503020350056502100001a000000ff002341534e536230494c30655064
-        000000fd001e961ed236010a202020202020000000fc00524f4720504732
-        3738510a2020015002030a01654b040001015a8700a0a0a03b5030203500
-        56502100001a5aa000a0a0a046503020350056502100001a6fc200a0a0a0
-        55503020350056502100001a74d20016a0a009500410110056502100001e
-        1c2500a0a0a011503020350056502100001a000000000000000000000000
-        000000000000000000000000000000af'';
-      passAsFile = [ "hex" ];
-      nativeBuildInputs = [ pkgs.xxd ];
-    } ''
-      mkdir -p $out/lib/firmware/edid
-      xxd -r -p <"$hexPath" >"$out/lib/firmware/edid/rogswift.bin"
-    '';
-  in [
-    rogswiftEdid
-  ];
-
-  services.fwupd.enable = true;
-  services.fwupd.extraRemotes = [ "lvfs-testing" ];
-
-  # https://github.com/NixOS/nixpkgs/pull/266598
-  users.users.fwupd-refresh.isSystemUser = true;
-  users.users.fwupd-refresh.group = "fwupd-refresh";
-  users.groups.fwupd-refresh = {};
-  systemd.services.fwupd-refresh.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    StandardError = "inherit";
-  };
+  #boot.initrd.availableKernelModules = [
+  #  # https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
+  #  "i915"
+  #];
 
   nixpkgs.config.allowUnfreePredicate = pkg: lib.elem (lib.getName pkg) [
     "helvetica-neue-lt-std"
-    "slack"
-    "zoom"
-    "discord"
   ];
 
-  networking.iphoneUsbTethering.enable = false;
+  #networking.iphoneUsbTethering.enable = false;
 
   #services.udev.extraHwdb = ''
   #  evdev:atkbd:dmi:*
@@ -261,14 +159,6 @@
       enable = true;
       efiSupport = true;
       device = "nodev";
-      extraEntries = ''
-        menuentry "LibreElec" {
-          search --set -f /KERNEL
-          # Turns off the builtin display, and forces a specific resolution for the projector (otherwise it only detects very low resolutions for some reason)
-          linux /KERNEL boot=UUID=E0D2-41B5 disk=UUID=a61696ac-07d1-4c07-a763-ab4618bb0996 quiet video=DP-4:3840x2160@60 video=eDP-1:d drm.edid_firmware=edid/edid.bin
-          initrd /edid.cpio
-        }
-      '';
     };
     efi = {
       canTouchEfiVariables = true;
@@ -276,8 +166,8 @@
     };
   };
 
-  networking.hostName = "zion";
-  networking.hostId = "e585b53a";
+  networking.hostName = "void";
+  networking.hostId = "26bfeffd";
 
   services.fprintd.enable = true;
 
@@ -309,7 +199,7 @@
   mine.xmonad = {
     enable = true;
     locker = true;
-    users = [ "infinisil" "tweagysil" "silchan" ];
+    users = [ "infinisil" "silchan" ];
   };
 
   # Enable CUPS to print documents.
@@ -317,7 +207,12 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = let
+    reset = pkgs.writeShellScriptBin "reset" ''
+      xrandr --output eDP-1 --mode 1920x1200
+    '';
+  in with pkgs; [
+    reset
     flameshot
     nix-output-monitor
     chromium
@@ -337,7 +232,7 @@
     moreutils
     evince
     zulip
-    discord
+    #discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -377,6 +272,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
-

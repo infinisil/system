@@ -79,6 +79,13 @@
     };
   };
 
+  ssh.access.void = {
+    keys.root.publicKey = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCldiPg1xexTht+G0kwQzs4+4gZPZrx8VPq4M+U+LRWBj7zeJ2oEyfrQibxpIwPwT0lVfh4xiEtbs69x0Al5ALU=";
+    keys.root.hasAccessTo = {
+      protos.git = true;
+    };
+  };
+
   ssh.access.phone.keys.me = {
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIElZSK+qNC1Wt5R6YrJ799nJWjyxDLsV0UzyRt+fK/km phone";
     hasAccessTo = {
